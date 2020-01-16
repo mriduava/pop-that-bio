@@ -34,5 +34,41 @@ export const movies = [
     text: 'American epic science fiction film directed, written, produced by James Cameron',
     showDate: 'Saturday',
     showTime: '16:15 - 18:20'
+  },
+  {
+    id: 5,
+    title: 'Aladdin',
+    image: 'https://sc-events.s3.amazonaws.com/20508/5266318/432ea1efd5a367b235a8b16fba33bffef5ee1c1d2431da61e8349d3064d153fd/36f8d8d7-fe68-472c-a51d-e8a90cda4fe3.jpg',
+    landImg: '',
+    text: "When street rat Aladdin frees a genie from a lamp, he finds his wishes granted. However, he soon finds that the evil has other plans for the lamp, and for Princess Jasmine. But can Aladdin save Princess Jasmine and his love for her after she sees that he isn't quite what he appears to be?",
+    showDate: 'Tuesday',
+    showTime: '16:15 - 18:20'
+  },
+  {
+    id: 6,
+    title: 'Astrid',
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBEk0EAtorleXZsC3Kh-cphVw5btzyuIBc3Xu-XvnVhHbobo9S&s',
+    landImg: '',
+    text: 'American epic science fiction film directed, written, produced by James Cameron',
+    showDate: 'Friday',
+    showTime: '18:15 - 20:20'
+  },
+  {
+    id: 7,
+    title: 'Jurassic World',
+    image: 'https://d1w8cc2yygc27j.cloudfront.net/-3321970668112658117/780055265511282843.jpg',
+    landImg: '',
+    text: 'American epic science fiction film directed, written, produced by James Cameron',
+    showDate: 'Friday',
+    showTime: '18:15 - 20:20'
+  },
+  {
+    id: 8,
+    title: 'Legend',
+    image: 'https://alchetron.com/cdn/Legend-2015-film-images-d1240f06-661f-441f-9f4d-c6767dc776d.jpg',
+    landImg: '',
+    text: `French-British crime thriller film written and directed by Brian Helgeland. It is adapted from John Pearson's book The Profession of Violence: The Rise and Fall of the Kray Twins, which deals with the rise and fall of the Kray twins; the relationship that bound them together, and charts their gruesome career to their downfall and imprisonment for life in 1969.`,
+    showDate: 'Wednesday',
+    showTime: '18:15 - 20:20'
   }
 ]
