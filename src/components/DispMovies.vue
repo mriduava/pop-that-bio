@@ -3,18 +3,25 @@
   <div class="row">
     <h1>movies</h1>
     <hr class="hr-style">
+    
    <div class="col x12 s6 m4 l3" v-for="(movie, index) in moviesData" :key="index">
-    <div class="card" >
+     <router-link :to="'/movies/' + movie.id">
+          <div class="card" >
       <div class="card-image waves-effect waves-block waves-light">
         <img class="activator" :src="movie.image">
+        
+    
         <div class="card-text">
           <h5 class="white-text text-darken-4">{{movie.title}}</h5>
           <p class="white-text text-darken-4">{{movie.showDate}} | {{movie.showTime}}</p>
         </div>
       </div>
+      </div>
+       </router-link> 
     </div>
     </div>
-  </div>
+    
+  
 </div>
 </template>
 
