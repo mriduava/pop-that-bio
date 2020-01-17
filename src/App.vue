@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/home">Pop that Bio</router-link> |
+      <router-link to="/">Pop that Bio</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
@@ -13,6 +13,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+#nav{
+  z-index: +10;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

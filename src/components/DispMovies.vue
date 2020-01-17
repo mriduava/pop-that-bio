@@ -3,14 +3,11 @@
   <div class="row">
     <h1>movies</h1>
     <hr class="hr-style">
-    
    <div class="col x12 s6 m4 l3" v-for="(movie, index) in moviesData" :key="index">
      <router-link :to="'/movies/' + movie.id">
-          <div class="card" >
+      <div class="card" >
       <div class="card-image waves-effect waves-block waves-light">
         <img class="activator" :src="movie.image">
-        
-    
         <div class="card-text">
           <h5 class="white-text text-darken-4">{{movie.title}}</h5>
           <p class="white-text text-darken-4">{{movie.showDate}} | {{movie.showTime}}</p>
@@ -18,10 +15,8 @@
       </div>
       </div>
        </router-link> 
-    </div>
-    </div>
-    
-  
+     </div>
+  </div>
 </div>
 </template>
 
@@ -46,24 +41,20 @@ export default {
   font-family: borntogrille;
   src: url('../assets/fonts/borntogrille.otf');
 }
-
 .container{
   width: 100%;
   padding: 0 0 5% 0;
 }
-
 .card-image{
   position: relative;
   display: flex;
   margin-top: 5%;
   border: 1px solid #ddd;
 }
-
 .card:hover{
   cursor: pointer;
   box-shadow: 2px 2px 20px rgba(255, 255, 255, 0.7);
 }
-
 .card-text{
   position: absolute;
   top: 75%;
@@ -76,18 +67,15 @@ export default {
   opacity: 0;
   transition: .5s ease;
 }
-
 .card-image:hover .card-text{
   visibility: visible;
   opacity: 1;
 }
-
 h1{
   font-family: borntogrille;
   padding-top: 3%;
   color: #3fefff;
 }
-
 .hr-style{
   border: 0;
   height: 1px;

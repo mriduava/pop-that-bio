@@ -1,6 +1,8 @@
 {
   "name": "popthatbio",
   "version": "0.1.0",
+  "description": "A movie ticket booking app",
+  "authors": "Keis, Henrik, Markus, Hampus, Ola, Maruf",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
