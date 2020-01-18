@@ -18,7 +18,7 @@ const routes = [
     component: DispMovies
   },
   {
-    path: '/movies/:movieid',
+    path: '/movies/:slug',
     name: 'moviedetail',
     component: MovieDetail
   },
