@@ -32,7 +32,10 @@ export default {
     moviesData(){
       return this.$store.state.data;
     }
-  }
+  },
+  created() {
+    this.$store.dispatch("getDataFromFirebase")
+  },
 }
 </script>
 
@@ -49,6 +52,7 @@ export default {
   position: relative;
   display: flex;
   margin-top: 5%;
+  max-height: 420px;
   border: 1px solid #ddd;
 }
 .card:hover{

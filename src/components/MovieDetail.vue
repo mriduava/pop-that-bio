@@ -74,7 +74,8 @@ export default {
   top: -200px;
   left: 30%;
   border: 2px solid rgb(29, 255, 29);
-  height: 297px;
+  max-height: 297px;
+  object-fit: cover;
 }
 
 .card-text{
