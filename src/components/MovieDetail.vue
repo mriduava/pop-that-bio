@@ -1,32 +1,34 @@
 <template>
- <div>
-    <div class="container-fluid">
-     <div class="video-container">
-       <iframe width="853" height="480" :src="'https://www.youtube.com/embed/' + movieDetail.movieTrailer" 
+ <div class="main">
+    <div class="main-container">
+     <div class="trailer-container">
+       <iframe width="700" height="480" :src="'https://www.youtube.com/embed/' + movieDetail.movieTrailer" 
                frameborder="0" allowfullscreen>
        </iframe>
      </div>
-     <div class="row">
-       <div class="col x12 s6 m4 l3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" :src="movieDetail.image">
-            </div>
-            <div class="card-text">
-                <h5 class="green-text text-darken-4 left">{{movieDetail.title}}</h5>
-                <p class="green-text text-darken-4 left">{{movieDetail.showDate}} | {{movieDetail.showTime}}</p>
-            </div>
-          </div>
-       </div>
+     <div class="middle">
+       <div>PIC</div>
+       <div class="movie-info">
+         <h4>{{ movieDetail.title }}</h4>
+         <h6>Genre</h6>
+         <h6>Length | Agelimit </h6>
+         </div>
+       <div><button class="btn red waves-effect">Biljetter</button></div>
      </div>
-
-    </div>
+      <div class="last">{{ movieDetail.text }}</div>
+     </div>
+    <showTime/>
  </div>
 </template>
 
 <script>
+import ShowTime from '@/components/ShowTime'
+
 export default {
   name: 'moviedetail',
+  components: {
+    ShowTime
+  },
   data() {
     return {
       movie: this.$store.state.data,
@@ -49,23 +51,33 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 30px; height: 0; overflow: hidden;
+
+.main {
+  background-color: black;
+  color: white;
 }
-.video-container{
-  position: relative;
-  top: -10px;
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 0 auto
+  }
+
+.middle {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 20px 0;
 }
-.video-container iframe,
-.video-container object,
-.video-container embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  /* height: 100%; */
+
+.movie-info {
+  text-align: left;
+}
+
+.last {
+  padding: 0 10%;
+  text-align: left;
 }
 
 .card{
@@ -82,6 +94,11 @@ export default {
   position: relative;
   top: -80px;
   left: 210px;
+}
+
+.description {
+  margin-top: 20px;
+  padding-top: 20px
 }
   
 </style>
