@@ -1,5 +1,5 @@
 <template>
- <div>
+ <div class="main">
     <div class="main-container">
      <div class="trailer-container">
        <iframe width="700" height="480" :src="'https://www.youtube.com/embed/' + movieDetail.movieTrailer" 
@@ -8,17 +8,27 @@
      </div>
      <div class="middle">
        <div>PIC</div>
-       <div>TITLE</div>
-       <div><button>Biljetter</button></div>
+       <div class="movie-info">
+         <h4>{{ movieDetail.title }}</h4>
+         <h6>Genre</h6>
+         <h6>Length | Agelimit </h6>
+         </div>
+       <div><button class="btn red waves-effect">Biljetter</button></div>
      </div>
       <div class="last">{{ movieDetail.text }}</div>
      </div>
-  </div>
+    <showTime/>
+ </div>
 </template>
 
 <script>
+import ShowTime from '@/components/ShowTime'
+
 export default {
   name: 'moviedetail',
+  components: {
+    ShowTime
+  },
   data() {
     return {
       movie: this.$store.state.data,
@@ -42,16 +52,32 @@ export default {
 
 <style lang="css" scoped>
 
+.main {
+  background-color: black;
+  color: white;
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
   width: 60%;
-  margin: 0 auto;
+  margin: 0 auto
   }
 
 .middle {
   display: flex;
-  justify-content: space-evenly
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 20px 0;
+}
+
+.movie-info {
+  text-align: left;
+}
+
+.last {
+  padding: 0 10%;
+  text-align: left;
 }
 
 .card{

@@ -22,7 +22,7 @@ export default new Vuex.Store({
   },
   actions: {
     async getDataFromFirebase({ commit }){
-      let querySnapshot = await db.collection("pop-movies").get()
+      let querySnapshot = await db.collection("movies").get()
       let movies = []
       querySnapshot.forEach(e => {
         movies.push(e.data())        
