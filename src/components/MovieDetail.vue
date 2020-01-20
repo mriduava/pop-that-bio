@@ -17,12 +17,18 @@
      </div>
       <div class="last">{{ movieDetail.text }}</div>
      </div>
-  </div>
+    <showTime/>
+ </div>
 </template>
 
 <script>
+import ShowTime from '@/components/ShowTime'
+
 export default {
   name: 'moviedetail',
+  components: {
+    ShowTime
+  },
   data() {
     return {
       movie: this.$store.state.data,
