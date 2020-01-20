@@ -1,29 +1,42 @@
-# popthatbio
+# POP THAT BIO
 
-## Project setup
-```
-npm install
-```
+**A movie ticket booking app**<br>
+<pre>
+> @authors: Ola Wiebe<br>         
+>           Keis Elhouni<br>
+>           Markus Karlsson<br>
+>           Hampus Nilsson<br>
+>           Henrik Jangefelt<br>
+>           Maruf Ahmed<br>
+>
+> @since:   JANUARY 2020<br>
+</pre>
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+**Look the demo, and if you like give a star on GitHub**
+>Demo site: Coming soon...<br>
 
-### Compiles and minifies for production
-```
-npm run build
-```
+![](/screenshot/construction.gif)
 
-### Run your tests
-```
-npm run test
-```
+## FUNCTIONALITIES
+* Display movies list & brief info on image hover.
+* Display movie details & Trailer.
+* User can book/buy Ticket/s & can Reserve Seat/s.
+* User can open an Account & can see old/new Bookings   
 
-### Lints and fixes files
-```
-npm run lint
-```
+## DEPENDENCIES
+* Vue CLI
+* Vuex
+* Vue-Router
+* Firebase
+* Materialize CSS
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## HOW TO RUN LOCALLY
+* Clone files from GitHub. <br>
+* Install all dependencies. 
+> npm install
+* Run from command prompt
+> npm run serve
+* Navigate to `http://localhost:8080/`. 
+
+&copy; 2020 POPTHATBIO<br> 
+

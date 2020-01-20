@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Pop-That-Bio</router-link> |
+      <router-link to="/">Pop that Bio</router-link> |
+      <router-link to="/time">Time</router-link>
+      <router-link to="/ticket">Ticket</router-link>
       <router-link to="/about">About</router-link>
+      <router-link to="/sign-in">Sign in</router-link>
     </div>
     <router-view/>
   </div>
@@ -13,6 +16,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+#nav{
+  z-index: +10;
 }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

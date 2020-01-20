@@ -4,7 +4,8 @@
     <h1>movies</h1>
     <hr class="hr-style">
    <div class="col x12 s6 m4 l3" v-for="(movie, index) in moviesData" :key="index">
-    <div class="card" >
+     <router-link :to="'/movies/' + movie.slug">
+      <div class="card" >
       <div class="card-image waves-effect waves-block waves-light">
         <img class="activator" :src="movie.image">
         <div class="card-text">
@@ -12,8 +13,9 @@
           <p class="white-text text-darken-4">{{movie.showDate}} | {{movie.showTime}}</p>
         </div>
       </div>
-    </div>
-    </div>
+      </div>
+       </router-link> 
+     </div>
   </div>
 </div>
 </template>
@@ -30,7 +32,10 @@ export default {
     moviesData(){
       return this.$store.state.data;
     }
-  }
+  },
+  created() {
+    this.$store.dispatch("getDataFromFirebase")
+  },
 }
 </script>
 
@@ -39,24 +44,21 @@ export default {
   font-family: borntogrille;
   src: url('../assets/fonts/borntogrille.otf');
 }
-
 .container{
   width: 100%;
   padding: 0 0 5% 0;
 }
-
 .card-image{
   position: relative;
   display: flex;
   margin-top: 5%;
+  max-height: 420px;
   border: 1px solid #ddd;
 }
-
 .card:hover{
   cursor: pointer;
   box-shadow: 2px 2px 20px rgba(255, 255, 255, 0.7);
 }
-
 .card-text{
   position: absolute;
   top: 75%;
@@ -69,18 +71,15 @@ export default {
   opacity: 0;
   transition: .5s ease;
 }
-
 .card-image:hover .card-text{
   visibility: visible;
   opacity: 1;
 }
-
 h1{
   font-family: borntogrille;
   padding-top: 3%;
   color: #3fefff;
 }
-
 .hr-style{
   border: 0;
   height: 1px;
