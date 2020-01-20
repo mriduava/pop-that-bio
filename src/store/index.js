@@ -10,8 +10,13 @@ export default new Vuex.Store({
     // data: movies
     data: []
   },
+  getters: {
+    movies: (state) => {
+      return state.data
+    }
+  },
   mutations: {
-    getMoviesData(state, moviesData){
+    UPDATE_DATA(state, moviesData){
       state.data = moviesData
     }
   },
@@ -22,7 +27,7 @@ export default new Vuex.Store({
       querySnapshot.forEach(e => {
         movies.push(e.data())        
       });
-      commit('getMoviesData', movies)
+      commit('UPDATE_DATA', movies)
     }
   },
   modules: {

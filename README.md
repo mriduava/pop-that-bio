@@ -15,7 +15,7 @@
 **Look the demo, and if you like give a star on GitHub**
 >Demo site: Coming soon...<br>
 
-<!-- ![](/screenshot/mridustore.png) -->
+![](/screenshot/construction.gif)
 
 ## FUNCTIONALITIES
 * Display movies list & brief info on image hover.
