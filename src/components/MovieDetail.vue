@@ -1,27 +1,19 @@
 <template>
  <div>
-    <div class="container-fluid">
-     <div class="video-container">
-       <iframe width="853" height="480" :src="'https://www.youtube.com/embed/' + movieDetail.movieTrailer" 
+    <div class="main-container">
+     <div class="trailer-container">
+       <iframe width="700" height="480" :src="'https://www.youtube.com/embed/' + movieDetail.movieTrailer" 
                frameborder="0" allowfullscreen>
        </iframe>
      </div>
-     <div class="row">
-       <div class="col x12 s6 m4 l3">
-          <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-              <img class="activator" :src="movieDetail.image">
-            </div>
-            <div class="card-text">
-                <h5 class="green-text text-darken-4 left">{{movieDetail.title}}</h5>
-                <p class="green-text text-darken-4 left">{{movieDetail.showDate}} | {{movieDetail.showTime}}</p>
-            </div>
-          </div>
-       </div>
+     <div class="middle">
+       <div>PIC</div>
+       <div>TITLE</div>
+       <div><button>Biljetter</button></div>
      </div>
-
-    </div>
- </div>
+      <div class="last">{{ movieDetail.text }}</div>
+     </div>
+  </div>
 </template>
 
 <script>
@@ -36,23 +28,17 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.video-container {
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 30px; height: 0; overflow: hidden;
-}
-.video-container{
-  position: relative;
-  top: -10px;
-}
-.video-container iframe,
-.video-container object,
-.video-container embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  /* height: 100%; */
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: 0 auto;
+  }
+
+.middle {
+  display: flex;
+  justify-content: space-evenly
 }
 
 .card{
@@ -68,6 +54,11 @@ export default {
   position: relative;
   top: -80px;
   left: 210px;
+}
+
+.description {
+  margin-top: 20px;
+  padding-top: 20px
 }
   
 </style>
