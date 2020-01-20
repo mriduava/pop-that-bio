@@ -2,6 +2,7 @@ export const movies = [
   {
     id: 1,
     title: 'Frozen',
+    slug: 'frozen',
     movieTrailer: 'hHZCT2E4W8A',
     image: 'https://lionsdigest1.com/wp-content/uploads/2019/12/Screen-Shot-2019-12-03-at-3.27.55-PM-601x900.png',
     landImg: '',
@@ -12,6 +13,7 @@ export const movies = [
   {
     id: 2,
     title: 'Jungle Book',
+    slug: 'jungle-book',
     movieTrailer: 'HcgJRQWxKnw',
     image: 'https://img01.mgo-images.com/image/thumbnail/v2/content/MMV8760DF588299E0DEA1DF6C83A8519A2B3.jpeg',
     landImg: '',
@@ -22,6 +24,7 @@ export const movies = [
   {
     id: 3,
     title: 'The Matrix',
+    slug: 'the-matrix',
     movieTrailer: 'm8e-FF8MsqU',
     image: 'https://i.pinimg.com/originals/9f/75/f6/9f75f696cc69e4186bd3a1227d2fd48e.jpg',
     landImg: '',
@@ -32,6 +35,7 @@ export const movies = [
   {
     id: 4,
     title: 'Avatar',
+    slug: 'avatar',
     movieTrailer: '6ziBFh3V1aM',
     image: 'https://i.pinimg.com/originals/32/f1/1b/32f11b88771756b748a427428565afdd.jpg',
     landImg: '',
@@ -42,6 +46,7 @@ export const movies = [
   {
     id: 5,
     title: 'Aladdin',
+    slug: 'aladdin',
     movieTrailer: 'foyufD52aog',
     image: 'https://sc-events.s3.amazonaws.com/20508/5266318/432ea1efd5a367b235a8b16fba33bffef5ee1c1d2431da61e8349d3064d153fd/36f8d8d7-fe68-472c-a51d-e8a90cda4fe3.jpg',
     landImg: '',
@@ -52,6 +57,7 @@ export const movies = [
   {
     id: 6,
     title: 'Astrid',
+    slug: 'astrid',
     movieTrailer: 'hHZCT2E4W8A',
     image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBEk0EAtorleXZsC3Kh-cphVw5btzyuIBc3Xu-XvnVhHbobo9S&s',
     landImg: '',
@@ -62,6 +68,7 @@ export const movies = [
   {
     id: 7,
     title: 'Jurassic World',
+    slug: 'jurassic-world',
     movieTrailer: 'hHZCT2E4W8A',
     image: 'https://d1w8cc2yygc27j.cloudfront.net/-3321970668112658117/780055265511282843.jpg',
     landImg: '',
@@ -72,6 +79,7 @@ export const movies = [
   {
     id: 8,
     title: 'Legend',
+    slug: 'legend',
     movieTrailer: 'hHZCT2E4W8A',
     image: 'https://alchetron.com/cdn/Legend-2015-film-images-d1240f06-661f-441f-9f4d-c6767dc776d.jpg',
     landImg: '',

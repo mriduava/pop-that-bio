@@ -4,7 +4,7 @@
     <h1>movies</h1>
     <hr class="hr-style">
    <div class="col x12 s6 m4 l3" v-for="(movie, index) in moviesData" :key="index">
-     <router-link :to="'/movies/' + movie.id">
+     <router-link :to="'/movies/' + movie.slug">
       <div class="card" >
       <div class="card-image waves-effect waves-block waves-light">
         <img class="activator" :src="movie.image">
@@ -32,7 +32,10 @@ export default {
     moviesData(){
       return this.$store.state.data;
     }
-  }
+  },
+  created() {
+    this.$store.dispatch("getDataFromFirebase")
+  },
 }
 </script>
 
@@ -49,6 +52,7 @@ export default {
   position: relative;
   display: flex;
   margin-top: 5%;
+  max-height: 420px;
   border: 1px solid #ddd;
 }
 .card:hover{

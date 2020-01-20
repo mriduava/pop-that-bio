@@ -19,11 +19,24 @@
 <script>
 export default {
   name: 'moviedetail',
-  computed:{
-    movieDetail(){
-      return this.$store.state.data[this.$route.params.movieid - 1];
+  data() {
+    return {
+      movie: this.$store.state.data,
+      movieDetail: []
     }
-  }
+  },
+  methods: {
+    getMovie(){
+      this.movie.forEach(e => {
+        if(e.slug == this.$route.params.slug){
+          this.movieDetail = e;
+        }
+      });
+    }
+  },
+  created() {
+    this.getMovie();
+  },
 }
 </script>
 
@@ -47,7 +60,8 @@ export default {
   top: -200px;
   left: 30%;
   border: 2px solid rgb(29, 255, 29);
-  height: 297px;
+  max-height: 297px;
+  object-fit: cover;
 }
 
 .card-text{
