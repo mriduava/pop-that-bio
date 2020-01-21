@@ -7,11 +7,13 @@
        </iframe>
      </div>
      <div class="middle">
-       <div>PIC</div>
+       <div>
+         <img class="activator" :src="movieDetail.image" width="100" height="170">
+       </div>
        <div class="movie-info">
          <h4>{{ movieDetail.title }}</h4>
-         <h6>Genre</h6>
-         <h6>Length | Agelimit </h6>
+         <h6>{{ movieDetail.genre }}</h6>
+         <h6>{{ movieDetail.length }} min | {{ movieDetail.age_limit}} years </h6>
          </div>
        <div><button class="btn red waves-effect">Biljetter</button></div>
      </div>
@@ -60,7 +62,8 @@ export default {
   display: flex;
   flex-direction: column;
   width: 60%;
-  margin: 0 auto
+  margin: 0 auto;
+  padding-top: 50px;
   }
 
 .middle {
