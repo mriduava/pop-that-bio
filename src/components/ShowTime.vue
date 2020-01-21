@@ -2,7 +2,7 @@
   <div>
     <h3>Book Tickets</h3>
     <!--<h3>{{ movieDetail.title }}</h3>-->
-    <hr />
+    <hr>
     <h3>Saloon 1</h3>
     <!-- Drop down (todays date, and 4 days forward) -->
     <div class="dropdown">

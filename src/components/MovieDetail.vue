@@ -51,7 +51,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
 .main {
   background-color: black;
   color: white;

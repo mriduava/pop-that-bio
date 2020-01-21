@@ -2,14 +2,15 @@
 
 **A movie ticket booking app**<br>
 <pre>
-> @authors: Ola Wiebe<br>         
->           Keis Elhouni<br>
->           Markus Karlsson<br>
->           Hampus Nilsson<br>
->           Henrik Jangefelt<br>
->           Maruf Ahmed<br>
->
-> @since:   JANUARY 2020<br>
+@authors: Ola Wiebe<br>         
+          Keis Elhouni<br>
+          Markus Karlsson<br>
+          Hampus Nilsson<br>
+          Henrik Jangefelt<br>
+          Naim Arif<br>
+          Maruf Ahmed<br>
+
+@since:   JANUARY 2020<br>
 </pre>
 
 **Look the demo, and if you like give a star on GitHub**
