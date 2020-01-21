@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { db } from './FirebaseConfig.js'
+import { db } from './firebaseConfig.js'
 
 async function getMoviesData() {
     let querySnapshot = await db.collection("recipies").get()
