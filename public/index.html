@@ -11,21 +11,33 @@
   </head>
   <body>
    
-    <div class="navbar">
-      <a href="#home">Home</a>
-      <a href="#movies">Movies</a>
-      <a href="#biljetter">Biljetter</a>
-      <a href="#minsida">Minsida</a>
+  <div class="navbar" id="mynavbar">
+    <a href="#home" class="active">Home</a>
+    <a href="#minsida">Minsida</a>
+    <a href="#movies">Movies</a>
+    <div class="dropdown">
+      <button class="dropbtn">Help
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+      </div>
     </div>
-    
-    <div class="main-home">
-    </div>
-    <div class="main-movies">
-    </div>
-    <div class="main-biljetter">
-    </div>
-    <div class="main-minsida">
-    </div>
+    <a href="#about">About</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
+    <script>
+    function myFunction() {
+        var x = document.getElementById("mynavbar");
+        if (x.className === "navbar") {
+          x.className += " responsive";
+        } else {
+          x.className = "navbar";
+        }
+      }
+    </script>
       <noscript>
       <strong>We're sorry but popthatbio doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
