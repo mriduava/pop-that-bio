@@ -4,14 +4,13 @@
     <hr />
 
     <div class="dates">
-      <h4 class="showTime">Datum:</h4>
-
       <div class="dropdown-menu">
-        <h4
-          class="selected-item"
-          @click="showMenu = !showMenu"
-        >{{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }} <i class="fas fa-chevron-down"></i></h4>
-        
+        <h4 class="selected-dropdown-item" @click="showMenu = !showMenu">
+          {{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }}
+          <i
+            class="fas fa-chevron-down"
+          ></i>
+        </h4>
         <div class="dropdown-items" v-if="showMenu">
           <h5
             @click="updateChosenDate(0)"
@@ -28,22 +27,19 @@
 
     <!-- Lista ut; hämta från Firebase -->
     <div class="available-times">
-      <h4>
-        16:45
-        <router-link to="/book-ticket">Book</router-link>
-      </h4>
-      <h4>
-        17:30
-        <router-link to="/book-ticket">Book</router-link>
-      </h4>
-      <h4>
-        18:45
-        <router-link to="/book-ticket">Book</router-link>
-      </h4>
-      <h4>
-        21:30
-        <router-link to="/book-ticket">Book</router-link>
-      </h4>
+      <ul style="list-style-type:none;">
+        <router-link class="link" to="/book-ticket">
+          <li
+            class="show-time-item"
+            :key="time"
+            v-for="time in times"
+          >{{time.startTime}}<p>{{movieDetail.genre}}</p></li>
+        </router-link>
+        <!-- <li class="show-time-item" :key="time" v-for="time in times">
+          {{time.startTime}}
+          <router-link class="link" to="/book-ticket">Boka</router-link>
+        </li>-->
+      </ul>
     </div>
   </div>
 </template>
@@ -53,6 +49,18 @@ export default {
   name: "showtime",
   data() {
     return {
+      times: [
+        {
+          month: 5,
+          day: 4,
+          startTime: "13:45"
+        },
+        {
+          month: 5,
+          day: 4,
+          startTime: "16:30"
+        }
+      ],
       dates: [
         {
           dateName: "Today",
@@ -154,13 +162,12 @@ export default {
   padding-left: 20px;
   margin-bottom: 40px;
 }
-.avaiable-times {
-  display: inline-flex;
+.available-times {
+  border: 2px solid gold;
   justify-content: flex-start;
-  align-content: flex-start;
 }
-.dropdown-items {
-    text-align: start;
+.available-times h4 {
+  margin: 2px;
 }
 
 .time {
@@ -168,17 +175,32 @@ export default {
   display: inline-block;
 }
 .book-tickets-title {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
-.selected-item {
-    padding: 5px 20px;
-    border: 2px solid white;
-    margin-bottom: 0px;
+.selected-dropdown-item {
+  padding: 5px 20px;
+  border: 2px solid white;
+  margin-top: 40px;
+  margin-bottom: 0px;
 }
 .dropdown-items {
-    margin-top: 0px;
-    padding: 5px 20px;
-    border: 2px solid white;
+  text-align: start;
+  margin-top: 0px;
+  padding: 5px 20px;
+  border: 2px solid white;
+}
+
+.show-time-item {
+  font-size: 40px;
+}
+.show-time-item p {
+    margin-left: 50px;
+    display: inline-block;
+    font-size: 30px;
+}
+.link {
+  background-color: red;
+  color: white;
 }
 </style>
