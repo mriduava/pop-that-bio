@@ -31,7 +31,7 @@ const routes = [
     component: Ticket
   },
   {
-    path: '/book-ticket',
+    path: '/book-ticket/:slug',
     name: 'book-ticket',
     component: BookTicket
   },

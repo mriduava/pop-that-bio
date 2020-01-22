@@ -1,55 +1,63 @@
 <template>
- <div class="main">
+  <div class="main">
     <div class="main-container">
-     <div class="trailer-container">
-       <iframe width="700" height="480" :src="'https://www.youtube.com/embed/' + movieDetail.movieTrailer" 
-               frameborder="0" allowfullscreen>
-       </iframe>
-     </div>
-     <div class="middle">
-       <div>
-         <img class="activator" :src="movieDetail.image" width="100" height="170">
-       </div>
-       <div class="movie-info">
-         <h4>{{ movieDetail.title }}</h4>
-         <h6>{{ movieDetail.genre }}</h6>
-         <h6>{{ movieDetail.length }} min | {{ movieDetail.age_limit}} år </h6>
-         </div>
-       <div><router-link to="/book-ticket"><button class="btn red waves-effect">Biljetter</button></router-link></div>
-     </div>
+      <div class="trailer-container">
+        <iframe
+          width="700"
+          height="480"
+          :src="'https://www.youtube.com/embed/' + movieDetail.movieTrailer"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="middle">
+        <div class="poster">
+          <img class="activator" :src="movieDetail.image" />
+        </div>
+        <div class="movie-info">
+          <h4>{{ movieDetail.title }}</h4>
+          <h6>{{ movieDetail.genre }}</h6>
+          <h6>{{ movieDetail.length }} min | {{ movieDetail.age_limit}} år</h6>
+        </div>
+        <div>
+          <router-link :to="'/book-ticket/' + movies.slug">
+            <button class="btn red waves-effect">Biljetter</button>
+          </router-link>
+        </div>
+      </div>
       <div class="last">{{ movieDetail.text }}</div>
-     </div>
-    <showTime/>
- </div>
+    </div>
+    <showTime />
+  </div>
 </template>
 
 <script>
-import ShowTime from '@/components/ShowTime'
+import ShowTime from "@/components/ShowTime";
 
 export default {
-  name: 'moviedetail',
+  name: "moviedetail",
   components: {
     ShowTime
   },
   data() {
     return {
-      movie: this.$store.state.data,
+      movies: this.$store.getters.movies,
       movieDetail: []
-    }
+    };
   },
   methods: {
-    getMovie(){
-      this.movie.forEach(e => {
-        if(e.slug == this.$route.params.slug){
-          this.movieDetail = e;
+    getMovie() {
+      this.movies.forEach(movie => {
+        if (movie.slug == this.$route.params.slug) {
+          this.movieDetail = movie;
         }
       });
     }
   },
   created() {
     this.getMovie();
-  },
-}
+  }
+};
 </script>
 
 <style lang="css" scoped>
@@ -64,7 +72,7 @@ export default {
   width: 60%;
   margin: 0 auto;
   padding-top: 50px;
-  }
+}
 
 .middle {
   display: flex;
@@ -82,7 +90,11 @@ export default {
   text-align: left;
 }
 
-.card{
+.poster {
+  width: 30%;
+}
+
+.card {
   position: relative;
   width: 200px;
   top: -200px;
@@ -92,7 +104,7 @@ export default {
   object-fit: cover;
 }
 
-.card-text{
+.card-text {
   position: relative;
   top: -80px;
   left: 210px;
@@ -100,8 +112,7 @@ export default {
 
 .description {
   margin-top: 20px;
-  padding-top: 20px
+  padding-top: 20px;
 }
-  
 </style>
 
