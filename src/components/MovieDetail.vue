@@ -20,7 +20,7 @@
           <h6>{{ movieDetail.length }} min | {{ movieDetail.age_limit}} år</h6>
         </div>
         <div>
-          <router-link :to="'/book-ticket/' + movies.slug">
+          <router-link :to="'/book-ticket/' + movieDetail.slug">
             <button class="btn red waves-effect">Biljetter</button>
           </router-link>
         </div>
