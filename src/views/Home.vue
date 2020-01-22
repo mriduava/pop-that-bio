@@ -2,18 +2,21 @@
   <div class="home">
       <Carousel/>
       <DispMovies/>
+      <Footer/>
   </div>
 </template>
 
 <script>
 import DispMovies from '@/components/DispMovies.vue'
 import Carousel from '@/components/Carousel'
+import Footer from '@/components/Footer.vue'
 
 export default {
   name: 'home',
   components: {
     Carousel,
-    DispMovies
+    DispMovies,
+    Footer
   }
 }
 </script>

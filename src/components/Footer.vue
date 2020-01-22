@@ -44,10 +44,10 @@
                 
                </div>
               <div>
-                 <a href="http://facebook.com/robobunnyattack"><i class="fab fa-facebook"></i></a>
-                 <a href="http://twitter.com/robobunnyattack"><i class="fab fa-twitter"></i></a>
-                 <a href="http://youtube.com/robobunnyattack"><i class="fab fa-youtube"></i></a>
-                 <p class="text-center text-white pt-5 mt-5">© 2020 POP THAT BIO</p> 
+                 <a href="http://facebook.com/"><i class="fab fa-facebook"></i></a>
+                 <a href="http://twitter.com/"><i class="fab fa-twitter"></i></a>
+                 <a href="http://youtube.com/"><i class="fab fa-youtube"></i></a>
+                 <p class="text-center text-white pt-5 mt-5">POP-THIS-BIO © 2020 MOVIES</p> 
              </div>
       </div>
 

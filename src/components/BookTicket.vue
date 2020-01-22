@@ -7,17 +7,17 @@
             <div class="ordinarie">
                 <div class="ordinarie-mini"><h6>Ordinarie</h6></div>
                 <div class="buttons">
-                <div><i @click="decrease()" class="fa fa-minus-circle"></i></div>
-                <div><h6>{{ counter }}</h6></div>
-                <div><i @click="increase()" class="fa fa-plus-circle"></i></div>
+                <div><i @click="decreaseOrd()" class="fa fa-minus-circle"></i></div>
+                <div><h6>{{ counterOrd }}</h6></div>
+                <div><i @click="increaseOrd()" class="fa fa-plus-circle"></i></div>
                 </div>
             </div>
             <div class="ordinarie">
                 <div class="ordinarie-mini"><h6>Pensionär</h6></div>
                 <div class="buttons">
-                <div><i @click="decrease()" class="fa fa-minus-circle"></i></div>
-                <div><h6>{{ counter }}</h6></div>
-                <div><i @click="increase()" class="fa fa-plus-circle"></i></div>
+                <div><i @click="decreasePen()" class="fa fa-minus-circle"></i></div>
+                <div><h6>{{ counterPen }}</h6></div>
+                <div><i @click="increasePen()" class="fa fa-plus-circle"></i></div>
                 </div>
             </div>
             <div class="barn"><h6>Barn</h6></div>
@@ -32,18 +32,33 @@ export default {
     ,
     data(){
         return{
-            counter: 1
+            counterOrd: 1,
+            counterPen: 1
         }
     },
     methods: {
-        increase(){
-            if(this.counter < 8){
-            this.counter++
+        increaseOrd(){
+            if((this.counterOrd + this.counterPen) < 8){
+            this.counterOrd++
+            
+            }
+            
+        },
+        decreaseOrd(){
+            if((this.counterOrd + this.counterPen) > 1){
+            this.counterOrd--
             }
         },
-        decrease(){
-            if(this.counter > 0){
-            this.counter--
+        increasePen(){
+            if((this.counterOrd + this.counterPen) < 8){
+            this.counterPen++
+            
+            }
+            
+        },
+        decreasePen(){
+            if((this.counterOrd + this.counterPen) > 1){
+            this.counterPen--
             }
         }
     }
@@ -64,19 +79,19 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid black
+    /*border: 1px solid black*/
 }
 
 .ordinarie-mini {
     display: flex;
     align-content: flex-start;
-    border: 1px solid black
+    /*border: 1px solid black*/
 }
 
 .buttons {
     display: flex;
     flex-direction: row;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     align-items: center;
 }
 

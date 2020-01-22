@@ -5,6 +5,7 @@ import MovieDetail from '@/components/MovieDetail.vue'
 import DispMovies from '@/components/DispMovies'
 import Signin from '@/components/Signin'
 import Ticket from '@/components/Tickets'
+import BookTicket from '@/components/BookTicket'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/ticket',
     name: 'ticket',
     component: Ticket
+  },
+  {
+    path: '/book-ticket',
+    name: 'book-ticket',
+    component: BookTicket
   },
   {
     path: '/signin',
