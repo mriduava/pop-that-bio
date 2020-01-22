@@ -1,9 +1,13 @@
 <template>
   <div>
     <div class="book-ticket-container">
-      <div>
-        <h5>Tillbaka</h5>
-      </div>
+      <router-link :to="'/movies/' + movieDetail.slug">
+        <div class="back-link">
+          <i class="fa fa-angle-left"></i>
+          <h5>Tillbaka</h5>
+        </div>
+      </router-link>
+
       <div>
         <h4>Antal biljetter</h4>
       </div>
@@ -55,11 +59,13 @@
           </div>
         </div>
       </div>
+      <div class="end">
+        <h6>Antal besökare: {{ this.nrOfcustomer }}</h6>
+      </div>
       <div class="valj">
         <button class="waves-effect purple btn-large">Välj platser</button>
       </div>
     </div>
-    <div class="End"></div>
   </div>
 </template>
 
@@ -69,47 +75,79 @@ export default {
   data() {
     return {
       counterOrd: 1,
-      counterPen: 1,
-      counterChild: 1,
+      counterPen: 0,
+      counterChild: 0,
       movies: this.$store.getters.movies,
       movieDetail: [],
-      childAllowed: false
+      childAllowed: false,
+      nrOfcustomer: 1
     };
   },
   methods: {
     getMovie() {
       this.movies.forEach(movie => {
-        
-          this.$route.params.slug
+        this.$route.params.slug;
         if (movie.slug === this.$route.params.slug) {
           this.movieDetail = movie;
           window.console.log(this.movieDetail, "chosen movie");
           if (this.movieDetail.age_limit < 7) {
             this.childAllowed = true;
-            alert("allowed");
+            window.console.log("children allowed");
+            //alert("allowed");
           }
         }
       });
     },
 
     increaseOrd() {
-      if (this.counterOrd + this.counterPen < 8) {
+      if (
+        this.counterOrd + this.counterPen + this.counterChild < 8 &&
+        this.counterOrd > -1
+      ) {
         this.counterOrd++;
+        this.nrOfcustomer =
+          this.counterOrd + this.counterPen + this.counterChild;
       }
     },
     decreaseOrd() {
-      if (this.counterOrd + this.counterPen > 1) {
+      if (this.counterOrd > 0) {
         this.counterOrd--;
+        this.nrOfcustomer =
+          this.counterOrd + this.counterPen + this.counterChild;
       }
     },
     increasePen() {
-      if (this.counterOrd + this.counterPen < 8) {
+      if (
+        this.counterOrd + this.counterPen + this.counterChild < 8 &&
+        this.counterPen > -1
+      ) {
         this.counterPen++;
+        this.nrOfcustomer =
+          this.counterOrd + this.counterPen + this.counterChild;
       }
     },
     decreasePen() {
-      if (this.counterOrd + this.counterPen > 1) {
+      if (this.counterPen > 0) {
         this.counterPen--;
+        this.nrOfcustomer =
+          this.counterOrd + this.counterPen + this.counterChild;
+      }
+    },
+    increaseChild() {
+      if (
+        this.counterOrd + this.counterPen + this.counterChild < 8 &&
+        this.counterChild > -1
+      ) {
+        this.counterChild++;
+        this.nrOfcustomer =
+          this.counterOrd + this.counterPen + this.counterChild;
+      }
+    },
+    decreaseChild() {
+      if (this.counterChild > 0) {
+        this.counterChild--;
+        this.nrOfcustomer =
+          this.counterOrd + this.counterPen + this.counterChild;
       }
     }
   },
@@ -154,7 +192,8 @@ export default {
   display: flex;
   justify-content: center;
   /*border: 1px solid black;*/
-  padding-top: 60px;
+  padding-top: 20px;
+  padding-bottom: 80px;
 }
 
 .fa {
@@ -163,6 +202,15 @@ export default {
 }
 
 .end {
-  padding-bottom: 100px;
+  padding-top: 50px;
+  /*display: block;*/
+  margin: 0 auto;
+  color: black;
+}
+
+.back-link {
+  display: flex;
+  flex-direction: row;
+  /*border: 1px solid black;*/
 }
 </style>
