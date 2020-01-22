@@ -13,7 +13,7 @@
        <div class="movie-info">
          <h4>{{ movieDetail.title }}</h4>
          <h6>{{ movieDetail.genre }}</h6>
-         <h6>{{ movieDetail.length }} min | {{ movieDetail.age_limit}} years </h6>
+         <h6>{{ movieDetail.length }} min | {{ movieDetail.age_limit}} år </h6>
          </div>
        <div><router-link to="/book-ticket"><button class="btn red waves-effect">Biljetter</button></router-link></div>
      </div>
