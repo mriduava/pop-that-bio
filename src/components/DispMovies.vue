@@ -48,14 +48,14 @@ export default {
 }
 
 .disp-movies{
-  margin-top: -159px;
-  padding-top: 0;
+  margin-top: -199px;
+  padding-top: 5%;
   width: 100%;
   /* background: #2672ffb6;
   background: linear-gradient(to top, #24243e7a, #302b63, #15026bdc);  */
   background: rgb(100, 10, 60);
-  background: -webkit-linear-gradient(to top, rgb(156, 36, 100), #FBD3E9); 
-  background: linear-gradient(to bottom, rgb(117, 9, 67), rgb(219, 166, 195));
+  background: -webkit-linear-gradient(to top, rgba(156, 36, 100, 0.9), #FBD3E9); 
+  background: linear-gradient(to bottom, rgba(94, 62, 79, 0.11) 0%, rgba(117, 9, 67, 1) 5%, rgba(219, 166, 195, 0.99) 90%);
 
 
 }

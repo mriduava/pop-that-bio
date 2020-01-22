@@ -8,6 +8,13 @@
       <h6>Sunday | 15:20 - 17:10</h6>
     </div>
     <!-- <hr class="hr-style m-0 p-0"> -->
+
+  <div class="carousel carousel-slider">
+    <a class="carousel-item" href="#one!"><img src="http://www.extraextra.se/wp-content/uploads/2019/05/avatar.jpg"></a>
+    <a class="carousel-item" href="#two!"><img src="https://www.inveaquaculture.com/wp-content/uploads/2016/04/beautiful-nature-wallpaper-1920x1080.jpg"></a>
+    <a class="carousel-item" href="#three!"><img src="https://lorempixel.com/800/400/food/3"></a>
+    <a class="carousel-item" href="#four!"><img src="https://lorempixel.com/800/400/food/4"></a>
+  </div>
     
   </div>
 </div>
@@ -35,6 +42,21 @@ export default {
       //   "linear-gradient(0deg,rgba(197, 49, 99,0.8),rgba(197,49,99,0.8)),url("
       //   + imgList[i] + ") no-repeat center /cover");
       // }).delay(1000).fadeTo('slow', 1);
+      // $('.carousel').carousel();
+      // setInterval(function() {
+      //   $('.carousel').carousel('next');
+      // }, 2000); // every 2 seconds
+
+      // $('.carousel').carousel({ padding: 200 });
+      // autoplay();
+      // function autoplay() {
+      //     $('.carousel').carousel('next');
+      //     setTimeout(autoplay, 4500);
+      // }
+
+
+
+
     });
   },
   methods: {
@@ -64,7 +86,7 @@ export default {
   margin: 0 auto; 
   position: relative; 
   width: 100%; 
-  height: 110vh; 
+  height: 120vh; 
   top: -117px;
   z-index: -1;
   object-fit: cover;
