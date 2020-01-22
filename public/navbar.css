@@ -10,12 +10,12 @@ width: 100%;
 /* The navigation bar */
  .navbar {
     overflow: hidden;
-    background-color: rgba(100, 0, 0, 0.240);
+    background-color: rgb(25, 240, 18);
     position: fixed; /* Set the navbar to fixed position */
     top: 0; /* Position the navbar at the top of the page */
     width: 100%; /* Full width */
     text-align: center;
-    display: table;
+    display: tabl;
     margin: 0 auto; left:0px; right:0px;
     
   }
@@ -27,7 +27,7 @@ width: 100%;
   .navbar a {
     text-align: center;
     display: inline-block;
-    color: #f2f2f2;
+    color:#f2f2f2;
     text-align: center;
     padding: 14px 16px;
     width: 150px;
