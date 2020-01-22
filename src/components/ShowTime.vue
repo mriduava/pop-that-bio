@@ -1,17 +1,18 @@
 <template>
   <div class="booking-section">
-    <h3>Book Tickets</h3>
+    <h3 class="book-tickets-title">Boka Biljetter</h3>
     <hr />
-    
+
     <div class="dates">
-      <h4 class="showTime">Show movies for date:</h4>
+      <h4 class="showTime">Datum:</h4>
 
       <div class="dropdown-menu">
         <h4
-          class="Selected Item"
+          class="selected-item"
           @click="showMenu = !showMenu"
-        >{{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }}</h4>
-        <div v-if="showMenu">
+        >{{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }} <i class="fas fa-chevron-down"></i></h4>
+        
+        <div class="dropdown-items" v-if="showMenu">
           <h5
             @click="updateChosenDate(0)"
           >{{dates[0].day}}/{{dates[0].month}} - {{ dates[0].dateName }}</h5>
@@ -25,10 +26,24 @@
       </div>
     </div>
 
+    <!-- Lista ut; hämta från Firebase -->
     <div class="available-times">
-        <h4 class="time">16:45 <button>Book</button></h4><br>
-        <h4 class="time">17:30 <button>Book</button></h4><br>
-        <h4 class="time">18:45 <button>Book</button></h4><br><!-- TAs till component för ange antal personer-->
+      <h4>
+        16:45
+        <router-link to="/book-ticket">Book</router-link>
+      </h4>
+      <h4>
+        17:30
+        <router-link to="/book-ticket">Book</router-link>
+      </h4>
+      <h4>
+        18:45
+        <router-link to="/book-ticket">Book</router-link>
+      </h4>
+      <h4>
+        21:30
+        <router-link to="/book-ticket">Book</router-link>
+      </h4>
     </div>
   </div>
 </template>
@@ -137,16 +152,33 @@ export default {
 .dropdown-menu {
   display: inline-block;
   padding-left: 20px;
+  margin-bottom: 40px;
 }
 .avaiable-times {
   display: inline-flex;
   justify-content: flex-start;
   align-content: flex-start;
 }
-
-.time {
-    margin: 0px;
-    display: inline-block;
+.dropdown-items {
+    text-align: start;
 }
 
+.time {
+  margin: 0px;
+  display: inline-block;
+}
+.book-tickets-title {
+    margin-bottom: 5px;
+}
+
+.selected-item {
+    padding: 5px 20px;
+    border: 2px solid white;
+    margin-bottom: 0px;
+}
+.dropdown-items {
+    margin-top: 0px;
+    padding: 5px 20px;
+    border: 2px solid white;
+}
 </style>
