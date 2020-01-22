@@ -15,7 +15,7 @@
          <h6>{{ movieDetail.genre }}</h6>
          <h6>{{ movieDetail.length }} min | {{ movieDetail.age_limit}} years </h6>
          </div>
-       <div><button class="btn red waves-effect">Biljetter</button></div>
+       <div><router-link to="/book-ticket"><button class="btn red waves-effect">Biljetter</button></router-link></div>
      </div>
       <div class="last">{{ movieDetail.text }}</div>
      </div>
@@ -53,7 +53,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
 .main {
   background-color: black;
   color: white;
