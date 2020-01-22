@@ -9,6 +9,7 @@
 import DispMovies from '@/components/DispMovies.vue'
 import Carousel from '@/components/Carousel'
 
+
 export default {
   name: 'home',
   components: {

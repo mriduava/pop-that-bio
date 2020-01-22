@@ -1,12 +1,7 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Pop that Bio</router-link> |
-      <router-link to="/about">About</router-link>
-      <!-- <router-link to="/time">Time</router-link> |
-      <router-link to="/ticket">Ticket</router-link> |
-      <router-link to="/sign-in">Sign in</router-link> -->
-    </div>
+
+    <Navbar/>
     <router-view/>
 
     <Footer/>
@@ -14,10 +9,11 @@
 </template>
 
 <script>
+import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 export default {
- 
   components: {
+    Navbar,
     Footer
   }
 }
@@ -29,15 +25,9 @@ export default {
   padding: 0;
   box-sizing: border-box;
 }
-#nav{
-  z-index: +10;
-}
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #ddd;
+
+html {
+  scroll-behavior: smooth;
 }
 
 ::-webkit-scrollbar {
@@ -49,19 +39,5 @@ export default {
 ::-webkit-scrollbar-thumb {
     border-radius: 7px;
     background: #a4b1b0;
-}
-
-#nav {
-  color: #fff;
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #ddd;
 }
 </style>
