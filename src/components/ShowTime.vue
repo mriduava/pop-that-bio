@@ -1,11 +1,8 @@
 <template>
   <div class="booking-section">
     <h3>Book Tickets</h3>
-    <!--<h3>{{ movieDetail.title }}</h3>-->
     <hr />
-    <!-- <h3>Saloon 1</h3> -->
-    <!-- Drop down (todays date, and 4 days forward) -->
-
+    
     <div class="dates">
       <h4 class="showTime">Show movies for date:</h4>
 

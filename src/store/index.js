@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 // import {movies} from '@/data/database.js';
-import {db} from '@/firebase/firebaseConfig.js'
+import {db} from '@/firebase/firebase.js'
 
 Vue.use(Vuex)
 
