@@ -4,7 +4,7 @@
   <div class="row">
     <h1>movies</h1>
     <hr class="hr-style">
-   <div class="col x12 s6 m4 l3 xl2" v-for="(movie, index) in moviesData" :key="index">
+   <div class="col x12 s6 m4 l3 xl3" v-for="(movie, index) in moviesData" :key="index">
      <router-link :to="'/movies/' + movie.slug">
       <div class="card" >
       <div class="card-image waves-effect waves-block waves-light">
