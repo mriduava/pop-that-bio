@@ -1,16 +1,19 @@
 <template>
   <div class="home">
       <DispMovies/>
+      <Footer/>
   </div>
 </template>
 
 <script>
 import DispMovies from '@/components/DispMovies.vue'
+import Footer from '@/components/Footer.vue'
 
 export default {
   name: 'home',
   components: {
-    DispMovies
+    DispMovies,
+    Footer
   }
 }
 </script>
