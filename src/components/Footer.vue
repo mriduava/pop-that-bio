@@ -1,6 +1,7 @@
 <template>
   <div class="container-fluid pt-5">
       <div class="row d-flex align-items-center">
+        <hr>
         <div class="col-md-12 col-lg-12">
         
      
@@ -55,44 +56,46 @@
 
 <script>
 export default {
-  name: 'Footer',
+  name: 'footer',
   props: {
     msg: String
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="css">
 .container-fluid{
-  color: #fff;
-  height: 500px;
-  background: #2672ffb6;
-  background: linear-gradient(to bottom, #24243e7a, #302b63, #15026bdc); 
-  
+  color: rgb(81, 67, 94);
+  padding: 1% 5%;
+  /* height: 500px; */
+  background: rgb(100, 10, 60);
+  background: -webkit-linear-gradient(to top, rgb(156, 36, 100), #FBD3E9); 
+  background: linear-gradient(to top, rgb(117, 9, 67), rgb(219, 166, 195));
 }
 
+a{
+  color: rgb(233, 233, 233);
+}
 
 .fab{
   font-size: 24px;
-
   color: #fff;
   padding:0.5%;
-   margin: 30px auto;
+  margin: 30px auto;
  
 }
 .Gäster-list{
-  max-width: 1300px;
-  margin: 40px auto 40 auto;
+  /* max-width: 1300px; */
+  margin: 40px auto 0 auto;
   padding:20px 50px;
   justify-content:space-between;
   display: flex;
   
 }
 @media (min-width: 700px) {
-.Gäster-list{
- justify-content:first baseline;
- display: flex;
+  .Gäster-list{
+  justify-content:first baseline;
+  display: flex;
 }
 }
 .grop1{
@@ -100,15 +103,12 @@ export default {
  box-sizing: border-box;
  margin-bottom: 20px;
  flex-basis: 30%;
- 
-
   
 }
 .text-center text-white pt-5 mt-5{
    font-size: 24px;
     color: #fff;
     float: left;
-    
    margin: 100px auto
 }
 

@@ -3,7 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import MovieDetail from '@/components/MovieDetail.vue'
 import DispMovies from '@/components/DispMovies'
-import BookTicket from '@/components/BookTicket'
+import Signin from '@/components/Signin'
+import Ticket from '@/components/Tickets'
 
 Vue.use(VueRouter)
 
@@ -24,32 +25,19 @@ const routes = [
     component: MovieDetail
   },
   {
-    path: '/bookticket',
-    name: 'bookticket',
-    component: BookTicket
+    path: '/ticket',
+    name: 'ticket',
+    component: Ticket
+  },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: Signin
   },
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
-    path: '/time',
-    name: 'time',
-    component: () => import(/* webpackChunkName: "time" */ '../views/Time.vue')
-  },
-  {
-    path: '/ticket',
-    name: 'ticket',
-    component: () => import(/* webpackChunkName: "time" */ '../views/Ticket.vue')
-  },
-  {
-    path: '/sign-in',
-    name: 'sign-in',
-    component: () => import(/* webpackChunkName: "sign-in" */ '../views/SignIn.vue')
+    component: () => import('../views/About.vue')
   }
 ]
 
