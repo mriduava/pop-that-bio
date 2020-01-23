@@ -1,15 +1,33 @@
 <template>
-  <div class="main">
+  <div class="container-fluid">
+    <div
+      class="background"
+      :style="{
+          height: '90vh',
+          top: '-100px',
+          position: 'relative',
+          width: '100%',
+          backgroundColor: '#323232',
+          background: 'linear-gradient(to top, rgba(0, 0, 0, 0.9) 20%, rgba(197, 255, 209, 0.1) 90%)' + ',' +  
+                      'url(\'' + movieDetail.land_image + '\')',
+
+          backgroundPosition: 'center',
+          backgroundSize: 'cover'
+      }">
+      <span class="play-button"><i class="far fa-play-circle"></i></span>
+    </div>
+    <div class="trailer-container" v-if="showTrailer">
+      <iframe
+        width="700"
+        height="480"
+        :src="'https://www.youtube.com/embed/' + movieDetail.movieTrailer"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
+
     <div class="main-container">
-      <div class="trailer-container">
-        <iframe
-          width="700"
-          height="480"
-          :src="'https://www.youtube.com/embed/' + movieDetail.movieTrailer"
-          frameborder="0"
-          allowfullscreen
-        ></iframe>
-      </div>
+
       <div class="middle">
         <div class="poster">
           <img class="activator" :src="movieDetail.image" />
@@ -19,30 +37,34 @@
           <h6>{{ movieDetail.genre }}</h6>
           <h6>{{ movieDetail.length }} min | {{ movieDetail.age_limit}} år</h6>
         </div>
-        <div>
-          <router-link :to="'/book-ticket/' + movieDetail.slug">
-            <button class="btn red waves-effect">Biljetter</button>
+
+        <div class="ticket-button">
+          <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
+            <button class="btn btn-small red waves-effect">Biljetter</button>
           </router-link>
         </div>
+
       </div>
+
       <div class="last">{{ movieDetail.text }}</div>
     </div>
-    <showTime />
+    <!-- <showTime /> -->
   </div>
 </template>
 
 <script>
-import ShowTime from "@/components/ShowTime";
+// import ShowTime from "@/components/ShowTime";
 
 export default {
   name: "moviedetail",
   components: {
-    ShowTime
+    // ShowTime
   },
   data() {
     return {
       movies: this.$store.getters.movies,
-      movieDetail: []
+      movieDetail: [],
+      showTrailer: false
     };
   },
   methods: {
@@ -61,26 +83,48 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.main {
-  background-color: black;
+.container-fluid {
   color: white;
 }
 
+.play-button{
+  z-index: +10;
+  font-size: 60px;
+  position: relative;
+  top:50%;
+  left: 50%;
+  cursor: pointer;
+}
+
+.play-button:hover{
+  color: #ddd;
+}
+
 .main-container {
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-  margin: 0 auto;
-  padding-top: 50px;
+  position: relative;
+  top: -150px;
+  /* height: 400px; */
+  background: linear-gradient(to bottom, rgba(2, 2, 2, 0.966) 30%, rgba(20, 18, 18, 0.959), rgba(100, 100, 100, 0.6) 90%);
 }
 
 .middle {
+  position: relative;
+  top: -200px;
+  left: 10%;
+  max-width: 40vw;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-evenly;
-  padding: 20px 0;
+  justify-content: space-around;
 }
 
+.poster{
+  width: 100px;
+}
+
+.poster img{
+  width: 60%;
+}
 .movie-info {
   text-align: left;
 }

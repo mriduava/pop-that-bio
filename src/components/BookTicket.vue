@@ -63,7 +63,7 @@
         <h6>Antal besökare: {{ this.nrOfcustomer }}</h6>
       </div>
       <div class="valj">
-        <router-link to="/seatplan"><button class="waves-effect purple btn-large">Välj platser</button></router-link>
+        <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'"><button class="waves-effect purple btn-large">Välj platser</button></router-link>
       </div>
     </div>
   </div>

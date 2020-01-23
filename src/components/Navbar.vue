@@ -7,13 +7,6 @@
           <li class="nav-item">
             <a class="nav-link" @click.prevent="scrollTo('#movies')">MOVIES</a>
           </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/time">TIME</router-link>
-          </li>
-
-          <li class="nav-item">
-            <router-link to="/ticket" class="nav-link">TICKET</router-link>
-          </li>
 
           <li class="nav-item">
             <router-link to="/about" class="nav-link">ABOUT</router-link>

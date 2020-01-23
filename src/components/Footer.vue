@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid pt-5">
     <div class="row d-flex align-items-center">
-      <hr/>
+      <hr class="hr-style">
       <div class="col-md-12 col-lg-12">
         <div class="Gäster-list">
           <div class="grop">
@@ -149,5 +149,13 @@ a {
   color: #fff;
   float: left;
   margin: 100px auto;
+}
+
+.hr-style {
+  border: 0;
+  height: 1px;
+  margin: 0 0 10px 0;
+  background: #fff;
+  background-image: -webkit-linear-gradient(left,  rgba(204, 149, 178, 0.9), #fff, rgba(204, 149, 178, 0.9));
 }
 </style>

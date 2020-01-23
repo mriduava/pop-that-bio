@@ -10,8 +10,8 @@
               <div class="card-image waves-effect waves-block waves-light">
                 <img class="activator" :src="movie.image" />
                 <div class="card-text">
-                  <h5 class="white-text text-darken-4">{{movie.title}}</h5>
-                  <p class="white-text text-darken-4">{{movie.showDate}} | {{movie.showTime}}</p>
+                  <h5 class="white-text text-darken-4 valign center">{{movie.title}}</h5>
+                  <p class="white-text text-darken-4 center"> {{movie.showTime |  convertTime}}</p>
                 </div>
               </div>
             </div>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: "movies",
   data() {
@@ -37,6 +38,11 @@ export default {
   },
   created() {
     this.$store.dispatch("getDataFromFirebase");
+  },
+  filters: {
+    convertTime(){
+      return moment()
+    }
   }
 };
 </script>
@@ -71,7 +77,7 @@ export default {
   display: flex;
   margin-top: 5%;
   min-height: 233px;
-  max-height: 240px;
+  /* max-height: 240px; */
   border-radius: 3px;
   border: 2px solid rgb(243, 229, 236);
 }
@@ -88,8 +94,8 @@ export default {
   right: 0;
   background: linear-gradient(
     to bottom,
-    rgba(29, 106, 154, 0.05),
-    rgb(23, 56, 148)
+    rgba(29, 106, 154, 0.01),
+    rgba(212, 12, 179, 0.6)
   );
   color: #fff;
   visibility: hidden;
