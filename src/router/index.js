@@ -6,6 +6,7 @@ import DispMovies from '@/components/DispMovies'
 import Signin from '@/components/Signin'
 import Ticket from '@/components/Tickets'
 import BookTicket from '@/components/BookTicket'
+import SeatPlan from '@/components/SeatPlan'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/book-ticket/:slug',
     name: 'book-ticket',
     component: BookTicket
+  },
+  {
+    path: '/seatplan',
+    name: 'seatplan',
+    component: SeatPlan
   },
   {
     path: '/signin',

@@ -3,7 +3,7 @@
 **A movie ticket booking app**<br>
 
 >@authors: <br>
->         OLA WIEBE<br>         
+>         OLA WIEBE        
 >         KEIS ELHOUNI<br>
 >         MARKUS KARLSSON<br>
 >         HAMPUS NILSSON<br>
@@ -17,7 +17,7 @@
 **Look the demo, and if you like give a star on GitHub**
 >Demo site: Coming soon...<br>
 
-![](/screenshot/construction.gif)
+![](/screenshot/construction.jpg)
 
 ## FUNCTIONALITIES
 * Display movies list & brief info on image hover.

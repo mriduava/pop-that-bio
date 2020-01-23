@@ -63,7 +63,7 @@
         <h6>Antal besökare: {{ this.nrOfcustomer }}</h6>
       </div>
       <div class="valj">
-        <button class="waves-effect purple btn-large">Välj platser</button>
+        <router-link to="/seatplan"><button class="waves-effect purple btn-large">Välj platser</button></router-link>
       </div>
     </div>
   </div>
