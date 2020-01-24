@@ -1,10 +1,10 @@
 <template>
   <div class="container-fluid pt-5">
     <div class="row d-flex align-items-center">
-      <hr class="hr-style" />
+      <hr />
       <div class="col-md-12 col-lg-12">
         <div class="Gäster-list">
-          <div class="grop">
+          <div class="group1">
             <h5>Gäster</h5>
             <a href="https://www.w3schools.com/tags/default.asp">
               <p>Kundservice</p>
@@ -12,17 +12,8 @@
             <a href="https://www.w3schools.com/tags/default.asp">
               <p>Frågor och svar</p>
             </a>
-            <a href="https://www.w3schools.com/tags/default.asp">
-              <p>Boka större grupper</p>
-            </a>
-            <a href="https://www.w3schools.com/tags/default.asp">
-              <p>Mina reservationer</p>
-            </a>
-            <a href="https://www.w3schools.com/tags/default.asp">
-              <p>Lämna feedback</p>
-            </a>
           </div>
-          <div class="grop">
+          <div class="group2">
             <h5>Medlemmar</h5>
             <a href="https://www.w3schools.com/tags/default.asp">
               <p>Kundservice</p>
@@ -30,17 +21,9 @@
             <a href="https://www.w3schools.com/tags/default.asp">
               <p>Frågor och svar</p>
             </a>
-            <a href="https://www.w3schools.com/tags/default.asp">
-              <p>Boka större grupper</p>
-            </a>
-            <a href="https://www.w3schools.com/tags/default.asp">
-              <p>Mina reservationer</p>
-            </a>
-            <a href="https://www.w3schools.com/tags/default.asp">
-              <p>Lämna feedback</p>
-            </a>
           </div>
-          <div class="grop">
+
+          <div class="group3">
             <h5>Företag</h5>
             <a href="https://www.w3schools.com/tags/default.asp">
               <p>Kundservice</p>
@@ -48,17 +31,8 @@
             <a href="https://www.w3schools.com/tags/default.asp">
               <p>Frågor och svar</p>
             </a>
-            <a href="https://www.w3schools.com/tags/default.asp">
-              <p>Boka större grupper</p>
-            </a>
-            <a href="https://www.w3schools.com/tags/default.asp">
-              <p>Mina reservationer</p>
-            </a>
-            <a href="https://www.w3schools.com/tags/default.asp">
-              <p>Lämna feedback</p>
-            </a>
           </div>
-          <div class="grop">
+          <div class="group4">
             <h5>Företag</h5>
 
             <a href="https://www.w3schools.com/tags/default.asp">
@@ -66,15 +40,6 @@
             </a>
             <a href="https://www.w3schools.com/tags/default.asp">
               <p>Frågor och svar</p>
-            </a>
-            <a href="https://www.w3schools.com/tags/default.asp">
-              <p>Boka större grupper</p>
-            </a>
-            <a href="https://www.w3schools.com/tags/default.asp">
-              <p>Mina reservationer</p>
-            </a>
-            <a href="https://www.w3schools.com/tags/default.asp">
-              <p>Lämna feedback</p>
             </a>
           </div>
         </div>
@@ -97,7 +62,7 @@
 
 <script>
 export default {
-  name: "web-footer",
+  name: "footer",
   props: {
     msg: String
   }
@@ -128,17 +93,27 @@ a {
   /* max-width: 1300px; */
   margin: 40px auto 0 auto;
   padding: 20px 50px;
-  justify-content: space-between;
+  justify-content: space-around;
   display: flex;
+  flex-direction: column;
 }
+
+/*@media (min-width: 768px) {
+  .Gäster-list {
+    justify-content: first baseline;
+    display: flex;
+    flex-direction: row;
+  }
+}*/
 
 @media (min-width: 700px) {
   .Gäster-list {
     justify-content: first baseline;
     display: flex;
+    flex-direction: row;
   }
 }
-.grop1 {
+.group {
   padding: 20px;
   box-sizing: border-box;
   margin-bottom: 20px;
@@ -149,18 +124,5 @@ a {
   color: #fff;
   float: left;
   margin: 100px auto;
-}
-
-.hr-style {
-  border: 0;
-  height: 1px;
-  margin: 0 0 10px 0;
-  background: #fff;
-  background-image: -webkit-linear-gradient(
-    left,
-    rgba(204, 149, 178, 0.9),
-    #fff,
-    rgba(204, 149, 178, 0.9)
-  );
 }
 </style>
