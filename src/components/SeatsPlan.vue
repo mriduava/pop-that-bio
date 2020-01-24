@@ -3,7 +3,7 @@
     <div class="title-text">
       <h4 class>Platser</h4>
     </div>
-    <hr class="hr-style">
+    <hr class="hr-style" />
     <div class="seats-info">
       <div class="gray-circle"></div>
       <div>
@@ -11,7 +11,7 @@
       </div>
       <div class="purple-circle"></div>
       <div>
-        <span>Besatt</span>
+        <span>Upptagen</span>
       </div>
       <div class="blue-circle"></div>
       <div>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="buttons">
-      <router-link to="/">
+      <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
       <router-link to="/">
@@ -56,8 +56,22 @@ export default {
         [" ", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", " "],
         ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S"],
         ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S"]
-      ]
+      ],
+      movies: this.$store.getters.movies,
+      movieDetail: []
     };
+  },
+  methods: {
+    getMovie() {
+      this.movies.forEach(movie => {
+        if (movie.slug == this.$route.params.slug) {
+          this.movieDetail = movie;
+        }
+      });
+    }
+  },
+  created() {
+    this.getMovie();
   }
 };
 </script>
