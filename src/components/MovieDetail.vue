@@ -3,8 +3,8 @@
     <div
       class="background"
       :style="{
-          height: '90vh',
-          top: '-100px',
+          height: '100vh',
+          top: '-65px',
           position: 'relative',
           width: '100%',
           backgroundColor: '#323232',
@@ -14,7 +14,6 @@
           backgroundPosition: 'center',
           backgroundSize: 'cover'
       }">
-      <span class="play-button"><i class="far fa-play-circle"></i></span>
     </div>
     <div class="trailer-container" v-if="showTrailer">
       <iframe
@@ -26,27 +25,36 @@
       ></iframe>
     </div>
 
-    <div class="main-container">
+    <div class="moviedetail-container">
+      <div class="row middle">
 
-      <div class="middle">
-        <div class="poster">
-          <img class="activator" :src="movieDetail.image" />
-        </div>
-        <div class="movie-info">
-          <h4>{{ movieDetail.title }}</h4>
-          <h6>{{ movieDetail.genre }}</h6>
-          <h6>{{ movieDetail.length }} min | {{ movieDetail.age_limit}} år</h6>
+        <div class="col s6 movie-image">
+          <img :src="movieDetail.image" />
         </div>
 
-        <div class="ticket-button">
+        <div class="col s4 movie-info">
+          <span class="play-button">
+              <i class="far fa-play-circle"></i>
+          </span>
+          <h5>{{ movieDetail.title }}</h5>
+          <p>{{ movieDetail.genre }}</p>
+          <p>{{ movieDetail.length }} min | {{ movieDetail.age_limit}} år</p>
+        </div>
+
+        <div class="col s2 ticket-button">
           <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
-            <button class="btn btn-small red waves-effect">Biljetter</button>
+            <button class="btn btn-small pink darken-1 waves-effect">Biljetter</button>
           </router-link>
         </div>
-
       </div>
 
-      <div class="last">{{ movieDetail.text }}</div>
+      <hr class="hr-style"/>
+
+      <div class="row">
+        <div class="col s8 movie-text">
+          <p>{{ movieDetail.text }}</p>
+        </div>
+      </div>
     </div>
     <!-- <showTime /> -->
   </div>
@@ -87,56 +95,66 @@ export default {
   color: white;
 }
 
-.play-button{
-  z-index: +10;
-  font-size: 60px;
+.moviedetail-container {
   position: relative;
-  top:50%;
-  left: 50%;
-  cursor: pointer;
-}
-
-.play-button:hover{
-  color: #ddd;
-}
-
-.main-container {
-  position: relative;
-  top: -150px;
-  /* height: 400px; */
-  background: linear-gradient(to bottom, rgba(2, 2, 2, 0.966) 30%, rgba(20, 18, 18, 0.959), rgba(100, 100, 100, 0.6) 90%);
+  top: -130px;
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 2, 2, 0.966) 30%,
+    rgba(20, 18, 18, 0.959),
+    rgba(100, 100, 100, 0.6) 90%
+  );
 }
 
 .middle {
   position: relative;
-  top: -200px;
-  left: 10%;
-  max-width: 40vw;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-around;
+  top: -180px;
+  width: 60vw;
 }
 
-.poster{
-  width: 100px;
+.movie-image {
+  min-width: 120px;
+  max-width: 180px;
+  position: relative;
+  top: -50px;
 }
 
-.poster img{
-  width: 60%;
+.movie-image img {
+  width: 100%;
+  border: 2px solid #ddd;
 }
 .movie-info {
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }
+
+.play-button {
+  z-index: +1;
+  padding-top: 14px;
+  font-size: 50px;
+  font-weight: 100;
+}
+
+.play-button i:hover {
+  cursor: pointer;
+  color: rgb(85, 253, 93);
+}
+
+.ticket-button{
+  position: relative;
+  top: 146px;
+}
+
+
 
 .last {
   padding: 0 10%;
   text-align: left;
 }
 
-.poster {
-  width: 30%;
-}
+
 
 .card {
   position: relative;
