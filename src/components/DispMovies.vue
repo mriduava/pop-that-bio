@@ -11,7 +11,7 @@
                 <img class="activator" :src="movie.image" />
                 <div class="card-text">
                   <h5 class="white-text text-darken-4 valign center">{{movie.title}}</h5>
-                  <p class="white-text text-darken-4 center"> {{movie.showTime |  convertTime}}</p>
+                  <p class="white-text text-darken-4 center"> {{momentTime(movie.showTime.toMillis())}}</p>
                 </div>
               </div>
             </div>
@@ -31,6 +31,11 @@ export default {
       movies: []
     };
   },
+  methods: {
+    momentTime(time){
+      return moment(time).format('MMMM Do, HH:mm');
+    },
+  },
   computed: {
     moviesData() {
       return this.$store.state.data;
@@ -38,11 +43,6 @@ export default {
   },
   created() {
     this.$store.dispatch("getDataFromFirebase");
-  },
-  filters: {
-    convertTime(){
-      return moment()
-    }
   }
 };
 </script>
@@ -57,19 +57,16 @@ export default {
   margin-top: -199px;
   padding-top: 5%;
   width: 100%;
-  /* background: #2672ffb6;
-  background: linear-gradient(to top, #24243e7a, #302b63, #15026bdc);  */
   background: rgb(100, 10, 60);
-  background: -webkit-linear-gradient(to top, rgba(156, 36, 100, 0.9), #fbd3e9);
+  background: -webkit-linear-gradient(to botttom, rgba(156, 36, 100, 0.9), #fbd3e9);
   background: linear-gradient(
     to bottom,
-    rgba(94, 62, 79, 0.11) 0%,
+    rgba(255, 255, 255, 0.01) 1%,
     rgba(117, 9, 67, 1) 5%,
-    rgba(219, 166, 195, 0.99) 90%
+    rgba(219, 166, 195, 0.99) 100%
   );
 }
 .container {
-  /* width: 100%; */
   padding: 0 0 5% 0;
 }
 .card-image {
@@ -77,7 +74,6 @@ export default {
   display: flex;
   margin-top: 5%;
   min-height: 233px;
-  /* max-height: 240px; */
   border-radius: 3px;
   border: 2px solid rgb(243, 229, 236);
 }
@@ -88,14 +84,14 @@ export default {
 }
 .card-text {
   position: absolute;
-  top: 65%;
+  top: 70%;
   bottom: 0;
   left: 0;
   right: 0;
   background: linear-gradient(
     to bottom,
-    rgba(29, 106, 154, 0.01),
-    rgba(212, 12, 179, 0.6)
+    rgba(29, 106, 154, 0.01) 5%,
+    rgba(117, 9, 67, 0.9) 65%
   );
   color: #fff;
   visibility: hidden;
@@ -109,7 +105,6 @@ export default {
 h1 {
   text-align: center;
   font-family: borntogrille;
-  /* padding-top: 3%; */
   color: #fc9dd1;
   text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
 }

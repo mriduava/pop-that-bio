@@ -1,5 +1,6 @@
 <template>
   <div class='carousel-view'>
+    
     <transition-group
       class='carousel'
       tag="div">
@@ -10,10 +11,12 @@
         <h4> {{ slide.title }} </h4>
       </div>
     </transition-group>
+
     <div class='carousel-controls'>
       <button class='carousel-controls__button' @click="previous">prev</button>
       <button class='carousel-controls__button' @click="next">next</button>
     </div>
+
   </div>
 </template>
 
@@ -22,6 +25,7 @@ export default {
   name: 'about',
   data() {
     return {
+      slideImages: [],
       slides: [
         {
           title: "I am Slide A",
@@ -54,8 +58,18 @@ export default {
     previous() {
       const last = this.slides.pop();
       this.slides = [last].concat(this.slides);
+    },
+    autoSlide(){
+      for (let i = 0; i < this.slides.length; i++) {
+        const first = this.slides.shift();
+        this.slides = this.slides.concat(first);
+        
+      }
     }
-  }
+  },
+  created() {
+    // setInterval(this.previous, 1000)
+  },
 };
 </script>
 
