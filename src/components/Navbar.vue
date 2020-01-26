@@ -76,11 +76,17 @@ nav{
   nav{
     padding: 0;
   }
+  .brand-logo{
+    font-size: 2rem;
+  }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
   nav{
     padding: 0;
+  }
+  .brand-logo{
+    font-size: 1.9rem;
   }
 }
   
