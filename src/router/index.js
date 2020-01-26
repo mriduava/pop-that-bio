@@ -4,8 +4,8 @@ import Home from '../views/Home.vue'
 import MovieDetail from '@/components/MovieDetail.vue'
 import DispMovies from '@/components/DispMovies'
 import Signin from '@/components/Signin'
-import Ticket from '@/components/Tickets'
 import BookTicket from '@/components/BookTicket'
+import SeatsPlan from '@/components/SeatsPlan'
 
 Vue.use(VueRouter)
 
@@ -26,14 +26,14 @@ const routes = [
     component: MovieDetail
   },
   {
-    path: '/ticket',
-    name: 'ticket',
-    component: Ticket
+    path: '/movies/:slug/ticket',
+    name: 'bookticket',
+    component: BookTicket
   },
   {
-    path: '/book-ticket/:slug',
-    name: 'book-ticket',
-    component: BookTicket
+    path: '/movies/:slug/ticket/seatsplan',
+    name: 'seatsplan',
+    component: SeatsPlan
   },
   {
     path: '/signin',
