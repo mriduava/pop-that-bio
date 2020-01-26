@@ -5,7 +5,7 @@
         <router-link to="/"><a class="brand-logo">POP THAT BIO</a></router-link>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li class="nav-item">
-            <a class="nav-link" @click.prevent="scrollTo('#movies')">MOVIES</a>
+            <router-link to="/movies" class="nav-link">MOVIES</router-link>
           </li>
 
           <li class="nav-item">
@@ -20,16 +20,6 @@
     </nav>
   </div>
 </template>
-
-<script>
-export default {
-  methods: {
-    scrollTo(selector){
-      document.querySelector(selector).scrollIntoView({behavior: 'smooth'})
-    }
-  }
-}
-</script>
 
 <style lang="css" scoped>
 nav{

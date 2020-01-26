@@ -65,17 +65,17 @@
         </div>
       </div>
     </div>
-    <!-- <showTime /> -->
+    <showTime />
   </div>
 </template>
 
 <script>
-// import ShowTime from "@/components/ShowTime";
+import ShowTime from "@/components/ShowTime";
 
 export default {
   name: "moviedetail",
   components: {
-    // ShowTime
+    ShowTime
   },
   data() {
     return {

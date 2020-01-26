@@ -28,7 +28,7 @@
     </transition-group>
 
     <div class="arrow">
-        <a href="#downArrow"><i class="fas fa-angle-double-down"></i></a>
+      <a class="arrow-link" @click.prevent="scrollTo('#movies')"><i class="fas fa-angle-double-down"></i></a>
     </div>
   </div>
 </template>
@@ -51,7 +51,11 @@ export default {
   methods: {
     formatTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
-    }
+    },
+    scrollTo(selector){
+      document.querySelector(selector).scrollIntoView({behavior: 'smooth'})
+    },
+  
     // slideImage() {
     //   for(let i=0; i<this.movies; i++){
     //     this.images.push(this.movies[i].land_image)
@@ -140,7 +144,8 @@ export default {
 }
 
 .arrow>a>i:hover{
-  color:greenyellow;
+  cursor: pointer;
+  color: greenyellow;
 }
 
 .arrow{
