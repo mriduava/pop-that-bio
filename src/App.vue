@@ -11,11 +11,16 @@
 <script>
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import M from 'materialize-css'
+
 export default {
   name: 'app',
   components: {
     Navbar,
     Footer
+  },
+  mounted() {
+    M.AutoInit();
   }
 }
 </script>
