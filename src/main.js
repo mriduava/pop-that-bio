@@ -10,6 +10,9 @@ Vue.$M = Vue.prototype.$M
 
 Vue.config.productionTip = false
 
+Vue.prototype.$M = M
+Vue.$M = Vue.prototype.$M
+
 new Vue({
   router,
   store,

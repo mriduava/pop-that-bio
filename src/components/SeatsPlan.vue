@@ -37,7 +37,7 @@
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
       <router-link to="/">
-        <button class="btn btn-small waves-effect waves-light">Fortsätt</button>
+        <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Fortsätt</button>
       </router-link>
     </div>
   </div>
@@ -45,6 +45,7 @@
 
 <script>
 export default {
+ // props: ['numberOfChildren', 'numberOfAdults', 'numberOfSeniors'],
   data() {
     return {
       grid: [
@@ -68,6 +69,20 @@ export default {
           this.movieDetail = movie;
         }
       });
+    },
+    completeBooking(){
+     let bookingNumber = Math.floor(Math.random() * 1000) + '-' + Math.floor(Math.random() * 100000)
+     let tickets = this.$store.getters.tickets
+     let booking = {
+       collection: 'bookings',
+       bookingNumber: bookingNumber,
+       numberOfAdults: tickets.numberOfAdults,
+       numberOfChildren: tickets.numberOfChildren,
+       numberOfSeniors: tickets.numberOfSeniors
+     }
+      this.$store.dispatch('sendToFirebase', booking)
+      alert('Bokningsnummer: ' + bookingNumber)
+      
     }
   },
   created() {

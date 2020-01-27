@@ -54,7 +54,7 @@ export default {
 }
 
 .disp-movies {
-  margin-top: -199px;
+  /*margin-top: -199px;*/
   padding-top: 5%;
   width: 100%;
   background: rgb(100, 10, 60);
