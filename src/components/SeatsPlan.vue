@@ -37,7 +37,7 @@
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
       <router-link to="/">
-        <button class="btn btn-small waves-effect waves-light">Fortsätt</button>
+        <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Fortsätt</button>
       </router-link>
     </div>
   </div>
@@ -68,6 +68,12 @@ export default {
           this.movieDetail = movie;
         }
       });
+    },
+    completeBooking(){
+      let numberOne = Math.floor(Math.random() * 1000)
+      let numberTwo = Math.floor(Math.random() * 100000)
+      let bookingNumber = numberOne + '-' + numberTwo
+      alert(bookingNumber)
     }
   },
   created() {
