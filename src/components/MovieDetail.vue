@@ -65,17 +65,17 @@
         </div>
       </div>
     </div>
-    <!-- <showTime /> -->
+    <ShowTime />
   </div>
 </template>
 
 <script>
-// import ShowTime from "@/components/ShowTime";
+import ShowTime from "@/components/ShowTime";
 
 export default {
   name: "moviedetail",
   components: {
-    // ShowTime
+    ShowTime
   },
   data() {
     return {
@@ -104,7 +104,7 @@ export default {
 
 <style lang="css" scoped>
 .container-fluid {
-  color: white;
+  color: #333;
 }
 
 .moviedetail-container {

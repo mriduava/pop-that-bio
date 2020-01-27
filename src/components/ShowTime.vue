@@ -2,7 +2,7 @@
   <div class="booking-section">
     <h3 class="book-tickets-title">Boka Biljetter</h3>
     <hr />
-
+    <!--<h1>TA BORT {{ screeningDetail.movieId }}SENARE</h1>-->
     <div class="dates">
       <div class="dropdown-menu">
         <h4 class="selected-dropdown-item" @click="showMenu = !showMenu">
@@ -29,11 +29,10 @@
     <div class="available-times">
       <ul style="list-style-type:none;">
         <router-link class="link" to="/book-ticket">
-          <li
-            class="show-time-item"
-            :key="time"
-            v-for="time in times"
-          >{{time.startTime}}<p>{{movieDetail.genre}}</p></li>
+          <li class="show-time-item" :key="time" v-for="time in times">
+            {{time.startTime}}
+            <p>{{movieDetail.genre}}</p>
+          </li>
         </router-link>
         <!-- <li class="show-time-item" :key="time" v-for="time in times">
           {{time.startTime}}
@@ -86,18 +85,32 @@ export default {
         month: this.getCorrectMonth(1)
       },
       showMenu: false,
-      movie: this.$store.state.data,
+      movies: this.$store.getters.movies,
       movieDetail: []
+      //screening: this.$store.state.screeningData,
+      //screeningDetail: []
     };
   },
   methods: {
     getMovie() {
-      this.movie.forEach(e => {
-        if (e.slug == this.$route.params.slug) {
-          this.movieDetail = e;
+      this.movies.forEach(movie => {
+        if (movie.slug == this.$route.params.slug) {
+          this.movieDetail = movie;
         }
       });
     },
+
+    // getScreening() {
+    //     this.screening.forEach(e => {
+    //         window.console.log(e)
+    //         window.console.log("HALLÅ")
+
+    //         if (e.movieId == this.movieDetail.datasnapshot.key) {
+    //             this.screeningDetail = e;
+
+    //         }
+    //     })
+    // },
 
     getCorrectDay(index) {
       let date = this.getSpecifiedDate(index);
@@ -144,6 +157,7 @@ export default {
 
   created() {
     this.getMovie();
+    //this.getScreening();
   }
 };
 </script>
@@ -195,9 +209,9 @@ export default {
   font-size: 40px;
 }
 .show-time-item p {
-    margin-left: 50px;
-    display: inline-block;
-    font-size: 30px;
+  margin-left: 50px;
+  display: inline-block;
+  font-size: 30px;
 }
 .link {
   background-color: red;
