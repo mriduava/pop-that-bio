@@ -63,9 +63,8 @@
         <h6>Antal besökare: {{ this.nrOfcustomer }}</h6>
       </div>
       <div class="valj">
-        <router-link :to="{path: 'movies/' + movieDetail.slug + '/ticket/seatsplan', props: {counterChild, counterOrd, counterPen}}">
-        // "'/movies/' + movieDetail.slug + '/ticket/seatsplan'"
-          <button class="btn btn-large waves-effect waves-light">Välj platser</button>
+        <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
+          <button class="btn btn-large waves-effect waves-light" @click="updateTickets">Välj platser</button>
         </router-link>
       </div>
     </div>
@@ -101,7 +100,14 @@ export default {
         }
       });
     },
-
+    updateTickets(){
+      let tickets = {
+        numberOfChildren: this.counterChild,
+        numberOfAdults: this.counterOrd,
+        numberOfSeniors: this.counterPen
+      }
+      this.$store.dispatch('updateTickets', tickets)
+    },
     increaseOrd() {
       if (
         this.counterOrd + this.counterPen + this.counterChild < 8 &&

@@ -45,7 +45,7 @@
 
 <script>
 export default {
-  props: [numberOfChildren, numberOfAdults, numberOfSeniors],
+ // props: ['numberOfChildren', 'numberOfAdults', 'numberOfSeniors'],
   data() {
     return {
       grid: [
@@ -72,17 +72,15 @@ export default {
     },
     completeBooking(){
      let bookingNumber = Math.floor(Math.random() * 1000) + '-' + Math.floor(Math.random() * 100000)
-     /*
+     let tickets = this.$store.getters.tickets
      let booking = {
        collection: 'bookings',
        bookingNumber: bookingNumber,
-       numberOfAdults: 0,
-       numberOfChildren: 0,
-       numberOfSeniors: 0,
+       numberOfAdults: tickets.numberOfAdults,
+       numberOfChildren: tickets.numberOfChildren,
+       numberOfSeniors: tickets.numberOfSeniors
      }
       this.$store.dispatch('sendToFirebase', booking)
-      */
-      alert(this.numberOfChildren)
       alert('Bokningsnummer: ' + bookingNumber)
       
     }
