@@ -15,6 +15,9 @@ export default {
   components: {
     Carousel,
     DispMovies
+  },
+  methods: {
+    
   }
 }
 </script>
