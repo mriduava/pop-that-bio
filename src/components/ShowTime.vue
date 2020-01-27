@@ -25,25 +25,41 @@
       </div>
     </div>
 
+    <ul>
+      <li
+        :key="screeningDetail"
+        v-for="screeningDetail in screeningDetails"
+      >{{ momentTime(screeningDetail.startTime.toMillis())}}</li>
+    </ul>
     <!-- Lista ut; hämta från Firebase -->
     <div class="available-times">
-      <ul style="list-style-type:none;">
-        <router-link class="link" to="/book-ticket">
+      <ul>
+        <li :key="time" v-for="time in times">
+          {{ time.startTime }}
+          {{movieDetail.genre}}
+          <!-- Tid , salong              Boka-->
+          <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
+            <button>Boka</button>
+          </router-link>
+        </li>
+      </ul>
+
+      <!-- <ul style="list-style-type:none;">
+        <router-link class="link" to="/movies/:slug/ticket">
           <li class="show-time-item" :key="time" v-for="time in times">
             {{time.startTime}}
             <p>{{movieDetail.genre}}</p>
+            <button>Boka</button>
           </li>
         </router-link>
-        <!-- <li class="show-time-item" :key="time" v-for="time in times">
-          {{time.startTime}}
-          <router-link class="link" to="/book-ticket">Boka</router-link>
-        </li>-->
-      </ul>
+      </ul>-->
     </div>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: "showtime",
   data() {
@@ -86,12 +102,19 @@ export default {
       },
       showMenu: false,
       movies: this.$store.getters.movies,
-      movieDetail: []
-      //screening: this.$store.state.screeningData,
-      //screeningDetail: []
+      movieDetail: [],
+      screenings: this.$store.state.scrData,
+      screeningDetails: [],
+      screenTimes: []
     };
   },
   methods: {
+    momentTime(time) {
+      return moment(time).format("MMMM Do, HH:mm");
+    },
+    otherMomentTime(time) {
+        return moment(time).format("HH:mm")
+    },
     getMovie() {
       this.movies.forEach(movie => {
         if (movie.slug == this.$route.params.slug) {
@@ -100,17 +123,14 @@ export default {
       });
     },
 
-    // getScreening() {
-    //     this.screening.forEach(e => {
-    //         window.console.log(e)
-    //         window.console.log("HALLÅ")
-
-    //         if (e.movieId == this.movieDetail.datasnapshot.key) {
-    //             this.screeningDetail = e;
-
-    //         }
-    //     })
-    // },
+    getScreening() {
+      this.screenings.forEach(e => {
+        if (e.movieId == this.movieDetail.id) {
+          this.screeningDetails.push(e);
+          //this.screeningDetails = e;
+        }
+      });
+    },
 
     getCorrectDay(index) {
       let date = this.getSpecifiedDate(index);
@@ -157,12 +177,25 @@ export default {
 
   created() {
     this.getMovie();
-    //this.getScreening();
+    this.getScreening();
+    this.updateTime();
+  },
+  watch: {
+      screeningDetails(val) {
+        window.console.log(val[0])
+        var time = this.momentTime(val[0].startTime.toMillis())
+        window.console.log(time)
+        screenTimes.push(time)
+      }
   }
 };
 </script>
 
 <style scoped>
+.book-tickets-title {
+  text-align: center;
+}
+
 .dates {
   display: inline-flex;
   justify-content: space-around;
@@ -182,6 +215,11 @@ export default {
 }
 .available-times h4 {
   margin: 2px;
+}
+
+.available-times p {
+  color: black;
+  font-size: 5px;
 }
 
 .time {
