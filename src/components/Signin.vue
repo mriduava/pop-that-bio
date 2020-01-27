@@ -1,7 +1,29 @@
 <template>
  <div>
-    <h1>Sign In</h1>
-    <button @click="test">Click me!!!</button>
+   <h3>Sig In</h3>
+    <div class="row">
+    <form class="col s3 offset-s4 card-panel purple lighten-5">
+      <div class="row">
+        
+        <div class="input-field col s6 ">
+          <input  id="User name" type="text" class="validate">
+          <label for="User name">User Name</label>
+        </div>
+       
+      </div>
+    
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="password" type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+      </div>
+        <div class="col s6 offset-s8">
+         <button @click.prevent="test () " >Logge in</button>
+          
+         </div>
+    </form>
+  </div>
   </div>
 </template>
 
@@ -30,6 +52,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
   
 </style>
 
