@@ -1,7 +1,14 @@
 <template>
   <div class="carousel-container">
-    <transition-group>
-      <div
+
+    <div class="carousel carousel-slider" >
+      <a class="carousel-item" v-for="(movie, index) in moviesData" :key="index">
+        <img :src="movie.land_image" />
+      </a>
+    </div>
+
+    <!-- <transition-group> -->
+      <!-- <div
         v-for="(movie, index) in moviesData.slice(0, 1)"
         :key="index"
         id="slideshow"
@@ -24,8 +31,8 @@
           <hr class="hr-style m-0 p-0" />
           <h6 class="">{{formatTime(movie.showTime.toMillis())}}</h6>
         </div>
-      </div>
-    </transition-group>
+      </div> -->
+    <!-- </transition-group> -->
 
     <div class="arrow">
       <a class="arrow-link" @click.prevent="scrollTo('#movies')"><i class="fas fa-angle-double-down"></i></a>
@@ -35,6 +42,7 @@
 
 <script>
 import moment from "moment";
+
 export default {
   name: "carousel",
   data() {
@@ -43,9 +51,19 @@ export default {
       index: 0
     };
   },
+  mounted() {
+
+    let elems = document.querySelectorAll('.carousel');
+    let instances = this.$M.Carousel.init(elems, {
+      fullWidth: true, 
+      autoplay: true
+    });
+    window.console.log(instances)
+
+  },
   computed: {
     moviesData() {
-      return this.$store.getters.movies;
+      return this.$store.state.data;
     }
   },
   methods: {
@@ -72,6 +90,8 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+
 .carousel-container {
   position: relative;
 }
