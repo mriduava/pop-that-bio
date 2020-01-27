@@ -70,11 +70,20 @@ export default {
       });
     },
     completeBooking(){
-      let numberOne = Math.floor(Math.random() * 1000)
-      let numberTwo = Math.floor(Math.random() * 100000)
-      let bookingNumber = numberOne + '-' + numberTwo
-      alert(bookingNumber)
-      
+     // let numberOne = Math.floor(Math.random() * 1000)
+     // let numberTwo = Math.floor(Math.random() * 100000)
+     // let bookingNumber = numberOne + '-' + numberTwo
+     let bookingNumber = Math.floor(Math.random() * 1000) + '-' + Math.floor(Math.random() * 100000)
+     let purchase = {
+       collection: 'bookings',
+       bookingNumber: bookingNumber,
+       numberOfAdults: 0,
+       numberOfChildren: 0,
+       numberOfSeniors: 0,
+     }
+      this.$store.dispatch('sendToFirebase', purchase)
+      alert('Bokningsnummer: ' + bookingNumber)
+
     }
   },
   created() {
