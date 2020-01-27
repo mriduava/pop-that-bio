@@ -65,7 +65,7 @@
         </div>
       </div>
     </div>
-    <showTime />
+    <ShowTime />
   </div>
 </template>
 
@@ -104,7 +104,7 @@ export default {
 
 <style lang="css" scoped>
 .container-fluid {
-  color: white;
+  color: #333;
 }
 
 .moviedetail-container {
