@@ -1,6 +1,6 @@
 <template>
  <div>
-   <h3>Sig In</h3>
+   <h3>Sign In</h3>
     <div class="row">
     <form class="col s3 offset-s4 card-panel purple lighten-5">
       <div class="row">
@@ -19,7 +19,7 @@
         </div>
       </div>
         <div class="col s6 offset-s8">
-         <button @click.prevent="test () " >Logge in</button>
+         <button class="btn" @click.prevent="test () " >Logga in</button>
           
          </div>
     </form>
