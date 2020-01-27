@@ -74,6 +74,7 @@ export default {
       let numberTwo = Math.floor(Math.random() * 100000)
       let bookingNumber = numberOne + '-' + numberTwo
       alert(bookingNumber)
+      
     }
   },
   created() {
