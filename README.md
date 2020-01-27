@@ -1,22 +1,23 @@
 # POP THAT BIO
 
 **A movie ticket booking app**<br>
-<pre>
-@authors: Ola Wiebe<br>         
-          Keis Elhouni<br>
-          Markus Karlsson<br>
-          Hampus Nilsson<br>
-          Henrik Jangefelt<br>
-          Naim Arif<br>
-          Maruf Ahmed<br>
 
-@since:   JANUARY 2020<br>
-</pre>
+>@authors: <br>
+>         OLA WIEBE        
+>         KEIS ELHOUNI<br>
+>         MARKUS KARLSSON<br>
+>         HAMPUS NILSSON<br>
+>         HENRIK JANGEFELT<br>
+>         NAIM ARIF<br>
+>         MARUF AHMED<br>
+
+>@since:  JANUARY 2020<br>
+
 
 **Look the demo, and if you like give a star on GitHub**
 >Demo site: Coming soon...<br>
 
-![](/screenshot/construction.gif)
+![](/screenshot/construction.jpg)
 
 ## FUNCTIONALITIES
 * Display movies list & brief info on image hover.
