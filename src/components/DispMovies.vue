@@ -11,7 +11,9 @@
                 <img class="activator" :src="movie.image" />
                 <div class="card-text">
                   <h5 class="white-text text-darken-4 valign center">{{movie.title}}</h5>
-                  <p class="white-text text-darken-4 center"> {{momentTime(movie.showTime.toMillis())}}</p>
+                  <p
+                    class="white-text text-darken-4 center"
+                  >{{momentTime(movie.showTime.toMillis())}}</p>
                 </div>
               </div>
             </div>
@@ -23,7 +25,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from "moment";
 export default {
   name: "movies",
   data() {
@@ -32,9 +34,9 @@ export default {
     };
   },
   methods: {
-    momentTime(time){
-      return moment(time).format('MMMM Do, HH:mm');
-    },
+    momentTime(time) {
+      return moment(time).format("MMMM Do, HH:mm");
+    }
   },
   computed: {
     moviesData() {
@@ -58,7 +60,11 @@ export default {
   padding-top: 5%;
   width: 100%;
   background: rgb(100, 10, 60);
-  background: -webkit-linear-gradient(to botttom, rgba(156, 36, 100, 0.9), #fbd3e9);
+  background: -webkit-linear-gradient(
+    to botttom,
+    rgba(156, 36, 100, 0.9),
+    #fbd3e9
+  );
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0.01) 1%,
@@ -113,6 +119,11 @@ h1 {
   height: 1px;
   margin: 0 0 10px 0;
   background: #fff;
-  background-image: -webkit-linear-gradient(left, rgba(133, 23, 81, 0.9), #ddd, rgba(133, 23, 81, 0.9));
+  background-image: -webkit-linear-gradient(
+    left,
+    rgba(133, 23, 81, 0.9),
+    #ddd,
+    rgba(133, 23, 81, 0.9)
+  );
 }
 </style>
