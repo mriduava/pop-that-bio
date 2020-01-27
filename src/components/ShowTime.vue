@@ -25,17 +25,17 @@
       </div>
     </div>
 
-    <ul>
+    <!-- <ul>
       <li
         :key="screeningDetail"
         v-for="screeningDetail in screeningDetails"
       >{{ momentTime(screeningDetail.startTime.toMillis())}}</li>
-    </ul>
-    <!-- Lista ut; hämta från Firebase -->
+    </ul>-->
+
     <div class="available-times">
-      <ul>
-        <li :key="time" v-for="time in times">
-          {{ time.startTime }}
+      <ul style="list-style-type:none;">
+        <li :key="screenTime" v-for="screenTime in screenTimes">
+          {{ screenTime }}
           {{movieDetail.genre}}
           <!-- Tid , salong              Boka-->
           <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
@@ -43,22 +43,12 @@
           </router-link>
         </li>
       </ul>
-
-      <!-- <ul style="list-style-type:none;">
-        <router-link class="link" to="/movies/:slug/ticket">
-          <li class="show-time-item" :key="time" v-for="time in times">
-            {{time.startTime}}
-            <p>{{movieDetail.genre}}</p>
-            <button>Boka</button>
-          </li>
-        </router-link>
-      </ul>-->
     </div>
   </div>
 </template>
 
 <script>
-import moment from 'moment'
+import moment from "moment";
 
 export default {
   name: "showtime",
@@ -112,9 +102,18 @@ export default {
     momentTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
     },
-    otherMomentTime(time) {
-        return moment(time).format("HH:mm")
+    convertHourlyTime(time) {
+      return moment(time).format("HH:mm");
     },
+
+    // Format timeStamp to day
+    convertToDayTime(time) {
+      return moment(time).format(" D");
+    },
+    convertToMonthTime(time) {
+      return moment(time).format("MMMM");
+    },
+
     getMovie() {
       this.movies.forEach(movie => {
         if (movie.slug == this.$route.params.slug) {
@@ -134,11 +133,13 @@ export default {
 
     getCorrectDay(index) {
       let date = this.getSpecifiedDate(index);
-      return ("0" + date.getDate()).slice(-2);
+      return date.getDate();
+      //return ("0" + date.getDate()).slice(-2);
     },
     getCorrectMonth(index) {
       let date = this.getSpecifiedDate(index);
-      return ("0" + (date.getMonth() + 1)).slice(-2);
+      return date.getMonth() + 1;
+      //return ("0" + (date.getMonth() + 1)).slice(-2);
     },
 
     getCorrectDayOfWeek(index) {
@@ -169,24 +170,98 @@ export default {
       return tomorrow;
     },
 
+    getCurrentMonth(number) {
+      switch (number) {
+        case 1:
+          return "January";
+        case 2:
+          return "February";
+        case 3:
+          return "Mars";
+        case 4:
+          return "April";
+        case 5:
+          return "May";
+        case 6:
+          return "June";
+        case 7:
+          return "July";
+        case 8:
+          return "August";
+        case 9:
+          return "September";
+        case 10:
+          return "October";
+        case 11:
+          return "November";
+        case 12:
+          return "December";
+      }
+    },
+
+    // getCurrentDay(number) {
+    //   switch (number) {
+    //     case 0:
+    //       return "Monday";
+    //     case 1:
+    //       return "Thuesday";
+    //     case 2:
+    //       return "Wednesday";
+    //     case 3:
+    //       return "Thursday";
+    //     case 4:
+    //       return "Friday";
+    //     case 5:
+    //       return "Saturday";
+    //     case 6:
+    //       return "Sunday";
+    //   }
+    // },
+
     updateChosenDate(index) {
       this.chosenDate = this.dates[index];
       this.showMenu = false;
+    },
+    addScreenTimes() {
+      this.screenTimes = [];
+
+      let chosenMonth = this.getCurrentMonth(this.chosenDate.month);
+      let chosenDay = this.chosenDate.day;
+      window.console.log(chosenDay + " chosenday!");
+
+      for (let s in this.screeningDetails) {
+        if (
+          this.convertToMonthTime(
+            this.screeningDetails[s].startTime.toMillis()
+          ) == chosenMonth &&
+          this.convertToDayTime(
+            this.screeningDetails[s].startTime.toMillis()
+          ) == chosenDay
+        ) {
+          window.console.log("Found movie for given date");
+
+          this.screenTimes.push(
+            this.convertHourlyTime(
+              this.screeningDetails[s].startTime.toMillis()
+            )
+          );
+        }
+      }
+      window.console.log(this.screenTimes);
     }
   },
 
   created() {
     this.getMovie();
     this.getScreening();
-    this.updateTime();
+    this.addScreenTimes();
   },
   watch: {
-      screeningDetails(val) {
-        window.console.log(val[0])
-        var time = this.momentTime(val[0].startTime.toMillis())
-        window.console.log(time)
-        screenTimes.push(time)
-      }
+    chosenDate() {
+      window.console.log("Changed date!");
+      this.addScreenTimes();
+      window.console.log(this.chosenDate.day + " DAY!");
+    }
   }
 };
 </script>
