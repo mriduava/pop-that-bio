@@ -1,9 +1,12 @@
 <template>
+
   <div class="container-fluid navbar navbar-fixed">
     <nav>
+      <nav class="nav-extended">
       <div class="nav-wrapper">
-        <router-link to="/"><a class="brand-logo">POP THAT BIO</a></router-link>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <a href="#!" class="brand-logo">POP THAT BIO</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons"></i></a>
+      <ul class="right hide-on-med-and-down">
           <li class="nav-item">
             <router-link to="/movies" class="nav-link">MOVIES</router-link>
           </li>
@@ -17,7 +20,24 @@
           </li>
         </ul>
       </div>
+       <div class="nav-content">
+      <ul class="tabs tabs-transparent">
+        <li class="nav-item">
+            <router-link to="/movies" class="nav-link">MOVIES</router-link>
+          </li>
+
+          <li class="nav-item">
+            <router-link to="/about" class="nav-link">ABOUT</router-link>
+          </li>
+
+          <li class="nav-item">
+            <router-link class="nav-link" to="/signin">SIGN IN</router-link>
+          </li>
+      </ul>
+    </div>
+  </nav>
     </nav>
+   
   </div>
 </template>
 
@@ -26,6 +46,8 @@
   font-family: borntogrille;
   src: url("../assets/fonts/borntogrille.otf");
 }
+
+
 
 nav{
   padding: 0 14.8%;

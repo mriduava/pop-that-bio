@@ -7,6 +7,8 @@ import 'materialize-css/dist/css/materialize.css'
 
 Vue.config.productionTip = false
 
+
+
 new Vue({
   router,
   store,
