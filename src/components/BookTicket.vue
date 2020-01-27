@@ -63,7 +63,8 @@
         <h6>Antal besökare: {{ this.nrOfcustomer }}</h6>
       </div>
       <div class="valj">
-        <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
+        <router-link :to="{path: 'movies/' + movieDetail.slug + '/ticket/seatsplan', props: {counterChild, counterOrd, counterPen}}">
+        // "'/movies/' + movieDetail.slug + '/ticket/seatsplan'"
           <button class="btn btn-large waves-effect waves-light">Välj platser</button>
         </router-link>
       </div>
