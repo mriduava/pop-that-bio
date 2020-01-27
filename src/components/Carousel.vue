@@ -1,5 +1,12 @@
 <template>
   <div class="carousel-container">
+
+    <!-- <div class="carousel carousel-slider">
+      <a class="carousel-item" v-for="(movie, index) in moviesData" :key="index">
+        <img :src="movie.land_image" />
+      </a>
+    </div> -->
+
     <transition-group>
       <div
         v-for="(movie, index) in moviesData.slice(0, 1)"

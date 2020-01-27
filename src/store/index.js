@@ -11,10 +11,10 @@ export default new Vuex.Store({
     data: []
   },
   getters: {
-    movies: (state) => {
+    movies(state){
       return state.data
     },
-    tickets: (state) => {
+    tickets(state){
       return state.tickets
     }
   },
