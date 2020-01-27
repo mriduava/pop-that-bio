@@ -63,7 +63,9 @@
         <h6>Antal besökare: {{ this.nrOfcustomer }}</h6>
       </div>
       <div class="valj">
-        <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'"><button class="waves-effect purple btn-large">Välj platser</button></router-link>
+        <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
+          <button class="btn btn-large waves-effect waves-light">Välj platser</button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -186,6 +188,10 @@ export default {
   flex-direction: row;
   /*border: 1px solid black;*/
   align-items: center;
+}
+
+.btn {
+  background: rgba(202, 8, 112, 0.692);
 }
 
 .valj {
