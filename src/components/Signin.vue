@@ -1,8 +1,13 @@
 <template>
  <div>
-   <h3>Sig In</h3>
+ <h1></h1>
+   
     <div class="row">
-    <form class="col s3 offset-s4 card-panel purple lighten-5">
+    <form class="col s3 offset-s4 card-panel purple lighten-5 truncate">
+        <div class="brand-logo">
+             <h4 class="pink-text text-pink darken-4">POP THAT BIO</h4>
+             <h2 class="pink-text text-pink darken-4">Sign In</h2>
+   </div>
       <div class="row">
         
         <div class="input-field col s6 ">
@@ -19,7 +24,7 @@
         </div>
       </div>
         <div class="col s6 offset-s8">
-         <button @click.prevent="test () " >Logge in</button>
+         <button class="btn pink accent-1" @click.prevent="test () " >Logga in</button>
           
          </div>
     </form>
@@ -52,7 +57,19 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
+.brand-logo{
+  font-size: 2.5rem;
+  padding-left: 1.5%;
+  font-family:Arial, Helvetica, sans-serif;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+ text-align: center;
+   text-shadow: 4px 6px 5px black;
+}
+h2{
+   text-shadow: 4px 6px 5px black;
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
   
 </style>
 
