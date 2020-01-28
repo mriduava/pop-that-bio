@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import MovieDetail from '@/components/MovieDetail.vue'
-import DispMovies from '@/components/DispMovies'
+import MovieDetail from '@/components/MovieDetail'
+import MoviesList from '@/components/MoviesList'
 import Signin from '@/components/Signin'
 import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
@@ -18,7 +18,7 @@ const routes = [
   {
     path: '/movies',
     name: 'dispmovies',
-    component: DispMovies
+    component: MoviesList
   },
   {
     path: '/movies/:slug',
@@ -47,8 +47,13 @@ const routes = [
   }
 ]
 
+
+
 const router = new VueRouter({
   routes,
+  scrollBehavior () {
+  return { x: 0, y: 0 }
+},
   mode: "history",
   base: process.env.BASE_URL
 })
