@@ -46,6 +46,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getDataFromFirebase");
+    this.$store.dispatch("getScreeningFromFirebase");
   }
 };
 </script>
