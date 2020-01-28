@@ -18,6 +18,7 @@
         <span>Handikappad</span>
       </div>
     </div>
+
     <div class="grid">
       <div class="row" v-for="(blockRow, row) in grid" :key="row">
         <div
@@ -25,11 +26,16 @@
           v-for="(block, col) in blockRow"
           :key="col"
           :style="{ top: row*24 + 'px', left: col*24+ 'px'}"
+          
         >
-          <div class="seats" v-if="block==='S'"></div>
+          <div class="seats" v-if="block==='S'" @click="getPosition(col)"></div>
           <div class="disabled-seats" v-else-if="block==='H'"></div>
         </div>
       </div>
+    </div>
+
+    <div class="row seat-position" v-if="seatPosition != 0">
+      <h6>Plat nummer {{seatPosition}}</h6>
     </div>
 
     <div class="buttons">
@@ -37,14 +43,16 @@
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
       <router-link to="/">
-        <button class="btn btn-small waves-effect waves-light">Fortsätt</button>
+        <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Fortsätt</button>
       </router-link>
     </div>
+
   </div>
 </template>
 
 <script>
 export default {
+ // props: ['numberOfChildren', 'numberOfAdults', 'numberOfSeniors'],
   data() {
     return {
       grid: [
@@ -58,26 +66,72 @@ export default {
         ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S"]
       ],
       movies: this.$store.getters.movies,
-      movieDetail: []
+      movieDetail: [],
+      seatPosition: 0,
+      seatBooked: false
     };
   },
   methods: {
+    getPosition(x){
+      this.seatBooked = true;
+      let newGrid = this.grid.flat()
+      let number = 1
+      for(let i=0; i<newGrid.length; i++){
+        if(newGrid[i] == 'S'){
+          newGrid[i] = number;
+          number++;        
+        }
+      }
+      this.seatPosition = newGrid[x]
+    },
     getMovie() {
       this.movies.forEach(movie => {
         if (movie.slug == this.$route.params.slug) {
           this.movieDetail = movie;
         }
       });
-    }
+    },
+    completeBooking(){
+     let bookingNumber = Math.floor(Math.random() * 1000) + '-' + Math.floor(Math.random() * 100000)
+     let tickets = this.$store.getters.tickets
+     let booking = {
+       collection: 'bookings',
+       bookingNumber: bookingNumber,
+       numberOfAdults: tickets.numberOfAdults,
+       numberOfChildren: tickets.numberOfChildren,
+       numberOfSeniors: tickets.numberOfSeniors
+     }
+      this.$store.dispatch('sendToFirebase', booking)
+      alert('Bokningsnummer: ' + bookingNumber)
+    },
+    // findPositions(seatPosition, grid) {
+    //   let array = [];
+    //   for (let i = 0; i < grid.length; i++) {
+    //     for (let j = 0; j < grid[0].length; j++) {
+    //         if (seatPosition === grid[i][j]) {
+    //             var object = {
+    //                 x: j,
+    //                 y: i
+    //             }
+    //             array.push(object)
+    //         }
+    //     }
+    //   }
+    //   return array
+    // }
   },
   created() {
     this.getMovie();
   }
+
 };
 </script>
 
 
 <style lang="css" scoped>
+.container-fluid{
+  padding-bottom: 3%;
+}
 .title-text {
   text-align: center;
   color: rgb(204, 9, 113);
@@ -145,10 +199,14 @@ export default {
   background: rgb(204, 9, 113);
 }
 
+.seat-position{
+  text-align: center;
+}
+
 .buttons {
   display: flex;
   justify-content: center;
-  margin: 0 1% 1% 1%;
+  margin: 0 1% 3% 1%;
 }
 
 .btn {
