@@ -52,7 +52,7 @@
 
         <div class="col s2 ticket-button">
           <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
-            <button class="btn btn-small pink darken-1 waves-effect">Biljetter</button>
+            <button class="btn btn-small waves-effect" @click.prevent="scrollTo('#showtime')">Biljetter</button>
           </router-link>
         </div>
       </div>
@@ -94,8 +94,12 @@ export default {
     },
     dispMovieTrailer() {
       this.showTrailer = true;
+    },
+    scrollTo(selector){
+      document.querySelector(selector).scrollIntoView({behavior: 'smooth'})
     }
   },
+  
   created() {
     this.getMovie();
   }
@@ -116,6 +120,10 @@ export default {
     rgba(20, 18, 18, 0.959),
     rgba(100, 100, 100, 0.6) 90%
   );
+}
+
+.btn{
+  background: rgba(202, 8, 112, 0.692);
 }
 
 .middle {

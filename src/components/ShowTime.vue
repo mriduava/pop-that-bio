@@ -1,5 +1,5 @@
 <template>
-  <div class="booking-section">
+  <div class="booking-section" id="showtime">
     <h3 class="book-tickets-title">Boka Biljetter</h3>
     <hr />
 
@@ -13,7 +13,14 @@
             ></i>
           </h4>
           <div class="dropdown-items" v-if="showMenu">
-            <h5
+            <ul>
+              <li
+                :key="date"
+                v-for="date in dates"
+                @click="updateChosenDate(date.index)"
+              >{{ date.day }} / {{ date.month}} - {{ date.dateName}}</li>
+            </ul>
+            <!-- <h5
               @click="updateChosenDate(0)"
             >{{dates[0].day}}/{{dates[0].month}} - {{ dates[0].dateName }}</h5>
             <h5
@@ -21,7 +28,7 @@
             >{{dates[1].day}}/{{dates[1].month}} - {{ dates[1].dateName }}</h5>
             <h5
               @click="updateChosenDate(2)"
-            >{{dates[2].day}}/{{dates[2].month}} - {{ dates[2].dateName }}</h5>
+            >{{dates[2].day}}/{{dates[2].month}} - {{ dates[2].dateName }}</h5> -->
           </div>
         </div>
       </div>
@@ -49,30 +56,21 @@ export default {
   name: "showtime",
   data() {
     return {
-      //   times: [
-      //     {
-      //       month: 5,
-      //       day: 4,
-      //       startTime: "13:45"
-      //     },
-      //     {
-      //       month: 5,
-      //       day: 4,
-      //       startTime: "16:30"
-      //     }
-      //   ],
       dates: [
         {
+          index: 0,
           dateName: "Today",
           day: this.getCorrectDay(1),
           month: this.getCorrectMonth(1)
         },
         {
+          index: 1,
           dateName: "Tomorrow",
           day: this.getCorrectDay(2),
           month: this.getCorrectMonth(2)
         },
         {
+          index: 2,
           dateName: this.getCorrectDayOfWeek(3),
           //dateName: "Day After Tomorrow",
           day: this.getCorrectDay(3),
@@ -194,25 +192,6 @@ export default {
       }
     },
 
-    // getCurrentDay(number) {
-    //   switch (number) {
-    //     case 0:
-    //       return "Monday";
-    //     case 1:
-    //       return "Thuesday";
-    //     case 2:
-    //       return "Wednesday";
-    //     case 3:
-    //       return "Thursday";
-    //     case 4:
-    //       return "Friday";
-    //     case 5:
-    //       return "Saturday";
-    //     case 6:
-    //       return "Sunday";
-    //   }
-    // },
-
     updateChosenDate(index) {
       this.chosenDate = this.dates[index];
       this.showMenu = false;
@@ -265,6 +244,9 @@ export default {
 .booking-section {
   background-image: linear-gradient(black, grey);
   color: rgb(216, 210, 210);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   /*background-color: darkgrey;*/
   /*display: inline-flex;
     justify-content: center;*/
@@ -277,17 +259,24 @@ export default {
 }
 
 .selected-dropdown-item {
-  display: flex;
+  text-align: center;
+  /*text-align: center;*/
+  /*display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;*/
   /*margin-left: 50vw;
     margin-right: 50vw;*/
 }
 
+.dropdown-items {
+  text-align: center;
+  font-size: 20px;
+}
+
 .screenings-section {
-  display: flex;
+  /*display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center;*/
   /*display: flex;
     justify-content: center;*/
   /* display: inline-flex;
@@ -338,15 +327,20 @@ export default {
   margin-bottom: 0px;
 }
 .dropdown-items {
-  text-align: start;
+  text-align: center;
   margin-top: 0px;
   padding: 5px 20px;
   border: 1px solid white;
 }
 
 .show-time-item {
-  display: inline-flex;
-  justify-content: space-around;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 18%;
+  text-align: center;
   font-size: 20px;
 }
 .show-time-item p {
