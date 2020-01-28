@@ -1,5 +1,5 @@
 <template>
-  <div class="booking-section">
+  <div class="booking-section" id="showtime">
     <h3 class="book-tickets-title">Boka Biljetter</h3>
     <hr />
 
@@ -265,6 +265,7 @@ export default {
 .booking-section {
   background-image: linear-gradient(black, grey);
   color: rgb(216, 210, 210);
+  
   /*background-color: darkgrey;*/
   /*display: inline-flex;
     justify-content: center;*/
@@ -338,15 +339,20 @@ export default {
   margin-bottom: 0px;
 }
 .dropdown-items {
-  text-align: start;
+  text-align: center;
   margin-top: 0px;
   padding: 5px 20px;
   border: 1px solid white;
 }
 
 .show-time-item {
-  display: inline-flex;
-  justify-content: space-around;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 18%;
+  text-align: center;
   font-size: 20px;
 }
 .show-time-item p {
