@@ -60,8 +60,8 @@
       <hr class="hr-style" />
 
       <div class="row">
-        <div class="col s8 movie-text">
-          <p>{{ movieDetail.text }}</p>
+        <div class="col s6 movie-text">
+          <p>{{ movieDetail.about }}</p>
         </div>
       </div>
     </div>
