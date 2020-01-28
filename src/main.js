@@ -5,13 +5,11 @@ import store from './store'
 import M from 'materialize-css'
 import 'materialize-css/dist/css/materialize.css'
 
+
 Vue.prototype.$M = M
 Vue.$M = Vue.prototype.$M
 
 Vue.config.productionTip = false
-
-Vue.prototype.$M = M
-Vue.$M = Vue.prototype.$M
 
 new Vue({
   router,

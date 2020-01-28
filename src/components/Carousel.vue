@@ -1,14 +1,7 @@
 <template>
-  <div class="carousel-container">
-
-    <div class="carousel carousel-slider" >
-      <a class="carousel-item" v-for="(movie, index) in moviesData" :key="index">
-        <img :src="movie.land_image" />
-      </a>
-    </div>
-
-    <!-- <transition-group> -->
-      <!-- <div
+  <div class="container-fluid">
+    <transition-group>
+      <div
         v-for="(movie, index) in moviesData.slice(0, 1)"
         :key="index"
         id="slideshow"
@@ -31,12 +24,13 @@
           <hr class="hr-style m-0 p-0" />
           <h6 class="">{{formatTime(movie.showTime.toMillis())}}</h6>
         </div>
-      </div> -->
-    <!-- </transition-group> -->
+      </div>
+    </transition-group>
 
     <div class="arrow">
       <a class="arrow-link" @click.prevent="scrollTo('#movies')"><i class="fas fa-angle-double-down"></i></a>
     </div>
+
   </div>
 </template>
 
@@ -45,22 +39,6 @@ import moment from "moment";
 
 export default {
   name: "carousel",
-  data() {
-    return {
-      images: [],
-      index: 0
-    };
-  },
-  mounted() {
-
-    let elems = document.querySelectorAll('.carousel');
-    let instances = this.$M.Carousel.init(elems, {
-      fullWidth: true, 
-      autoplay: true
-    });
-    window.console.log(instances)
-
-  },
   computed: {
     moviesData() {
       return this.$store.state.data;
@@ -72,33 +50,18 @@ export default {
     },
     scrollTo(selector){
       document.querySelector(selector).scrollIntoView({behavior: 'smooth'})
-    },
-  
-    // slideImage() {
-    //   for(let i=0; i<this.movies; i++){
-    //     this.images.push(this.movies[i].land_image)
-    //   }
-    //   const first = this.images.shift();
-    //   this.images = this.slides.concat(first);
-    // }
+    }
   },
   created() {
     this.$store.dispatch("getDataFromFirebase");
-    // setInterval(this.mriduSlide, 5000);
   }
-};
+}
 </script>
 
 <style lang="css" scoped>
 
-
-.carousel-container {
+.container {
   position: relative;
-}
-
-#slideshow {
-  opacity: 1;
-  transition: opacity 1s;
 }
 
 /* #slideshow {
@@ -185,7 +148,7 @@ export default {
 	animation-delay: 0s;
 	animation-iteration-count: infinite;
 }
-
+  
 @keyframes arrowDown {
 	0%{
 		transform: translateY(0);
