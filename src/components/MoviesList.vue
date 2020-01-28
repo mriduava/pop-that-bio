@@ -69,6 +69,9 @@ export default {
     },
     dispMovieTrailer() {
       this.showTrailer = true;
+    },
+    checkChildAllowed(){
+      
     }
   },
   computed: {
