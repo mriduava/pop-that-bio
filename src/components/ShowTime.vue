@@ -2,47 +2,42 @@
   <div class="booking-section">
     <h3 class="book-tickets-title">Boka Biljetter</h3>
     <hr />
-    <!--<h1>TA BORT {{ screeningDetail.movieId }}SENARE</h1>-->
-    <div class="dates">
-      <div class="dropdown-menu">
-        <h4 class="selected-dropdown-item" @click="showMenu = !showMenu">
-          {{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }}
-          <i
-            class="fas fa-chevron-down"
-          ></i>
-        </h4>
-        <div class="dropdown-items" v-if="showMenu">
-          <h5
-            @click="updateChosenDate(0)"
-          >{{dates[0].day}}/{{dates[0].month}} - {{ dates[0].dateName }}</h5>
-          <h5
-            @click="updateChosenDate(1)"
-          >{{dates[1].day}}/{{dates[1].month}} - {{ dates[1].dateName }}</h5>
-          <h5
-            @click="updateChosenDate(2)"
-          >{{dates[2].day}}/{{dates[2].month}} - {{ dates[2].dateName }}</h5>
+
+    <div class="screenings-section">
+      <div class="dates">
+        <div class="dropdown-menu">
+          <h4 class="selected-dropdown-item" @click="showMenu = !showMenu">
+            {{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }}
+            <i
+              class="fas fa-chevron-down"
+            ></i>
+          </h4>
+          <div class="dropdown-items" v-if="showMenu">
+            <h5
+              @click="updateChosenDate(0)"
+            >{{dates[0].day}}/{{dates[0].month}} - {{ dates[0].dateName }}</h5>
+            <h5
+              @click="updateChosenDate(1)"
+            >{{dates[1].day}}/{{dates[1].month}} - {{ dates[1].dateName }}</h5>
+            <h5
+              @click="updateChosenDate(2)"
+            >{{dates[2].day}}/{{dates[2].month}} - {{ dates[2].dateName }}</h5>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- <ul>
-      <li
-        :key="screeningDetail"
-        v-for="screeningDetail in screeningDetails"
-      >{{ momentTime(screeningDetail.startTime.toMillis())}}</li>
-    </ul>-->
-
-    <div class="available-times">
-      <ul style="list-style-type:none;">
-        <li :key="screenTime" v-for="screenTime in screenTimes">
-          {{ screenTime }}
-          {{movieDetail.genre}}
-          <!-- Tid , salong              Boka-->
-          <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
-            <button>Boka</button>
-          </router-link>
-        </li>
-      </ul>
+      <div class="available-times">
+        <ul style="list-style-type:none;">
+          <li class="show-time-item" :key="screenTime" v-for="screenTime in screenTimes">
+            {{ screenTime }}
+            {{movieDetail.genre}}
+            <!-- Tid , salong              Boka-->
+            <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
+              <button class="btn btn-small pink darken-1 waves-effect">Boka</button>
+            </router-link>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -54,18 +49,18 @@ export default {
   name: "showtime",
   data() {
     return {
-      times: [
-        {
-          month: 5,
-          day: 4,
-          startTime: "13:45"
-        },
-        {
-          month: 5,
-          day: 4,
-          startTime: "16:30"
-        }
-      ],
+      //   times: [
+      //     {
+      //       month: 5,
+      //       day: 4,
+      //       startTime: "13:45"
+      //     },
+      //     {
+      //       month: 5,
+      //       day: 4,
+      //       startTime: "16:30"
+      //     }
+      //   ],
       dates: [
         {
           dateName: "Today",
@@ -267,27 +262,58 @@ export default {
 </script>
 
 <style scoped>
-.book-tickets-title {
-  text-align: center;
+.booking-section {
+  background-image: linear-gradient(black, grey);
+  color: rgb(216, 210, 210);
+  /*background-color: darkgrey;*/
+  /*display: inline-flex;
+    justify-content: center;*/
 }
 
-.dates {
+.book-tickets-title {
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+
+.selected-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*margin-left: 50vw;
+    margin-right: 50vw;*/
+}
+
+.screenings-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /*display: flex;
+    justify-content: center;*/
+  /* display: inline-flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;*/
+  /*background-color: black;*/
+}
+
+/*.dates {
   display: inline-flex;
   justify-content: space-around;
-}
-.showTime {
+}*/
+/*.showTime {
   display: inline-block;
   padding-right: 20px;
-}
-.dropdown-menu {
+}*/
+/*.dropdown-menu {
   display: inline-block;
   padding-left: 20px;
   margin-bottom: 40px;
-}
-.available-times {
-  border: 2px solid gold;
+}*/
+/*.available-times {
   justify-content: flex-start;
-}
+  justify-content: center;
+}*/
 .available-times h4 {
   margin: 2px;
 }
@@ -307,7 +333,7 @@ export default {
 
 .selected-dropdown-item {
   padding: 5px 20px;
-  border: 2px solid white;
+  border-bottom: 2px solid white;
   margin-top: 40px;
   margin-bottom: 0px;
 }
@@ -315,19 +341,20 @@ export default {
   text-align: start;
   margin-top: 0px;
   padding: 5px 20px;
-  border: 2px solid white;
+  border: 1px solid white;
 }
 
 .show-time-item {
-  font-size: 40px;
+  display: inline-flex;
+  justify-content: space-around;
+  font-size: 20px;
 }
 .show-time-item p {
   margin-left: 50px;
-  display: inline-block;
-  font-size: 30px;
+  /*display: inline-block;*/
+  font-size: 20px;
 }
 .link {
   background-color: red;
-  color: white;
 }
 </style>
