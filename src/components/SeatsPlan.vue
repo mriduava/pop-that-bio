@@ -13,29 +13,18 @@
       <div>
         <span>Upptagen</span>
       </div>
-      <div class="blue-circle"></div>
-      <div>
-        <span>Handikappad</span>
-      </div>
     </div>
 
     <div class="grid">
-      <div class="row" v-for="(blockRow, row) in grid" :key="row">
-        <div
-          class="all-blocks"
-          v-for="(block, col) in blockRow"
-          :key="col"
-          :style="{ top: row*24 + 'px', left: col*24+ 'px'}"
-          
-        >
-          <div class="seats" v-if="block==='S'" @click="getPosition(col)"></div>
-          <div class="disabled-seats" v-else-if="block==='H'"></div>
+      <div class="row seats-grid" v-for="(blockRow, row) in seatsGrid" :key="row">
+        <div class="all-blocks" v-for="(block, col) in blockRow" :key="col">
+          <div class="seats" v-if="block==='S'" @click="getPosition(col, row)"></div>
         </div>
       </div>
     </div>
 
     <div class="row seat-position" v-if="seatPosition != 0">
-      <h6>Plat nummer {{seatPosition}}</h6>
+      <h6>Parkett, rad {{seatPosition[0].x}}, plats {{seatPosition[0].y}}</h6>
     </div>
 
     <div class="buttons">
@@ -46,43 +35,33 @@
         <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Fortsätt</button>
       </router-link>
     </div>
-
   </div>
 </template>
 
 <script>
 export default {
- // props: ['numberOfChildren', 'numberOfAdults', 'numberOfSeniors'],
+  // props: ['numberOfChildren', 'numberOfAdults', 'numberOfSeniors'],
   data() {
     return {
-      grid: [
-        [" ", " ", "S", "S", "S", "S", "S", "S", "S", "S", " ", " "],
-        [" ", " ", "S", "S", "S", "S", "S", "S", "S", "S", "H", " "],
-        [" ", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", " "],
-        [" ", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", " "],
-        [" ", "H", "S", "S", "S", "S", "S", "S", "S", "S", "H", " "],
-        [" ", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", " "],
-        ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S"],
-        ["S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S", "S"]
-      ],
+      seatsPerRow: [8, 9, 10, 10, 10, 10, 12, 12],
       movies: this.$store.getters.movies,
       movieDetail: [],
-      seatPosition: 0,
-      seatBooked: false
+      seatPosition: [],
+      seatBooked: false,
+      seatsGrid: []
     };
   },
   methods: {
-    getPosition(x){
-      this.seatBooked = true;
-      let newGrid = this.grid.flat()
-      let number = 1
-      for(let i=0; i<newGrid.length; i++){
-        if(newGrid[i] == 'S'){
-          newGrid[i] = number;
-          number++;        
-        }
+    getPosition(x, y) {
+      let position = {x:y+1, y:x+1}
+      this.seatPosition.push(position)
+    },
+    createSeatsGrid() {
+      for (let i = 0; i < this.seatsPerRow.length; i++) {
+        let rows = new Array(this.seatsPerRow[i]);
+        this.seatsGrid.push(rows.fill("S"));
       }
-      this.seatPosition = newGrid[x]
+      return this.seatsGrid;
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -91,45 +70,33 @@ export default {
         }
       });
     },
-    completeBooking(){
-     let bookingNumber = Math.floor(Math.random() * 1000) + '-' + Math.floor(Math.random() * 100000)
-     let tickets = this.$store.getters.tickets
-     let booking = {
-       collection: 'bookings',
-       bookingNumber: bookingNumber,
-       numberOfAdults: tickets.numberOfAdults,
-       numberOfChildren: tickets.numberOfChildren,
-       numberOfSeniors: tickets.numberOfSeniors
-     }
-      this.$store.dispatch('sendToFirebase', booking)
-      alert('Bokningsnummer: ' + bookingNumber)
-    },
-    // findPositions(seatPosition, grid) {
-    //   let array = [];
-    //   for (let i = 0; i < grid.length; i++) {
-    //     for (let j = 0; j < grid[0].length; j++) {
-    //         if (seatPosition === grid[i][j]) {
-    //             var object = {
-    //                 x: j,
-    //                 y: i
-    //             }
-    //             array.push(object)
-    //         }
-    //     }
-    //   }
-    //   return array
-    // }
+    completeBooking() {
+      let bookingNumber =
+        Math.floor(Math.random() * 1000) +
+        "-" +
+        Math.floor(Math.random() * 100000);
+      let tickets = this.$store.getters.tickets;
+      let booking = {
+        collection: "bookings",
+        bookingNumber: bookingNumber,
+        numberOfAdults: tickets.numberOfAdults,
+        numberOfChildren: tickets.numberOfChildren,
+        numberOfSeniors: tickets.numberOfSeniors
+      };
+      this.$store.dispatch("sendToFirebase", booking);
+      alert("Bokningsnummer: " + bookingNumber);
+    }
   },
   created() {
     this.getMovie();
+    this.createSeatsGrid();
   }
-
 };
 </script>
 
 
 <style lang="css" scoped>
-.container-fluid{
+.container-fluid {
   padding-bottom: 3%;
 }
 .title-text {
@@ -163,43 +130,33 @@ export default {
   background: rgba(111, 111, 241, 0.699);
 }
 /* STYLE TO GRID */
-.grid {
+
+.seats-grid {
   display: flex;
-  position: relative;
-  max-width: 285px;
-  min-height: 220px;
-  padding: 20px;
-  margin: 0 auto 1% auto;
+  justify-content: center;
 }
 .all-blocks {
-  position: absolute;
-  width: 20px;
-  height: 20px;
+  position: relative;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
 }
-
-.seats,
-.disabled-seats {
-  width: 20px;
+.seats{
+  justify-content: center;
+  width: 23px;
   height: 20px;
+  margin: 0 3px;
   border: 1px solid #8e8e8e;
   background: #ddd;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
 }
 
-.disabled-seats {
-  background: rgba(111, 111, 241, 0.699);
-}
-
-.seats:hover,
-.disabled-seats:hover {
+.seats:hover {
   cursor: pointer;
   background: rgb(204, 9, 113);
 }
 
-.seat-position{
+.seat-position {
   text-align: center;
 }
 
