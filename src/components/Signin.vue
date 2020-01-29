@@ -3,7 +3,7 @@
 
   <div></div> 
     <div class="row">
-    <form class="col l3  s6 offset-l4 card-panel purple lighten-5 truncate">
+    <form class="col l3  s3 offset-l4 card-panel purple lighten-5 truncate">
         <div class="brand-logo">
              <h4 class="pink-text text-pink darken-4">POP THAT BIO</h4>
              <h2 class="pink-text text-pink darken-4">Sign In</h2>
@@ -30,7 +30,7 @@
     </form> 
   </div>
       <div class="row">
-        <div class="col s5 offset-s3">
+        <div class="col s5 offset-s3 ">
              <p class="white-text text-grey lighten-5">Medlemskapet för dig som älskar bio</p>
                <div class="group3">
                  <div class="row"> 
@@ -45,7 +45,10 @@
              </div>
              </div>
            <div class="butt">
-               <a href="test ()"><div class="card-panel  pink darken-1  text-align: center white-text text-darken-2">Bli medlem</div></a>
+             <router-link to="/tickets">
+                            <div class="card-panel  pink darken-1  text-align: center white-text text-darken-2">Bli medlem</div>
+
+             </router-link>
           </div>
      </div>         
   </div>
@@ -93,6 +96,7 @@ export default {
   background-image:url('../assets/images/asq.jpg');
   background-attachment:fixed;
   background-position:bottom auto;
+
 }
 h2{
    text-shadow: 4px 6px 5px black;
@@ -112,6 +116,10 @@ h2{
 @media (max-width: 700px) {
  h4 {
     text-size-adjust:2%
+  }
+  form{
+    margin: 5%;
+   padding-bottom: 10%
   }    
 }
 </style>

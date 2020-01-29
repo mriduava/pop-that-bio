@@ -2,8 +2,8 @@
   <div class="container-fluid navbar navbar-fixed">
     <nav class="nav-extended">
       <div class="nav-wrapper">
-        <a href="#!" class="our-brand-logo">POP THAT BIO</a>
-        <ul class="right">
+        <router-link to="/"><a class="brand-logo "><p>POP THAT BIO</p></a></router-link>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li class="nav-item">
             <router-link to="/movies" class="nav-link">MOVIES</router-link>
           </li>
@@ -31,23 +31,17 @@ nav {
   padding: 0 14.8%;
   border-bottom: 1px solid rgb(213, 187, 47);
   background: rgb(100, 10, 60);
-  background: -webkit-linear-gradient(
-    to top,
-    rgb(156, 36, 100),
-    rgba(197, 49, 99, 0.5)
-  );
-  background: linear-gradient(
-    to bottom,
-    rgb(117, 9, 67),
-    rgba(197, 49, 99, 0.5)
-  );
-}
+  background: -webkit-linear-gradient(to top, rgb(156, 36, 100), rgba(197, 49, 99, 0.5));
+  background: linear-gradient(to bottom, rgb(117, 9, 67), rgba(197, 49, 99, 0.5));
+   text-shadow: 1px 2.5px 1px rgb(12, 1, 1);
+  }
 
 .our-brand-logo {
   font-size: 2.5rem;
   padding-left: 1.5%;
   font-family: borntogrille;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+   text-shadow: 1px 6px 1px rgb(12, 1, 1);
+  
 }
 
 .our-brand-logo:hover {
