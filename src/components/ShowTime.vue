@@ -22,15 +22,13 @@
             ></i>
           </h5>
           <div class="dropdown-items" v-if="!showMenu">
-            <h6
-              @click="updateChosenDate(0)"
-            >{{dates[0].day}}/{{dates[0].month}} - {{ dates[0].dateName }}</h6>
-            <h6
-              @click="updateChosenDate(1)"
-            >{{dates[1].day}}/{{dates[1].month}} - {{ dates[1].dateName }}</h6>
-            <h6
-              @click="updateChosenDate(2)"
-            >{{dates[2].day}}/{{dates[2].month}} - {{ dates[2].dateName }}</h6>
+            <ul>
+              <li
+                :key="date"
+                v-for="date in dates"
+                @click="updateChosenDate(date.index)"
+              >{{ date.day }} / {{ date.month}} - {{ date.dateName}}</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -40,7 +38,6 @@
           <li class="show-time-item" :key="screenTime" v-for="screenTime in screenTimes">
             {{ screenTime }}
             {{movieDetail.genre}}
-            <!-- Tid , salong              Boka-->
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
               <button class="btn btn-small pink darken-1 waves-effect">Boka</button>
             </router-link>
@@ -61,16 +58,19 @@ export default {
     return {
       dates: [
         {
+          index: 0,
           dateName: "Today",
           day: this.getCorrectDay(1),
           month: this.getCorrectMonth(1)
         },
         {
+          index: 1,
           dateName: "Tomorrow",
           day: this.getCorrectDay(2),
           month: this.getCorrectMonth(2)
         },
         {
+          index: 2,
           dateName: this.getCorrectDayOfWeek(3),
           //dateName: "Day After Tomorrow",
           day: this.getCorrectDay(3),
@@ -192,25 +192,6 @@ export default {
       }
     },
 
-    // getCurrentDay(number) {
-    //   switch (number) {
-    //     case 0:
-    //       return "Monday";
-    //     case 1:
-    //       return "Thuesday";
-    //     case 2:
-    //       return "Wednesday";
-    //     case 3:
-    //       return "Thursday";
-    //     case 4:
-    //       return "Friday";
-    //     case 5:
-    //       return "Saturday";
-    //     case 6:
-    //       return "Sunday";
-    //   }
-    // },
-
     updateChosenDate(index) {
       this.chosenDate = this.dates[index];
       this.showMenu = false;
@@ -220,7 +201,6 @@ export default {
 
       let chosenMonth = this.getCurrentMonth(this.chosenDate.month);
       let chosenDay = this.chosenDate.day;
-      window.console.log(chosenDay + " chosenday!");
 
       for (let s in this.screeningDetails) {
         if (
@@ -231,7 +211,6 @@ export default {
             this.screeningDetails[s].startTime.toMillis()
           ) == chosenDay
         ) {
-          window.console.log("Found movie for given date");
 
           this.screenTimes.push(
             this.convertHourlyTime(
@@ -240,7 +219,6 @@ export default {
           );
         }
       }
-      window.console.log(this.screenTimes);
     }
   },
 
@@ -251,9 +229,7 @@ export default {
   },
   watch: {
     chosenDate() {
-      window.console.log("Changed date!");
       this.addScreenTimes();
-      window.console.log(this.chosenDate.day + " DAY!");
     }
   }
 };
