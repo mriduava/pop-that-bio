@@ -57,14 +57,13 @@
         </div>
       </div>
 
-      <hr class="hr-style" />
-
-      <div class="row">
+      <div class="row movie-text-row">
         <div class="col s8 movie-text">
-          <p>{{ movieDetail.text }}</p>
+          <p>{{ movieDetail.about }}</p>
         </div>
       </div>
     </div>
+
     <ShowTime />
   </div>
 </template>
@@ -107,10 +106,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.container-fluid {
-  color: #333;
-}
-
 .moviedetail-container {
   position: relative;
   top: -130px;
@@ -118,12 +113,12 @@ export default {
     to bottom,
     rgba(2, 2, 2, 0.966) 30%,
     rgba(20, 18, 18, 0.959),
-    rgba(100, 100, 100, 0.6) 90%
+    rgba(0, 0, 0, 0.8) 90%
   );
 }
 
 .btn{
-  background: rgba(202, 8, 112, 0.692);
+  background: rgb(230, 12, 128);
 }
 
 .middle {
@@ -133,10 +128,10 @@ export default {
 }
 
 .movie-image {
-  min-width: 120px;
-  max-width: 180px;
+  min-width: 140px;
+  max-width: 210px;
   position: relative;
-  top: -50px;
+  top: -91px;
 }
 
 .movie-image img {
@@ -144,6 +139,7 @@ export default {
   border: 2px solid #ddd;
 }
 .movie-info {
+  color: #fff;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -231,31 +227,19 @@ iframe {
   transform: scale(1.1);
 }
 
-/* */
-.last {
-  padding: 0 10%;
-  text-align: left;
+.movie-text-row{
+  display: flex;
+  width: 90vw;
 }
-
-.card {
+.movie-text{
+  color: #fff;
   position: relative;
-  width: 200px;
-  top: -200px;
-  left: 30%;
-  border: 2px solid rgb(29, 255, 29);
-  max-height: 297px;
-  object-fit: cover;
+  top: -250px;
+  left: 50%;
+  text-align: justify;
+  margin: 0 auto;
+  justify-content: center;
 }
 
-.card-text {
-  position: relative;
-  top: -80px;
-  left: 210px;
-}
-
-.description {
-  margin-top: 20px;
-  padding-top: 20px;
-}
 </style>
 

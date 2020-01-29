@@ -1,16 +1,28 @@
 <template>
-  <div class="booking-section" id="showtime">
-    <h3 class="book-tickets-title">Boka Biljetter</h3>
-    <hr />
+  <div class="container-fluid" id="showtime">
+
+    <div class="row">
+      <div class="col s12">
+        <div class="title-text">
+          <h4 class>Boka Biljetter</h4>
+          <hr class="hr-style" />
+        </div>
+      </div>
+    </div>
+    
+  
 
     <div class="screenings-section">
       <div class="dates">
         <div class="dropdown-menu">
-          <h4 class="selected-dropdown-item" @click="showMenu = !showMenu">
+          <h5 class="selected dropdown item" @click="showMenu = !showMenu">
             {{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }}
             <i
               class="fas fa-chevron-down"
             ></i>
+          </h5>
+          <div class="dropdown-items" v-if="!showMenu">
+            <h6
           </h4>
           <div class="dropdown-items" v-if="showMenu">
             <ul>
@@ -22,12 +34,13 @@
             </ul>
             <!-- <h5
               @click="updateChosenDate(0)"
-            >{{dates[0].day}}/{{dates[0].month}} - {{ dates[0].dateName }}</h5>
-            <h5
+            >{{dates[0].day}}/{{dates[0].month}} - {{ dates[0].dateName }}</h6>
+            <h6
               @click="updateChosenDate(1)"
-            >{{dates[1].day}}/{{dates[1].month}} - {{ dates[1].dateName }}</h5>
-            <h5
+            >{{dates[1].day}}/{{dates[1].month}} - {{ dates[1].dateName }}</h6>
+            <h6
               @click="updateChosenDate(2)"
+            >{{dates[2].day}}/{{dates[2].month}} - {{ dates[2].dateName }}</h6>
             >{{dates[2].day}}/{{dates[2].month}} - {{ dates[2].dateName }}</h5> -->
           </div>
         </div>
@@ -46,6 +59,7 @@
         </ul>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -241,114 +255,61 @@ export default {
 </script>
 
 <style scoped>
-.booking-section {
-  background-image: linear-gradient(black, grey);
-  color: rgb(216, 210, 210);
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  /*background-color: darkgrey;*/
-  /*display: inline-flex;
-    justify-content: center;*/
+.container-fluid {
+  position: relative;
+  top: -150px;
+  background: linear-gradient(
+    to top,
+    rgba(235, 78, 161, 0.4) 10%,
+    rgba(37, 33, 33, 0.6) 40%,
+    rgba(0, 0, 0, 0.8) 90%
+  );
+  padding-bottom: 40px;
 }
 
-.book-tickets-title {
+.title-text {
   text-align: center;
-  margin: 0px;
-  padding: 0px;
+  position: relative;
+  padding: 1% 0;
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.selected-dropdown-item {
-  text-align: center;
-  /*text-align: center;*/
-  /*display: flex;
-  align-items: center;
-  justify-content: center;*/
-  /*margin-left: 50vw;
-    margin-right: 50vw;*/
+.hr-style {
+  border: 0;
+  min-width: 90%;
+  max-width: 1%;
+  height: 1px;
+  margin: 0 auto 10px auto;
+  background: #fff;
+  background: -webkit-linear-gradient(left, rgb(104, 99, 99), #fff, rgb(104, 99, 99));
 }
 
-.dropdown-items {
-  text-align: center;
-  font-size: 20px;
-}
-
-.screenings-section {
-  /*display: flex;
-  flex-direction: column;
-  justify-content: center;*/
-  /*display: flex;
-    justify-content: center;*/
-  /* display: inline-flex;
-    align-items: center;
-    align-content: center;
-    justify-content: center;*/
-  /*background-color: black;*/
-}
-
-/*.dates {
-  display: inline-flex;
-  justify-content: space-around;
-}*/
-/*.showTime {
-  display: inline-block;
-  padding-right: 20px;
-}*/
-/*.dropdown-menu {
-  display: inline-block;
-  padding-left: 20px;
-  margin-bottom: 40px;
-}*/
-/*.available-times {
-  justify-content: flex-start;
-  justify-content: center;
-}*/
-.available-times h4 {
-  margin: 2px;
-}
-
-.available-times p {
-  color: black;
-  font-size: 5px;
-}
-
-.time {
-  margin: 0px;
-  display: inline-block;
-}
-.book-tickets-title {
-  margin-bottom: 5px;
-}
-
-.selected-dropdown-item {
-  padding: 5px 20px;
-  border-bottom: 2px solid white;
-  margin-top: 40px;
-  margin-bottom: 0px;
-}
-.dropdown-items {
-  text-align: center;
-  margin-top: 0px;
-  padding: 5px 20px;
-  border: 1px solid white;
-}
-
-.show-time-item {
-  display: flex;
-  justify-content: space-between;
+.dropdown-menu{
+  position: relative;
+  color: #ffe600;
   margin: 0 auto;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  width: 18%;
-  text-align: center;
-  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
-.show-time-item p {
-  margin-left: 50px;
-  /*display: inline-block;*/
-  font-size: 20px;
+
+.dropdown-items{
+  color: rgb(145, 0, 96);
 }
-.link {
-  background-color: red;
+.dropdown-items h6:hover{
+  cursor: pointer;
+  color: rgb(212, 0, 166);
+}
+.available-times{
+  display: flex;
+  justify-content: center;
+  margin: 1% 0;
+}
+
+.show-time-item{
+  margin: 3% 0;
+  padding: 3% 0;
 }
 </style>

@@ -9,7 +9,14 @@ export default new Vuex.Store({
   state: {
     // data: movies
     data: [],
-    scrData: []
+    scrData: [],
+    reserveInfo: {
+      movieTile: "",
+      showTime: "",
+      auditorium: "",
+      numOfTickets: 0,
+      ticketPrice: 0
+    }
   },
   getters: {
     movies(state){
@@ -18,7 +25,7 @@ export default new Vuex.Store({
     tickets(state){
       return state.tickets
     },
-    screenings: (state) => {
+    screenings(state){
       return state.scrData
     }
   },

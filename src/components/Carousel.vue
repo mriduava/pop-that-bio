@@ -11,12 +11,13 @@
           height: '120vh',
           top: '-117px',
           zIndex: '-1',
-       
+          objectFilt: 'contain',
           overflow: 'hidden',
-          background: 'linear-gradient(45deg, rgba(197, 49, 99, 0.7) 0%, rgba(197, 49, 99, 0.1) 100%),' +  
+          background: 'linear-gradient(45deg, rgba(197, 49, 99, 0.8) 0%, rgba(197, 49, 99, 0.2) 100%),' +  
                       'url(\'' + movie.land_image + '\')',
           backgroundPosition: 'center',
-          backgroundSize: 'cover'
+          backgroundSize: 'cover',
+          display: 'block'
       }"
       >
         <div class="carousel-text">
