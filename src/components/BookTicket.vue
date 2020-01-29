@@ -64,7 +64,7 @@
       </div>
       <div class="valj">
         <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
-          <button class="btn btn-large waves-effect waves-light">Välj platser</button>
+          <button class="btn btn-large waves-effect waves-light" @click="updateTickets">Välj platser</button>
         </router-link>
       </div>
     </div>
@@ -100,7 +100,14 @@ export default {
         }
       });
     },
-
+    updateTickets(){
+      let tickets = {
+        numberOfChildren: this.counterChild,
+        numberOfAdults: this.counterOrd,
+        numberOfSeniors: this.counterPen
+      }
+      this.$store.dispatch('updateTickets', tickets)
+    },
     increaseOrd() {
       if (
         this.counterOrd + this.counterPen + this.counterChild < 8 &&
@@ -218,5 +225,9 @@ export default {
   display: flex;
   flex-direction: row;
   /*border: 1px solid black;*/
+}
+
+.back-link:hover{
+  background: rgba(255, 186, 240, 0.3);
 }
 </style>
