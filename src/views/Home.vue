@@ -7,7 +7,7 @@
 
 <script>
 import DispMovies from '@/components/DispMovies.vue'
-import Carousel from '@/components/Carousel'
+import Carousel from '@/components/Carousel.vue'
 
 
 export default {

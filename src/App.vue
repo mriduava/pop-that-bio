@@ -25,7 +25,7 @@ export default {
 }
 </script>
 
-<style>
+<style lagg="css">
 *{
   margin: 0;
   padding: 0;
