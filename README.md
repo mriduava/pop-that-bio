@@ -17,7 +17,7 @@
 **Look the demo, and if you like give a star on GitHub**
 >Demo site: Coming soon...<br>
 
-![](/screenshot/construction.jpg)
+![](/screenshot/popthatbio.png)
 
 ## FUNCTIONALITIES
 * Display movies list & brief info on image hover.
