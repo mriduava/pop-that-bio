@@ -22,9 +22,6 @@
             ></i>
           </h5>
           <div class="dropdown-items" v-if="!showMenu">
-            <h6
-          </h4>
-          <div class="dropdown-items" v-if="showMenu">
             <ul>
               <li
                 :key="date"
@@ -32,16 +29,6 @@
                 @click="updateChosenDate(date.index)"
               >{{ date.day }} / {{ date.month}} - {{ date.dateName}}</li>
             </ul>
-            <!-- <h5
-              @click="updateChosenDate(0)"
-            >{{dates[0].day}}/{{dates[0].month}} - {{ dates[0].dateName }}</h6>
-            <h6
-              @click="updateChosenDate(1)"
-            >{{dates[1].day}}/{{dates[1].month}} - {{ dates[1].dateName }}</h6>
-            <h6
-              @click="updateChosenDate(2)"
-            >{{dates[2].day}}/{{dates[2].month}} - {{ dates[2].dateName }}</h6>
-            >{{dates[2].day}}/{{dates[2].month}} - {{ dates[2].dateName }}</h5> -->
           </div>
         </div>
       </div>
@@ -51,7 +38,6 @@
           <li class="show-time-item" :key="screenTime" v-for="screenTime in screenTimes">
             {{ screenTime }}
             {{movieDetail.genre}}
-            <!-- Tid , salong              Boka-->
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
               <button class="btn btn-small pink darken-1 waves-effect">Boka</button>
             </router-link>
@@ -215,7 +201,6 @@ export default {
 
       let chosenMonth = this.getCurrentMonth(this.chosenDate.month);
       let chosenDay = this.chosenDate.day;
-      window.console.log(chosenDay + " chosenday!");
 
       for (let s in this.screeningDetails) {
         if (
@@ -226,7 +211,6 @@ export default {
             this.screeningDetails[s].startTime.toMillis()
           ) == chosenDay
         ) {
-          window.console.log("Found movie for given date");
 
           this.screenTimes.push(
             this.convertHourlyTime(
@@ -235,7 +219,6 @@ export default {
           );
         }
       }
-      window.console.log(this.screenTimes);
     }
   },
 
@@ -246,9 +229,7 @@ export default {
   },
   watch: {
     chosenDate() {
-      window.console.log("Changed date!");
       this.addScreenTimes();
-      window.console.log(this.chosenDate.day + " DAY!");
     }
   }
 };
