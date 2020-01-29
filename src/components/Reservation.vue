@@ -1,5 +1,5 @@
 <template>
-   <div class="container-fluid">
+  <div class="container-fluid">
     <div class="title-text">
       <h4 class>Reservation</h4>
     </div>
@@ -31,26 +31,23 @@
 
     <div class="buttons">
       <!-- <router-link :to="'/movies/' + movieDetail.slug + '/ticket'"> -->
-        <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
+      <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       <!-- </router-link>
-      <router-link to="/"> -->
-        <button class="btn btn-small waves-effect waves-light">Reservera biljetter</button>
+      <router-link to="/">-->
+      <button class="btn btn-small waves-effect waves-light">Reservera biljetter</button>
       <!-- </router-link> -->
 
       <!-- <router-link to="/"> -->
-        <button class="btn btn-small waves-effect waves-light">Köp biljetter</button>
+      <button class="btn btn-small waves-effect waves-light">Köp biljetter</button>
       <!-- </router-link> -->
-      
-
     </div>
-
   </div>
 </template>
 
 <script>
 export default {
-  name: 'reservation'
-}
+  name: "reservation"
+};
 </script>
 
 
@@ -100,7 +97,7 @@ export default {
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
 }
-.seats{
+.seats {
   justify-content: center;
   width: 23px;
   height: 20px;
