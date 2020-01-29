@@ -1,7 +1,7 @@
 <template>
- <div>
- <h1></h1>
-   
+ <div class="d1">
+
+  <div></div> 
     <div class="row">
     <form class="col l3  s6 offset-l4 card-panel purple lighten-5 truncate">
         <div class="brand-logo">
@@ -10,7 +10,7 @@
    </div>
       <div class="row">
         
-        <div class="input-field col l6 s12 ">
+        <div class="input-field col l12 s12 ">
           <input  id="User name" type="text" class="validate">
           <label for="User name">User Name</label>
         </div>
@@ -18,12 +18,12 @@
       </div>
     
       <div class="row">
-        <div class="input-field col l6 s12">
+        <div class="input-field col l12 s12">
           <input id="password" type="password" class="validate">
           <label for="password">Password</label>
         </div>
       </div>
-        <div class="col s6 offset-s8">
+        <div class="col l4 offset-l8">
          <button class="btn pink accent-1" @click.prevent="test () " >Logga in</button>
           
          </div>
@@ -31,12 +31,17 @@
   </div>
       <div class="row">
         <div class="col s5 offset-s3">
-             <p class="pink-text text-pink darken-4">Medlemskapet för dig som älskar bio</p>
-             <div class="group3">
+             <p class="white-text text-grey lighten-5">Medlemskapet för dig som älskar bio</p>
+               <div class="group3">
+                 <div class="row"> 
+                    <div class="col l4"><img src="../assets/images/wsw.jpg" alt="" width="40%" class="circle responsive-img"></div>
+                    <div class="col l4"><img src="../assets/images/popcorn_time.png" alt="" width="40%" class="circle responsive-img"></div>
+                    <div class="col l4"><img src="../assets/images/aaa.png" alt="" width="40%" class="circle responsive-img"></div>
+                 </div>
              <div class="row">
-               <div class="col s4">Förtur till biljettsläpp</div>
-               <div class="col s4">Medlemskvällar</div>
-               <div class="col s4">Erbjudanden i kiosken</div>
+               <h5 class="col s4 white-text text-grey lighten-5 ">Förtur till biljettsläpp </h5>
+               <h5 class="col s4 white-text text-grey lighten-5"> Erbjudanden i kiosken</h5>
+               <h5 class="col s4 white-text text-grey lighten-5">Medlemskvällar</h5>
              </div>
              </div>
            <div class="butt">
@@ -74,13 +79,20 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
 .brand-logo,p{
+ 
   font-size: 2.5rem;
   padding-left: 1.5%;
   font-family:Arial, Helvetica, sans-serif;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
  text-align: center;
    text-shadow: 2px 2px 2px black;
+}
+.d1{
+  background-image:url('../assets/images/asq.jpg');
+  background-attachment:fixed;
+  background-position:bottom auto;
 }
 h2{
    text-shadow: 4px 6px 5px black;
@@ -96,6 +108,7 @@ h2{
    text-shadow: 2px 2px 2px black;
 
 }
+
 @media (max-width: 700px) {
  h4 {
     text-size-adjust:2%
