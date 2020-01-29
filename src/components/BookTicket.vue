@@ -226,4 +226,8 @@ export default {
   flex-direction: row;
   /*border: 1px solid black;*/
 }
+
+.back-link:hover{
+  background: rgba(255, 186, 240, 0.3);
+}
 </style>

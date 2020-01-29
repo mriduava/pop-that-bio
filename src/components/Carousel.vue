@@ -1,5 +1,5 @@
 <template>
-  <div class="carousel-container">
+  <div class="container-fluid">
     <transition-group>
       <div
         v-for="(movie, index) in moviesData.slice(0, 1)"
@@ -11,12 +11,13 @@
           height: '120vh',
           top: '-117px',
           zIndex: '-1',
-       
+          objectFilt: 'contain',
           overflow: 'hidden',
-          background: 'linear-gradient(45deg, rgba(197, 49, 99, 0.7) 0%, rgba(197, 49, 99, 0.1) 100%),' +  
+          background: 'linear-gradient(45deg, rgba(197, 49, 99, 0.8) 0%, rgba(197, 49, 99, 0.2) 100%),' +  
                       'url(\'' + movie.land_image + '\')',
           backgroundPosition: 'center',
-          backgroundSize: 'cover'
+          backgroundSize: 'cover',
+          display: 'block'
       }"
       >
         <div class="carousel-text">
@@ -30,22 +31,18 @@
     <div class="arrow">
       <a class="arrow-link" @click.prevent="scrollTo('#movies')"><i class="fas fa-angle-double-down"></i></a>
     </div>
+
   </div>
 </template>
 
 <script>
 import moment from "moment";
+
 export default {
   name: "carousel",
-  data() {
-    return {
-      images: [],
-      index: 0
-    };
-  },
   computed: {
     moviesData() {
-      return this.$store.getters.movies;
+      return this.$store.state.data;
     }
   },
   methods: {
@@ -54,31 +51,18 @@ export default {
     },
     scrollTo(selector){
       document.querySelector(selector).scrollIntoView({behavior: 'smooth'})
-    },
-  
-    // slideImage() {
-    //   for(let i=0; i<this.movies; i++){
-    //     this.images.push(this.movies[i].land_image)
-    //   }
-    //   const first = this.images.shift();
-    //   this.images = this.slides.concat(first);
-    // }
+    }
   },
   created() {
     this.$store.dispatch("getDataFromFirebase");
-    // setInterval(this.mriduSlide, 5000);
   }
-};
+}
 </script>
 
 <style lang="css" scoped>
-.carousel-container {
-  position: relative;
-}
 
-#slideshow {
-  opacity: 1;
-  transition: opacity 1s;
+.container {
+  position: relative;
 }
 
 /* #slideshow {
@@ -165,7 +149,7 @@ export default {
 	animation-delay: 0s;
 	animation-iteration-count: infinite;
 }
-
+  
 @keyframes arrowDown {
 	0%{
 		transform: translateY(0);

@@ -8,19 +8,33 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     // data: movies
-    data: []
+    data: [],
+    scrData: [],
+    reserveInfo: {
+      movieTile: "",
+      showTime: "",
+      auditorium: "",
+      numOfTickets: 0,
+      ticketPrice: 0
+    }
   },
   getters: {
-    movies: (state) => {
+    movies(state){
       return state.data
     },
-    tickets: (state) => {
+    tickets(state){
       return state.tickets
+    },
+    screenings(state){
+      return state.scrData
     }
   },
   mutations: {
     UPDATE_DATA(state, moviesData){
       state.data = moviesData
+    },
+    UPDATE_SCREENINGS_DATA(state, screeningsData) {
+      state.scrData = screeningsData
     },
     UPDATE_NUMBER_OF_TICKETS(state, numberOfTickets){
       state.tickets = numberOfTickets
@@ -31,10 +45,25 @@ export default new Vuex.Store({
       let querySnapshot = await db.collection("movies").get()
       let movies = []
       querySnapshot.forEach(e => {
-        movies.push(e.data())        
+        let myData = e.data();
+        myData.id = e.id;
+        movies.push(myData)
+        //movies.push(e.data())     
       });
       commit('UPDATE_DATA', movies)
     },
+
+    async getScreeningFromFirebase({ commit }) {
+      let querySnapshot = await db.collection("screenings").get()
+      let screenings = []
+      querySnapshot.forEach(e => {
+        screenings.push(e.data())
+      });
+      commit('UPDATE_SCREENINGS_DATA', screenings)
+    },
+
+    
+  
     async sendToFirebase(context, purchase){
       let collection = purchase.collection
       delete purchase.collection
