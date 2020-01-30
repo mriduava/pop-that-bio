@@ -7,6 +7,8 @@ import Signin from '@/components/Signin'
 import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
 
+import Register from '@/components/Register'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -44,6 +46,11 @@ const routes = [
     path: '/about',
     name: 'about',
     component: () => import('../views/About.vue')
+  }, 
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
   }
 ]
 
