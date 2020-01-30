@@ -1,32 +1,49 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+
+    <Navbar/>
     <router-view/>
+
+    <Footer/>
   </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import M from 'materialize-css'
+
+export default {
+  name: 'app',
+  components: {
+    Navbar,
+    Footer
+  },
+  mounted() {
+    M.AutoInit();
+  }
+}
+</script>
+
+<style lagg="css">
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#nav {
-  padding: 30px;
+html {
+  scroll-behavior: smooth;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+::-webkit-scrollbar {
+    width: 7px;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 7px;
+    background: #a4b1b0;
 }
 </style>

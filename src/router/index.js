@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import MovieDetail from '@/components/MovieDetail'
+import MoviesList from '@/components/MoviesList'
+import Signin from '@/components/Signin'
+import BookTicket from '@/components/BookTicket'
+import SeatsPlan from '@/components/SeatsPlan'
 
 Vue.use(VueRouter)
 
@@ -11,17 +16,46 @@ const routes = [
     component: Home
   },
   {
+    path: '/movies',
+    name: 'dispmovies',
+    component: MoviesList
+  },
+  {
+    path: '/movies/:slug',
+    name: 'moviedetail',
+    component: MovieDetail
+  },
+  {
+    path: '/movies/:slug/ticket',
+    name: 'bookticket',
+    component: BookTicket
+  },
+  {
+    path: '/movies/:slug/ticket/seatsplan',
+    name: 'seatsplan',
+    component: SeatsPlan
+  },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: Signin
+  },
+  {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import('../views/About.vue')
   }
 ]
 
+
+
 const router = new VueRouter({
-  routes
+  routes,
+  scrollBehavior () {
+  return { x: 0, y: 0 }
+},
+  mode: "history",
+  base: process.env.BASE_URL
 })
 
 export default router
