@@ -38,6 +38,9 @@ export default new Vuex.Store({
     },
     UPDATE_NUMBER_OF_TICKETS(state, numberOfTickets){
       state.tickets = numberOfTickets
+    },
+    setLoogedIn(state, value){
+      alert(value)
     }
   },
   actions: {
@@ -73,6 +76,16 @@ export default new Vuex.Store({
     },
     updateTickets({ commit }, tickets){
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
+    },
+
+    async loginUser({ commit }, credentials){
+      let result = await db.auth().signInWithEmailAndPassword(credentials.username, credentials.password)
+      if (result){
+        this.dispatch('getUser', result.user)
+      }
+    },
+    getUser({ commit }, user){
+      commit('setLoogedIn', user !== null)
     }
   },
   modules: {

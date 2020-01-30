@@ -85,7 +85,7 @@ export default {
     },
     signIn(){
       if (this.checkInputFields()){
-        
+        alert("hello")
       }
     },
     checkInputFields(){
