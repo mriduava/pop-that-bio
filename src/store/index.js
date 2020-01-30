@@ -52,7 +52,6 @@ export default new Vuex.Store({
       });
       commit('UPDATE_DATA', movies)
     },
-
     async getScreeningFromFirebase({ commit }) {
       let querySnapshot = await db.collection("screenings").get()
       let screenings = []
@@ -61,9 +60,6 @@ export default new Vuex.Store({
       });
       commit('UPDATE_SCREENINGS_DATA', screenings)
     },
-
-    
-  
     async sendToFirebase(context, purchase){
       let collection = purchase.collection
       delete purchase.collection
