@@ -45,10 +45,10 @@
              </div>
              </div>
            <div class="butt">
-             <router-link to="/tickets">
+             <router-link class="card-panel  pink darken-1  text-align: center white-text text-darken-2" :to="'/register'">Bli Medlem</router-link>
+             <!-- <router-link to="/tickets">
                             <div class="card-panel  pink darken-1  text-align: center white-text text-darken-2">Bli medlem</div>
-
-             </router-link>
+             </router-link> -->
           </div>
      </div>         
   </div>
