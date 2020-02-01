@@ -24,8 +24,7 @@
           <div class="dropdown-items" v-if="!showMenu">
             <ul>
               <li
-                :key="date"
-                v-for="date in dates"
+                v-for="(date, index) in dates" :key="index"
                 @click="updateChosenDate(date.index)"
               >{{ date.day }} / {{ date.month}} - {{ date.dateName}}</li>
             </ul>
@@ -35,7 +34,7 @@
 
       <div class="available-times">
         <ul style="list-style-type:none;">
-          <li class="show-time-item" :key="screenTime" v-for="screenTime in screenTimes">
+          <li class="show-time-item" v-for="screenTime in screenTimes" :key="screenTime">
             {{ screenTime }}
             {{movieDetail.genre}}
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">

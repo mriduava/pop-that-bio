@@ -52,7 +52,8 @@
 
         <div class="col s2 ticket-button">
           <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
-            <button class="btn btn-small waves-effect" @click.prevent="scrollTo('#showtime')">Biljetter</button>
+            <!-- <button class="btn btn-small waves-effect" @click.prevent="scrollTo('#showtime')">Biljetter</button> -->
+            <button class="btn btn-small waves-effect" @click="selectedMovie()">Biljetter</button>
           </router-link>
         </div>
       </div>
@@ -93,6 +94,11 @@ export default {
     },
     dispMovieTrailer() {
       this.showTrailer = true;
+    },
+    selectedMovie(){
+      this.$store.state.reserveInfo.movieTitle = this.movieDetail.title
+      console.log(this.movieDetail.title);
+      
     },
     scrollTo(selector){
       document.querySelector(selector).scrollIntoView({behavior: 'smooth'})
