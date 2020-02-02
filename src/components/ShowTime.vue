@@ -1,30 +1,27 @@
 <template>
-  <div class="container-fluid" id="showtime">
-
-    <div class="row">
-      <div class="col s12">
-        <div class="title-text">
-          <h4 class>Boka Biljetter</h4>
-          <hr class="hr-style" />
-        </div>
-      </div>
+  <div class="container-fluid" >
+    <div class="title-text">
+      <h4 class>Boka biljetter</h4>
+      <hr class="hr-style" />
     </div>
-    
-  
 
     <div class="screenings-section">
       <div class="dates">
         <div class="dropdown-menu">
-          <h5 class="selected dropdown item" @click="showMenu = !showMenu">
-            {{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }}
-            <i
-              class="fas fa-chevron-down"
-            ></i>
-          </h5>
-          <div class="dropdown-items" v-if="!showMenu">
+
+          <div class="selected-dropdown item" @click="showMenu = !showMenu">
+            <h5> <i class="fas fa-bars"></i></h5>
+            <h5 >
+              {{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }}
+            </h5>
+            
+          </div>
+          
+          <div class="dropdown-items" v-if="showMenu">
             <ul>
               <li
-                v-for="(date, index) in dates" :key="index"
+                :key="date"
+                v-for="date in dates"
                 @click="updateChosenDate(date.index)"
               >{{ date.day }} / {{ date.month}} - {{ date.dateName}}</li>
             </ul>
@@ -32,10 +29,10 @@
         </div>
       </div>
 
-      <div class="available-times">
+      <div class="available-times" id="showtime">
         <ul style="list-style-type:none;">
-          <li class="show-time-item" v-for="screenTime in screenTimes" :key="screenTime">
-            {{ screenTime }}
+          <li class="show-time-item" :key="screenTime" v-for="screenTime in screenTimes">
+            {{ screenTime }} |
             {{movieDetail.genre}}
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
               <button class="btn btn-small pink darken-1 waves-effect">Boka</button>
@@ -141,7 +138,7 @@ export default {
         case 1:
           return "Monday";
         case 2:
-          return "Thuesday";
+          return "Tuesday";
         case 3:
           return "Wednesday";
         case 4:
@@ -210,7 +207,6 @@ export default {
             this.screeningDetails[s].startTime.toMillis()
           ) == chosenDay
         ) {
-
           this.screenTimes.push(
             this.convertHourlyTime(
               this.screeningDetails[s].startTime.toMillis()
@@ -234,62 +230,121 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="css" scoped>
 .container-fluid {
+  background: #fff;
+  margin: 0 auto;
   position: relative;
-  top: -150px;
-  background: linear-gradient(
-    to top,
-    rgba(235, 78, 161, 0.4) 10%,
-    rgba(37, 33, 33, 0.6) 40%,
-    rgba(0, 0, 0, 0.8) 90%
-  );
-  padding-bottom: 40px;
 }
 
 .title-text {
+  margin: 0 auto;
   text-align: center;
-  position: relative;
+  align-items: center;
   padding: 1% 0;
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.733);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .hr-style {
   border: 0;
-  min-width: 90%;
+  min-width: 99%;
   max-width: 1%;
   height: 1px;
   margin: 0 auto 10px auto;
   background: #fff;
-  background: -webkit-linear-gradient(left, rgb(104, 99, 99), #fff, rgb(104, 99, 99));
+  background: -webkit-linear-gradient(
+    left,
+    rgba(0, 0, 0, 0.3),
+    #fff,
+    rgba(0, 0, 0, 0.3)
+  );
 }
 
+/*SCREENING SECTION*/
+
 .dropdown-menu{
-  position: relative;
-  color: #ffe600;
   margin: 0 auto;
+  position: relative;
+  color: #13f7ff;
+  top: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+  justify-content: space-between;
+  padding: 5px 2.2%;
+  max-width: 59vw;
+  background: rgba(83, 83, 83, 0.1);
+  /* border: 0.01rem solid rgba(255, 166, 248, 0.1); */
+}
+
+.selected-dropdown{
+  display: flex;
+  justify-content: left;
+}
+
+.dropdown-menu i{
+  color: #00ff4c;
+  font-size: 1.5rem;
+  margin-right: 25px;
+}
+
+.selected-dropdown:hover{
+  cursor: pointer;
 }
 
 .dropdown-items{
-  color: rgb(145, 0, 96);
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  top: 65px;
+  left: 0;
+  width: 300px;
+  padding: 3% 3%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  transition: .3s;
+  -webkit-transition: all 0.3s ease 0s;
 }
-.dropdown-items h6:hover{
+
+.dropdown-items li{
+  color:  rgb(212, 0, 166);
+  padding: 1.1% 0;
+}
+
+.dropdown-items li:hover{
+  background:  #ff00aa44;
   cursor: pointer;
   color: rgb(212, 0, 166);
 }
+
 .available-times{
   display: flex;
   justify-content: center;
   margin: 1% 0;
 }
-
 .show-time-item{
-  margin: 3% 0;
-  padding: 3% 0;
+  position: relative;
+  top: 15px;
+  color: #00ff4c;
+  background: #1d1d1d98;
+  font-size: 1.5rem;
+  margin: 2% auto 0 auto;
+  padding: 15px 2%;
+  display: flex;
+  justify-content: space-between;
+  width: 59vw;
+  /* border: 0.01rem solid rgba(255, 166, 248, 0.2); */
 }
+
+@media (min-width: 310px) and (max-width: 812px) {
+  .dropdown-menu{
+    /* justify-content: center;
+    text-align: center; */
+    max-width: 90vw;
+    padding-left: 3%;
+  }
+  .show-time-item{
+    width: 85vw;
+  }
+}
+
+
 </style>
