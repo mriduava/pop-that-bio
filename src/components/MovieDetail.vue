@@ -3,8 +3,8 @@
     <div
       class="background"
       :style="{
-          height: '100vh',
-          top: '-65px',
+          height: '90vh',
+          top: '-59px',
           position: 'relative',
           width: '100%',
           backgroundColor: '#323232',
@@ -53,18 +53,21 @@
         <div class="col s2 ticket-button">
           <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
             <button class="btn btn-small waves-effect" @click.prevent="scrollTo('#showtime')">Biljetter</button>
+            <!-- <button class="btn btn-small waves-effect" @click="selectedMovie()">Biljetter</button> -->
           </router-link>
         </div>
       </div>
 
       <div class="row movie-text-row">
-        <div class="col s8 movie-text">
-          <p>{{ movieDetail.about }}</p>
+        <div class="col s12 movie-text">
+          <p class="flow-text">{{ movieDetail.about }}</p>
         </div>
       </div>
     </div>
 
-    <ShowTime />
+    <div class="showtime-comp">
+      <ShowTime />
+    </div>
   </div>
 </template>
 
@@ -86,6 +89,7 @@ export default {
   methods: {
     getMovie() {
       this.movies.forEach(movie => {
+        this.$route.params.slug;
         if (movie.slug == this.$route.params.slug) {
           this.movieDetail = movie;
         }
@@ -94,30 +98,44 @@ export default {
     dispMovieTrailer() {
       this.showTrailer = true;
     },
-    scrollTo(selector){
-      document.querySelector(selector).scrollIntoView({behavior: 'smooth'})
+    selectedMovie() {
+      this.$store.state.reserveInfo.movieTitle = this.movieDetail.title;
+      console.log(this.movieDetail.title);
+    },
+    scrollTo(selector) {
+      document.querySelector(selector).scrollIntoView({ behavior: "smooth", block: "center"});
     }
   },
-  
+
   created() {
     this.getMovie();
+    this.$store.dispatch("getDataFromFirebase");
+  },
+  watch:{
+    'movieDetail' (){
+      this.getMovie()
+    }
   }
 };
 </script>
 
 <style lang="css" scoped>
+.container-fluid{
+   background: linear-gradient(
+    to bottom,
+    rgba(2, 2, 2, 0.966) 50%,
+    rgba(20, 18, 18, 0.959),
+    rgb(219, 166, 195) 100%
+  );
+  padding-bottom: 1%;
+}
+
 .moviedetail-container {
   position: relative;
   top: -130px;
-  background: linear-gradient(
-    to bottom,
-    rgba(2, 2, 2, 0.966) 30%,
-    rgba(20, 18, 18, 0.959),
-    rgba(0, 0, 0, 0.8) 90%
-  );
 }
 
-.btn{
+.btn {
   background: rgb(230, 12, 128);
 }
 
@@ -227,11 +245,11 @@ iframe {
   transform: scale(1.1);
 }
 
-.movie-text-row{
+.movie-text-row {
   display: flex;
-  width: 90vw;
+  width: 60vw;
 }
-.movie-text{
+.movie-text {
   color: #fff;
   position: relative;
   top: -250px;
@@ -241,5 +259,82 @@ iframe {
   justify-content: center;
 }
 
+.movie-text p{
+  font-size: 1.1rem;
+}
+
+.showtime-comp{
+  background: linear-gradient(
+    to top,
+    rgba(2, 2, 2, 0.966) 10%,
+    rgba(20, 18, 18, 0.959),
+    rgba(20, 18, 18, 0.959), 100%
+  );
+  position: relative;
+  margin: 0 auto; 
+  top: -350px; 
+  border-top: 0.01rem solid rgba(65, 65, 65, 0.5);
+  width: 59vw;
+  height: 0;
+}
+/* RESPONSIVE STYLE*/
+@media (min-width: 1281px) {
+}
+@media (min-width: 1025px) and (max-width: 1280px) {
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  
+}
+@media (min-width: 310px) and (max-width: 812px) {
+  .middle {
+    position: relative;
+    top: -190px;
+    width: 90vw;
+  }
+
+  .movie-image {
+    top: -80px;
+  }
+
+  .movie-info {
+    position: relative;
+    top: -80px;
+  }
+
+  .ticket-button {
+    position: absolute;
+    margin-top: 1%;
+  }
+
+  .ticket-button button{
+    width: 85vw;
+  }
+
+  .movie-text-row{
+    width: 90vw;
+  }
+
+  .movie-text{
+    width: 90vw;
+    top: -220px;
+    left: 0;
+  }
+
+  .movie-trailer-body {
+    width: 95vw;
+    height: 40vh;
+  }
+
+
+  .showtime-comp{
+    width: 85vw;
+  }
+
+}
 </style>
 
