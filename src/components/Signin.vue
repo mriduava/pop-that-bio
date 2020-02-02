@@ -85,7 +85,11 @@ export default {
     },
     signIn(){
       if (this.checkInputFields()){
-        alert("hello")
+        let userCredentials = {
+          email: this.username,
+          password: this.password
+        }
+        this.$store.dispatch('loginUser', userCredentials)
       }
     },
     checkInputFields(){

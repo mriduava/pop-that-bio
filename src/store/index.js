@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 // import {movies} from '@/data/database.js';
 import {db} from '@/firebase/firebase.js'
-
+require('firebase/auth')
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -16,6 +16,10 @@ export default new Vuex.Store({
       auditorium: "",
       numOfTickets: 0,
       ticketPrice: 0
+    },
+    user: {
+      loggedIn: false,
+      data: null
     }
   },
   getters: {
@@ -39,7 +43,14 @@ export default new Vuex.Store({
     UPDATE_NUMBER_OF_TICKETS(state, numberOfTickets){
       state.tickets = numberOfTickets
     },
-    setLoogedIn(state, value){
+    setLoggedIn(state, value) {
+      state.user.loggedIn = value;
+      alert("works")
+    },
+    setUser(state, data) {
+      state.user.data = data;
+    },
+    test(state, value){
       alert(value)
     }
   },
@@ -77,17 +88,27 @@ export default new Vuex.Store({
     updateTickets({ commit }, tickets){
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
     },
-
-    async loginUser({ commit }, credentials){
-      let result = await db.auth().signInWithEmailAndPassword(credentials.username, credentials.password)
-      if (result){
-        this.dispatch('getUser', result.user)
+    async loginUser({ commit }, form){
+      let result = await db.auth().signInWithEmailAndPassword(form.email, form.password)
+      if(result){
+        this.dispatch('fetchUser', result.user)
+      }else{
+        commit('test', 'hello')
       }
     },
-    getUser({ commit }, user){
-      commit('setLoogedIn', user !== null)
+    fetchUser({ commit }, user) {
+      commit("setLoggedIn", user !== null);
+
+      if (user) {
+        commit("setUser", {
+          displayName: user.displayName,
+          email: user.email
+        });
+      } else {
+        commit("setUser", null);
+      }
     }
   },
   modules: {
   }
-})
+});
