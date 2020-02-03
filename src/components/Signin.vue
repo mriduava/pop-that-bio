@@ -1,4 +1,5 @@
 <template>
+
  <div class="d1">
 
   <div></div> 
@@ -6,25 +7,25 @@
     <form class="col l3  s3 offset-l4 card-panel purple lighten-5 truncate">
         <div class="brand-logo">
              <h4 class="pink-text text-pink darken-4">POP THAT BIO</h4>
-             <h2 class="pink-text text-pink darken-4">Sign In</h2>
+             <h2 class="pink-text text-pink darken-4"> logga in</h2>
    </div>
       <div class="row">
         
         <div class="input-field col l12 s12 ">
-          <input  id="User name" type="text" class="validate" v-model="username">
-          <label for="User name">User Name</label>
+          <input  id="User name" type="text" class="validate">
+          <label for="User name">Användarnamn</label>
         </div>
        
       </div>
     
       <div class="row">
         <div class="input-field col l12 s12">
-          <input id="password" type="password" class="validate" v-model="password">
-          <label for="password">Password</label>
+          <input id="password" type="password" class="validate">
+          <label for="password">Lösenord</label>
         </div>
       </div>
         <div class="col l4 offset-l8">
-         <button class="btn pink accent-1" @click.prevent="signIn ()" >Logga in</button>
+         <button class="btn pink accent-1" @click.prevent="test () " >Logga in</button>
           
          </div>
     </form> 
@@ -45,10 +46,12 @@
              </div>
              </div>
            <div class="butt">
-             <router-link class="card-panel  pink darken-1  text-align: center white-text text-darken-2" :to="'/register'">Bli Medlem</router-link>
-             <!-- <router-link to="/tickets">
+             <router-link to="/tickets">
                             <div class="card-panel  pink darken-1  text-align: center white-text text-darken-2">Bli medlem</div>
-             </router-link> -->
+                            <br>
+                            <span class=" white-text text-darken-2">Som inloggad medlem tjänar du automatiskt poäng då du köper biljetter i appen eller på POP-THAT-BIO.se och du har dessutom 
+                              alltid medlemskapet med dig i fickan. Bra va? Du måste vara 16 år för att bli medlem.</span>
+             </router-link>
           </div>
      </div>         
   </div>
@@ -111,11 +114,12 @@ export default {
 }
 </script>
 
+
 <style lang="css" scoped>
 
 .brand-logo,p{
  
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   padding-left: 1.5%;
   font-family:Arial, Helvetica, sans-serif;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
@@ -131,7 +135,12 @@ export default {
 h2{
    text-shadow: 4px 6px 5px black;
     text-align: center;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+h4{
+   text-shadow: 4px 6px 5px black;
+    text-align: center;
+  font-family: borntogrille;
 }
 .butt{
   font-size: 1rem;
@@ -153,4 +162,3 @@ h2{
   }    
 }
 </style>
-
