@@ -6,7 +6,6 @@ import MoviesList from '@/components/MoviesList'
 import Signin from '@/components/Signin'
 import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
-import MyPage from '@/components/MyPage'
 
 import Register from '@/components/Register'
 
@@ -52,11 +51,6 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
-  },
-  {
-    path: '/mypage',
-    name: 'MyPage',
-    component: MyPage
   }
 ]
 
