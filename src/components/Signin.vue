@@ -1,3 +1,4 @@
+
 <template>
 
  <div class="d1">
@@ -7,7 +8,11 @@
     <form class="col l3  s3 offset-l4 card-panel purple lighten-5 truncate">
         <div class="brand-logo">
              <h4 class="pink-text text-pink darken-4">POP THAT BIO</h4>
+<<<<<<< Updated upstream
              <h2 class="pink-text text-pink darken-4"> logga in</h2>
+=======
+             <h2 class="pink-text text-pink darken-4"> Sign In</h2>
+>>>>>>> Stashed changes
    </div>
       <div class="row">
         
@@ -112,6 +117,7 @@ export default {
     }
   }
 }
+
 </script>
 
 
@@ -127,7 +133,7 @@ export default {
    text-shadow: 2px 2px 2px black;
 }
 .d1{
-  background-image:url('../assets/images/asq.jpg');
+  background-image:url('../assets/images/aqa.jpg');
   background-attachment:fixed;
   background-position:bottom auto;
 

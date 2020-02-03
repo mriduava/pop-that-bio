@@ -1,5 +1,6 @@
 <template>
 <div>
+<<<<<<< Updated upstream
  <div class="slider">
     <ul class="slides">
       <li>
@@ -31,9 +32,44 @@
         </div>
       </li>
     </ul>
+=======
+<div class="carousel carousel-slider center" data-indicators="true">
+    <div class="carousel-fixed-item center">
+     
+    </div>
+    <div class="carousel-item" href="#one!">
+      <img src="../assets/images/xsw.jpg" alt="" width="20%" >
+     
+    </div>
+    <div class="carousel-item amber white-text" href="#two!">
+      <h2>Second Panel</h2>
+      <p class="white-text">This is your second panel</p>
+    </div>
+    <div class="carousel-item green white-text" href="#three!">
+      <h2>Third Panel</h2>
+      <p class="white-text">This is your third panel</p>
+    </div>
+    <div class="carousel-item blue white-text" href="#four!">
+      <h2>Fourth Panel</h2>
+      <p class="white-text">This is your fourth panel</p>
+    </div>
+  </div>
+  <h2>Sveriges största biografkedja</h2>
+  <p>
+    Filmstaden AB driver biografer i Sverige på 21 orter med 32 425 fåtöljer i 255 salonger. Inom Filmstaden finns också affärsområdet Filmstaden Business, med Filmstaden Media, som förmedlar medieköp i våra kanaler på biografer och i digitala fönster, Företagsbiljetter, som säljer biobiljetter till företag, och Möten &
+     Event, som hyr ut biografer till företagsevenemang.
+  </p>
+
+>>>>>>> Stashed changes
   </div>
  </div>
 </template>
+
+
+
+
+
+
 
 <script>
 export default {
@@ -54,10 +90,32 @@ export default {
         
 </script>
 
-<style lang="css">
 
-.headline{
-  text-align: center;
+<style lang="css" scoped>
+.mean-carousel{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  align-self:center;
+  justify-content:center;
+}
+.carousel{
+  width: 100%;
+  perspective: 600%
+  
+}
+
+
+.carousel-item{
+  width:400%;
+  size: 100%
+}
+.carousel-item-img{
+width: 50%;
+
 }
 
 </style>

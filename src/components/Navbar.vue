@@ -1,6 +1,31 @@
 <template>
   <div class="container-fluid navbar navbar-fixed">
-    <nav class="nav-extended">
+    <nav  class="nav-extended">
+    <div class="nav-wrapper">
+        <router-link to="/"><a class="brand-logo "><p>POP THAT BIO</p></a></router-link>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li class="nav-item">
+            <router-link to="/movies" class="nav-link">MOVIES</router-link>
+          </li>
+
+         <li class="nav-item">
+            <router-link to="/about" class="nav-link">ABOUT</router-link>
+          </li>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/signin">SIGN IN</router-link>
+          </li>
+      
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="sass.html">MOVIES</a></li>
+    <li><a href="badges.html">ABOUT</a></li>
+    <li><a href="collapsible.html">SIGN INt</a></li>
+  </ul>
+  <!--  <nav class="nav-extended">
       <div class="nav-wrapper">
         <router-link to="/"><a class="brand-logo "><p>POP THAT BIO</p></a></router-link>
               <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -32,9 +57,28 @@
           </li>
       </ul>
       </div>
-    </nav>
+    </nav>-->
   </div>
 </template>
+<script>
+export default {
+  mounted() {
+    var elems = document.querySelectorAll('.carousel');
+    this.$M.Carousel.init(elems);
+
+    setTimeout(this.$M.Carousel.init(elems), 1000)
+    
+  }
+ 
+}
+</script>
+ <script>
+
+    $(".button-collapse").sideNav();
+
+  
+
+</script>
 
 <style lang="css" scoped>
 @font-face {
@@ -48,7 +92,9 @@ nav {
   background: rgb(100, 10, 60);
   background: -webkit-linear-gradient(to top, rgb(156, 36, 100), rgba(197, 49, 99, 0.5));
   background: linear-gradient(to bottom, rgb(117, 9, 67), rgba(197, 49, 99, 0.5));
-   text-shadow: 1px 2.5px 1px rgb(12, 1, 1);
+   text-shadow: 2px 4px 1px rgb(12, 1, 1);
+  font-family: borntogrille;
+
   }
 
 .our-brand-logo {
