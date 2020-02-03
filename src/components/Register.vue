@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <h1>Registrera för medlemskap</h1>
+  <div class="register-component">
+    <h1 class="title">Registrera för medlemskap</h1>
     <!-- <form action="#" @submit.prevent="submit"> -->
 
-    <form action="#">
+    <form class="register-form" action="#">
       <div class="input-field">
         <!--<input id="name" type="text" name="name" value required autofocus v-model="form.name">-->
         <input id="name" type="text" name="name" value required autofocus v-model="name" />
@@ -26,7 +26,7 @@
 
       <div class="input-field">
         <!--<button type="submit">Registrera</button>-->
-        <button @click="register">Register</button>
+        <button class="btn waves-effect register-button" @click="register">Register</button>
       </div>
     </form>
   </div>
@@ -61,7 +61,6 @@ export default {
     },
 
     register(e) {
-      console.log("REGISTER");
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
@@ -81,3 +80,31 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  .register-component {
+    background-color: pink;
+  }
+
+  .title {
+    margin: 0px;
+    padding-top: 60px;
+    text-align: center;
+    color: white;
+  }
+  .register-form {
+    /*background-color: pink;*/
+    padding: 20px;
+    margin: 0 auto;
+    width: 35vw;
+  }
+  .register-button {
+    margin: 0 auto;
+    display: block;
+    /* margin-left: 30px; */
+  }
+  .input-field input {
+    color: white;
+  }
+
+</style>
