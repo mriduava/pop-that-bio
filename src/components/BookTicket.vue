@@ -64,7 +64,7 @@
       </div>
       <div class="valj">
         <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
-          <button class="btn btn-large waves-effect waves-light" @click="updateTickets">Välj platser</button>
+          <button class="btn btn-small waves-effect waves-light" @click="updateTickets">Välj platser</button>
         </router-link>
       </div>
     </div>
@@ -91,11 +91,8 @@ export default {
         this.$route.params.slug;
         if (movie.slug === this.$route.params.slug) {
           this.movieDetail = movie;
-          window.console.log(this.movieDetail, "chosen movie");
           if (this.movieDetail.age_limit < 7) {
             this.childAllowed = true;
-            window.console.log("children allowed");
-            //alert("allowed");
           }
         }
       });
@@ -106,7 +103,11 @@ export default {
         numberOfAdults: this.counterOrd,
         numberOfSeniors: this.counterPen
       }
+      this.$store.state.reserveInfo.numOfTickets = tickets
+      this.$store.state.reserveInfo.numOfCustomers = this.nrOfcustomer
       this.$store.dispatch('updateTickets', tickets)
+      console.log(this.$store.state.reserveInfo.numOfCustomers);
+      
     },
     increaseOrd() {
       if (
