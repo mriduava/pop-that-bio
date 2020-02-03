@@ -66,7 +66,8 @@ export default {
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
           user => {
-            alert(`Account created for ${user.emai}`);
+            window.console.log(`Acount created for ${user.email}`)
+            //alert(`Account created for ${user.emai}`);
             this.storeAccountDetails();
             this.$router.push("/");
           },
