@@ -11,7 +11,7 @@
             <i class="fas fa-list"></i>
           </h5>
           <h5>
-            <router-link to="/movieslistpic"><div><i class="far fa-file-image"></i></div></router-link>
+            <i class="far fa-file-image"></i>
           </h5>
         </div>
       </div>
