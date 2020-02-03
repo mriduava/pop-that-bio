@@ -54,7 +54,7 @@ export default new Vuex.Store({
     },
     setLoggedIn(state, value) {
       state.user.loggedIn = value;
-      alert("works")
+      //alert("works")
     },
     setUser(state, data) {
       state.user.data = data;

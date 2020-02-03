@@ -1,6 +1,6 @@
 <template>
   <div class="register-component">
-    <h1 class="title">Registrera för medlemskap</h1>
+    <h1 class="title">Registrera Medlemskap</h1>
     <!-- <form action="#" @submit.prevent="submit"> -->
 
     <form class="register-form" action="#">
@@ -26,7 +26,7 @@
 
       <div class="input-field">
         <!--<button type="submit">Registrera</button>-->
-        <button class="btn waves-effect register-button" @click="register">Register</button>
+        <button class="btn waves-effect register-button" @click="register">Skapa</button>
       </div>
     </form>
   </div>
