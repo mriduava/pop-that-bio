@@ -1,6 +1,5 @@
 <template>
 <div>
-<<<<<<< Updated upstream
  <div class="slider">
     <ul class="slides">
       <li>
@@ -32,7 +31,6 @@
         </div>
       </li>
     </ul>
-=======
 <div class="carousel carousel-slider center" data-indicators="true">
     <div class="carousel-fixed-item center">
      
