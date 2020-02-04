@@ -23,10 +23,7 @@
         <div class="carousel-text">
           <h3 class="white-text text-lighten-4">{{movie.title}}</h3>
           <hr class="hr-style m-0 p-0" />
-          <!-- <div>
-            <h6 class="">{{formatTime(movie.showTime.toMillis())}}</h6>
-          </div> -->
-          
+          <!-- <h6 class="">{{formatTime(movie.showTime.toMillis())}}</h6> -->
         </div>
       </div>
     </transition-group>
@@ -43,11 +40,6 @@ import moment from "moment";
 
 export default {
   name: "carousel",
-  data() {
-    return {
-      screenings: this.$store.state.scrData
-    }
-  },
   computed: {
     moviesData() {
       return this.$store.state.data;

@@ -17,15 +17,14 @@
 
     <div class="grid">
       <div class="row seats-grid" v-for="(blockRow, row) in seatsGrid" :key="row">
-        <div class="seats" v-for="(block, col) in blockRow" :key="col"
-            @mouseover="printPositionOnHover(row, col)"
-            @click="selectItem(row, col)">
+        <div class="all-blocks" v-for="(block, col) in blockRow" :key="col">
+          <div class="seats" v-if="block==='S'" @click="getPosition(col, row)"></div>
         </div>
       </div>
     </div>
 
-    <div class="row seat-position">
-      <h6>Parkett, rad {{seatHover.x}}, plats {{seatHover.y}}</h6>
+    <div class="row seat-position" v-if="seatPosition != 0">
+      <h6>Parkett, rad {{seatPosition[0].x}}, plats {{seatPosition[0].y}}</h6>
     </div>
 
     <div class="buttons">
@@ -41,36 +40,28 @@
 
 <script>
 export default {
+  // props: ['numberOfChildren', 'numberOfAdults', 'numberOfSeniors'],
   data() {
     return {
-      seatsPerRow: [6, 8, 9, 10, 10, 12],
-      seatsGrid: [],
-
+      seatsPerRow: [8, 9, 10, 10, 10, 10, 12, 12],
       movies: this.$store.getters.movies,
       movieDetail: [],
-
-      seatHover: { x: 0, y: 0 },
-      toggleSelection: false,
-      selectedSeats: [],
-
-      numOfSeats: this.$store.state.reserveInfo.numOfCustomers
+      seatPosition: [],
+      seatBooked: false,
+      seatsGrid: []
     };
   },
   methods: {
-    selectItem(x, y) {
-      this.toggleSelection = !this.toggleSelection;
-      let seatPosition = { x: x, y: y };
-      this.selectedSeats.push(seatPosition); 
-      console.log(this.selectedSeats);   
-    },
-    printPositionOnHover(x, y) {
-      this.seatHover = { x: x + 1, y: y + 1 };
+    getPosition(x, y) {
+      let position = {x:y+1, y:x+1}
+      this.seatPosition.push(position)
     },
     createSeatsGrid() {
       for (let i = 0; i < this.seatsPerRow.length; i++) {
         let rows = new Array(this.seatsPerRow[i]);
-        this.seatsGrid.push(rows);
+        this.seatsGrid.push(rows.fill("S"));
       }
+      return this.seatsGrid;
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -88,12 +79,8 @@ export default {
 };
 </script>
 
+
 <style lang="css" scoped>
-.active {
-  width: 20px;
-  height: 20px;;
-  background: rgb(204, 9, 113);
-}
 .container-fluid {
   padding-bottom: 3%;
 }
@@ -128,16 +115,17 @@ export default {
   background: rgba(111, 111, 241, 0.699);
 }
 /* STYLE TO GRID */
+
 .seats-grid {
   display: flex;
   justify-content: center;
 }
-/* .all-blocks {
+.all-blocks {
   position: relative;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
-} */
-.seats {
+}
+.seats{
   justify-content: center;
   width: 23px;
   height: 20px;

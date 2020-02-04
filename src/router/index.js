@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import MovieDetail from '@/components/MovieDetail'
 import MoviesList from '@/components/MoviesList'
+import MoviesListPic from '@/components/MoviesListPic'
 import Signin from '@/components/Signin'
 import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
@@ -22,6 +23,11 @@ const routes = [
     path: '/movies',
     name: 'dispmovies',
     component: MoviesList
+  },
+  {
+    path: '/movieslistpic',
+    name: 'movieslistpic',
+    component: MoviesListPic
   },
   {
     path: '/movies/:slug',

@@ -20,7 +20,11 @@
           </router-link>
         </div>
       </div>
-      <div class="end-button"><router-link to="/movies"><button class="btn waves-effect">Visa alla filmer</button></router-link></div>
+      <div class="end-button">
+        <router-link to="/movies">
+          <button class="btn waves-effect">Visa alla filmer</button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -31,7 +35,8 @@ export default {
   name: "movies",
   data() {
     return {
-      movies: []
+      movies: [],
+      screenings: []
     };
   },
   methods: {
@@ -57,14 +62,13 @@ export default {
   src: url("../assets/fonts/borntogrille.otf");
 }
 
-
-.end-button{
+.end-button {
   padding-top: 20px;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
 }
 
-.btn{
+.btn {
   background: rgba(202, 8, 112, 0.692);
 }
 
