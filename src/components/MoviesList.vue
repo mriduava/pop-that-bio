@@ -19,36 +19,65 @@
 
     <hr />
 
+    
+
     <div v-for="(movie, index) in moviesData" :key="index">
-      <router-link :to="'/movies/' + movie.slug">
-      <div class="row movies-list">
-        <div class="col s12 m4 l4">
-          <div class="movie-image">
-            <img :src="movie.image" alt="Pop that bio" />
-          </div>
-        </div>
 
-        <div class="col s12 m4 l4">
-          <div class="movie-info">
-            <div class="title">
-              <h5>{{movie.title}}</h5>
-            </div>
-            <div class="date">
-              <p>{{momentTime(movie.showTime.toMillis())}}</p>
-              <p>{{movie.genre}} | {{movie.length}} minute | {{movie.age_limit}} år</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s12 m4 l4">
-          <div class="movie-text">
-            <h6>Om filmen:</h6>
-            <p>{{movie.about | subString}}</p>
+      <transition name="movie-trailer" v-if="showTrailer">
+      <div class="movie-trailer-container">
+        <div class="movie-trailer-wrapper">
+          <div class="movie-trailer-body">
+            <slot name="footer">
+              <i class="far fa-times-circle cross-button" @click="showTrailer = false"></i>
+            </slot>
+            <iframe
+              width="700"
+              height="480"
+              :src="'https://www.youtube.com/embed/' + movie.movieTrailer + '?autoplay=1&cc_load_policy=1'"
+              frameborder="0"
+              allow="autoplay"
+              allowfullscreen
+            ></iframe>
           </div>
         </div>
       </div>
-        </router-link>
+    </transition>
+      <!-- <router-link :to="'/movies/' + movie.slug"> -->
+        <div class="row movies-list">
+          <div class="col s12 m4 l3">
+            <div class="movie-image">
+              <img :src="movie.image" alt="Pop that bio" />
+            </div>
+          </div>
 
+          <div class="col s12 m4 l3">
+            <div class="movie-info">
+              <div class="title">
+                <h5>{{movie.title}}</h5>
+              </div>
+              <div class="date">
+                <!-- <p>{{momentTime(movie.showTime.toMillis())}}</p> -->
+                <p>{{movie.genre}} | {{movie.length}} minute | {{movie.age_limit}} år</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m4 l3">
+            <div class="movie-text">
+              <h6>Om filmen:</h6>
+              <p>{{movie.about | subString}}</p>
+            </div>
+          </div>
+
+          <div class="col s12 m3 l3">
+            <div class="trailer">
+              <h6>
+                <i @click="dispMovieTrailer" class="far fa-play-circle"></i> Spela trailer
+              </h6>
+            </div>
+          </div>
+        </div>
+      <!-- </router-link> -->
     </div>
   </div>
 </template>
@@ -70,9 +99,7 @@ export default {
     dispMovieTrailer() {
       this.showTrailer = true;
     },
-    checkChildAllowed(){
-      
-    }
+    checkChildAllowed() {}
   },
   computed: {
     moviesData() {
@@ -121,7 +148,7 @@ export default {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.movies-list:hover{
+.movies-list:hover {
   background: rgba(255, 186, 240, 0.3);
 }
 
@@ -137,14 +164,13 @@ export default {
   width: 100%;
 }
 
-.date{
+.date {
   color: #3a3a3a;
 }
 
-.movie-text{
+.movie-text {
   color: #282828;
   padding: 0 3%;
   text-align: justify;
 }
-
 </style>

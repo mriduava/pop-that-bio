@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 // import {movies} from '@/data/database.js';
 import {db} from '@/firebase/firebase.js'
+import {aut} from '@/firebase/firebase.js'
+require('@firebase/auth');
+require('@firebase/firestore');
 
 Vue.use(Vuex)
 
@@ -16,6 +19,10 @@ export default new Vuex.Store({
       auditorium: "",
       numOfTickets: 0,
       ticketPrice: 0
+    },
+    user: {
+      loggedIn: false,
+      data: null
     }
   },
   getters: {
@@ -38,6 +45,15 @@ export default new Vuex.Store({
     },
     UPDATE_NUMBER_OF_TICKETS(state, numberOfTickets){
       state.tickets = numberOfTickets
+    },
+    setLoggedIn(state, value) {
+      state.user.loggedIn = value;
+    },
+    setUser(state, data) {
+      state.user.data = data;
+    },
+    test(state, value){
+      alert(value)
     }
   },
   actions: {
@@ -52,7 +68,6 @@ export default new Vuex.Store({
       });
       commit('UPDATE_DATA', movies)
     },
-
     async getScreeningFromFirebase({ commit }) {
       let querySnapshot = await db.collection("screenings").get()
       let screenings = []
@@ -61,9 +76,6 @@ export default new Vuex.Store({
       });
       commit('UPDATE_SCREENINGS_DATA', screenings)
     },
-
-    
-  
     async sendToFirebase(context, purchase){
       let collection = purchase.collection
       delete purchase.collection
@@ -77,8 +89,29 @@ export default new Vuex.Store({
     },
     updateTickets({ commit }, tickets){
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
+    },
+    async loginUser({ commit }, form){
+      let result = await aut.signInWithEmailAndPassword(form.email, form.password)
+      if(result){
+        this.dispatch('fetchUser', result.user)
+      }else{
+        commit('test', 'hello')
+      }
+    },
+    fetchUser({ commit }, user) {
+      commit("setLoggedIn", user !== null);
+
+      if (user) {
+        commit("setUser", {
+          displayName: user.displayName,
+          email: user.email
+        });
+        alert("Logged in")
+      } else {
+        commit("setUser", null);
+      }
     }
   },
   modules: {
   }
-})
+});
