@@ -10,50 +10,6 @@ import SeatsPlan from '@/components/SeatsPlan'
 import Register from '@/components/Register'
 
 Vue.use(VueRouter)
-
-<<<<<<< Updated upstream
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/movies',
-    name: 'dispmovies',
-    component: MoviesList
-  },
-  {
-    path: '/movies/:slug',
-    name: 'moviedetail',
-    component: MovieDetail
-  },
-  {
-    path: '/movies/:slug/ticket',
-    name: 'bookticket',
-    component: BookTicket
-  },
-  {
-    path: '/movies/:slug/ticket/seatsplan',
-    name: 'seatsplan',
-    component: SeatsPlan
-  },
-  {
-    path: '/signin',
-    name: 'signin',
-    component: Signin
-  },
-  {
-    path: '/about',
-    name: 'about',
-    component: () => import('../views/About.vue')
-  }, 
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register
-  }
-=======
 const routes = [{
         path: '/',
         name: 'home',
@@ -89,11 +45,13 @@ const routes = [{
         name: 'about',
         component: () =>
             import ('../views/About.vue')
+    },
+    {
+        path: '/register',
+        name: 'Register',
+        component: Register
     }
->>>>>>> Stashed changes
 ]
-
-
 
 const router = new VueRouter({
     routes,

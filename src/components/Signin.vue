@@ -8,37 +8,31 @@
     <form class="col l3  s3 offset-l4 card-panel purple lighten-5 truncate">
         <div class="brand-logo">
              <h4 class="pink-text text-pink darken-4">POP THAT BIO</h4>
-<<<<<<< HEAD
-<<<<<<< Updated upstream
+ 
              <h2 class="pink-text text-pink darken-4"> logga in</h2>
-=======
+
              <h2 class="pink-text text-pink darken-4"> Sign In</h2>
->>>>>>> Stashed changes
-=======
+
              <h2 class="pink-text text-pink darken-4">Logga In</h2>
->>>>>>> develop
    </div>
       <div class="row">
         
         <div class="input-field col l12 s12 ">
-<<<<<<< HEAD
           <input  id="User name" type="text" class="validate">
           <label for="User name">Användarnamn</label>
-=======
           <input  id="User name" type="text" class="validate" v-model="username">
           <label for="User name">E-post adress</label>
->>>>>>> develop
+ 
         </div>
        
       </div>
     
       <div class="row">
         <div class="input-field col l12 s12">
-<<<<<<< HEAD
+ 
           <input id="password" type="password" class="validate">
-=======
+
           <input id="password" type="password" class="validate" v-model="password">
->>>>>>> develop
           <label for="password">Lösenord</label>
         </div>
       </div>
