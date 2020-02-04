@@ -23,7 +23,7 @@
         <div class="carousel-text">
           <h3 class="white-text text-lighten-4">{{movie.title}}</h3>
           <hr class="hr-style m-0 p-0" />
-          <h6 class="">{{formatTime(movie.showTime.toMillis())}}</h6>
+          <h6 class="">{{formatTime(movie.showTime)}}</h6>
         </div>
       </div>
     </transition-group>
