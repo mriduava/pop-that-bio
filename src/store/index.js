@@ -56,7 +56,7 @@ export default new Vuex.Store({
   },
   actions: {
     async getDataFromFirebase({ commit }){
-      let querySnapshot = await db.collection("movies").get()
+      let querySnapshot = await db.firestore().collection("movies").get()
       let movies = []
       querySnapshot.forEach(e => {
         let myData = e.data();
