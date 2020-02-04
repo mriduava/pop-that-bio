@@ -1,0 +1,14 @@
+uppdatera git lathund
+
+jobba i egen bransch
+commita din bransch
+ställ dig på develop bransch
+pulla develop
+merga din bransch med develop
+lös eventuella konflikter
+pusha
+pulla
+ställ dig på din bransch
+merga develop med din bransch
+
+rinse and repeat
