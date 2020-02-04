@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 // import {movies} from '@/data/database.js';
 import {db} from '@/firebase/firebase.js'
-require('firebase/auth')
+import {aut} from '@/firebase/firebase.js'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -56,7 +56,7 @@ export default new Vuex.Store({
   },
   actions: {
     async getDataFromFirebase({ commit }){
-      let querySnapshot = await db.firestore().collection("movies").get()
+      let querySnapshot = await db.collection("movies").get()
       let movies = []
       querySnapshot.forEach(e => {
         let myData = e.data();
@@ -89,7 +89,7 @@ export default new Vuex.Store({
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
     },
     async loginUser({ commit }, form){
-      let result = await db.auth().signInWithEmailAndPassword(form.email, form.password)
+      let result = await aut.auth().signInWithEmailAndPassword(form.email, form.password)
       if(result){
         this.dispatch('fetchUser', result.user)
       }else{
