@@ -10,9 +10,8 @@ export default new Vuex.Store({
     // data: movies
     data: [],
     scrData: [],
-    tickets: 0,
     reserveInfo: {
-      movieTitle: "",
+      movieTile: "",
       showTime: "",
       auditorium: "",
       numOfTickets: 0,
@@ -20,15 +19,7 @@ export default new Vuex.Store({
     },
     user: {
       loggedIn: false,
-      data: null,
-      numOfTickets: {
-        numberOfChildren: 0,
-        numberOfAdults: 0,
-        numberOfSeriors: 0
-      },
-      numOfCustomers: 0,
-      ticketPrice: 0,
-      selectedSeats: []
+      data: null
     }
   },
   getters: {
@@ -65,7 +56,7 @@ export default new Vuex.Store({
   },
   actions: {
     async getDataFromFirebase({ commit }){
-      let querySnapshot = await db.collection("movies").get()
+      let querySnapshot = await db.firestore().collection("movies").get()
       let movies = []
       querySnapshot.forEach(e => {
         let myData = e.data();
