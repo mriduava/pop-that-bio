@@ -56,7 +56,7 @@
                 <h5>{{movie.title}}</h5>
               </div>
               <div class="date">
-                <p>{{momentTime(movie.showTime)}}</p>
+                <!-- <p>{{momentTime(movie.showTime.toMillis())}}</p> -->
                 <p>{{movie.genre}} | {{movie.length}} minute | {{movie.age_limit}} år</p>
               </div>
             </div>

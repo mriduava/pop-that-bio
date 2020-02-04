@@ -11,9 +11,9 @@
                 <img class="activator" :src="movie.image" />
                 <div class="card-text">
                   <h5 class="white-text text-darken-4 valign center">{{movie.title}}</h5>
-                  <p
+                  <!-- <p
                     class="white-text text-darken-4 center"
-                  >{{momentTime(movie.showTime)}}</p>
+                  >{{momentTime(movie.showTime.toMillis())}}</p> -->
                 </div>
               </div>
             </div>
