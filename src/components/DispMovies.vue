@@ -13,7 +13,7 @@
                   <h5 class="white-text text-darken-4 valign center">{{movie.title}}</h5>
                   <p
                     class="white-text text-darken-4 center"
-                  >{{momentTime(screenings.showTime.toMillis())}}</p>
+                  >{{momentTime(movie.showTime)}}</p>
                 </div>
               </div>
             </div>
