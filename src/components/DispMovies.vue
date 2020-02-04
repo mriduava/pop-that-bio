@@ -11,16 +11,20 @@
                 <img class="activator" :src="movie.image" />
                 <div class="card-text">
                   <h5 class="white-text text-darken-4 valign center">{{movie.title}}</h5>
-                  <p
+                  <!-- <p
                     class="white-text text-darken-4 center"
-                  >{{momentTime(movie.showTime.toMillis())}}</p>
+                  >{{momentTime(movie.showTime.toMillis())}}</p> -->
                 </div>
               </div>
             </div>
           </router-link>
         </div>
       </div>
-      <div class="end-button"><router-link to="/movies"><button class="btn waves-effect">Visa alla filmer</button></router-link></div>
+      <div class="end-button">
+        <router-link to="/movies">
+          <button class="btn waves-effect">Visa alla filmer</button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -31,7 +35,8 @@ export default {
   name: "movies",
   data() {
     return {
-      movies: []
+      movies: [],
+      screenings: []
     };
   },
   methods: {
@@ -57,14 +62,13 @@ export default {
   src: url("../assets/fonts/borntogrille.otf");
 }
 
-
-.end-button{
+.end-button {
   padding-top: 20px;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
 }
 
-.btn{
+.btn {
   background: rgba(202, 8, 112, 0.692);
 }
 
