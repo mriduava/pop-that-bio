@@ -8,10 +8,14 @@
       <div class="col s8">
         <div class="sorting-option">
           <h5>
-            <i class="fas fa-list"></i>
+            <button class="btn">
+              <i class="fas fa-list"></i>
+            </button>
           </h5>
           <h5>
-            <i class="far fa-file-image"></i>
+            <button class="btn">
+              <i class="far fa-file-image"></i>
+            </button>
           </h5>
         </div>
       </div>
@@ -19,64 +23,63 @@
 
     <hr />
 
-    
-
     <div v-for="(movie, index) in moviesData" :key="index">
-
       <transition name="movie-trailer" v-if="showTrailer">
-      <div class="movie-trailer-container">
-        <div class="movie-trailer-wrapper">
-          <div class="movie-trailer-body">
-            <slot name="footer">
-              <i class="far fa-times-circle cross-button" @click="showTrailer = false"></i>
-            </slot>
-            <iframe
-              width="700"
-              height="480"
-              :src="'https://www.youtube.com/embed/' + movie.movieTrailer + '?autoplay=1&cc_load_policy=1'"
-              frameborder="0"
-              allow="autoplay"
-              allowfullscreen
-            ></iframe>
+        <div class="movie-trailer-container">
+          <div class="movie-trailer-wrapper">
+            <div class="movie-trailer-body">
+              <slot name="footer">
+                <i class="far fa-times-circle cross-button" @click="showTrailer = false"></i>
+              </slot>
+              <iframe
+                width="700"
+                height="480"
+                :src="'https://www.youtube.com/embed/' + movie.movieTrailer + '?autoplay=1&cc_load_policy=1'"
+                frameborder="0"
+                allow="autoplay"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </transition>
+      <!-- <router-link :to="'/movies/' + movie.slug"> -->
+      <div class="row movies-list">
+        <div class="col s12 m3 l3">
+          <div class="movie-image">
+            <img :src="movie.image" alt="Pop that bio" />
+          </div>
+        </div>
+
+        <div class="col s12 m3 l3">
+          <div class="movie-info">
+            <div class="title">
+              <h5>{{movie.title}}</h5>
+            </div>
+            <div class="date">
+              <!-- <p>{{momentTime(movie.showTime.toMillis())}}</p> -->
+              <p>{{movie.genre}} | {{movie.length}} minute | {{movie.age_limit}} år</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m3 l3">
+          <div class="movie-text">
+            <h6>Om filmen:</h6>
+            <p>{{movie.about | subString}}</p>
+          </div>
+        </div>
+
+        <div class="col s12 m3 l3">
+          <div class="trailer">
+            <h6>
+              <button class="btn" @click="dispMovieTrailer">
+                <i class="far fa-play-circle"></i> Spela trailer
+              </button>
+            </h6>
           </div>
         </div>
       </div>
-    </transition>
-      <!-- <router-link :to="'/movies/' + movie.slug"> -->
-        <div class="row movies-list">
-          <div class="col s12 m4 l3">
-            <div class="movie-image">
-              <img :src="movie.image" alt="Pop that bio" />
-            </div>
-          </div>
-
-          <div class="col s12 m4 l3">
-            <div class="movie-info">
-              <div class="title">
-                <h5>{{movie.title}}</h5>
-              </div>
-              <div class="date">
-                <!-- <p>{{momentTime(movie.showTime.toMillis())}}</p> -->
-                <p>{{movie.genre}} | {{movie.length}} minute | {{movie.age_limit}} år</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col s12 m4 l3">
-            <div class="movie-text">
-              <h6>Om filmen:</h6>
-              <p>{{movie.about | subString}}</p>
-            </div>
-          </div>
-
-          <div class="col s12 m3 l3">
-            <div class="trailer">
-              <h6>
-                <i @click="dispMovieTrailer" class="far fa-play-circle"></i> Spela trailer
-              </h6>
-            </div>
-          </div>
-        </div>
       <!-- </router-link> -->
     </div>
   </div>
@@ -99,7 +102,14 @@ export default {
     dispMovieTrailer() {
       this.showTrailer = true;
     },
-    checkChildAllowed() {}
+    checkChildAllowed() {},
+    getMovie() {
+      this.movies.forEach(movie => {
+        if (movie.slug == this.$route.params.slug) {
+          this.movieDetail = movie;
+        }
+      });
+    },
   },
   computed: {
     moviesData() {
@@ -146,6 +156,10 @@ export default {
   margin: 3% 0;
   border-radius: 4px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  /*display: flex;
+  justify-content: space-evenly;
+  border: 1px solid black;
+  align-items: center;*/
 }
 
 .movies-list:hover {
