@@ -6,13 +6,13 @@
     <form class="col l3  s3 offset-l4 card-panel purple lighten-5 truncate">
         <div class="brand-logo">
              <h4 class="pink-text text-pink darken-4">POP THAT BIO</h4>
-             <h2 class="pink-text text-pink darken-4">Sign In</h2>
+             <h2 class="pink-text text-pink darken-4">Logga In</h2>
    </div>
       <div class="row">
         
         <div class="input-field col l12 s12 ">
           <input  id="User name" type="text" class="validate" v-model="username">
-          <label for="User name">User Name</label>
+          <label for="User name">E-post adress</label>
         </div>
        
       </div>
@@ -20,7 +20,7 @@
       <div class="row">
         <div class="input-field col l12 s12">
           <input id="password" type="password" class="validate" v-model="password">
-          <label for="password">Password</label>
+          <label for="password">Lösenord</label>
         </div>
       </div>
         <div class="col l4 offset-l8">
