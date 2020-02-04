@@ -1,5 +1,5 @@
-
 <template>
+
 
  <div class="d1">
 
@@ -8,31 +8,20 @@
     <form class="col l3  s3 offset-l4 card-panel purple lighten-5 truncate">
         <div class="brand-logo">
              <h4 class="pink-text text-pink darken-4">POP THAT BIO</h4>
- 
-             <h2 class="pink-text text-pink darken-4"> logga in</h2>
-
-             <h2 class="pink-text text-pink darken-4"> Sign In</h2>
-
-             <h2 class="pink-text text-pink darken-4">Logga In</h2>
+             <h2 class="pink-text text-pink darken-4"> Logga in</h2>
    </div>
       <div class="row">
         
         <div class="input-field col l12 s12 ">
           <input  id="User name" type="text" class="validate">
           <label for="User name">Användarnamn</label>
-          <input  id="User name" type="text" class="validate" v-model="username">
-          <label for="User name">E-post adress</label>
- 
         </div>
        
       </div>
     
       <div class="row">
         <div class="input-field col l12 s12">
- 
           <input id="password" type="password" class="validate">
-
-          <input id="password" type="password" class="validate" v-model="password">
           <label for="password">Lösenord</label>
         </div>
       </div>
@@ -47,9 +36,9 @@
              <p class="white-text text-grey lighten-5">Medlemskapet för dig som älskar bio</p>
                <div class="group3">
                  <div class="row"> 
-                    <div class="col l4"><img src="../assets/images/wsw.jpg" alt="" width="40%" class="circle responsive-img"></div>
-                    <div class="col l4"><img src="../assets/images/popcorn_time.png" alt="" width="40%" class="circle responsive-img"></div>
-                    <div class="col l4"><img src="../assets/images/aaa.png" alt="" width="40%" class="circle responsive-img"></div>
+                    <div class="col l4"><img src="../assets/images/aws.jpg" alt="" width="60%" class="circle responsive-img"></div>
+                    <div class="col l4"><img src="../assets/images/qaz.jpg" alt="" width="80%" class="circle responsive-img"></div>
+                    <div class="col l4"><img src="../assets/images/aaa.png" alt="" width="50%" class="circle responsive-img"></div>
                  </div>
              <div class="row">
                <h5 class="col s4 white-text text-grey lighten-5 ">Förtur till biljettsläpp </h5>
@@ -127,7 +116,6 @@ export default {
 
 </script>
 
-
 <style lang="css" scoped>
 
 .brand-logo,p{
@@ -140,7 +128,7 @@ export default {
    text-shadow: 2px 2px 2px black;
 }
 .d1{
-  background-image:url('../assets/images/aqa.jpg');
+  background-image:url('../assets/images/Bio.jpg');
   background-attachment:fixed;
   background-position:bottom auto;
 

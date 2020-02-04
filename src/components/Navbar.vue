@@ -21,9 +21,16 @@
   </nav>
 
   <ul class="sidenav" id="mobile-demo">
-    <li><a href="sass.html">MOVIES</a></li>
-    <li><a href="badges.html">ABOUT</a></li>
-    <li><a href="collapsible.html">SIGN INt</a></li>
+    <li class="nav-item">
+            <router-link to="/movies" class="nav-link">MOVIES</router-link>
+          </li>
+
+         <li class="nav-item">
+            <router-link to="/about" class="nav-link">ABOUT</router-link>
+          </li>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/signin">SIGN IN</router-link>
+          </li>
   </ul>
   <!--  <nav class="nav-extended">
       <div class="nav-wrapper">
@@ -63,22 +70,30 @@
 <script>
 export default {
   mounted() {
+    
     var elems = document.querySelectorAll('.carousel');
     this.$M.Carousel.init(elems);
 
     setTimeout(this.$M.Carousel.init(elems), 1000)
     
-  }
+  },
+  function(){
+     (document).ready(function(){
+    ('.sidenav').sidenav();
+  });
+  
  
-}
-</script>
- <script>
+    
 
-    $(".button-collapse").sideNav();
+  } 
+  
+}
+
+</script>
+ 
 
   
-
-</script>
+  
 
 <style lang="css" scoped>
 @font-face {
