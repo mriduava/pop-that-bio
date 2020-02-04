@@ -19,11 +19,9 @@
 
     <hr />
 
-    
-
     <div v-for="(movie, index) in moviesData" :key="index">
 
-      <transition name="movie-trailer" v-if="showTrailer">
+    <transition name="movie-trailer" v-if="showTrailer">
       <div class="movie-trailer-container">
         <div class="movie-trailer-wrapper">
           <div class="movie-trailer-body">
@@ -56,7 +54,7 @@
                 <h5>{{movie.title}}</h5>
               </div>
               <div class="date">
-                <p>{{momentTime(movie.showTime.toMillis())}}</p>
+                <!-- <p>{{momentTime(movie.showTime.toMillis())}}</p> -->
                 <p>{{movie.genre}} | {{movie.length}} minute | {{movie.age_limit}} år</p>
               </div>
             </div>

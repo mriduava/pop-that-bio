@@ -9,16 +9,21 @@ export default new Vuex.Store({
   state: {
     // data: movies
     data: [],
+    auditoriums: [],
     scrData: [],
     tickets: 0,
+    auditoriumInfo: {
+      name: '',
+      seatsPerRow: []
+    },
     reserveInfo: {
+      auditorium: '',
       movieTitle: "",
-      showTime: "",
-      auditorium: "",
+      showTime: 0,
       numOfTickets: {
-        numberOfChildren: 0,
-        numberOfAdults: 0,
-        numberOfSeriors: 0
+        ordinarie: 0,
+        children: 0,
+        seniors: 0,
       },
       numOfCustomers: 0,
       ticketPrice: 0,
@@ -28,6 +33,9 @@ export default new Vuex.Store({
   getters: {
     movies(state){
       return state.data
+    },
+    auditoriums(state){
+      return state.auditoriums
     },
     tickets(state){
       return state.tickets
@@ -40,12 +48,25 @@ export default new Vuex.Store({
     UPDATE_DATA(state, moviesData){
       state.data = moviesData
     },
+    UPDATE_AUDITORIUMS(state, audiData){
+      state.auditoriums = audiData
+    },
     UPDATE_SCREENINGS_DATA(state, screeningsData) {
       state.scrData = screeningsData
     },
     UPDATE_NUMBER_OF_TICKETS(state, numberOfTickets){
       state.tickets = numberOfTickets
-    }
+    },
+    setLoggedIn(state, value) {
+      state.user.loggedIn = value;
+      // alert("works")
+    },
+    setUser(state, data) {
+      state.user.data = data;
+    },
+    // test(state, value){
+    //   // alert(value)
+    // }
   },
   actions: {
     async getDataFromFirebase({ commit }){
@@ -55,11 +76,18 @@ export default new Vuex.Store({
         let myData = e.data();
         myData.id = e.id;
         movies.push(myData)
-        //movies.push(e.data())     
+        // movies.push(e.data())     
       });
       commit('UPDATE_DATA', movies)
     },
-
+    async getAuditoriums({commit}){
+      let snapshot= await db.collection("auditoriums").get()
+      let auditoriums = []
+      snapshot.forEach(auditorium => {
+        auditoriums.push(auditorium.data())
+      })
+      commit('UPDATE_AUDITORIUMS', auditoriums)
+    },
     async getScreeningFromFirebase({ commit }) {
       let querySnapshot = await db.collection("screenings").get()
       let screenings = []
@@ -68,9 +96,6 @@ export default new Vuex.Store({
       });
       commit('UPDATE_SCREENINGS_DATA', screenings)
     },
-
-    
-  
     async sendToFirebase(context, purchase){
       let collection = purchase.collection
       delete purchase.collection
@@ -84,8 +109,26 @@ export default new Vuex.Store({
     },
     updateTickets({ commit }, tickets){
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
+    },
+    async loginUser({ commit }, form){
+      let result = await db.auth().signInWithEmailAndPassword(form.email, form.password)
+      if(result){
+        this.dispatch('fetchUser', result.user)
+      }else{
+        commit('test', 'hello')
+      }
+    },
+    fetchUser({ commit }, user) {
+      commit("setLoggedIn", user !== null);
+
+      if (user) {
+        commit("setUser", {
+          displayName: user.displayName,
+          email: user.email
+        });
+      } else {
+        commit("setUser", null);
+      }
     }
-  },
-  modules: {
   }
 })

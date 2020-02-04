@@ -6,6 +6,7 @@ import MoviesList from '@/components/MoviesList'
 import Signin from '@/components/Signin'
 import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
+import Reservation from '@/components/Reservation'
 
 import Register from '@/components/Register'
 
@@ -36,6 +37,11 @@ const routes = [
     path: '/movies/:slug/ticket/seatsplan',
     name: 'seatsplan',
     component: SeatsPlan
+  },
+  {
+    path: '/movies/:slug/ticket/seatsplan/reservation',
+    name: 'reservation',
+    component: Reservation
   },
   {
     path: '/signin',
