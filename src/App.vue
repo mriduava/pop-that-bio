@@ -4,7 +4,7 @@
       <Navbar/>
     </div>
     <div class="app-content">
-      <router-view/>
+      <router-view :key="$route.fullPath"/>
     </div>
     
     <div class="footer">

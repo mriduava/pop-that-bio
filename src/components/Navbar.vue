@@ -5,6 +5,7 @@
         <form @submit.prevent="search">
         <div class="input-field">
           <input v-model="searchInput" id="search" type="search" required>
+          <label for="search"></label>
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
@@ -61,6 +62,18 @@ export default {
       }
       else if (this.searchInput == 'micke och veronica') {
         this.$router.push('/movies/micke-och-veronica')
+      }
+      else if (this.searchInput == 'filmer') {
+        this.$router.push('/movies')
+      }
+      else if (this.searchInput == 'om oss') {
+        this.$router.push('/about')
+      }
+      else if (this.searchInput == 'logga in') {
+        this.$router.push('/signin')
+      }
+      else if (this.searchInput == 'hem') {
+        this.$router.push('/')
       }
     },
   }
