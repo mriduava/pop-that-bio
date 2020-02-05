@@ -3,7 +3,7 @@
     <div class="container">
       <hr class="hr-style"/>
       <div class="row footer-info">
-        <div class="col x12 s6 m4 l3 xl3 group1">
+        <div class="col x12 s12 m3 l3 xl3 group1">
           <h5>Gäster</h5>
           <router-link to="/">
             <p>Kundservice</p>
@@ -13,7 +13,7 @@
           </router-link>
         </div>
 
-        <div class="col x12 s6 m4 l3 xl3 group2">
+        <div class="col x12 s12 m3 l3 xl3 group2">
           <h5>Medlemmar</h5>
           <router-link to="/signin">
             <p>Loggga in</p>
@@ -23,7 +23,7 @@
           </router-link>
         </div>
 
-        <div class="col x12 s6 m4 l3 xl3 group3">
+        <div class="col x12 s12 m3 l3 xl3 group3">
           <h5>Företag</h5>
           <router-link to="/about">
             <p>Om Pop that Bio</p>
@@ -33,7 +33,7 @@
           </router-link>
         </div>
 
-        <div class="col x12 s6 m4 l3 xl3 group4">
+        <div class="col x12 s12 m3 l3 xl3 group4">
           <h5>Personuppgifter</h5>
           <router-link to="/about">
             <p>Dina rättigheter</p>

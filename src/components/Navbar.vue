@@ -39,15 +39,15 @@
 
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li class="nav-item">
-            <router-link to="/movies" class="nav-link">FILMER</router-link>
+            <router-link to="/movies" class="nav-link">Filmer</router-link>
           </li>
 
           <li class="nav-item">
-            <router-link to="/about" class="nav-link">OM OSS</router-link>
+            <router-link to="/about" class="nav-link">Om Oss</router-link>
           </li>
 
           <li class="nav-item">
-            <router-link class="nav-link" to="/signin">LOGGA IN</router-link>
+            <router-link class="nav-link" to="/signin">Logga In</router-link>
           </li>
         </ul>
          <ul class="side-nav" id="mobile-demo">
@@ -116,8 +116,7 @@ nav {
   font-size: 2.5rem;
   padding-left: 1.5%;
   font-family: borntogrille;
-   text-shadow: 1px 6px 1px rgb(12, 1, 1);
-  
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .our-brand-logo:hover {

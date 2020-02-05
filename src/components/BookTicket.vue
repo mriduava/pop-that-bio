@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="end">
-        <h6>Antal besökare: {{ this.nrOfcustomer }}</h6>
+        <h6>Antal besökare: {{ this.nrOfcustomer }}  (max 8 st)</h6>
       </div>
       <div class="valj">
         <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">

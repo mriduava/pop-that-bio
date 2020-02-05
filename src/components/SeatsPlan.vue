@@ -31,8 +31,8 @@
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-      <router-link to="/">
-        <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Fortsätt</button>
+      <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan/reservation'">
+        <button class="btn btn-small waves-effect waves-light">Fortsätt</button>
       </router-link>
     </div>
   </div>
@@ -69,25 +69,10 @@ export default {
           this.movieDetail = movie;
         }
       });
-    },
-    completeBooking() {
-      let bookingNumber =
-        Math.floor(Math.random() * 1000) +
-        "-" +
-        Math.floor(Math.random() * 100000);
-      let tickets = this.$store.getters.tickets;
-      let booking = {
-        collection: "bookings",
-        bookingNumber: bookingNumber,
-        numberOfAdults: tickets.numberOfAdults,
-        numberOfChildren: tickets.numberOfChildren,
-        numberOfSeniors: tickets.numberOfSeniors
-      };
-      this.$store.dispatch("sendToFirebase", booking);
-      alert("Bokningsnummer: " + bookingNumber);
     }
   },
   created() {
+    this.$store.dispatch("getAuditoriums");
     this.getMovie();
     this.createSeatsGrid();
   }

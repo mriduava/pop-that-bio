@@ -26,7 +26,7 @@
 
       <div class="input-field">
         <!--<button type="submit">Registrera</button>-->
-        <button class="btn waves-effect register-button" @click="register">Skapa</button>
+        <button class="btn waves-effect register-button" @click="register">Skapa konto</button>
       </div>
     </form>
   </div>
