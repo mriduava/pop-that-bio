@@ -138,20 +138,6 @@ export default {
   }, 
 =======
 
-    var modals = document.querySelectorAll('.modal');
-  M.Modal.init(modals);
-
-  var items = document.querySelectorAll('.collapsible');
-  M.Collapsible.init(items);
-
-    setTimeout(this.$M.Carousel.init(elems), 1000)
-    
-  },
-  function(){
-    (document).ready(function(){
-  ('.sidenav').sidenav();
-  });
-  
  
     
 
