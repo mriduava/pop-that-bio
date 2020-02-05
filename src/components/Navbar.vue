@@ -2,18 +2,25 @@
   <div class="container-fluid navbar navbar-fixed">
     <nav class="nav-extended">
       <div class="nav-wrapper">
-        <router-link to="/"><a class="brand-logo "><p>POP THAT BIO</p></a></router-link>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <form>
+        <div class="input-field">
+          <input id="search" type="search" required>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
+        <a href="#!" class="our-brand-logo">POP THAT BIO</a>
+        <ul class="right">
           <li class="nav-item">
-            <router-link to="/movies" class="nav-link">FILMER</router-link>
+            <router-link to="/movies" class="nav-link">Filmer</router-link>
           </li>
 
           <li class="nav-item">
-            <router-link to="/about" class="nav-link">OM OSS</router-link>
+            <router-link to="/about" class="nav-link">Om Oss</router-link>
           </li>
 
           <li class="nav-item">
-            <router-link class="nav-link" to="/signin">LOGGA IN</router-link>
+            <router-link class="nav-link" to="/signin">Logga In</router-link>
           </li>
         </ul>
       </div>
@@ -31,17 +38,23 @@ nav {
   padding: 0 14.8%;
   border-bottom: 1px solid rgb(213, 187, 47);
   background: rgb(100, 10, 60);
-  background: -webkit-linear-gradient(to top, rgb(156, 36, 100), rgba(197, 49, 99, 0.5));
-  background: linear-gradient(to bottom, rgb(117, 9, 67), rgba(197, 49, 99, 0.5));
-   text-shadow: 1px 2.5px 1px rgb(12, 1, 1);
-  }
+  background: -webkit-linear-gradient(
+    to top,
+    rgb(156, 36, 100),
+    rgba(197, 49, 99, 0.5)
+  );
+  background: linear-gradient(
+    to bottom,
+    rgb(117, 9, 67),
+    rgba(197, 49, 99, 0.5)
+  );
+}
 
 .our-brand-logo {
   font-size: 2.5rem;
   padding-left: 1.5%;
   font-family: borntogrille;
-   text-shadow: 1px 6px 1px rgb(12, 1, 1);
-  
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 .our-brand-logo:hover {
