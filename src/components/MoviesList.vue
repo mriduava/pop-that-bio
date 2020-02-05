@@ -9,24 +9,27 @@
         <div class="sorting-option">
           <div>
             <!-- Dropdown Trigger -->
-            <a class="dropdown-trigger btn purple" href="#" data-target="dropdown1">Genre</a>
+            <a class="dropdown-trigger btn" href="#" data-target="dropdown1">Genre</a>
 
             <!-- Dropdown Structure -->
             <ul id="dropdown1" class="dropdown-content">
               <li>
-                <a href="#!">Drama</a>
+                <a @click="sortMovieList(genres.drama)" href="#!">Drama</a>
               </li>
               <li>
-                <a href="#!">Action</a>
+                <a @click="sortMovieList(genres.action)" href="#!">Action</a>
               </li>
               <li>
-                <a href="#!">Thriller</a>
+                <a @click="sortMovieList(genres.thriller)" href="#!">Thriller</a>
               </li>
               <li>
-                <a href="#!">Familj</a>
+                <a @click="sortMovieList(genres.family)" href="#!">Familj</a>
               </li>
               <li>
-                <a href="#!">Komedi</a>
+                <a @click="sortMovieList(genres.comedy)" href="#!">Komedi</a>
+              </li>
+              <li>
+                <a @click="sortMovieList(genres.all)" href="#!">Visa alla</a>
               </li>
             </ul>
           </div>
@@ -51,9 +54,8 @@
 
     <hr />
 
-    <div v-for="(movie, index) in moviesData" :key="index">
-      <transition name="movie-trailer" v-if="showTrailer">
-        <div class="movie-trailer-container">
+    <transition name="movie-trailer" v-if="showTrailer" class="modal" id="modal-trailer">
+        <div class="movie-trailer-container" >
           <div class="movie-trailer-wrapper">
             <div class="movie-trailer-body">
               <slot name="footer">
@@ -62,7 +64,7 @@
               <iframe
                 width="700"
                 height="480"
-                :src="'https://www.youtube.com/embed/' + movie.movieTrailer + '?autoplay=1&cc_load_policy=1'"
+                :src="'https://www.youtube.com/embed/' + movieTrailer + '?autoplay=1&cc_load_policy=1'"
                 frameborder="0"
                 allow="autoplay"
                 allowfullscreen
@@ -71,7 +73,11 @@
           </div>
         </div>
       </transition>
-      <!-- <router-link :to="'/movies/' + movie.slug"> -->
+
+    <div :key="index" v-for="(movie, index) in movies">
+      <!-- <div v-for="(movie, index) in moviesData" :key="index"> -->
+      
+      <router-link :to="'/movies/' + movie.slug">
       <div class="row movies-list">
         <div class="col s12 m3 l3">
           <div class="movie-image">
@@ -97,22 +103,22 @@
             <p>{{movie.about | subString}}</p>
           </div>
         </div>
-
+        
         <div class="col s12 m3 l3">
-          <div class="trailer">
+          <div class="trailer" >
             <h6>
-              <button class="btn" @click="dispMovieTrailer">
+              <button class="btn modal-trigger" data-target="modal-trailer" @click.stop="dispMovieTrailer($event, movie.movieTrailer)">
                 <i class="far fa-play-circle"></i> Spela trailer
               </button>
             </h6>
           </div>
         </div>
       </div>
-      <!-- </router-link> -->
+      </router-link>
     </div>
+    
   </div>
 </template>
-
 
 <script>
 import moment from "moment";
@@ -120,20 +126,30 @@ export default {
   name: "movieslist",
   data() {
     return {
+      movies: [],
+      //movies: this.moviesData,
+      genres: {
+        drama: "Drama",
+        action: "Action",
+        family: "Familj",
+        comedy: "Komedi",
+        thriller: "Thriller",
+        all: "Alla"
+      },
       showTrailer: false,
-      drawer: false,
-      
+      drawer: false, 
+      movieTrailer: '',
+      selectedGenre: "Genre",
     };
-  },
-  watch: {
-
-  
   },
   methods: {
     momentTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
     },
-    dispMovieTrailer() {
+    dispMovieTrailer(e, trailerUrl) {
+      e.preventDefault()
+      e.stopPropagation()
+      this.movieTrailer = trailerUrl
       this.showTrailer = true;
     },
     checkChildAllowed() {},
@@ -143,11 +159,33 @@ export default {
           this.movieDetail = movie;
         }
       });
+    },
+
+    sortMovieList(genreInput) {
+      window.console.log("Sorting movies with " + genreInput);
+      this.selectedGenre = genreInput
+
+      if (genreInput == "Alla") {
+        this.movies = this.moviesData;
+        return;
+      }
+
+      let sortedMovies = this.moviesData.filter(
+        movie => movie.genre == genreInput
+      );
+      window.console.log(sortedMovies);
+      this.movies = sortedMovies;
     }
   },
   computed: {
     moviesData() {
       return this.$store.state.data;
+    }
+  },
+  watch: {
+    moviesData() {
+      window.console.log("MOVIES UPDATED ")
+      this.movies = this.moviesData
     }
   },
   mounted() {
@@ -159,6 +197,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getDataFromFirebase");
+    //this.movies = this.moviesData;
   },
   filters: {
     subString(string) {
@@ -227,5 +266,9 @@ export default {
   color: #282828;
   padding: 0 3%;
   text-align: justify;
+}
+
+.trailer {
+  z-index: +1;
 }
 </style>
