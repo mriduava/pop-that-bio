@@ -14,7 +14,7 @@
         
         <div class="input-field col l12 s12 ">
           <input  id="User name" type="text" class="validate">
-          <label for="User name">Användarnamn</label>
+          <label for="User name">E-post adress</label>
         </div>
        
       </div>
