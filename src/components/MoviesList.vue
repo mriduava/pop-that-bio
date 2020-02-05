@@ -7,15 +7,43 @@
 
       <div class="col s8">
         <div class="sorting-option">
+          <div>
+            <!-- Dropdown Trigger -->
+            <a class="dropdown-trigger btn purple" href="#" data-target="dropdown1">Genre</a>
+
+            <!-- Dropdown Structure -->
+            <ul id="dropdown1" class="dropdown-content">
+              <li>
+                <a href="#!">Drama</a>
+              </li>
+              <li>
+                <a href="#!">Action</a>
+              </li>
+              <li>
+                <a href="#!">Thriller</a>
+              </li>
+              <li>
+                <a href="#!">Familj</a>
+              </li>
+              <li>
+                <a href="#!">Komedi</a>
+              </li>
+            </ul>
+          </div>
+
           <h5>
-            <router-link to="/movies/"><button class="btn">
-              <i class="fas fa-list"></i>
-            </button></router-link>
+            <router-link to="/movies/">
+              <button class="btn">
+                <i class="fas fa-list"></i>
+              </button>
+            </router-link>
           </h5>
           <h5>
-            <router-link to="/movieslistpic/"><button class="btn">
-              <i class="far fa-file-image"></i>
-            </button></router-link>
+            <router-link to="/movieslistpic/">
+              <button class="btn">
+                <i class="far fa-file-image"></i>
+              </button>
+            </router-link>
           </h5>
         </div>
       </div>
@@ -92,8 +120,14 @@ export default {
   name: "movieslist",
   data() {
     return {
-      showTrailer: false
+      showTrailer: false,
+      drawer: false,
+      
     };
+  },
+  watch: {
+
+  
   },
   methods: {
     momentTime(time) {
@@ -109,12 +143,19 @@ export default {
           this.movieDetail = movie;
         }
       });
-    },
+    }
   },
   computed: {
     moviesData() {
       return this.$store.state.data;
     }
+  },
+  mounted() {
+    let elems = document.querySelectorAll(".dropdown-trigger");
+    this.$M.Dropdown.init(elems, {
+      alignment: "center",
+      hover: true
+    });
   },
   created() {
     this.$store.dispatch("getDataFromFirebase");

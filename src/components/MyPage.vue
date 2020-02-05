@@ -9,10 +9,10 @@
         <h3>Välkommen username</h3>
       </div>
       <div>
-        <h4>Kommande visningar</h4>
+        <h5>Kommande visningar</h5>
       </div>
       <div>
-        <h4>Tidigare visningar</h4>
+        <h5>Tidigare visningar</h5>
       </div>
     </div>
   </div>
