@@ -6,14 +6,14 @@
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul class="right hide-on-med-and-down">
         <li class="nav-item">
-            <router-link to="/movies" class="nav-link">MOVIES</router-link>
+            <router-link to="/movies" class="nav-link">FILMER</router-link>
           </li>
 
          <li class="nav-item">
-            <router-link to="/about" class="nav-link">ABOUT</router-link>
+            <router-link to="/about" class="nav-link">OM OSS</router-link>
           </li>
         <li class="nav-item">
-            <router-link class="nav-link" to="/signin">SIGN IN</router-link>
+            <router-link class="nav-link" to="/signin">LOGGA IN</router-link>
           </li>
       
       </ul>
@@ -22,14 +22,14 @@
 
   <ul class="sidenav" id="mobile-demo">
     <li class="nav-item">
-            <router-link to="/movies" class="nav-link">MOVIES</router-link>
+            <router-link to="/movies" class="nav-link">FILMER</router-link>
           </li>
 
          <li class="nav-item">
-            <router-link to="/about" class="nav-link">ABOUT</router-link>
+            <router-link to="/about" class="nav-link">OM OSS</router-link>
           </li>
         <li class="nav-item">
-            <router-link class="nav-link" to="/signin">SIGN IN</router-link>
+            <router-link class="nav-link" to="/signin">LOGGA IN</router-link>
           </li>
   </ul>
   <!--  <nav class="nav-extended">

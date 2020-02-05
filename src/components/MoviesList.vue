@@ -58,7 +58,7 @@
             </div>
             <div class="date">
               <!-- <p>{{momentTime(movie.showTime.toMillis())}}</p> -->
-              <p>{{movie.genre}} | {{movie.length}} minute | {{movie.age_limit}} år</p>
+              <p>{{movie.genre}} | {{movie.length}} minuter | {{movie.age_limit}} år</p>
             </div>
           </div>
         </div>

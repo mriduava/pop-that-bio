@@ -154,4 +154,7 @@ export default {
   padding: 0 3%;
   text-align: justify;
 }
+.end-button{
+  text-align: center;
+}
 </style>
