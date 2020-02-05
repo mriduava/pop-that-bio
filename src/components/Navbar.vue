@@ -38,7 +38,31 @@ export default {
   methods: {
     search() {
       window.console.log(this.searchInput)
-    }
+      if (this.searchInput == 'aladdin') {
+        this.$router.push('/movies/aladdin')
+      }
+      else if (this.searchInput == 'frozen 2') {
+        this.$router.push('/movies/frozen-2')
+      }
+      else if (this.searchInput == 'legend') {
+        this.$router.push('/movies/legend')
+      }
+      else if (this.searchInput == 'the matrix') {
+        this.$router.push('/movies/the-matrix')
+      }
+      else if (this.searchInput == 'avatar') {
+        this.$router.push('/movies/avatar')
+      }
+      else if (this.searchInput == 'unga astrid') {
+        this.$router.push('/movies/astrid')
+      }
+      else if (this.searchInput == 'djungelboken') {
+        this.$router.push('/movies/jungle-book')
+      }
+      else if (this.searchInput == 'micke och veronica') {
+        this.$router.push('/movies/micke-och-veronica')
+      }
+    },
   }
 }
 </script>
