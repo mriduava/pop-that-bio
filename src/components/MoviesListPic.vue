@@ -156,5 +156,6 @@ export default {
 }
 .end-button{
   text-align: center;
+  padding-bottom: 20px;
 }
 </style>

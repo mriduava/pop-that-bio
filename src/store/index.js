@@ -131,7 +131,7 @@ export default new Vuex.Store({
           displayName: user.displayName,
           email: user.email
         });
-        alert("Logged in")
+        //alert("Logged in")
       } else {
         commit("setUser", null);
       }
