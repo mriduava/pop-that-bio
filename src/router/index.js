@@ -8,7 +8,6 @@ import Signin from '@/components/Signin'
 import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
 import Reservation from '@/components/Reservation'
-
 import MyPage from '@/components/MyPage'
 import Register from '@/components/Register'
 
