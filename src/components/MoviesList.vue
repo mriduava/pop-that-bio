@@ -127,17 +127,20 @@ export default {
   data() {
     return {
       movies: [],
+      //movies: this.moviesData,
       genres: {
         drama: "Drama",
         action: "Action",
         family: "Familj",
-        comedy: "Comedy",
+        comedy: "Komedi",
         thriller: "Thriller",
-        all: "All"
+        all: "Alla"
       },
       showTrailer: false,
       drawer: false, 
       movieTrailer: ''
+      drawer: false,
+      selectedGenre: "Genre",
     };
   },
   methods: {
@@ -161,8 +164,9 @@ export default {
 
     sortMovieList(genreInput) {
       window.console.log("Sorting movies with " + genreInput);
+      this.selectedGenre = genreInput
 
-      if (genreInput == "All") {
+      if (genreInput == "Alla") {
         this.movies = this.moviesData;
         return;
       }
@@ -179,6 +183,12 @@ export default {
       return this.$store.state.data;
     }
   },
+  watch: {
+    moviesData() {
+      window.console.log("MOVIES UPDATED ")
+      this.movies = this.moviesData
+    }
+  },
   mounted() {
     let elems = document.querySelectorAll(".dropdown-trigger");
     this.$M.Dropdown.init(elems, {
@@ -188,8 +198,7 @@ export default {
   },
   created() {
     this.$store.dispatch("getDataFromFirebase");
-    //this.movies = this.$store.state.data;
-    this.movies = this.moviesData;
+    //this.movies = this.moviesData;
   },
   filters: {
     subString(string) {
