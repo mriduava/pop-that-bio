@@ -14,7 +14,7 @@
         
         <div class="input-field col l12 s12 ">
           <input  id="User name" type="text" class="validate">
-          <label for="User name">Användarnamn</label>
+          <label for="User name">E-post adress</label>
         </div>
        
       </div>
@@ -131,7 +131,7 @@ export default {
    text-shadow: 2px 2px 2px black;
 }
 .d1{
-  background-image:url('../assets/images/Bio.jpg');
+  background-image:url('../assets/images/xsw.jpg');
   background-attachment:fixed;
   background-position:bottom auto;
 
