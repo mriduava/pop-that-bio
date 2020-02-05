@@ -1,61 +1,123 @@
 <template>
-   <div class="container-fluid">
+  <div class="container-fluid">
     <div class="title-text">
       <h4 class>Reservation</h4>
     </div>
 
     <hr class="hr-style" />
 
-    <div class="seats-info">
-      <div class="gray-circle"></div>
-      <div>
-        <span>Ledig</span>
-      </div>
-      <div class="purple-circle"></div>
-      <div>
-        <span>Upptagen</span>
-      </div>
-    </div>
+    <div class="reserve-info">
+      <div class="movie-info">
+        <div class="movie-image">
+          <img :src="movieDetail.image" alt="pop-that-bio" />
+        </div>
 
-    <div class="grid">
-      <div class="row seats-grid">
-        <div class="all-blocks">
-          <div class="seats"></div>
+        <div class="movie-text">
+          <h5>{{movieDetail.title}}</h5>
+          <h6>{{formatTime(reserveInfo.showTime.toMillis())}}</h6>
+          <h6>{{auditoriumInfo.name}}</h6>
+        </div>
+      </div>
+
+      <div class="ticket-details">
+        <div class="ticket-info">
+          <h6>{{reserveInfo.numOfCustomers}} x Biljetter</h6>
+
+          <h6>{{reserveInfo.ticketPrice}} kr</h6>
+        </div>
+
+        <div class="price-info">
+          <h6>Total</h6>
+          <h6>Price</h6>
         </div>
       </div>
     </div>
 
-    <div class="row seat-position">
-      <h6>Parkett</h6>
+    <div class="row">
+      <div class="user-info col x12 s12 m12">
+        <form>
+          <div class="row">
+            <div class="input-field col x6 s6 m6">
+              <input id="icon_prefix" type="text" class="validate" />
+              <label for="icon_prefix">Ditt namn</label>
+            </div>
+            <div class="input-field col x6 s6 m6">
+              <input id="icon_telephone" type="tel" class="validate" />
+              <label for="icon_telephone">Telefonnummer</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col x12 s12 m12">
+              <input id="email" type="email" class="validate" />
+              <label for="email">E-post</label>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
 
     <div class="buttons">
-      <!-- <router-link :to="'/movies/' + movieDetail.slug + '/ticket'"> -->
+      <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
-      <!-- </router-link>
-      <router-link to="/"> -->
-        <button class="btn btn-small waves-effect waves-light">Reservera biljetter</button>
-      <!-- </router-link> -->
-
-      <!-- <router-link to="/"> -->
-        <button class="btn btn-small waves-effect waves-light">Köp biljetter</button>
-      <!-- </router-link> -->
-      
-
+      </router-link>
+      <router-link to="/">
+        <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Reservera</button>
+      </router-link>
     </div>
-
   </div>
 </template>
 
 <script>
+import moment from "moment";
 export default {
-  name: 'reservation'
-}
+  name: "reservation",
+  data() {
+    return {
+      movies: this.$store.getters.movies,
+      movieDetail: [],
+
+      auditoriumInfo: this.$store.state.auditoriumInfo,
+      reserveInfo: this.$store.state.reserveInfo
+    };
+  },
+  methods: {
+    completeBooking() {
+      let bookingNumber =
+        Math.floor(Math.random() * 1000) +
+        "-" +
+        Math.floor(Math.random() * 100000);
+      let tickets = this.$store.getters.tickets;
+      let booking = {
+        collection: "bookings",
+        bookingNumber: bookingNumber,
+        numberOfAdults: tickets.numberOfAdults,
+        numberOfChildren: tickets.numberOfChildren,
+        numberOfSeniors: tickets.numberOfSeniors
+      };
+      this.$store.dispatch("sendToFirebase", booking);
+    },
+    formatTime(time) {
+      return moment(time).format("MMMM Do, HH:mm");
+    },
+    getMovie() {
+      this.movies.forEach(movie => {
+        if (movie.slug == this.$route.params.slug) {
+          this.movieDetail = movie;
+        }
+      });
+    }
+  },
+  created() {
+    this.$store.dispatch("getAuditoriums");
+    this.getMovie();
+  }
+};
 </script>
 
 
 
-<style lang="css">
+<style lang="css" scoped>
 .container-fluid {
   padding-bottom: 3%;
 }
@@ -64,61 +126,51 @@ export default {
   color: rgb(204, 9, 113);
 }
 
-/* SEATS INOF */
-.seats-info {
+.reserve-info {
+  margin: 2% auto 0 auto;
   display: flex;
-  justify-content: center;
-  margin: 1.9% auto;
+  flex-direction: column;
 }
-.gray-circle,
-.purple-circle,
-.blue-circle {
-  margin: 0 0.5% 0 0.5%;
-  width: 20px;
-  height: 20px;
-  background: #ddd;
-  border: 1px solid #8e8e8e;
-  border-radius: 50%;
-}
-.gray-circle {
-  background: #ddd;
-}
-.purple-circle {
-  background: rgb(204, 9, 113);
-}
-.blue-circle {
-  background: rgba(111, 111, 241, 0.699);
-}
-/* STYLE TO GRID */
 
-.seats-grid {
+.movie-info {
   display: flex;
   justify-content: center;
 }
-.all-blocks {
-  position: relative;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
+
+.movie-image {
+  width: 150px;
 }
-.seats{
+
+.movie-image img {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+.movie-text{
+  margin-top: 8.5%;
+}
+.ticket-details{
+  margin-top: 2%;
+}
+.ticket-info,
+.price-info {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  max-width: 356px;
+}
+
+.clear {
+  clear: both;
+  display: block;
+}
+
+.user-info {
+  display: flex;
   justify-content: center;
-  width: 23px;
-  height: 20px;
-  margin: 0 3px;
-  border: 1px solid #8e8e8e;
-  background: #ddd;
-  border-bottom-right-radius: 15px;
-  border-bottom-left-radius: 15px;
 }
 
-.seats:hover {
-  cursor: pointer;
-  background: rgb(204, 9, 113);
-}
-
-.seat-position {
-  text-align: center;
-}
 .buttons {
   display: flex;
   justify-content: center;
@@ -133,7 +185,7 @@ export default {
 
 .hr-style {
   border: 0;
-  min-width: 90%;
+  min-width: 70%;
   max-width: 1%;
   height: 1px;
   margin: 0 auto 10px auto;

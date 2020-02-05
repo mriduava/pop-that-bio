@@ -24,8 +24,7 @@
           <div class="dropdown-items" v-if="!showMenu">
             <ul>
               <li
-                :key="date"
-                v-for="date in dates"
+                v-for="(date, i) in dates"  :key="i"
                 @click="updateChosenDate(date.index)"
               >{{ date.day }} / {{ date.month}} - {{ date.dateName}}</li>
             </ul>
@@ -35,8 +34,8 @@
 
       <div class="available-times">
         <ul style="list-style-type:none;">
-          <li class="show-time-item" :key="screenTime" v-for="screenTime in screenTimes">
-            {{ screenTime }}
+          <li class="show-time-item" v-for="(screenTime, i) in screenTimes" :key="i">
+            {{ screenTime }} |
             {{movieDetail.genre}}
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
               <button class="btn btn-small pink darken-1 waves-effect">Boka</button>
@@ -86,6 +85,8 @@ export default {
       showMenu: false,
       movies: this.$store.getters.movies,
       movieDetail: [],
+      auditoriums: this.$store.getters.auditoriums,
+      auditoriumDetail: [],
       screenings: this.$store.state.scrData,
       screeningDetails: [],
       screenTimes: []
@@ -109,21 +110,30 @@ export default {
 
     getMovie() {
       this.movies.forEach(movie => {
-        if (movie.slug == this.$route.params.slug) {
+        if (movie.slug === this.$route.params.slug) {
           this.movieDetail = movie;
         }
       });
     },
-
+    getAuditorium(){
+      this.auditoriums.forEach(auditorium => {
+        this.auditoriumDetail = auditorium;
+      })
+    },
     getScreening() {
       this.screenings.forEach(e => {
-        if (e.movieId == this.movieDetail.id) {
+        if (e.movieId === this.movieDetail.id) {
           this.screeningDetails.push(e);
           //this.screeningDetails = e;
+          this.$store.state.reserveInfo.showTime = e.startTime       
+        }
+        if (e.auditoriumId === this.auditoriumDetail.id) {
+           this.$store.state.auditoriumInfo.name = this.auditoriumDetail.name  
+           console.log(this.$store.state.auditoriumInfo.name);
+           
         }
       });
     },
-
     getCorrectDay(index) {
       let date = this.getSpecifiedDate(index);
       return date.getDate();
@@ -191,7 +201,6 @@ export default {
           return "December";
       }
     },
-
     updateChosenDate(index) {
       this.chosenDate = this.dates[index];
       this.showMenu = false;
@@ -223,6 +232,8 @@ export default {
   },
 
   created() {
+    this.$store.dispatch("getAuditoriums");
+    this.getAuditorium();
     this.getMovie();
     this.getScreening();
     this.addScreenTimes();
