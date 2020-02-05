@@ -3,19 +3,33 @@ import Vuex from 'vuex'
 // import {movies} from '@/data/database.js';
 import {db} from '@/firebase/firebase.js'
 import {aut} from '@/firebase/firebase.js'
+require('@firebase/auth');
+require('@firebase/firestore');
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     // data: movies
     data: [],
+    auditoriums: [],
     scrData: [],
+    auditoriumInfo: {
+      name: '',
+      seatsPerRow: []
+    },
     reserveInfo: {
-      movieTile: "",
-      showTime: "",
-      auditorium: "",
-      numOfTickets: 0,
-      ticketPrice: 0
+      auditorium: '',
+      movieTitle: "",
+      showTime: 0,
+      numOfTickets: {
+        ordinarie: 0,
+        children: 0,
+        seniors: 0,
+      },
+      numOfCustomers: 0,
+      ticketPrice: 0,
+      selectedSeats: [],
     },
     user: {
       loggedIn: false,
@@ -25,6 +39,9 @@ export default new Vuex.Store({
   getters: {
     movies(state){
       return state.data
+    },
+    auditoriums(state){
+      return state.auditoriums
     },
     tickets(state){
       return state.tickets
@@ -37,6 +54,9 @@ export default new Vuex.Store({
     UPDATE_DATA(state, moviesData){
       state.data = moviesData
     },
+    UPDATE_AUDITORIUMS(state, audiData){
+      state.auditoriums = audiData
+    },
     UPDATE_SCREENINGS_DATA(state, screeningsData) {
       state.scrData = screeningsData
     },
@@ -45,7 +65,6 @@ export default new Vuex.Store({
     },
     setLoggedIn(state, value) {
       state.user.loggedIn = value;
-      //alert("works")
     },
     setUser(state, data) {
       state.user.data = data;
@@ -62,9 +81,17 @@ export default new Vuex.Store({
         let myData = e.data();
         myData.id = e.id;
         movies.push(myData)
-        //movies.push(e.data())     
+        // movies.push(e.data())     
       });
       commit('UPDATE_DATA', movies)
+    },
+    async getAuditoriums({commit}){
+      let snapshot= await db.collection("auditoriums").get()
+      let auditoriums = []
+      snapshot.forEach(auditorium => {
+        auditoriums.push(auditorium.data())
+      })
+      commit('UPDATE_AUDITORIUMS', auditoriums)
     },
     async getScreeningFromFirebase({ commit }) {
       let querySnapshot = await db.collection("screenings").get()
@@ -89,7 +116,7 @@ export default new Vuex.Store({
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
     },
     async loginUser({ commit }, form){
-      let result = await aut.auth().signInWithEmailAndPassword(form.email, form.password)
+      let result = await aut.signInWithEmailAndPassword(form.email, form.password)
       if(result){
         this.dispatch('fetchUser', result.user)
       }else{
@@ -104,11 +131,12 @@ export default new Vuex.Store({
           displayName: user.displayName,
           email: user.email
         });
+        alert("Logged in")
       } else {
         commit("setUser", null);
       }
     }
   },
-  modules: {
+  modules:{
   }
-});
+})
