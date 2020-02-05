@@ -7,7 +7,7 @@ import MoviesListPic from '@/components/MoviesListPic'
 import Signin from '@/components/Signin'
 import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
-
+import MyPage from '@/components/MyPage'
 import Register from '@/components/Register'
 
 Vue.use(VueRouter)
@@ -47,6 +47,11 @@ const routes = [
     path: '/signin',
     name: 'signin',
     component: Signin
+  },
+  {
+    path: '/mypage',
+    name: 'mypage',
+    component: MyPage
   },
   {
     path: '/about',
