@@ -2,9 +2,9 @@
   <div class="container-fluid navbar navbar-fixed">
     <nav class="nav-extended">
       <div class="nav-wrapper">
-        <form>
+        <form @submit.prevent="search">
         <div class="input-field">
-          <input id="search" type="search" required>
+          <input v-model="searchInput" id="search" type="search" required>
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
@@ -27,6 +27,21 @@
     </nav>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      searchInput: ''
+    }
+  }, 
+  methods: {
+    search() {
+      window.console.log(this.searchInput)
+    }
+  }
+}
+</script>
 
 <style lang="css" scoped>
 @font-face {
