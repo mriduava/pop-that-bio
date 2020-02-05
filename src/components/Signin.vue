@@ -89,7 +89,10 @@ export default {
           email: this.username,
           password: this.password
         }
+        // TODO: lägg in auth här
         this.$store.dispatch('loginUser', userCredentials)
+
+        this.$router.push("/")
       }
     },
     checkInputFields(){
