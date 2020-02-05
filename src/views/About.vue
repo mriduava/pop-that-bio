@@ -96,7 +96,7 @@ export default {
 @media (max-width: 768px) {
   .room{
   
-    
+    margin-right:1px
 
   }
   
