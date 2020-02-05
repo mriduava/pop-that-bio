@@ -1,16 +1,43 @@
 <template>
   <div class="container-fluid navbar navbar-fixed">
-    <nav class="nav-extended">
+    <nav  class="nav-extended">
+    <div class="nav-wrapper">
+        <router-link to="/"><a class="brand-logo "><p>POP THAT BIO</p></a></router-link>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li class="nav-item">
+            <router-link to="/movies" class="nav-link">FILMER</router-link>
+          </li>
+
+         <li class="nav-item">
+            <router-link to="/about" class="nav-link">OM OSS</router-link>
+          </li>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/signin">LOGGA IN</router-link>
+          </li>
+      
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li class="nav-item">
+            <router-link to="/movies" class="nav-link">FILMER</router-link>
+          </li>
+
+         <li class="nav-item">
+            <router-link to="/about" class="nav-link">OM OSS</router-link>
+          </li>
+        <li class="nav-item">
+            <router-link class="nav-link" to="/signin">LOGGA IN</router-link>
+          </li>
+  </ul>
+  <!--  <nav class="nav-extended">
       <div class="nav-wrapper">
-        <form>
-        <div class="input-field">
-          <input id="search" type="search" required>
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-      </form>
-        <a href="#!" class="our-brand-logo">POP THAT BIO</a>
-        <ul class="right">
+        <router-link to="/"><a class="brand-logo "><p>POP THAT BIO</p></a></router-link>
+              <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li class="nav-item">
             <router-link to="/movies" class="nav-link">Filmer</router-link>
           </li>
@@ -23,10 +50,50 @@
             <router-link class="nav-link" to="/signin">Logga In</router-link>
           </li>
         </ul>
+         <ul class="side-nav" id="mobile-demo">
+         <li class="nav-item">
+            <router-link to="/movies" class="nav-link">FILMER</router-link>
+          </li>
+
+          <li class="nav-item">
+            <router-link to="/about" class="nav-link">OM OSS</router-link>
+          </li>
+
+          <li class="nav-item">
+            <router-link class="nav-link" to="/signin">LOGGA IN</router-link>
+          </li>
+      </ul>
       </div>
-    </nav>
+    </nav>-->
   </div>
 </template>
+<script>
+export default {
+  mounted() {
+    
+    var elems = document.querySelectorAll('.carousel');
+    this.$M.Carousel.init(elems);
+
+    setTimeout(this.$M.Carousel.init(elems), 1000)
+    
+  },
+  function(){
+     (document).ready(function(){
+    ('.sidenav').sidenav();
+  });
+  
+ 
+    
+
+  } 
+  
+}
+
+</script>
+ 
+
+  
+  
 
 <style lang="css" scoped>
 @font-face {
@@ -38,17 +105,12 @@ nav {
   padding: 0 14.8%;
   border-bottom: 1px solid rgb(213, 187, 47);
   background: rgb(100, 10, 60);
-  background: -webkit-linear-gradient(
-    to top,
-    rgb(156, 36, 100),
-    rgba(197, 49, 99, 0.5)
-  );
-  background: linear-gradient(
-    to bottom,
-    rgb(117, 9, 67),
-    rgba(197, 49, 99, 0.5)
-  );
-}
+  background: -webkit-linear-gradient(to top, rgb(156, 36, 100), rgba(197, 49, 99, 0.5));
+  background: linear-gradient(to bottom, rgb(117, 9, 67), rgba(197, 49, 99, 0.5));
+   text-shadow: 2px 4px 1px rgb(12, 1, 1);
+  font-family: borntogrille;
+
+  }
 
 .our-brand-logo {
   font-size: 2.5rem;
