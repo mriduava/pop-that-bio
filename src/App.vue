@@ -1,10 +1,16 @@
 <template>
   <div id="app">
-
-    <Navbar/>
-    <router-view/>
-
-    <Footer/>
+    <div class="navbar">
+      <Navbar/>
+    </div>
+    <div class="app-content">
+      <router-view/>
+    </div>
+    
+    <div class="footer">
+      <Footer/>
+    </div>
+    
   </div>
 </template>
 
@@ -32,6 +38,16 @@ export default {
   box-sizing: border-box;
 }
 
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-content{
+  flex: 1;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -46,4 +62,5 @@ html {
     border-radius: 7px;
     background: #a4b1b0;
 }
+
 </style>
