@@ -14,19 +14,22 @@
             <!-- Dropdown Structure -->
             <ul id="dropdown1" class="dropdown-content">
               <li>
-                <a href="#!">Drama</a>
+                <a @click="sortMovieList(genres.drama)" href="#!">Drama</a>
               </li>
               <li>
-                <a href="#!">Action</a>
+                <a @click="sortMovieList(genres.action)" href="#!">Action</a>
               </li>
               <li>
-                <a href="#!">Thriller</a>
+                <a @click="sortMovieList(genres.thriller)" href="#!">Thriller</a>
               </li>
               <li>
-                <a href="#!">Familj</a>
+                <a @click="sortMovieList(genres.family)" href="#!">Familj</a>
               </li>
               <li>
-                <a href="#!">Komedi</a>
+                <a @click="sortMovieList(genres.comedy)" href="#!">Komedi</a>
+              </li>
+              <li>
+                <a @click="sortMovieList(genres.all)" href="#!">Visa alla</a>
               </li>
             </ul>
           </div>
@@ -51,7 +54,8 @@
 
     <hr />
 
-    <div v-for="(movie, index) in moviesData" :key="index">
+    <div :key="index" v-for="(movie, index) in movies">
+      <!-- <div v-for="(movie, index) in moviesData" :key="index"> -->
       <transition name="movie-trailer" v-if="showTrailer">
         <div class="movie-trailer-container">
           <div class="movie-trailer-wrapper">
@@ -113,21 +117,24 @@
   </div>
 </template>
 
-
 <script>
 import moment from "moment";
 export default {
   name: "movieslist",
   data() {
     return {
+      movies: [],
+      genres: {
+        drama: "Drama",
+        action: "Action",
+        family: "Familj",
+        comedy: "Comedy",
+        thriller: "Thriller",
+        all: "All"
+      },
       showTrailer: false,
-      drawer: false,
-      
+      drawer: false
     };
-  },
-  watch: {
-
-  
   },
   methods: {
     momentTime(time) {
@@ -143,6 +150,21 @@ export default {
           this.movieDetail = movie;
         }
       });
+    },
+
+    sortMovieList(genreInput) {
+      window.console.log("Sorting movies with " + genreInput);
+
+      if (genreInput == "All") {
+        this.movies = this.moviesData;
+        return;
+      }
+
+      let sortedMovies = this.moviesData.filter(
+        movie => movie.genre == genreInput
+      );
+      window.console.log(sortedMovies);
+      this.movies = sortedMovies;
     }
   },
   computed: {
@@ -159,6 +181,8 @@ export default {
   },
   created() {
     this.$store.dispatch("getDataFromFirebase");
+    //this.movies = this.$store.state.data;
+    this.movies = this.moviesData;
   },
   filters: {
     subString(string) {
