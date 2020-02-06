@@ -2,7 +2,7 @@
 <div class="room">
  <div class="carousel ">
    
-    <img src="../assets/images/sss.jpg" height="400" width="1200">
+    <img src="../assets/images/sss.jpg" height="400" width="1400">
     
   </div>
   <div class="text">
