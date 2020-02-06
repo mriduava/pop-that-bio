@@ -122,6 +122,7 @@
 
 <script>
 import moment from "moment";
+import M from 'materialize-css'
 export default {
   name: "movieslist",
   data() {
@@ -190,6 +191,10 @@ export default {
   },
   mounted() {
     let elems = document.querySelectorAll(".dropdown-trigger");
+
+    var modals = document.querySelectorAll('.modal');
+  M.Modal.init(modals);
+
     this.$M.Dropdown.init(elems, {
       alignment: "center",
       hover: true
@@ -270,5 +275,69 @@ export default {
 
 .trailer {
   z-index: +1;
+}
+
+.movie-trailer-container {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.movie-trailer-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.movie-trailer-body {
+  margin: 0 auto;
+  width: 80vw;
+  height: 80vh;
+  margin: 0px auto;
+  padding: 10px 10px;
+  background-color: rgb(3, 3, 3);
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: -25px;
+}
+
+.cross-button {
+  position: relative;
+  top: 0px;
+  font-size: 30px;
+  color: rgb(231, 13, 86);
+  float: right;
+  z-index: 10;
+}
+
+.cross-button:hover {
+  cursor: pointer;
+  color: rgb(247, 158, 188);
+}
+
+.movie-trailer-enter {
+  opacity: 0;
+}
+
+.movie-trailer-leave-active {
+  opacity: 0;
+}
+
+.movie-trailer-enter .movie-trailer-body,
+.movie-trailer-leave-active .movie-trailer-body {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 </style>
