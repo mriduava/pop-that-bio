@@ -13,12 +13,52 @@
             <router-link to="/about" class="nav-link">OM OSS</router-link>
           </li>
         <li class="nav-item">
-            <router-link class="nav-link" to="/signin">LOGGA IN</router-link>
+            <div class="nav-link modal-trigger" data-target="modal-login">LOGGA IN</div>
+          </li>
+          <li class="nav-item">
+            <div class="nav-link modal-trigger" data-target="modal-signup">SKAPA KONTO</div>
           </li>
       
       </ul>
     </div>
   </nav>
+
+
+  <!-- SIGN UP MODAL -->
+  <div id="modal-signup" class="modal">
+    <div class="modal-content">
+      <h4>Sign up</h4><br />
+      <form id="signup-form">
+        <div class="input-field">
+          <input type="email" id="signup-email" required />
+          <label for="signup-email">Email address</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="signup-password" required />
+          <label for="signup-password">Choose password</label>
+        </div>
+        <button class="btn yellow darken-2 z-depth-0">Sign up</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+  <div id="modal-login" class="modal">
+    <div class="modal-content">
+      <h4>Login</h4><br />
+      <form id="login-form">
+        <div class="input-field">
+          <input type="email" id="login-email" required />
+          <label for="login-email">Email address</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="login-password" required />
+          <label for="login-password">Your password</label>
+        </div>
+        <button class="btn yellow darken-2 z-depth-0">Login</button>
+      </form>
+    </div>
+  </div>
 
   <ul class="sidenav" id="mobile-demo">
     <li class="nav-item">
@@ -73,6 +113,12 @@ export default {
     
     var elems = document.querySelectorAll('.carousel');
     this.$M.Carousel.init(elems);
+
+    var modals = document.querySelectorAll('.modal');
+  M.Modal.init(modals);
+
+  var items = document.querySelectorAll('.collapsible');
+  M.Collapsible.init(items);
 
     setTimeout(this.$M.Carousel.init(elems), 1000)
     
@@ -134,6 +180,7 @@ nav {
 }
 .nav-link:hover {
   color: rgb(243, 144, 197);
+  padding-left: 10px;
 }
 
 .router-link-active {
