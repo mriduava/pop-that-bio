@@ -32,9 +32,14 @@
 
       <div class="available-times">
         <ul style="list-style-type:none;">
+          <!-- <li class="show-time-item" v-for="(screeningDetail, i) in screeningDetails" :key="i"> -->
           <li class="show-time-item" v-for="(screenTime, i) in screenTimes" :key="i">
-            {{ screenTime }} |
-            {{movieDetail.genre}}
+                <!-- {{ screenTime }} | -->
+                {{ screenTime.time }} |
+                {{ screenTime.auditorium}}
+
+            
+            <!-- {{movieDetail.genre}} -->
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
               <button @click="sendBookingDetails(screenTime)" class="btn btn-small pink darken-1 waves-effect">Boka</button>
             </router-link>
@@ -87,7 +92,8 @@ export default {
       auditoriumDetail: [],
       screenings: this.$store.state.scrData,
       screeningDetails: [],
-      screenTimes: []
+      screenTimes: [],
+      chosenAuditorium: "",
     };
   },
   methods: {
@@ -115,13 +121,14 @@ export default {
         if (e.movieId === this.movieDetail.id) {
           this.screeningDetails.push(e);
           //this.screeningDetails = e;
+          
           this.$store.state.reserveInfo.showTime = e.startTime       
         }
         if (e.auditoriumId === this.auditoriumDetail.id) {
            this.$store.state.auditoriumInfo.name = this.auditoriumDetail.name  
            console.log(this.$store.state.auditoriumInfo.name);
-           
         }
+
       });
     },
     getCorrectDay(index) {
@@ -166,6 +173,7 @@ export default {
       this.chosenDate = this.dates[index];
       this.showMenu = false;
     },
+
     addScreenTimes() {
       this.screenTimes = [];
 
@@ -173,21 +181,40 @@ export default {
       let chosenDay = this.chosenDate.date;
 
       for (let s in this.screeningDetails) {
-        if (
-          this.customMomentTime(this.screeningDetails[s].startTime.toMillis(), "MM") == chosenMonth &&
-          this.customMomentTime(this.screeningDetails[s].startTime.toMillis(), " D") == chosenDay) {
 
-          this.screenTimes.push(
-            this.customMomentTime(this.screeningDetails[s].startTime.toMillis(), "HH:mm")
+        if (this.customMomentTime(this.screeningDetails[s].startTime.toMillis(), "MM") == chosenMonth &&
+          this.customMomentTime(this.screeningDetails[s].startTime.toMillis(), " D") == chosenDay) {
+         // window.console.log(s.auditoriumId + " aud ID")
+  
+           this.screenTimes.push(
+             {
+              time: this.customMomentTime(this.screeningDetails[s].startTime.toMillis(), "HH:mm"),
+              auditorium: this.convertIdToAuditioriumName(this.screeningDetails[s].auditoriumId)
+            }
           );
         }
       }
     },
 
+
+    convertIdToAuditioriumName(id) {
+
+      switch(id) {
+        case "ZsZnuLCgGA5gjHIvZUVa":
+            return "Lilla Salongen"
+          case "Cw0BLCXOYyMpoXW8OAiL":
+            return "Stora Salongen"
+      }
+    },
+
     sendBookingDetails(screenTime) {
       this.chosenDate.time = screenTime
-      window.console.log("Send Booking Details for: " + this.chosenDate)
+      //window.console.log("Send Booking Details for: " + this.chosenDate)
       this.$store.state.reserveInfo.showTime = this.chosenDate     
+      this.chosenAuditorium = screenTime.auditorium
+      //window.console.log("Audi " + this.chosenAuditorium)
+      this.$store.state.reserveInfo.auditorium = this.chosenAuditorium
+      
     },
 
    
