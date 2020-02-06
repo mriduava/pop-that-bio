@@ -1,12 +1,8 @@
 <template>
-  <div class="container-fluid" id="showtime">
-    <div class="row">
-      <div class="col s12">
-        <div class="title-text">
-          <h4 class>Boka Biljetter</h4>
-          <hr class="hr-style" />
-        </div>
-      </div>
+  <div class="container-fluid" >
+    <div class="title-text">
+      <h4 class>Boka biljetter</h4>
+      <hr class="hr-style" />
     </div>
 
     <div class="screenings-section">
@@ -30,7 +26,7 @@
         </div>
       </div>
 
-      <div class="available-times">
+      <div class="available-times" id="showtime">
         <ul style="list-style-type:none;">
           <!-- <li class="show-time-item" v-for="(screeningDetail, i) in screeningDetails" :key="i"> -->
           <li class="show-time-item" v-for="(screenTime, i) in screenTimes" :key="i">
@@ -88,8 +84,6 @@ export default {
       showMenu: false,
       movies: this.$store.getters.movies,
       movieDetail: [],
-      auditoriums: this.$store.getters.auditoriums,
-      auditoriumDetail: [],
       screenings: this.$store.state.scrData,
       screeningDetails: [],
       screenTimes: [],
@@ -106,19 +100,15 @@ export default {
 
     getMovie() {
       this.movies.forEach(movie => {
-        if (movie.slug === this.$route.params.slug) {
+        if (movie.slug == this.$route.params.slug) {
           this.movieDetail = movie;
         }
       });
     },
-    getAuditorium() {
-      this.auditoriums.forEach(auditorium => {
-        this.auditoriumDetail = auditorium;
-      });
-    },
+
     getScreening() {
       this.screenings.forEach(e => {
-        if (e.movieId === this.movieDetail.id) {
+        if (e.movieId == this.movieDetail.id) {
           this.screeningDetails.push(e);
           //this.screeningDetails = e;
 
@@ -130,6 +120,7 @@ export default {
         }
       });
     },
+
     getCorrectDay(index) {
       let date = this.getSpecifiedDate(index);
       return date.getDate();
@@ -148,7 +139,7 @@ export default {
         case 1:
           return "Monday";
         case 2:
-          return "Thuesday";
+          return "Tuesday";
         case 3:
           return "Wednesday";
         case 4:
@@ -230,8 +221,6 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("getAuditoriums");
-    this.getAuditorium();
     this.getMovie();
     this.getScreening();
     this.addScreenTimes();
@@ -244,68 +233,121 @@ export default {
 };
 </script>
 
-
-<style scoped>
+<style lang="css" scoped>
 .container-fluid {
+  background: #fff;
+  margin: 0 auto;
   position: relative;
-  top: -150px;
-  background: linear-gradient(
-    to top,
-    rgba(235, 78, 161, 0.4) 10%,
-    rgba(37, 33, 33, 0.6) 40%,
-    rgba(0, 0, 0, 0.8) 90%
-  );
-  padding-bottom: 40px;
 }
 
 .title-text {
+  margin: 0 auto;
   text-align: center;
-  position: relative;
+  align-items: center;
   padding: 1% 0;
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.733);
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .hr-style {
   border: 0;
-  min-width: 90%;
+  min-width: 99%;
   max-width: 1%;
   height: 1px;
   margin: 0 auto 10px auto;
   background: #fff;
   background: -webkit-linear-gradient(
     left,
-    rgb(104, 99, 99),
+    rgba(0, 0, 0, 0.3),
     #fff,
-    rgb(104, 99, 99)
+    rgba(0, 0, 0, 0.3)
   );
 }
 
-.dropdown-menu {
-  position: relative;
-  color: #ffe600;
+/*SCREENING SECTION*/
+
+.dropdown-menu{
   margin: 0 auto;
+  position: relative;
+  color: #13f7ff;
+  top: 20px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+  justify-content: space-between;
+  padding: 5px 2.2%;
+  max-width: 59vw;
+  background: rgba(83, 83, 83, 0.1);
+  /* border: 0.01rem solid rgba(255, 166, 248, 0.1); */
 }
 
-.dropdown-items {
-  color: rgb(145, 0, 96);
+.selected-dropdown{
+  display: flex;
+  justify-content: left;
 }
-.dropdown-items h6:hover {
+
+.dropdown-menu i{
+  color: #00ff4c;
+  font-size: 1.5rem;
+  margin-right: 25px;
+}
+
+.selected-dropdown:hover{
+  cursor: pointer;
+}
+
+.dropdown-items{
+  position: absolute;
+  background: rgba(255, 255, 255, 0.95);
+  top: 65px;
+  left: 0;
+  width: 300px;
+  padding: 3% 3%;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  transition: .3s;
+  -webkit-transition: all 0.3s ease 0s;
+}
+
+.dropdown-items li{
+  color:  rgb(212, 0, 166);
+  padding: 1.1% 0;
+}
+
+.dropdown-items li:hover{
+  background:  #ff00aa44;
   cursor: pointer;
   color: rgb(212, 0, 166);
 }
-.available-times {
+
+.available-times{
   display: flex;
   justify-content: center;
   margin: 1% 0;
 }
-
-.show-time-item {
-  margin: 3% 0;
-  padding: 3% 0;
+.show-time-item{
+  position: relative;
+  top: 15px;
+  color: #00ff4c;
+  background: #1d1d1d98;
+  font-size: 1.5rem;
+  margin: 2% auto 0 auto;
+  padding: 15px 2%;
+  display: flex;
+  justify-content: space-between;
+  width: 59vw;
+  /* border: 0.01rem solid rgba(255, 166, 248, 0.2); */
 }
+
+@media (min-width: 310px) and (max-width: 812px) {
+  .dropdown-menu{
+    /* justify-content: center;
+    text-align: center; */
+    max-width: 90vw;
+    padding-left: 3%;
+  }
+  .show-time-item{
+    width: 85vw;
+  }
+}
+
+
 </style>

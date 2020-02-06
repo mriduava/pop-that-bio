@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="end">
-        <h6>Antal besökare: {{ this.nrOfcustomer }}  (max 8 st)</h6>
+        <h6>Antal besökare: {{ this.nrOfcustomer }} (max 8 st)</h6>
       </div>
       <div class="valj">
         <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
@@ -100,13 +100,14 @@ export default {
         }
       });
     },
-    updateTickets(){
+    updateTickets() {
       let tickets = {
         numberOfChildren: this.counterChild,
         numberOfAdults: this.counterOrd,
         numberOfSeniors: this.counterPen
-      }
-      this.$store.dispatch('updateTickets', tickets)
+      };
+      this.$store.dispatch("updateTickets", tickets);
+      this.$store.state.numOfTickets = tickets
     },
     increaseOrd() {
       if (
@@ -181,7 +182,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /*border: 1px solid black*/
+  /*border: 1px solid black;*/
 }
 
 .ordinarie-mini {
@@ -227,7 +228,42 @@ export default {
   /*border: 1px solid black;*/
 }
 
-.back-link:hover{
+.back-link:hover {
   background: rgba(255, 186, 240, 0.3);
+}
+
+@media (min-width: 1281px) {
+  .fa {
+    font-size: 40px;
+    padding: 8px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .fa {
+    font-size: 40px;
+    padding: 8px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .fa {
+    font-size: 40px;
+    padding: 8px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .fa {
+    font-size: 40px;
+    padding: 8px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .fa {
+    font-size: 40px;
+    padding: 8px;
+  }
 }
 </style>
