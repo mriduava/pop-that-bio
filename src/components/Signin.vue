@@ -131,7 +131,7 @@ export default {
    text-shadow: 2px 2px 2px black;
 }
 .d1{
-  background-image:url('../assets/images/Bio.jpg');
+  background-image:url('../assets/images/xsw.jpg');
   background-attachment:fixed;
   background-position:bottom auto;
 

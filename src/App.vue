@@ -62,5 +62,7 @@ html {
     border-radius: 7px;
     background: #a4b1b0;
 }
-
+.sidenav-overlay{
+  z-index: 10!important;
+}
 </style>
