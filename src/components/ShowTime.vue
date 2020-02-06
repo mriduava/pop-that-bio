@@ -10,13 +10,11 @@
       </div>
     </div>
     
-  
-
     <div class="screenings-section">
       <div class="dates">
         <div class="dropdown-menu">
           <h5 class="selected dropdown item" @click="showMenu = !showMenu">
-            {{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }}
+            {{chosenDate.date}}/{{chosenDate.month}} - {{ chosenDate.dateName }}
             <i
               class="fas fa-chevron-down"
             ></i>
@@ -26,7 +24,7 @@
               <li
                 v-for="(date, i) in dates"  :key="i"
                 @click="updateChosenDate(date.index)"
-              >{{ date.day }} / {{ date.month}} - {{ date.dateName}}</li>
+              >{{ date.date }} / {{ date.month}} - {{ date.dateName}}</li>
             </ul>
           </div>
         </div>
@@ -38,7 +36,7 @@
             {{ screenTime }} |
             {{movieDetail.genre}}
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
-              <button class="btn btn-small pink darken-1 waves-effect">Boka</button>
+              <button @click="sendBookingDetails(screenTime)" class="btn btn-small pink darken-1 waves-effect">Boka</button>
             </router-link>
           </li>
         </ul>
@@ -59,28 +57,28 @@ export default {
         {
           index: 0,
           dateName: "Today",
-          day: this.getCorrectDay(1),
+          date: this.getCorrectDay(1),
           month: this.getCorrectMonth(1)
         },
         {
           index: 1,
           dateName: "Tomorrow",
-          day: this.getCorrectDay(2),
+          date: this.getCorrectDay(2),
           month: this.getCorrectMonth(2)
         },
         {
           index: 2,
           dateName: this.getCorrectDayOfWeek(3),
-          //dateName: "Day After Tomorrow",
-          day: this.getCorrectDay(3),
+          date: this.getCorrectDay(3),
           month: this.getCorrectMonth(3)
         }
       ],
 
       chosenDate: {
         dateName: "Today",
-        day: this.getCorrectDay(1),
-        month: this.getCorrectMonth(1)
+        date: this.getCorrectDay(1),
+        month: this.getCorrectMonth(1),
+        time: "",
       },
       showMenu: false,
       movies: this.$store.getters.movies,
@@ -96,16 +94,8 @@ export default {
     momentTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
     },
-    convertHourlyTime(time) {
-      return moment(time).format("HH:mm");
-    },
-
-    // Format timeStamp to day
-    convertToDayTime(time) {
-      return moment(time).format(" D");
-    },
-    convertToMonthTime(time) {
-      return moment(time).format("MMMM");
+    customMomentTime(time, format) {
+      return moment(time).format(format)
     },
 
     getMovie() {
@@ -172,35 +162,6 @@ export default {
       tomorrow.setDate(tomorrow.getDate() + (index - 1));
       return tomorrow;
     },
-
-    getCurrentMonth(number) {
-      switch (number) {
-        case 1:
-          return "January";
-        case 2:
-          return "February";
-        case 3:
-          return "Mars";
-        case 4:
-          return "April";
-        case 5:
-          return "May";
-        case 6:
-          return "June";
-        case 7:
-          return "July";
-        case 8:
-          return "August";
-        case 9:
-          return "September";
-        case 10:
-          return "October";
-        case 11:
-          return "November";
-        case 12:
-          return "December";
-      }
-    },
     updateChosenDate(index) {
       this.chosenDate = this.dates[index];
       this.showMenu = false;
@@ -208,27 +169,28 @@ export default {
     addScreenTimes() {
       this.screenTimes = [];
 
-      let chosenMonth = this.getCurrentMonth(this.chosenDate.month);
-      let chosenDay = this.chosenDate.day;
+      let chosenMonth = this.chosenDate.month;
+      let chosenDay = this.chosenDate.date;
 
       for (let s in this.screeningDetails) {
         if (
-          this.convertToMonthTime(
-            this.screeningDetails[s].startTime.toMillis()
-          ) == chosenMonth &&
-          this.convertToDayTime(
-            this.screeningDetails[s].startTime.toMillis()
-          ) == chosenDay
-        ) {
+          this.customMomentTime(this.screeningDetails[s].startTime.toMillis(), "MM") == chosenMonth &&
+          this.customMomentTime(this.screeningDetails[s].startTime.toMillis(), " D") == chosenDay) {
 
           this.screenTimes.push(
-            this.convertHourlyTime(
-              this.screeningDetails[s].startTime.toMillis()
-            )
+            this.customMomentTime(this.screeningDetails[s].startTime.toMillis(), "HH:mm")
           );
         }
       }
-    }
+    },
+
+    sendBookingDetails(screenTime) {
+      this.chosenDate.time = screenTime
+      window.console.log("Send Booking Details for: " + this.chosenDate)
+      this.$store.state.reserveInfo.showTime = this.chosenDate     
+    },
+
+   
   },
 
   created() {
@@ -245,6 +207,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 .container-fluid {
