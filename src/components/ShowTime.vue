@@ -28,12 +28,9 @@
 
       <div class="available-times" id="showtime">
         <ul style="list-style-type:none;">
-          <!-- <li class="show-time-item" v-for="(screeningDetail, i) in screeningDetails" :key="i"> -->
           <li class="show-time-item" v-for="(screenTime, i) in screenTimes" :key="i">
-            <!-- {{ screenTime }} | -->
             {{ screenTime.time }} |
             {{ screenTime.auditorium }}
-            <!-- {{movieDetail.genre}} -->
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
               <button
                 @click="sendBookingDetails(screenTime)"
@@ -99,6 +96,7 @@ export default {
     },
 
     getMovie() {
+      window.console.log("Fetching MOvies")
       this.movies.forEach(movie => {
         if (movie.slug == this.$route.params.slug) {
           this.movieDetail = movie;
@@ -108,28 +106,26 @@ export default {
 
     getScreening() {
       this.screenings.forEach(e => {
+        //windom.console.log(this.movieDetail.id + " movie ID")
         if (e.movieId == this.movieDetail.id) {
           this.screeningDetails.push(e);
-          //this.screeningDetails = e;
 
-          this.$store.state.reserveInfo.showTime = e.startTime;
+          //this.$store.state.reserveInfo.showTime = e.startTime;
         }
-        if (e.auditoriumId === this.auditoriumDetail.id) {
-          this.$store.state.auditoriumInfo.name = this.auditoriumDetail.name;
-          console.log(this.$store.state.auditoriumInfo.name);
-        }
+        // if (e.auditoriumId === this.auditoriumDetail.id) {
+        //   this.$store.state.auditoriumInfo.name = this.auditoriumDetail.name;
+        //   console.log(this.$store.state.auditoriumInfo.name);
+        // }
       });
     },
 
     getCorrectDay(index) {
       let date = this.getSpecifiedDate(index);
       return date.getDate();
-      //return ("0" + date.getDate()).slice(-2);
     },
     getCorrectMonth(index) {
       let date = this.getSpecifiedDate(index);
       return date.getMonth() + 1;
-      //return ("0" + (date.getMonth() + 1)).slice(-2);
     },
 
     getCorrectDayOfWeek(index) {
@@ -171,16 +167,8 @@ export default {
       let chosenDay = this.chosenDate.date;
 
       for (let s in this.screeningDetails) {
-        if (
-          this.customMomentTime(
-            this.screeningDetails[s].startTime.toMillis(),
-            "MM"
-          ) == chosenMonth &&
-          this.customMomentTime(
-            this.screeningDetails[s].startTime.toMillis(),
-            " D"
-          ) == chosenDay
-        ) {
+        if (this.customMomentTime(this.screeningDetails[s].startTime.toMillis(),"MM") == chosenMonth &&
+          this.customMomentTime(this.screeningDetails[s].startTime.toMillis()," D") == chosenDay) {
           window.console.log(
             "audi ID: " + this.screeningDetails[s].auditoriumId
           );
