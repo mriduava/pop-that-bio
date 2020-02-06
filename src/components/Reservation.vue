@@ -14,7 +14,7 @@
 
         <div class="movie-text">
           <h5>{{movieDetail.title}}</h5>
-          <h6>{{formatTime(reserveInfo.showTime.toMillis())}}</h6>
+          <!-- <h6>{{formatTime(reserveInfo.showTime.toMillis())}}</h6> -->
           <h6>{{auditoriumInfo.name}}</h6>
         </div>
       </div>

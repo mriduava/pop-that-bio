@@ -17,8 +17,7 @@
           <div class="dropdown-items" v-if="!showMenu">
             <ul>
               <li
-                :key="date"
-                v-for="date in dates"
+                v-for="(date, i) in dates" :key="i"
                 @click="updateChosenDate(date.index)"
               >{{ date.date }} / {{ date.month}} - {{ date.dateName}}</li>
             </ul>
