@@ -22,9 +22,9 @@
 
   <ul class="sidenav" id="mobile-demo">
      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <i class="large material-icons   white-text text-grey lighten-5">account_circle</i>
+    <router-link to="/mypage"><i class="large material-icons   white-text text-grey lighten-5">account_circle</i></router-link>
     <li class="nav-item">
-    <router-link to="/"><a class="brand-logo "><p class=" white-text text-grey lighten-5 ">Home</p></a></router-link>
+    <router-link to="/"><a class="brand-logo "><p class=" white-text text-grey lighten-5 ">Hame</p></a></router-link>
       </li>
     <li class="nav-item">
             <router-link to="/movies" class="nav-link"><p class=" white-text text-grey lighten-5 ">FILMER</p></router-link>
