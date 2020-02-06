@@ -138,8 +138,7 @@ export default {
       },
       showTrailer: false,
       drawer: false, 
-      movieTrailer: ''
-      drawer: false,
+      movieTrailer: '',
       selectedGenre: "Genre",
     };
   },
