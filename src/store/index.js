@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import router from '@/router/index.js';
 // import {movies} from '@/data/database.js';
 import {db} from '@/firebase/firebase.js'
 import {aut} from '@/firebase/firebase.js'
@@ -69,6 +70,7 @@ export default new Vuex.Store({
     },
     setUser(state, data) {
       state.user.data = data;
+      router.push("/mypage")
     },
     test(state, value){
       alert(value)
@@ -138,6 +140,9 @@ export default new Vuex.Store({
       } else {
         commit("setUser", null);
       }
+    },
+    signOut(){
+      aut.signOut()
     }
   },
   modules:{
