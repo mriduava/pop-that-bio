@@ -53,10 +53,9 @@ export default {
   data() {
     return {
       auditoriums: this.$store.state.auditoriums,
-      auditoriumId: "ZsZnuLCgGA5gjHIvZUVa",
+      auditoriumId: this.$store.state.auditoriumId,
       auditoriumName: this.$store.state.reserveInfo.auditorium,
       seatsPerRow: [],
-      // seatsPerRow: [6, 8, 9, 10, 10, 12],
       seatsGrid: [],
       movies: this.$store.getters.movies,
       movieDetail: [],
@@ -72,9 +71,14 @@ export default {
       this.auditoriums.forEach(e => {
         if (id === e.id) {
           this.seatsPerRow = e.seatsPerRow;
-          console.log(this.seatsPerRow);
         }
       });
+    },
+    createSeatsGrid() {
+      for (let i = 0; i < this.seatsPerRow.length; i++) {
+        let rows = new Array(this.seatsPerRow[i]);
+        this.seatsGrid.push(rows);
+      }
     },
     selectSeats(x, y, event) {
       this.toggleSelection = !this.toggleSelection;
@@ -88,12 +92,6 @@ export default {
     showPositionsOnHover(x, y) {
       this.seatHover = { x: x + 1, y: y + 1 };
     },
-    createSeatsGrid() {
-      for (let i = 0; i < this.seatsPerRow.length; i++) {
-        let rows = new Array(this.seatsPerRow[i]);
-        this.seatsGrid.push(rows);
-      }
-    },
     getMovie() {
       this.movies.forEach(movie => {
         if (movie.slug == this.$route.params.slug) {
@@ -103,10 +101,9 @@ export default {
     }
   },
   created() {
+    this.getAuditorium(this.auditoriumId)
+    this.createSeatsGrid()
     this.getMovie();
-    this.$store.dispatch("getAuditoriums");
-    this.getAuditorium(this.auditoriumId);
-    this.createSeatsGrid();
   }
 };
 </script>

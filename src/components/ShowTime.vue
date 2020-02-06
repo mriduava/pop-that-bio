@@ -169,7 +169,8 @@ export default {
             ),
             auditorium: this.convertIdToAuditioriumName(
               this.screeningDetails[s].auditoriumId
-            )
+            ),
+            auditoriumId: this.screeningDetails[s].auditoriumId
           });
         }
       }
@@ -192,6 +193,7 @@ export default {
       this.chosenAuditorium = screenTime.auditorium;
       console.log("Audi " + screenTime)
       this.$store.state.reserveInfo.auditorium = this.chosenAuditorium;
+      this.$store.state.auditoriumId = screenTime.auditoriumId;
       // console.log('SALONG: ' + this.$store.state.reserveInfo.auditorium);
     }
   },

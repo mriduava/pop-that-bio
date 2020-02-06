@@ -103,7 +103,7 @@ export default {
         numberOfAdults: this.counterOrd,
         numberOfSeniors: this.counterPen
       };
-      this.$store.dispatch("updateTickets", tickets);      
+      this.$store.dispatch("updateTickets", tickets);    
     },
     increaseOrd() {
       if (
@@ -159,6 +159,7 @@ export default {
   },
   created() {
     this.getMovie();
+    this.$store.dispatch("getAuditoriums");  
   }
 };
 </script>

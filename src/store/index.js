@@ -11,14 +11,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    // data: movies
     data: [],
     auditoriums: [],
+    auditoriumId: '',
     scrData: [],
-    auditoriumInfo: {
-      name: '',
-      seatsPerRow: []
-    },
     reserveInfo: {
       auditorium: '',
       movieTitle: "",
@@ -83,8 +79,7 @@ export default new Vuex.Store({
       querySnapshot.forEach(e => {
         let myData = e.data();
         myData.id = e.id;
-        movies.push(myData)
-        // movies.push(e.data())     
+        movies.push(myData)  
       });
       commit('UPDATE_DATA', movies)
     },
@@ -136,7 +131,6 @@ export default new Vuex.Store({
           displayName: user.displayName,
           email: user.email
         });
-        //alert("Logged in")
       } else {
         commit("setUser", null);
       }
