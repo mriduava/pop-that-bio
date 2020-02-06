@@ -4,6 +4,9 @@
       <h4 class>Platser</h4>
     </div>
     <hr class="hr-style" />
+    <div class="title-text">
+      <h4 class>{{auditoriumName}}</h4>
+    </div>
     <div class="seats-info">
       <div class="gray-circle"></div>
       <div>
@@ -17,14 +20,18 @@
 
     <div class="grid">
       <div class="row seats-grid" v-for="(blockRow, row) in seatsGrid" :key="row">
-        <div class="all-blocks" v-for="(block, col) in blockRow" :key="col">
-          <div class="seats" v-if="block==='S'" @click="getPosition(col, row)"></div>
-        </div>
+        <div
+          class="seats"
+          v-for="(block, col) in blockRow"
+          :key="col"
+          @mouseover="showPositionsOnHover(row, col)"
+          @click="selectSeats(row, col, $event)"
+        ></div>
       </div>
     </div>
 
-    <div class="row seat-position" v-if="seatPosition != 0">
-      <h6>Parkett, rad {{seatPosition[0].x}}, plats {{seatPosition[0].y}}</h6>
+    <div class="row seat-position">
+      <h6>Parkett, rad {{seatHover.x}}, plats {{seatHover.y}}</h6>
     </div>
 
     <div class="buttons">
@@ -32,7 +39,10 @@
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan/reservation'">
-        <button class="btn btn-small waves-effect waves-light">Fortsätt</button>
+        <button
+          class="btn btn-small waves-effect waves-light"
+          :class="{ disabled: counter !== totalSeats}"
+        >Fortsätt</button>
       </router-link>
     </div>
   </div>
@@ -40,28 +50,49 @@
 
 <script>
 export default {
-  // props: ['numberOfChildren', 'numberOfAdults', 'numberOfSeniors'],
   data() {
     return {
-      seatsPerRow: [8, 9, 10, 10, 10, 10, 12, 12],
+      auditoriums: this.$store.state.auditoriums,
+      auditoriumId: "ZsZnuLCgGA5gjHIvZUVa",
+      auditoriumName: this.$store.state.reserveInfo.auditorium,
+      seatsPerRow: [],
+      // seatsPerRow: [6, 8, 9, 10, 10, 12],
+      seatsGrid: [],
       movies: this.$store.getters.movies,
       movieDetail: [],
-      seatPosition: [],
-      seatBooked: false,
-      seatsGrid: []
+      totalSeats: this.$store.state.ticketsInfo.totalTickets,
+      counter: 0,
+      seatHover: { x: 0, y: 0 },
+      toggleSelection: false,
+      selectedSeats: []
     };
   },
   methods: {
-    getPosition(x, y) {
-      let position = {x:y+1, y:x+1}
-      this.seatPosition.push(position)
+    getAuditorium(id) {
+      this.auditoriums.forEach(e => {
+        if (id === e.id) {
+          this.seatsPerRow = e.seatsPerRow;
+          console.log(this.seatsPerRow);
+        }
+      });
+    },
+    selectSeats(x, y, event) {
+      this.toggleSelection = !this.toggleSelection;
+      let seatPosition = { x: x, y: y };
+      if (this.counter < this.totalSeats) {
+        event.target.classList.add("selected");
+        this.selectedSeats.push(seatPosition);
+        this.counter++;
+      }
+    },
+    showPositionsOnHover(x, y) {
+      this.seatHover = { x: x + 1, y: y + 1 };
     },
     createSeatsGrid() {
       for (let i = 0; i < this.seatsPerRow.length; i++) {
         let rows = new Array(this.seatsPerRow[i]);
-        this.seatsGrid.push(rows.fill("S"));
+        this.seatsGrid.push(rows);
       }
-      return this.seatsGrid;
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -72,8 +103,9 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getAuditoriums");
     this.getMovie();
+    this.$store.dispatch("getAuditoriums");
+    this.getAuditorium(this.auditoriumId);
     this.createSeatsGrid();
   }
 };
@@ -125,7 +157,7 @@ export default {
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
 }
-.seats{
+.seats {
   justify-content: center;
   width: 23px;
   height: 20px;
@@ -141,6 +173,9 @@ export default {
   background: rgb(204, 9, 113);
 }
 
+.selected {
+  background: rgb(204, 9, 113);
+}
 .seat-position {
   text-align: center;
 }

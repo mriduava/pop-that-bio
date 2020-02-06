@@ -34,7 +34,8 @@ export default new Vuex.Store({
     user: {
       loggedIn: false,
       data: null
-    }
+    },
+    ticketsInfo: {}
   },
   getters: {
     movies(state){
@@ -61,7 +62,7 @@ export default new Vuex.Store({
       state.scrData = screeningsData
     },
     UPDATE_NUMBER_OF_TICKETS(state, numberOfTickets){
-      state.tickets = numberOfTickets
+      state.ticketsInfo = numberOfTickets
     },
     setLoggedIn(state, value) {
       state.user.loggedIn = value;
@@ -89,7 +90,9 @@ export default new Vuex.Store({
       let snapshot= await db.collection("auditoriums").get()
       let auditoriums = []
       snapshot.forEach(auditorium => {
-        auditoriums.push(auditorium.data())
+        let audiData = auditorium.data();
+        audiData.id = auditorium.id;
+        auditoriums.push(audiData)
       })
       commit('UPDATE_AUDITORIUMS', auditoriums)
     },

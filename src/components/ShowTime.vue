@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid" >
+  <div class="container-fluid">
     <div class="title-text">
       <h4 class>Boka biljetter</h4>
       <hr class="hr-style" />
@@ -8,13 +8,14 @@
     <div class="screenings-section">
       <div class="dates">
         <div class="dropdown-menu">
-          <h5 class="selected dropdown item" @click="showMenu = !showMenu">
-            {{chosenDate.date}}/{{chosenDate.month}} - {{ chosenDate.dateName }}
-            <i
-              class="fas fa-chevron-down"
-            ></i>
-          </h5>
-          <div class="dropdown-items" v-if="!showMenu">
+          <div class="selected-dropdown item" @click="showMenu = !showMenu">
+            <h5>
+              <i class="fas fa-bars"></i>
+            </h5>
+            <h5>{{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }}</h5>
+          </div>
+
+          <div class="dropdown-items" v-if="showMenu">
             <ul>
               <li
                 v-for="(date, i) in dates"
@@ -32,9 +33,8 @@
             {{ screenTime.time }} |
             {{ screenTime.auditorium }}
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
-              <button
-                @click="sendBookingDetails(screenTime)"
-                class="btn btn-small pink darken-1 waves-effect"
+              <button class="btn btn-small pink darken-1 waves-effect"
+                @click="sendBookingDetails(screenTime)"                
               >Boka</button>
             </router-link>
           </li>
@@ -71,7 +71,7 @@ export default {
           month: this.getCorrectMonth(3)
         }
       ],
-
+ 
       chosenDate: {
         dateName: "Today",
         date: this.getCorrectDay(1),
@@ -94,31 +94,20 @@ export default {
     customMomentTime(time, format) {
       return moment(time).format(format);
     },
-
     getMovie() {
-      window.console.log("Fetching MOvies")
       this.movies.forEach(movie => {
         if (movie.slug == this.$route.params.slug) {
           this.movieDetail = movie;
         }
       });
     },
-
     getScreening() {
       this.screenings.forEach(e => {
-        //windom.console.log(this.movieDetail.id + " movie ID")
         if (e.movieId == this.movieDetail.id) {
           this.screeningDetails.push(e);
-
-          //this.$store.state.reserveInfo.showTime = e.startTime;
         }
-        // if (e.auditoriumId === this.auditoriumDetail.id) {
-        //   this.$store.state.auditoriumInfo.name = this.auditoriumDetail.name;
-        //   console.log(this.$store.state.auditoriumInfo.name);
-        // }
       });
     },
-
     getCorrectDay(index) {
       let date = this.getSpecifiedDate(index);
       return date.getDate();
@@ -127,7 +116,6 @@ export default {
       let date = this.getSpecifiedDate(index);
       return date.getMonth() + 1;
     },
-
     getCorrectDayOfWeek(index) {
       let date = this.getSpecifiedDate(index);
 
@@ -148,7 +136,6 @@ export default {
           return "Sunday";
       }
     },
-
     getSpecifiedDate(index) {
       let today = new Date();
       let tomorrow = new Date(today);
@@ -159,19 +146,22 @@ export default {
       this.chosenDate = this.dates[index];
       this.showMenu = false;
     },
-
     addScreenTimes() {
       this.screenTimes = [];
-
       let chosenMonth = this.chosenDate.month;
       let chosenDay = this.chosenDate.date;
-
       for (let s in this.screeningDetails) {
-        if (this.customMomentTime(this.screeningDetails[s].startTime.toMillis(),"MM") == chosenMonth &&
-          this.customMomentTime(this.screeningDetails[s].startTime.toMillis()," D") == chosenDay) {
-          window.console.log(
-            "audi ID: " + this.screeningDetails[s].auditoriumId
-          );
+        if (
+          this.customMomentTime(
+            this.screeningDetails[s].startTime.toMillis(),
+            "MM"
+          ) == chosenMonth &&
+          this.customMomentTime(
+            this.screeningDetails[s].startTime.toMillis(),
+            " D"
+          ) == chosenDay
+        ) {
+          // console.log("audi ID: " + this.screeningDetails[s].auditoriumId);
           this.screenTimes.push({
             time: this.customMomentTime(
               this.screeningDetails[s].startTime.toMillis(),
@@ -184,10 +174,8 @@ export default {
         }
       }
     },
-
     convertIdToAuditioriumName(id) {
       id = id.replace(" ", "");
-
       switch (id) {
         case "ZsZnuLCgGA5gjHIvZUVa":
           return "Lilla Salongen";
@@ -197,17 +185,16 @@ export default {
           window.console.log("Failed to convert auditorium ID!");
       }
     },
-
     sendBookingDetails(screenTime) {
       this.chosenDate.time = screenTime;
       //window.console.log("Send Booking Details for: " + this.chosenDate)
       this.$store.state.reserveInfo.showTime = this.chosenDate;
       this.chosenAuditorium = screenTime.auditorium;
-      //window.console.log("Audi " + this.chosenAuditorium)
+      console.log("Audi " + screenTime)
       this.$store.state.reserveInfo.auditorium = this.chosenAuditorium;
+      // console.log('SALONG: ' + this.$store.state.reserveInfo.auditorium);
     }
   },
-
   created() {
     this.getMovie();
     this.getScreening();
@@ -254,7 +241,7 @@ export default {
 
 /*SCREENING SECTION*/
 
-.dropdown-menu{
+.dropdown-menu {
   margin: 0 auto;
   position: relative;
   color: #13f7ff;
@@ -267,22 +254,22 @@ export default {
   /* border: 0.01rem solid rgba(255, 166, 248, 0.1); */
 }
 
-.selected-dropdown{
+.selected-dropdown {
   display: flex;
   justify-content: left;
 }
 
-.dropdown-menu i{
+.dropdown-menu i {
   color: #00ff4c;
   font-size: 1.5rem;
   margin-right: 25px;
 }
 
-.selected-dropdown:hover{
+.selected-dropdown:hover {
   cursor: pointer;
 }
 
-.dropdown-items{
+.dropdown-items {
   position: absolute;
   background: rgba(255, 255, 255, 0.95);
   top: 65px;
@@ -291,27 +278,27 @@ export default {
   padding: 3% 3%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  transition: .3s;
+  transition: 0.3s;
   -webkit-transition: all 0.3s ease 0s;
 }
 
-.dropdown-items li{
-  color:  rgb(212, 0, 166);
+.dropdown-items li {
+  color: rgb(212, 0, 166);
   padding: 1.1% 0;
 }
 
-.dropdown-items li:hover{
-  background:  #ff00aa44;
+.dropdown-items li:hover {
+  background: #ff00aa44;
   cursor: pointer;
   color: rgb(212, 0, 166);
 }
 
-.available-times{
+.available-times {
   display: flex;
   justify-content: center;
   margin: 1% 0;
 }
-.show-time-item{
+.show-time-item {
   position: relative;
   top: 15px;
   color: #00ff4c;
@@ -326,16 +313,14 @@ export default {
 }
 
 @media (min-width: 310px) and (max-width: 812px) {
-  .dropdown-menu{
+  .dropdown-menu {
     /* justify-content: center;
     text-align: center; */
     max-width: 90vw;
     padding-left: 3%;
   }
-  .show-time-item{
+  .show-time-item {
     width: 85vw;
   }
 }
-
-
 </style>
