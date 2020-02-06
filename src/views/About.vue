@@ -2,7 +2,7 @@
 <div class="room">
  <div class="carousel ">
    
-    <div class="imge"> <img src="../assets/images/sss.jpg" height="400" width="1200">></div>
+    <img src="../assets/images/sss.jpg" height="400" width="1200">
     
   </div>
   <div class="text">
@@ -95,15 +95,8 @@ export default {
 }
 @media (max-width: 768px) {
   .room{
-
-
-  }
   
-}
-@media (max-width: 768px) {
-  .imge{
-    width:50;
-    height: 50;
+    margin-right:1px
 
   }
   
