@@ -74,7 +74,7 @@
       </div>
     </transition>
 
-    <div :key="index" v-for="(movie, index) in movies">
+    <div v-for="(movie, index) in movies" :key="index">
       <!-- <div v-for="(movie, index) in moviesData" :key="index"> -->
 
       <router-link :to="'/movies/' + movie.slug">
@@ -125,7 +125,7 @@
 
 <script>
 import moment from "moment";
-import M from 'materialize-css'
+import M from "materialize-css";
 export default {
   name: "movieslist",
   data() {
@@ -195,8 +195,8 @@ export default {
   mounted() {
     let elems = document.querySelectorAll(".dropdown-trigger");
 
-    var modals = document.querySelectorAll('.modal');
-  M.Modal.init(modals);
+    var modals = document.querySelectorAll(".modal");
+    M.Modal.init(modals);
 
     this.$M.Dropdown.init(elems, {
       alignment: "center",
