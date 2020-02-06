@@ -4,7 +4,7 @@
       <h4 class>Boka biljetter</h4>
       <hr class="hr-style" />
     </div>
-    
+
     <div class="screenings-section">
       <div class="dates">
         <div class="dropdown-menu">
@@ -17,7 +17,8 @@
           <div class="dropdown-items" v-if="!showMenu">
             <ul>
               <li
-                v-for="(date, i) in dates" :key="i"
+                v-for="(date, i) in dates"
+                :key="i"
                 @click="updateChosenDate(date.index)"
               >{{ date.date }} / {{ date.month}} - {{ date.dateName}}</li>
             </ul>
@@ -27,22 +28,19 @@
 
       <div class="available-times" id="showtime">
         <ul style="list-style-type:none;">
-          <!-- <li class="show-time-item" v-for="(screeningDetail, i) in screeningDetails" :key="i"> -->
           <li class="show-time-item" v-for="(screenTime, i) in screenTimes" :key="i">
-                <!-- {{ screenTime }} | -->
-                {{ screenTime.time }} |
-                {{ screenTime.auditorium}}
-
-            
-            <!-- {{movieDetail.genre}} -->
+            {{ screenTime.time }} |
+            {{ screenTime.auditorium }}
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
-              <button @click="sendBookingDetails(screenTime)" class="btn btn-small pink darken-1 waves-effect">Boka</button>
+              <button
+                @click="sendBookingDetails(screenTime)"
+                class="btn btn-small pink darken-1 waves-effect"
+              >Boka</button>
             </router-link>
           </li>
         </ul>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -78,7 +76,7 @@ export default {
         dateName: "Today",
         date: this.getCorrectDay(1),
         month: this.getCorrectMonth(1),
-        time: "",
+        time: ""
       },
       showMenu: false,
       movies: this.$store.getters.movies,
@@ -86,7 +84,7 @@ export default {
       screenings: this.$store.state.scrData,
       screeningDetails: [],
       screenTimes: [],
-      chosenAuditorium: "",
+      chosenAuditorium: ""
     };
   },
   methods: {
@@ -94,10 +92,11 @@ export default {
       return moment(time).format("MMMM Do, HH:mm");
     },
     customMomentTime(time, format) {
-      return moment(time).format(format)
+      return moment(time).format(format);
     },
 
     getMovie() {
+      window.console.log("Fetching MOvies")
       this.movies.forEach(movie => {
         if (movie.slug == this.$route.params.slug) {
           this.movieDetail = movie;
@@ -107,29 +106,26 @@ export default {
 
     getScreening() {
       this.screenings.forEach(e => {
+        //windom.console.log(this.movieDetail.id + " movie ID")
         if (e.movieId == this.movieDetail.id) {
           this.screeningDetails.push(e);
-          //this.screeningDetails = e;
-          
-          this.$store.state.reserveInfo.showTime = e.startTime       
-        }
-        if (e.auditoriumId === this.auditoriumDetail.id) {
-           this.$store.state.auditoriumInfo.name = this.auditoriumDetail.name  
-           console.log(this.$store.state.auditoriumInfo.name);
-        }
 
+          //this.$store.state.reserveInfo.showTime = e.startTime;
+        }
+        // if (e.auditoriumId === this.auditoriumDetail.id) {
+        //   this.$store.state.auditoriumInfo.name = this.auditoriumDetail.name;
+        //   console.log(this.$store.state.auditoriumInfo.name);
+        // }
       });
     },
 
     getCorrectDay(index) {
       let date = this.getSpecifiedDate(index);
       return date.getDate();
-      //return ("0" + date.getDate()).slice(-2);
     },
     getCorrectMonth(index) {
       let date = this.getSpecifiedDate(index);
       return date.getMonth() + 1;
-      //return ("0" + (date.getMonth() + 1)).slice(-2);
     },
 
     getCorrectDayOfWeek(index) {
@@ -171,43 +167,45 @@ export default {
       let chosenDay = this.chosenDate.date;
 
       for (let s in this.screeningDetails) {
-
-        if (this.customMomentTime(this.screeningDetails[s].startTime.toMillis(), "MM") == chosenMonth &&
-          this.customMomentTime(this.screeningDetails[s].startTime.toMillis(), " D") == chosenDay) {
-         // window.console.log(s.auditoriumId + " aud ID")
-  
-           this.screenTimes.push(
-             {
-              time: this.customMomentTime(this.screeningDetails[s].startTime.toMillis(), "HH:mm"),
-              auditorium: this.convertIdToAuditioriumName(this.screeningDetails[s].auditoriumId)
-            }
+        if (this.customMomentTime(this.screeningDetails[s].startTime.toMillis(),"MM") == chosenMonth &&
+          this.customMomentTime(this.screeningDetails[s].startTime.toMillis()," D") == chosenDay) {
+          window.console.log(
+            "audi ID: " + this.screeningDetails[s].auditoriumId
           );
+          this.screenTimes.push({
+            time: this.customMomentTime(
+              this.screeningDetails[s].startTime.toMillis(),
+              "HH:mm"
+            ),
+            auditorium: this.convertIdToAuditioriumName(
+              this.screeningDetails[s].auditoriumId
+            )
+          });
         }
       }
     },
 
-
     convertIdToAuditioriumName(id) {
+      id = id.replace(" ", "");
 
-      switch(id) {
+      switch (id) {
         case "ZsZnuLCgGA5gjHIvZUVa":
-            return "Lilla Salongen"
-          case "Cw0BLCXOYyMpoXW8OAiL":
-            return "Stora Salongen"
+          return "Lilla Salongen";
+        case "Cw0BLCXOYyMpoXW8OAiL":
+          return "Stora Salongen";
+        default:
+          window.console.log("Failed to convert auditorium ID!");
       }
     },
 
     sendBookingDetails(screenTime) {
-      this.chosenDate.time = screenTime
+      this.chosenDate.time = screenTime;
       //window.console.log("Send Booking Details for: " + this.chosenDate)
-      this.$store.state.reserveInfo.showTime = this.chosenDate     
-      this.chosenAuditorium = screenTime.auditorium
+      this.$store.state.reserveInfo.showTime = this.chosenDate;
+      this.chosenAuditorium = screenTime.auditorium;
       //window.console.log("Audi " + this.chosenAuditorium)
-      this.$store.state.reserveInfo.auditorium = this.chosenAuditorium
-      
-    },
-
-   
+      this.$store.state.reserveInfo.auditorium = this.chosenAuditorium;
+    }
   },
 
   created() {
