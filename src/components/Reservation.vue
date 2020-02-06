@@ -61,7 +61,7 @@
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-      <router-link to="/">
+      <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan/reservation/confirm'">
         <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Reservera</button>
       </router-link>
     </div>

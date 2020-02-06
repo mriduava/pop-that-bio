@@ -10,8 +10,6 @@
       </div>
     </div>
     
-  
-
     <div class="screenings-section">
       <div class="dates">
         <div class="dropdown-menu">
