@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" >
     <div class="title-text">
       <h4 class>Boka biljetter</h4>
       <hr class="hr-style" />
@@ -8,20 +8,22 @@
     <div class="screenings-section">
       <div class="dates">
         <div class="dropdown-menu">
-          <div class="selected-dropdown item" @click="showMenu = !showMenu">
-            <h5>
-              <i class="fas fa-bars"></i>
-            </h5>
-            <h5>{{chosenDate.date}}/{{chosenDate.month}} - {{ chosenDate.dateName }}</h5>
-          </div>
 
+          <div class="selected-dropdown item" @click="showMenu = !showMenu">
+            <h5> <i class="fas fa-bars"></i></h5>
+            <h5 >
+              {{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }}
+            </h5>
+            
+          </div>
+          
           <div class="dropdown-items" v-if="showMenu">
             <ul>
               <li
-                v-for="(date, i) in dates"
-                :key="i"
+                :key="date"
+                v-for="date in dates"
                 @click="updateChosenDate(date.index)"
-              >{{ date.date }} / {{ date.month}} - {{ date.dateName}}</li>
+              >{{ date.day }} / {{ date.month}} - {{ date.dateName}}</li>
             </ul>
           </div>
         </div>
@@ -29,18 +31,17 @@
 
       <div class="available-times" id="showtime">
         <ul style="list-style-type:none;">
-          <li class="show-time-item" v-for="(screenTime, i) in screenTimes" :key="i">
-            {{ screenTime.time }} |
-            {{ screenTime.auditorium }}
+          <li class="show-time-item" :key="screenTime" v-for="screenTime in screenTimes">
+            {{ screenTime }} |
+            {{movieDetail.genre}}
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
-              <button class="btn btn-small pink darken-1 waves-effect"
-                @click="sendBookingDetails(screenTime)"                
-              >Boka</button>
+              <button class="btn btn-small pink darken-1 waves-effect">Boka</button>
             </router-link>
           </li>
         </ul>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -55,45 +56,53 @@ export default {
         {
           index: 0,
           dateName: "Today",
-          date: this.getCorrectDay(1),
+          day: this.getCorrectDay(1),
           month: this.getCorrectMonth(1)
         },
         {
           index: 1,
           dateName: "Tomorrow",
-          date: this.getCorrectDay(2),
+          day: this.getCorrectDay(2),
           month: this.getCorrectMonth(2)
         },
         {
           index: 2,
           dateName: this.getCorrectDayOfWeek(3),
-          date: this.getCorrectDay(3),
+          //dateName: "Day After Tomorrow",
+          day: this.getCorrectDay(3),
           month: this.getCorrectMonth(3)
         }
       ],
- 
+
       chosenDate: {
         dateName: "Today",
-        date: this.getCorrectDay(1),
-        month: this.getCorrectMonth(1),
-        time: ""
+        day: this.getCorrectDay(1),
+        month: this.getCorrectMonth(1)
       },
       showMenu: false,
       movies: this.$store.getters.movies,
       movieDetail: [],
       screenings: this.$store.state.scrData,
       screeningDetails: [],
-      screenTimes: [],
-      chosenAuditorium: ""
+      screenTimes: []
     };
   },
   methods: {
     momentTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
     },
-    customMomentTime(time, format) {
-      return moment(time).format(format);
+    convertHourlyTime(time) {
+      return moment(time).format("HH:mm");
     },
+
+    // Format timeStamp to day
+    convertToDayTime(time) {
+      return moment(time).format(" D");
+    },
+    convertToMonthTime(time) {
+      return moment(time).format("MMMM");
+    },
+
     getMovie() {
       this.movies.forEach(movie => {
         if (movie.slug == this.$route.params.slug) {
@@ -101,21 +110,27 @@ export default {
         }
       });
     },
+
     getScreening() {
       this.screenings.forEach(e => {
         if (e.movieId == this.movieDetail.id) {
           this.screeningDetails.push(e);
+          //this.screeningDetails = e;
         }
       });
     },
+
     getCorrectDay(index) {
       let date = this.getSpecifiedDate(index);
       return date.getDate();
+      //return ("0" + date.getDate()).slice(-2);
     },
     getCorrectMonth(index) {
       let date = this.getSpecifiedDate(index);
       return date.getMonth() + 1;
+      //return ("0" + (date.getMonth() + 1)).slice(-2);
     },
+
     getCorrectDayOfWeek(index) {
       let date = this.getSpecifiedDate(index);
 
@@ -136,64 +151,72 @@ export default {
           return "Sunday";
       }
     },
+
     getSpecifiedDate(index) {
       let today = new Date();
       let tomorrow = new Date(today);
       tomorrow.setDate(tomorrow.getDate() + (index - 1));
       return tomorrow;
     },
+
+    getCurrentMonth(number) {
+      switch (number) {
+        case 1:
+          return "January";
+        case 2:
+          return "February";
+        case 3:
+          return "Mars";
+        case 4:
+          return "April";
+        case 5:
+          return "May";
+        case 6:
+          return "June";
+        case 7:
+          return "July";
+        case 8:
+          return "August";
+        case 9:
+          return "September";
+        case 10:
+          return "October";
+        case 11:
+          return "November";
+        case 12:
+          return "December";
+      }
+    },
+
     updateChosenDate(index) {
       this.chosenDate = this.dates[index];
       this.showMenu = false;
     },
     addScreenTimes() {
       this.screenTimes = [];
-      let chosenMonth = this.chosenDate.month;
-      let chosenDay = this.chosenDate.date;
+
+      let chosenMonth = this.getCurrentMonth(this.chosenDate.month);
+      let chosenDay = this.chosenDate.day;
+
       for (let s in this.screeningDetails) {
         if (
-          this.customMomentTime(
-            this.screeningDetails[s].startTime.toMillis(),
-            "MM"
+          this.convertToMonthTime(
+            this.screeningDetails[s].startTime.toMillis()
           ) == chosenMonth &&
-          this.customMomentTime(
-            this.screeningDetails[s].startTime.toMillis(),
-            " D"
+          this.convertToDayTime(
+            this.screeningDetails[s].startTime.toMillis()
           ) == chosenDay
         ) {
-          // console.log("audi ID: " + this.screeningDetails[s].auditoriumId);
-          this.screenTimes.push({
-            time: this.customMomentTime(
-              this.screeningDetails[s].startTime.toMillis(),
-              "HH:mm"
-            ),
-            auditorium: this.convertIdToAuditioriumName(
-              this.screeningDetails[s].auditoriumId
-            ),
-            auditoriumId: this.screeningDetails[s].auditoriumId
-          });
+          this.screenTimes.push(
+            this.convertHourlyTime(
+              this.screeningDetails[s].startTime.toMillis()
+            )
+          );
         }
       }
-    },
-    convertIdToAuditioriumName(id) {
-      id = id.replace(" ", "");
-      switch (id) {
-        case "ZsZnuLCgGA5gjHIvZUVa":
-          return "Lilla Salongen";
-        case "Cw0BLCXOYyMpoXW8OAiL":
-          return "Stora Salongen";
-        default:
-          console.log("Failed to convert auditorium ID!");
-      }
-    },
-    sendBookingDetails(screenTime) {
-      this.chosenDate.time = screenTime;
-      this.$store.state.reserveInfo.showTime = this.chosenDate;
-      this.chosenAuditorium = screenTime.auditorium;
-      this.$store.state.reserveInfo.auditorium = this.chosenAuditorium;
-      this.$store.state.auditoriumId = screenTime.auditoriumId;
     }
   },
+
   created() {
     this.getMovie();
     this.getScreening();
@@ -209,7 +232,9 @@ export default {
 
 <style lang="css" scoped>
 .container-fluid {
-  background: transparent;
+  background: #fff;
+  margin: 0 auto;
+  position: relative;
 }
 
 .title-text {
@@ -238,7 +263,7 @@ export default {
 
 /*SCREENING SECTION*/
 
-.dropdown-menu {
+.dropdown-menu{
   margin: 0 auto;
   position: relative;
   color: #13f7ff;
@@ -251,22 +276,22 @@ export default {
   /* border: 0.01rem solid rgba(255, 166, 248, 0.1); */
 }
 
-.selected-dropdown {
+.selected-dropdown{
   display: flex;
   justify-content: left;
 }
 
-.dropdown-menu i {
+.dropdown-menu i{
   color: #00ff4c;
   font-size: 1.5rem;
   margin-right: 25px;
 }
 
-.selected-dropdown:hover {
+.selected-dropdown:hover{
   cursor: pointer;
 }
 
-.dropdown-items {
+.dropdown-items{
   position: absolute;
   background: rgba(255, 255, 255, 0.95);
   top: 65px;
@@ -275,27 +300,27 @@ export default {
   padding: 3% 3%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  transition: 0.3s;
+  transition: .3s;
   -webkit-transition: all 0.3s ease 0s;
 }
 
-.dropdown-items li {
-  color: rgb(212, 0, 166);
+.dropdown-items li{
+  color:  rgb(212, 0, 166);
   padding: 1.1% 0;
 }
 
-.dropdown-items li:hover {
-  background: #ff00aa44;
+.dropdown-items li:hover{
+  background:  #ff00aa44;
   cursor: pointer;
   color: rgb(212, 0, 166);
 }
 
-.available-times {
+.available-times{
   display: flex;
   justify-content: center;
   margin: 1% 0;
 }
-.show-time-item {
+.show-time-item{
   position: relative;
   top: 15px;
   color: #00ff4c;
@@ -310,14 +335,16 @@ export default {
 }
 
 @media (min-width: 310px) and (max-width: 812px) {
-  .dropdown-menu {
+  .dropdown-menu{
     /* justify-content: center;
     text-align: center; */
     max-width: 90vw;
     padding-left: 3%;
   }
-  .show-time-item {
+  .show-time-item{
     width: 85vw;
   }
 }
+
+
 </style>

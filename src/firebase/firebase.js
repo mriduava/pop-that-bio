@@ -4,6 +4,7 @@ import 'firebase/firestore'
 require('@firebase/auth');
 require('@firebase/firestore');
 import store from '@/store/index.js'
+//import movies from '/firebase/MOCK_DATA.json'
 
 const config = {
     apiKey: "AIzaSyDU9OdABisQ0STEMGWv_zUuy295itNd3Qg",
@@ -24,3 +25,11 @@ firebase.auth().onAuthStateChanged(user => {
 
 export const db = firebase.firestore();
 export const aut = firebase.auth();
+
+
+/*for (let movie of movies) {
+  
+}
+
+const colMovies = db.collection('movies')*/
+

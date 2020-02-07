@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+// import router from '@/router/index.js';
 // import {movies} from '@/data/database.js';
 import {db} from '@/firebase/firebase.js'
 import {aut} from '@/firebase/firebase.js'
@@ -10,14 +11,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    // data: movies
     data: [],
     auditoriums: [],
+    auditoriumId: '',
     scrData: [],
-    auditoriumInfo: {
-      name: '',
-      seatsPerRow: []
-    },
     reserveInfo: {
       auditorium: '',
       movieTitle: "",
@@ -34,7 +31,8 @@ export default new Vuex.Store({
     user: {
       loggedIn: false,
       data: null
-    }
+    },
+    ticketsInfo: {}
   },
   getters: {
     movies(state){
@@ -61,14 +59,15 @@ export default new Vuex.Store({
       state.scrData = screeningsData
     },
     UPDATE_NUMBER_OF_TICKETS(state, numberOfTickets){
-      state.tickets = numberOfTickets
+      state.ticketsInfo = numberOfTickets
     },
     setLoggedIn(state, value) {
       state.user.loggedIn = value;
     },
-    setUser(state, data) {
-      state.user.data = data;
-    },
+    // setUser(state, data) {
+    //   state.user.data = data;
+    //   router.push("/mypage")
+    // },
     test(state, value){
       alert(value)
     }
@@ -80,8 +79,7 @@ export default new Vuex.Store({
       querySnapshot.forEach(e => {
         let myData = e.data();
         myData.id = e.id;
-        movies.push(myData)
-        // movies.push(e.data())     
+        movies.push(myData)  
       });
       commit('UPDATE_DATA', movies)
     },
@@ -89,7 +87,9 @@ export default new Vuex.Store({
       let snapshot= await db.collection("auditoriums").get()
       let auditoriums = []
       snapshot.forEach(auditorium => {
-        auditoriums.push(auditorium.data())
+        let audiData = auditorium.data();
+        audiData.id = auditorium.id;
+        auditoriums.push(audiData)
       })
       commit('UPDATE_AUDITORIUMS', auditoriums)
     },
@@ -131,10 +131,12 @@ export default new Vuex.Store({
           displayName: user.displayName,
           email: user.email
         });
-        alert("Logged in")
       } else {
         commit("setUser", null);
       }
+    },
+    signOut(){
+      aut.signOut()
     }
   },
   modules:{

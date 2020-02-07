@@ -43,7 +43,7 @@
       </div>
       <div class="end-button">
         <router-link to="/movies">
-          <button class="btn waves-effect">Visa alla filmer</button>
+          <button class="btn waves-effect">Visa filmer i lista</button>
         </router-link>
       </div>
     </div>
@@ -153,5 +153,9 @@ export default {
   color: #282828;
   padding: 0 3%;
   text-align: justify;
+}
+.end-button{
+  text-align: center;
+  padding-bottom: 20px;
 }
 </style>

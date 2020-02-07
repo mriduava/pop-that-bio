@@ -4,9 +4,6 @@
       <h4 class>Platser</h4>
     </div>
     <hr class="hr-style" />
-    <div class="title-text">
-      <h4 class>{{auditoriumName}}</h4>
-    </div>
     <div class="seats-info">
       <div class="gray-circle"></div>
       <div>
@@ -20,13 +17,10 @@
 
     <div class="grid">
       <div class="row seats-grid" v-for="(blockRow, row) in seatsGrid" :key="row">
-        <div
-          class="seats"
-          v-for="(block, col) in blockRow"
-          :key="col"
-          @mouseover="showPositionsOnHover(row, col)"
-          @click="selectSeats(row, col, $event)"
-        ></div>
+        <div class="seats" v-for="(block, col) in blockRow" :key="col"
+            @mouseover="printPositionOnHover(row, col)"
+            @click="selectItem(row, col)">
+        </div>
       </div>
     </div>
 
@@ -38,11 +32,8 @@
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-      <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan/reservation'">
-        <button
-          class="btn btn-small waves-effect waves-light"
-          :class="{ disabled: counter !== totalSeats}"
-        >Forts√§tt</button>
+      <router-link to="/">
+        <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Forts‰tt</button>
       </router-link>
     </div>
   </div>
@@ -52,27 +43,28 @@
 export default {
   data() {
     return {
-      auditoriums: this.$store.state.auditoriums,
-      auditoriumId: this.$store.state.auditoriumId,
-      auditoriumName: this.$store.state.reserveInfo.auditorium,
-      seatsPerRow: [],
+      seatsPerRow: [6, 8, 9, 10, 10, 12],
       seatsGrid: [],
+
       movies: this.$store.getters.movies,
       movieDetail: [],
-      totalSeats: this.$store.state.ticketsInfo.totalTickets,
-      counter: 0,
+
       seatHover: { x: 0, y: 0 },
       toggleSelection: false,
-      selectedSeats: []
+      selectedSeats: [],
+
+      numOfSeats: this.$store.state.reserveInfo.numOfCustomers
     };
   },
   methods: {
-    getAuditorium(id) {
-      this.auditoriums.forEach(e => {
-        if (id === e.id) {
-          this.seatsPerRow = e.seatsPerRow;
-        }
-      });
+    selectItem(x, y) {
+      this.toggleSelection = !this.toggleSelection;
+      let seatPosition = { x: x, y: y };
+      this.selectedSeats.push(seatPosition); 
+      console.log(this.selectedSeats);   
+    },
+    printPositionOnHover(x, y) {
+      this.seatHover = { x: x + 1, y: y + 1 };
     },
     createSeatsGrid() {
       for (let i = 0; i < this.seatsPerRow.length; i++) {
@@ -80,36 +72,43 @@ export default {
         this.seatsGrid.push(rows);
       }
     },
-    selectSeats(x, y, event) {
-      this.toggleSelection = !this.toggleSelection;
-      let seatPosition = { x: x, y: y };
-      if (this.counter < this.totalSeats) {
-        event.target.classList.add("selected");
-        this.selectedSeats.push(seatPosition);
-        this.counter++;
-      }
-    },
-    showPositionsOnHover(x, y) {
-      this.seatHover = { x: x + 1, y: y + 1 };
-    },
     getMovie() {
       this.movies.forEach(movie => {
         if (movie.slug == this.$route.params.slug) {
           this.movieDetail = movie;
         }
       });
+    },
+    completeBooking() {
+      let bookingNumber =
+        Math.floor(Math.random() * 1000) +
+        "-" +
+        Math.floor(Math.random() * 100000);
+      let tickets = this.$store.getters.tickets;
+      let booking = {
+        collection: "bookings",
+        bookingNumber: bookingNumber,
+        numberOfAdults: tickets.numberOfAdults,
+        numberOfChildren: tickets.numberOfChildren,
+        numberOfSeniors: tickets.numberOfSeniors
+      };
+      this.$store.dispatch("sendToFirebase", booking);
+      alert("Bokningsnummer: " + bookingNumber);
     }
   },
   created() {
-    this.getAuditorium(this.auditoriumId)
-    this.createSeatsGrid()
     this.getMovie();
+    this.createSeatsGrid();
   }
 };
 </script>
 
-
 <style lang="css" scoped>
+.active {
+  width: 20px;
+  height: 20px;;
+  background: rgb(204, 9, 113);
+}
 .container-fluid {
   padding-bottom: 3%;
 }
@@ -144,16 +143,15 @@ export default {
   background: rgba(111, 111, 241, 0.699);
 }
 /* STYLE TO GRID */
-
 .seats-grid {
   display: flex;
   justify-content: center;
 }
-.all-blocks {
+/* .all-blocks {
   position: relative;
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
-}
+} */
 .seats {
   justify-content: center;
   width: 23px;
@@ -170,9 +168,6 @@ export default {
   background: rgb(204, 9, 113);
 }
 
-.selected {
-  background: rgb(204, 9, 113);
-}
 .seat-position {
   text-align: center;
 }

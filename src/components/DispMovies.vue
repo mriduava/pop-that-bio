@@ -13,7 +13,8 @@
                   <h5 class="white-text text-darken-4 valign center">{{movie.title}}</h5>
                   <!-- <p
                     class="white-text text-darken-4 center"
-                  >{{momentTime(movie.showTime.toMillis())}}</p> -->
+                  >{{momentTime(movie.showTime.toMillis())}}</p>-->
+                  <p class="white-text text-darken-4 center">{{movieStartTime(movie.id)}}</p>
                 </div>
               </div>
             </div>
@@ -35,18 +36,44 @@ export default {
   name: "movies",
   data() {
     return {
-      movies: [],
-      screenings: []
+      movies: []
     };
   },
   methods: {
     momentTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
-    }
-  },
+    },
+    customMomentTime(time, format) {
+      return moment(time).format(format)
+    },
+    movieStartTime(movieId) {
+      let filterdScreenings = this.screeningsData.filter(
+        screening => screening.movieId == movieId
+      );
+
+      if (filterdScreenings.length == 0) {
+        return "No Showings";
+      }
+
+      let screenMonth = this.customMomentTime(filterdScreenings[0].startTime.toMillis(), "MM")
+      let screenDay = this.customMomentTime(filterdScreenings[0].startTime.toMillis(), " D")
+
+      let today = new Date()
+
+      if (screenMonth > today.getMonth() || screenMonth >= today.getMonth && screenDay >= today.getDate()) {
+        return this.momentTime(filterdScreenings[0].startTime.toMillis());
+      } else {
+        return "No Showings"
+      }
+    },
+
+},
   computed: {
     moviesData() {
       return this.$store.state.data;
+    },
+    screeningsData() {
+      return this.$store.state.scrData;
     }
   },
   created() {
@@ -55,6 +82,7 @@ export default {
   }
 };
 </script>
+
 
 <style lang="css" scoped>
 @font-face {

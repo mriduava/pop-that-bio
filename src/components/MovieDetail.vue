@@ -64,7 +64,10 @@
       </div>
     </div>
 
-    <ShowTime />
+    <div class="showtime-comp">
+      <ShowTime />
+    </div>
+
   </div>
 </template>
 
@@ -106,6 +109,14 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.container-fluid{
+  color: rgb(253, 251, 255);
+  padding: 1% 0;
+  background: rgb(100, 10, 60);
+  background: -webkit-linear-gradient(to top, rgb(156, 36, 100), #fbd3e9);
+  background: linear-gradient(to bottom, rgb(20, 19, 20), rgb(219, 166, 195));
+}
 .moviedetail-container {
   position: relative;
   top: -130px;
@@ -113,7 +124,7 @@ export default {
     to bottom,
     rgba(2, 2, 2, 0.966) 30%,
     rgba(20, 18, 18, 0.959),
-    rgba(0, 0, 0, 0.8) 90%
+    rgba(219, 166, 195, 0.1) 90%
   );
 }
 
@@ -231,7 +242,8 @@ iframe {
   display: flex;
   width: 90vw;
 }
-.movie-text{
+
+.movie-text {
   color: #fff;
   position: relative;
   top: -250px;
@@ -239,6 +251,71 @@ iframe {
   text-align: justify;
   margin: 0 auto;
   justify-content: center;
+}
+.movie-text p{
+  font-size: 1.1rem;
+}
+.showtime-comp{
+  background: linear-gradient(
+    to top,
+    rgba(2, 2, 2, 0.966) 10%,
+    rgba(20, 18, 18, 0.959),
+    rgba(20, 18, 18, 0.959), 100%
+  );
+  position: relative;
+  margin: 0 auto; 
+  top: -350px; 
+  border-top: 0.01rem solid rgba(65, 65, 65, 0.5);
+  width: 59vw;
+  height: 10vh;
+}
+/* RESPONSIVE STYLE*/
+@media (min-width: 1281px) {
+}
+@media (min-width: 1025px) and (max-width: 1280px) {
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+}
+@media (min-width: 481px) and (max-width: 767px) {
+  
+}
+@media (min-width: 310px) and (max-width: 812px) {
+  .middle {
+    position: relative;
+    top: -190px;
+    width: 90vw;
+  }
+  .movie-image {
+    top: -80px;
+  }
+  .movie-info {
+    position: relative;
+    top: -80px;
+  }
+  .ticket-button {
+    position: absolute;
+    margin-top: 1%;
+  }
+  .ticket-button button{
+    width: 85vw;
+  }
+  .movie-text-row{
+    width: 100vw;
+  }
+  .movie-text{
+    width: 95vw;
+    top: -220px;
+    left: 0;
+  }
+  .movie-trailer-body {
+    width: 95vw;
+    height: 40vh;
+  }
+  .showtime-comp{
+    width: 85vw;
+  }
 }
 
 </style>

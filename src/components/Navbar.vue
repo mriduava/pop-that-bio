@@ -12,22 +12,122 @@
       </form>
         <a href="#!" class="our-brand-logo">POP THAT BIO</a>
         <ul class="right">
+        <router-link to="/">
+          <div class="brand-logo">
+            <p>POP THAT BIO</p>
+          </div>
+        </router-link>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+          <i class="fas fa-align-justify"></i>
+        </a>
+        <ul class="right hide-on-med-and-down">
           <li class="nav-item">
-            <router-link to="/movies" class="nav-link">Filmer</router-link>
+            <router-link to="/movies" class="nav-link">FILMER</router-link>
           </li>
 
           <li class="nav-item">
-            <router-link to="/about" class="nav-link">Om Oss</router-link>
+            <router-link to="/about" class="nav-link">OM OSS</router-link>
           </li>
-
           <li class="nav-item">
-            <router-link class="nav-link" to="/signin">Logga In</router-link>
+            <div class="nav-link modal-trigger" data-target="modal-login">LOGGA IN</div>
+          </li>
+          <li class="nav-item">
+            <div class="nav-link modal-trigger" data-target="modal-signup">SKAPA KONTO</div>
+          </li>
+          <li class="logged-in">
+            <div class="nav-link" id="logout" @click="logOut">Logga ut</div>
           </li>
         </ul>
       </div>
     </nav>
+
+    <!-- SIGN UP MODAL -->
+    <div id="modal-signup" class="modal">
+      <div class="modal-content">
+        <h4>Skapa konto</h4>
+        <br />
+        <form id="signup-form">
+          <div class="input-field">
+            <input v-model="email"  type="email" id="signup-email" required />
+            <label for="signup-email">E-post adress</label>
+          </div>
+          <div class="input-field">
+            <input v-model="password" type="password" id="signup-password" required />
+            <label for="signup-password">Välj lösenord</label>
+          </div>
+          <button class="btn darken-2 z-depth-0" @click="signUp">Skapa konto</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="modal-login" class="modal">
+      <div class="modal-content">
+        <h4>Logga in</h4>
+        <br />
+        <form id="login-form">
+          <div class="input-field">
+            <input v-model="email1" type="email" id="login-email" required />
+            <label for="login-email">E-post adress</label>
+          </div>
+          <div class="input-field">
+            <input v-model="password1" type="password" id="login-password" required />
+            <label for="login-password">Ditt lösenord</label>
+          </div>
+          <button class="btn darken-2 z-depth-0">Logga in</button>
+        </form>
+      </div>
+    </div>
+
+    <ul class="sidenav" id="mobile-demo">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+      <router-link to="/mypage">
+        <i class="large material-icons white-text text-grey lighten-5">account_circle</i>
+      </router-link>
+      <li class="nav-item">
+        <router-link to="/">
+          <a class="brand-logo">
+            <p class="white-text text-grey lighten-5">HEM</p>
+          </a>
+        </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/movies" class="nav-link">
+          <p class="white-text text-grey lighten-5">FILMER</p>
+        </router-link>
+      </li>
+
+      <li class="nav-item">
+        <router-link to="/about" class="nav-link">
+          <p class="white-text text-grey lighten-5">OM OSS</p>
+        </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/about" class="nav-link">
+          <p class="white-text text-grey lighten-5">Medlemmar</p>
+        </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/about" class="nav-link">
+          <p class="white-text text-grey lighten-5">Frågor och svar</p>
+        </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link" to="/signin">
+          <p class="white-text text-grey lighten-5">Kundservice</p>
+        </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link" to="/signin">
+          <p class="white-text text-grey lighten-5">LOGGA IN</p>
+        </router-link>
+      </li>
+    </ul>
   </div>
 </template>
+<script>
+import M from 'materialize-css'
+import firebase from "firebase";
 
 <script>
 
@@ -121,12 +221,79 @@
  
 </script>
 
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      email1: '',
+      password1: ''
+    }
+  },
+  mounted() {
+    var elems = document.querySelectorAll(".carousel");
+    this.$M.Carousel.init(elems);
+    setTimeout(this.$M.Carousel.init(elems), 1000);
+
+    var modals = document.querySelectorAll(".modal");
+    M.Modal.init(modals);
+
+    var items = document.querySelectorAll(".collapsible");
+    M.Collapsible.init(items);
+  },
+  methods: {
+      signUp(e) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(
+          user => {
+            window.console.log(`Account created for ${user.email}`)
+            this.$router.push("/mypage");
+            const modal = document.querySelector('#modal-signup')
+            M.Modal.getInstance(modal).close()
+            this.email = ''
+            this.password = ''
+          },
+          err => {
+            alert(err.message);
+          }
+        );
+
+      e.preventDefault();
+    },
+    logIn(e){
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email1, this.password1)
+
+      e.preventDefault();
+    },
+    logOut(e){
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+            window.console.log('u logged out')
+            this.$router.push("/");
+          },
+          err => {
+            alert(err.message);
+          }
+        );
+
+      e.preventDefault();
+    }
+    
+  }
+};
+</script>
+
 <style lang="css" scoped>
 @font-face {
   font-family: borntogrille;
   src: url("../assets/fonts/borntogrille.otf");
 }
-
 nav {
   padding: 0 14.8%;
   border-bottom: 1px solid rgb(213, 187, 47);
@@ -141,13 +308,18 @@ nav {
     rgb(117, 9, 67),
     rgba(197, 49, 99, 0.5)
   );
+  text-shadow: 2px 4px 1px rgb(12, 1, 1);
+}
+
+.nav-wrapper {}
+
+.sidenav {
+  background-color: rgba(107, 22, 72, 0.788);
 }
 
 .our-brand-logo {
-  font-size: 2.5rem;
-  padding-left: 1.5%;
   font-family: borntogrille;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 6px 1px rgb(12, 1, 1);
 }
 
 .our-brand-logo:hover {
@@ -169,19 +341,6 @@ nav {
 
 .router-link-active {
   background: rgb(150, 38, 97);
-}
-
-/* RESPONSIVE */
-@media (min-width: 1281px) {
-}
-
-@media (min-width: 1025px) and (max-width: 1280px) {
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
-}
-
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
 }
 
 @media (min-width: 481px) and (max-width: 767px) {

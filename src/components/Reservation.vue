@@ -7,6 +7,7 @@
     <hr class="hr-style" />
 
     <div class="reserve-info">
+      
       <div class="movie-info">
         <div class="movie-image">
           <img :src="movieDetail.image" alt="pop-that-bio" />
@@ -14,14 +15,15 @@
 
         <div class="movie-text">
           <h5>{{movieDetail.title}}</h5>
-          <h6>{{formatTime(reserveInfo.showTime.toMillis())}}</h6>
-          <h6>{{auditoriumInfo.name}}</h6>
+          <h6>Date: {{reserveInfo.showTime.dateName}}, {{reserveInfo.showTime.date}}/{{reserveInfo.showTime.month}}</h6>
+          <h6>Tid: {{reserveInfo.showTime.time.time}}</h6>
+          <h6>{{reserveInfo.auditorium}}</h6>
         </div>
       </div>
 
       <div class="ticket-details">
         <div class="ticket-info">
-          <h6>{{reserveInfo.numOfCustomers}} x Biljetter</h6>
+          <h6>{{ticketsInfo.totalTickets}} x Biljetter</h6>
 
           <h6>{{reserveInfo.ticketPrice}} kr</h6>
         </div>
@@ -61,7 +63,7 @@
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-      <router-link to="/">
+      <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan/reservation/confirm'">
         <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Reservera</button>
       </router-link>
     </div>
@@ -76,9 +78,8 @@ export default {
     return {
       movies: this.$store.getters.movies,
       movieDetail: [],
-
-      auditoriumInfo: this.$store.state.auditoriumInfo,
-      reserveInfo: this.$store.state.reserveInfo
+      reserveInfo: this.$store.state.reserveInfo,
+      ticketsInfo: this.$store.state.ticketsInfo
     };
   },
   methods: {
@@ -139,6 +140,8 @@ export default {
 
 .movie-image {
   width: 150px;
+  padding: 0;
+  margin-right: 3%;
 }
 
 .movie-image img {
@@ -148,7 +151,8 @@ export default {
 }
 
 .movie-text{
-  margin-top: 8.5%;
+  margin-top: 4.5%;
+  padding: 0;
 }
 .ticket-details{
   margin-top: 2%;

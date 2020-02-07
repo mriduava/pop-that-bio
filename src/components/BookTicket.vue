@@ -60,11 +60,11 @@
         </div>
       </div>
       <div class="end">
-        <h6>Antal besökare: {{ this.nrOfcustomer }}  (max 8 st)</h6>
+        <h6>Antal besökare: {{ this.nrOfcustomer }} (max 8 st)</h6>
       </div>
       <div class="valj">
         <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
-          <button class="btn btn-large waves-effect waves-light" @click="updateTickets">Välj platser</button>
+          <button class="btn btn-small waves-effect waves-light" @click="updateTickets">Välj platser</button>
         </router-link>
       </div>
     </div>
@@ -88,25 +88,22 @@ export default {
   methods: {
     getMovie() {
       this.movies.forEach(movie => {
-        this.$route.params.slug;
         if (movie.slug === this.$route.params.slug) {
           this.movieDetail = movie;
-          window.console.log(this.movieDetail, "chosen movie");
           if (this.movieDetail.age_limit < 7) {
             this.childAllowed = true;
-            window.console.log("children allowed");
-            //alert("allowed");
           }
         }
       });
     },
-    updateTickets(){
+    updateTickets() {
       let tickets = {
+        totalTickets: this.nrOfcustomer,
         numberOfChildren: this.counterChild,
         numberOfAdults: this.counterOrd,
         numberOfSeniors: this.counterPen
-      }
-      this.$store.dispatch('updateTickets', tickets)
+      };
+      this.$store.dispatch("updateTickets", tickets);    
     },
     increaseOrd() {
       if (
@@ -162,6 +159,7 @@ export default {
   },
   created() {
     this.getMovie();
+    this.$store.dispatch("getAuditoriums");  
   }
 };
 </script>
@@ -181,7 +179,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /*border: 1px solid black*/
+  /*border: 1px solid black;*/
 }
 
 .ordinarie-mini {
@@ -227,7 +225,42 @@ export default {
   /*border: 1px solid black;*/
 }
 
-.back-link:hover{
+.back-link:hover {
   background: rgba(255, 186, 240, 0.3);
+}
+
+@media (min-width: 1281px) {
+  .fa {
+    font-size: 40px;
+    padding: 8px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .fa {
+    font-size: 40px;
+    padding: 8px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .fa {
+    font-size: 40px;
+    padding: 8px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .fa {
+    font-size: 40px;
+    padding: 8px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .fa {
+    font-size: 40px;
+    padding: 8px;
+  }
 }
 </style>
