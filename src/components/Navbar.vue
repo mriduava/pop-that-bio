@@ -11,7 +11,7 @@
         </div>
       </form>
         <a href="#!" class="our-brand-logo">POP THAT BIO</a>
-        <ul class="right">
+        
         <router-link to="/">
           <div class="brand-logo">
             <p>POP THAT BIO</p>
@@ -125,13 +125,7 @@
     </ul>
   </div>
 </template>
-<script>
-import M from 'materialize-css'
-import firebase from "firebase";
 
-<script>
-
-</script>
 
 <script>
  export default {
@@ -183,7 +177,9 @@ import firebase from "firebase";
     },
   }
 }
-  $(document).ready(function(){
+</script>
+<script>
+ $(document).ready(function(){
  
     $('input.autocomplete').autocomplete({
  
@@ -218,9 +214,11 @@ import firebase from "firebase";
     });
  
   });
- 
 </script>
+  
+ 
 
+<script>
 export default {
   data() {
     return {
@@ -311,7 +309,7 @@ nav {
   text-shadow: 2px 4px 1px rgb(12, 1, 1);
 }
 
-.nav-wrapper {}
+
 
 .sidenav {
   background-color: rgba(107, 22, 72, 0.788);
