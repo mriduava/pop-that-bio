@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import router from '@/router/index.js';
+// import router from '@/router/index.js';
 // import {movies} from '@/data/database.js';
 import {db} from '@/firebase/firebase.js'
 import {aut} from '@/firebase/firebase.js'
@@ -64,10 +64,10 @@ export default new Vuex.Store({
     setLoggedIn(state, value) {
       state.user.loggedIn = value;
     },
-    setUser(state, data) {
-      state.user.data = data;
-      router.push("/mypage")
-    },
+    // setUser(state, data) {
+    //   state.user.data = data;
+    //   router.push("/mypage")
+    // },
     test(state, value){
       alert(value)
     }

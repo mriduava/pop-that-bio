@@ -12,7 +12,7 @@
             <h5>
               <i class="fas fa-bars"></i>
             </h5>
-            <h5>{{chosenDate.day}}/{{chosenDate.month}} - {{ chosenDate.dateName }}</h5>
+            <h5>{{chosenDate.date}}/{{chosenDate.month}} - {{ chosenDate.dateName }}</h5>
           </div>
 
           <div class="dropdown-items" v-if="showMenu">
@@ -209,9 +209,7 @@ export default {
 
 <style lang="css" scoped>
 .container-fluid {
-  background: #fff;
-  margin: 0 auto;
-  position: relative;
+  background: transparent;
 }
 
 .title-text {

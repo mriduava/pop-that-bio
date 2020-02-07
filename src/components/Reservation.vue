@@ -151,7 +151,7 @@ export default {
 }
 
 .movie-text{
-  margin-top: 6.5%;
+  margin-top: 4.5%;
   padding: 0;
 }
 .ticket-details{
