@@ -33,8 +33,9 @@
             {{ screenTime.time }} |
             {{ screenTime.auditorium }}
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
-              <button class="btn btn-small pink darken-1 waves-effect"
-                @click="sendBookingDetails(screenTime)"                
+              <button
+                class="btn btn-small pink darken-1 waves-effect"
+                @click="sendBookingDetails(screenTime)"
               >Boka</button>
             </router-link>
           </li>
@@ -71,7 +72,7 @@ export default {
           month: this.getCorrectMonth(3)
         }
       ],
- 
+
       chosenDate: {
         dateName: "Today",
         date: this.getCorrectDay(1),
@@ -132,7 +133,7 @@ export default {
           return "Friday";
         case 6:
           return "Saturday";
-        case 7:
+        case 0:
           return "Sunday";
       }
     },
@@ -140,6 +141,7 @@ export default {
       let today = new Date();
       let tomorrow = new Date(today);
       tomorrow.setDate(tomorrow.getDate() + (index - 1));
+      //window.console.log(tomorrow.getDay() + " tom day")
       return tomorrow;
     },
     updateChosenDate(index) {
@@ -174,7 +176,16 @@ export default {
           });
         }
       }
+      this.sortScreenTimes();
     },
+    sortScreenTimes() {
+      this.screenTimes.sort(function(a, b) {
+        var aNumber = parseInt(a.time);
+        var bNumber = parseInt(b.time);
+        return aNumber - bNumber;
+      });
+    },
+
     convertIdToAuditioriumName(id) {
       id = id.replace(" ", "");
       switch (id) {
