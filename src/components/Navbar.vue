@@ -14,7 +14,7 @@
         
         <router-link to="/">
           <div class="brand-logo">
-            <p>POP THAT BIO</p>
+            
           </div>
         </router-link>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger">
@@ -222,6 +222,7 @@
 export default {
   data() {
     return {
+      searchInput: '',
       email: '',
       password: '',
       email1: '',
@@ -229,6 +230,41 @@ export default {
     }
   },
   mounted() {
+    $(document).ready(function(){
+ 
+    $('input.autocomplete').autocomplete({
+ 
+      data: {
+ 
+        "aladdin": null,
+ 
+        "frozen 2": 'https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png',
+ 
+        "legend": null,
+ 
+        "the matrix": null,
+ 
+        "avatar": 'https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png',
+ 
+        "unga astrid": null,
+ 
+        "djungelboken": null,
+
+        "micke och veronica": null,
+
+        "filmer": null,
+ 
+        "om oss": null,
+
+        "logga in": null,
+
+        "hem": null,
+ 
+      },
+ 
+    });
+ 
+  });
     var elems = document.querySelectorAll(".carousel");
     this.$M.Carousel.init(elems);
     setTimeout(this.$M.Carousel.init(elems), 1000);
@@ -240,6 +276,47 @@ export default {
     M.Collapsible.init(items);
   },
   methods: {
+    search() {
+      window.console.log(this.searchInput)
+      if (this.searchInput == 'aladdin') {
+        this.$router.push('/movies/aladdin')
+      }
+      else if (this.searchInput == 'frozen 2') {
+        this.$router.push('/movies/frozen-2')
+      }
+      else if (this.searchInput == 'legend') {
+        this.$router.push('/movies/legend')
+      }
+      else if (this.searchInput == 'the matrix') {
+        this.$router.push('/movies/the-matrix')
+      }
+      else if (this.searchInput == 'avatar') {
+        this.$router.push('/movies/avatar')
+      }
+      else if (this.searchInput == 'unga astrid') {
+        this.$router.push('/movies/astrid')
+      }
+      else if (this.searchInput == 'djungelboken') {
+        this.$router.push('/movies/jungle-book')
+      }
+      else if (this.searchInput == 'micke och veronica') {
+        this.$router.push('/movies/micke-och-veronica')
+      }
+      else if (this.searchInput == 'filmer') {
+        this.$router.push('/movies')
+      }
+      else if (this.searchInput == 'om oss') {
+        this.$router.push('/about')
+      }
+      else if (this.searchInput == 'logga in') {
+        this.$router.push('/signin')
+      }
+      else if (this.searchInput == 'hem') {
+        this.$router.push('/')
+      }
+      
+    },
+  
       signUp(e) {
       firebase
         .auth()
@@ -285,6 +362,7 @@ export default {
     
   }
 };
+
 </script>
 
 <style lang="css" scoped>
