@@ -89,6 +89,9 @@ export default {
 
       let today = new Date();
 
+      //window.console.log(movieTimes[0].screenHour + " movie hour");
+      //window.console.log(today.getHours() + " today hour");
+
       // KOllA OM DATUM INTE HAR INTRÄFFAT
       for (let i in movieTimes) {
         if (
