@@ -30,7 +30,11 @@
 </template>
 
 <script>
-export default {
+
+</script>
+
+<script>
+ export default {
   data() {
     return {
       searchInput: ''
@@ -75,9 +79,38 @@ export default {
       else if (this.searchInput == 'hem') {
         this.$router.push('/')
       }
+      
     },
   }
 }
+  $(document).ready(function(){
+ 
+    $('input.autocomplete').autocomplete({
+ 
+      data: {
+ 
+        "aladdin": null,
+ 
+        "frozen 2": 'https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png',
+ 
+        "legend": null,
+ 
+        "the matrix": null,
+ 
+        "avatar": 'https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png',
+ 
+        "unga astrid": null,
+ 
+        "djungelboken": null,
+
+        "micke och veronica": null,
+ 
+      },
+ 
+    });
+ 
+  });
+ 
 </script>
 
 <style lang="css" scoped>
