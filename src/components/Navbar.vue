@@ -19,13 +19,13 @@
             <router-link to="/about" class="nav-link">OM OSS</router-link>
           </li>
           <li class="nav-item">
-            <div class="nav-link modal-trigger" data-target="modal-login">LOGGA IN</div>
+            <div class="nav-link modal-trigger account-button" data-target="modal-login">LOGGA IN</div>
           </li>
           <li class="nav-item">
-            <div class="nav-link modal-trigger" data-target="modal-signup">SKAPA KONTO</div>
+            <div class="nav-link modal-trigger account-button" data-target="modal-signup">SKAPA KONTO</div>
           </li>
           <li class="logged-in">
-            <div class="nav-link" id="logout" @click="logOut">Logga ut</div>
+            <div class="nav-link" id="logout account-button" @click="logOut">LOGGA UT</div>
           </li>
         </ul>
       </div>
@@ -57,11 +57,11 @@
         <br />
         <form id="login-form">
           <div class="input-field">
-            <input v-model="email1" type="email" id="login-email" required />
+            <input v-model="email" type="email" id="login-email" required />
             <label for="login-email">E-post adress</label>
           </div>
           <div class="input-field">
-            <input v-model="password1" type="password" id="login-password" required />
+            <input v-model="password" type="password" id="login-password" required />
             <label for="login-password">Ditt lösenord</label>
           </div>
           <button class="btn darken-2 z-depth-0">Logga in</button>
@@ -93,17 +93,17 @@
         </router-link>
       </li>
       <li class="nav-item">
-        <router-link to="/about" class="nav-link">
+        <router-link to="/medlemmar" class="nav-link">
           <p class="white-text text-grey lighten-5">Medlemmar</p>
         </router-link>
       </li>
       <li class="nav-item">
-        <router-link to="/about" class="nav-link">
+        <router-link to="/q-and-a" class="nav-link">
           <p class="white-text text-grey lighten-5">Frågor och svar</p>
         </router-link>
       </li>
       <li class="nav-item">
-        <router-link class="nav-link" to="/signin">
+        <router-link class="nav-link" to="/kundservice">
           <p class="white-text text-grey lighten-5">Kundservice</p>
         </router-link>
       </li>
@@ -125,7 +125,8 @@ export default {
       email: '',
       password: '',
       email1: '',
-      password1: ''
+      password1: '',
+      isLoggedIn: false
     }
   },
   mounted() {
@@ -160,12 +161,14 @@ export default {
 
       e.preventDefault();
     },
-    logIn(e){
+    logIn(){
       firebase
         .auth()
-        .signInWithEmailAndPassword(this.email1, this.password1)
-
-      e.preventDefault();
+        .signInWithEmailAndPassword(this.email, this.password)
+        this.$router.push("/mypage");
+        window.console.log('u are logged in')
+        this.isLoggedIn = true
+      //e.preventDefault();
     },
     logOut(e){
       firebase
@@ -174,6 +177,7 @@ export default {
         .then(() => {
             window.console.log('u logged out')
             this.$router.push("/");
+            this.isLoggedIn = false
           },
           err => {
             alert(err.message);
@@ -210,6 +214,10 @@ nav {
 }
 
 .nav-wrapper {}
+
+.account-button {
+  padding: 0 10px;
+}
 
 .sidenav {
   background-color: rgba(107, 22, 72, 0.788);
