@@ -11,6 +11,9 @@ import Reservation from '@/components/Reservation'
 import ConfirmReserve from '@/components/ConfirmReserve'
 import MyPage from '@/components/MyPage'
 import Register from '@/components/Register'
+import Members from '@/components/Members'
+import Questions from '@/components/Questions'
+import CustomerService from '@/components/CustomerService'
 
 Vue.use(VueRouter)
 
@@ -74,6 +77,21 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/medlemmar',
+    name: 'Members',
+    component: Members
+  },
+  {
+    path: '/q-and-a',
+    name: 'Questions',
+    component: Questions
+  },
+  {
+    path: '/kundservice',
+    name: 'CustomerService',
+    component: CustomerService
   }
 ]
 
