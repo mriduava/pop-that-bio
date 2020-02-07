@@ -64,7 +64,7 @@
             <input v-model="password" type="password" id="login-password" required />
             <label for="login-password">Ditt lösenord</label>
           </div>
-          <button class="btn darken-2 z-depth-0">Logga in</button>
+          <button class="btn darken-2 z-depth-0" @click.prevent="logIn">Logga in</button>
         </form>
       </div>
     </div>
@@ -161,14 +161,19 @@ export default {
 
       e.preventDefault();
     },
-    logIn(){
+    logIn(e){
+      e.preventDefault();
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         this.$router.push("/mypage");
         window.console.log('u are logged in')
         this.isLoggedIn = true
-      //e.preventDefault();
+        const modal = document.querySelector('#modal-login')
+            M.Modal.getInstance(modal).close()
+            this.email = ''
+            this.password = ''
+      
     },
     logOut(e){
       firebase
