@@ -104,6 +104,14 @@
         "djungelboken": null,
 
         "micke och veronica": null,
+
+        "filmer": null,
+ 
+        "om oss": null,
+
+        "logga in": null,
+
+        "hem": null,
  
       },
  
