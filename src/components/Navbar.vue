@@ -3,9 +3,9 @@
     <nav class="nav-extended">
       <div class="nav-wrapper">
         <router-link to="/">
-          <a class="brand-logo">
+          <div class="brand-logo">
             <p>POP THAT BIO</p>
-          </a>
+          </div>
         </router-link>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger">
           <i class="fas fa-align-justify"></i>
@@ -24,6 +24,9 @@
           <li class="nav-item">
             <div class="nav-link modal-trigger" data-target="modal-signup">SKAPA KONTO</div>
           </li>
+          <li class="logged-in">
+            <div class="nav-link" id="logout" @click="logOut">Logga ut</div>
+          </li>
         </ul>
       </div>
     </nav>
@@ -35,14 +38,14 @@
         <br />
         <form id="signup-form">
           <div class="input-field">
-            <input type="email" id="signup-email" required />
-            <label for="signup-email">Epost adress</label>
+            <input v-model="email"  type="email" id="signup-email" required />
+            <label for="signup-email">E-post adress</label>
           </div>
           <div class="input-field">
-            <input type="password" id="signup-password" required />
+            <input v-model="password" type="password" id="signup-password" required />
             <label for="signup-password">Välj lösenord</label>
           </div>
-          <button class="btn yellow darken-2 z-depth-0">Skapa konto</button>
+          <button class="btn darken-2 z-depth-0" @click="signUp">Skapa konto</button>
         </form>
       </div>
     </div>
@@ -54,14 +57,14 @@
         <br />
         <form id="login-form">
           <div class="input-field">
-            <input type="email" id="login-email" required />
-            <label for="login-email">Epost adress</label>
+            <input v-model="email1" type="email" id="login-email" required />
+            <label for="login-email">E-post adress</label>
           </div>
           <div class="input-field">
-            <input type="password" id="login-password" required />
+            <input v-model="password1" type="password" id="login-password" required />
             <label for="login-password">Ditt lösenord</label>
           </div>
-          <button class="btn yellow darken-2 z-depth-0">Logga in</button>
+          <button class="btn darken-2 z-depth-0">Logga in</button>
         </form>
       </div>
     </div>
@@ -114,7 +117,17 @@
 </template>
 <script>
 import M from 'materialize-css'
+import firebase from "firebase";
+
 export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      email1: '',
+      password1: ''
+    }
+  },
   mounted() {
     var elems = document.querySelectorAll(".carousel");
     this.$M.Carousel.init(elems);
@@ -125,6 +138,51 @@ export default {
 
     var items = document.querySelectorAll(".collapsible");
     M.Collapsible.init(items);
+  },
+  methods: {
+      signUp(e) {
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(
+          user => {
+            window.console.log(`Account created for ${user.email}`)
+            this.$router.push("/mypage");
+            const modal = document.querySelector('#modal-signup')
+            M.Modal.getInstance(modal).close()
+            this.email = ''
+            this.password = ''
+          },
+          err => {
+            alert(err.message);
+          }
+        );
+
+      e.preventDefault();
+    },
+    logIn(e){
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email1, this.password1)
+
+      e.preventDefault();
+    },
+    logOut(e){
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+            window.console.log('u logged out')
+            this.$router.push("/");
+          },
+          err => {
+            alert(err.message);
+          }
+        );
+
+      e.preventDefault();
+    }
+    
   }
 };
 </script>
@@ -149,16 +207,15 @@ nav {
     rgba(197, 49, 99, 0.5)
   );
   text-shadow: 2px 4px 1px rgb(12, 1, 1);
-  font-family: borntogrille;
 }
+
+.nav-wrapper {}
 
 .sidenav {
   background-color: rgba(107, 22, 72, 0.788);
 }
 
 .our-brand-logo {
-  font-size: 2.5rem;
-  padding-left: 1.5%;
   font-family: borntogrille;
   text-shadow: 1px 6px 1px rgb(12, 1, 1);
 }
