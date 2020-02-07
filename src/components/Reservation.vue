@@ -36,25 +36,26 @@
     </div>
 
     <div class="row">
-      <div class="user-info col x12 s12 m12">
+      <div class="user-info">
         <form>
           <div class="row">
-            <div class="input-field col x6 s6 m6">
+            <!-- <div class="input-field col x6 s6 m6">
               <input id="icon_prefix" type="text" class="validate" />
               <label for="icon_prefix">Ditt namn</label>
-            </div>
-            <div class="input-field col x6 s6 m6">
-              <input id="icon_telephone" type="tel" class="validate" />
+            </div> -->
+            <div class="input-field">
+              <input id="icon_telephone" type="tel" class="validate" value required autofocus v-model="telephone" />
               <label for="icon_telephone">Telefonnummer</label>
             </div>
           </div>
 
           <div class="row">
-            <div class="input-field col x12 s12 m12">
-              <input id="email" type="email" class="validate" />
+            <div class="input-field">
+              <input id="email" type="email" class="validate" value required autofocus v-model="email" />
               <label for="email">E-post</label>
             </div>
           </div>
+
         </form>
       </div>
     </div>
@@ -63,40 +64,47 @@
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-      <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan/reservation/confirm'">
-        <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Reservera</button>
-      </router-link>
+      <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Reservera</button>
+    </div>
+
+    <div v-if="showReserveInfo">
+      <ConfirmReserve/>
     </div>
   </div>
 </template>
 
 <script>
 import moment from "moment";
+import ConfirmReserve from '@/components/ConfirmReserve'
 export default {
   name: "reservation",
+  components:{
+    ConfirmReserve
+  },
   data() {
     return {
+      telephone: '',
+      email: '',
       movies: this.$store.getters.movies,
       movieDetail: [],
       reserveInfo: this.$store.state.reserveInfo,
-      ticketsInfo: this.$store.state.ticketsInfo
+      ticketsInfo: this.$store.state.ticketsInfo,
+      showReserveInfo: false
     };
   },
   methods: {
     completeBooking() {
-      let bookingNumber =
-        Math.floor(Math.random() * 1000) +
-        "-" +
-        Math.floor(Math.random() * 100000);
-      let tickets = this.$store.getters.tickets;
-      let booking = {
+      this.showReserveInfo = true;
+      let bookingNumber = Math.floor(Math.random() * 1000) + "-" + Math.floor(Math.random() * 100000);
+      let ticketsInfo = this.ticketsInfo;
+      let bookingInfo = {
         collection: "bookings",
         bookingNumber: bookingNumber,
-        numberOfAdults: tickets.numberOfAdults,
-        numberOfChildren: tickets.numberOfChildren,
-        numberOfSeniors: tickets.numberOfSeniors
+        numberOfAdults: ticketsInfo.numberOfAdults,
+        numberOfChildren: ticketsInfo.numberOfChildren,
+        numberOfSeniors: ticketsInfo.numberOfSeniors
       };
-      this.$store.dispatch("sendToFirebase", booking);
+      this.$store.dispatch("sendToFirebase", bookingInfo);
     },
     formatTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
