@@ -44,7 +44,7 @@ export default {
       return moment(time).format("MMMM Do, HH:mm");
     },
     customMomentTime(time, format) {
-      return moment(time).format(format)
+      return moment(time).format(format);
     },
     movieStartTime(movieId) {
       let filterdScreenings = this.screeningsData.filter(
@@ -55,19 +55,54 @@ export default {
         return "No Showings";
       }
 
-      let screenMonth = this.customMomentTime(filterdScreenings[0].startTime.toMillis(), "MM")
-      let screenDay = this.customMomentTime(filterdScreenings[0].startTime.toMillis(), " D")
+      let movieTimes = [];
 
-      let today = new Date()
-
-      if (screenMonth > today.getMonth() || screenMonth >= today.getMonth && screenDay >= today.getDate()) {
-        return this.momentTime(filterdScreenings[0].startTime.toMillis());
-      } else {
-        return "No Showings"
+      for (let i in filterdScreenings) {
+        movieTimes.push({
+          screenMonth: this.customMomentTime(
+            filterdScreenings[i].startTime.toMillis(),
+            "MM"
+          ),
+          screenDay: this.customMomentTime(
+            filterdScreenings[i].startTime.toMillis(),
+            " D"
+          ),
+          screenHour: this.customMomentTime(
+            filterdScreenings[i].startTime.toMillis(),
+            "HH:mm"
+          ),
+          startTime: this.momentTime(filterdScreenings[i].startTime.toMillis())
+        });
       }
-    },
 
-},
+      movieTimes.sort(function(a, b) {
+        return a.screenMonth - b.screenMonth;
+      });
+
+      movieTimes.sort(function(a, b) {
+        return a.screenDay - b.screenDay;
+      });
+
+      movieTimes.sort(function(a, b) {
+        return a.screenHour - b.screenHour;
+      });
+
+      let today = new Date();
+
+      // KOllA OM DATUM INTE HAR INTRÄFFAT
+      for (let i in movieTimes) {
+        if (
+          movieTimes[i].screenMonth > today.getMonth() + 1 ||
+          (movieTimes[i].screenMonth == today.getMonth() + 1 &&
+            movieTimes[i].screenDay >= today.getDate())
+        ) {
+          return movieTimes[i].startTime;
+        }
+      }
+      return "No Upcoming Showings";
+    }
+  },
+
   computed: {
     moviesData() {
       return this.$store.state.data;
