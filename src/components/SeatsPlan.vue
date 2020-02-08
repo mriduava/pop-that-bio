@@ -4,8 +4,19 @@
       <h4 class>Platser</h4>
     </div>
     <hr class="hr-style" />
-    <div class="title-text">
-      <h4 class>{{auditoriumName}}</h4>
+    <div class="screen">
+      <div class="text">
+        <h6 class="screen-text">{{auditoriumName}}</h6>
+        <div class="screen-seat" v-for="(seat, i) in mySelection" :key="i">
+          <p>{{seat}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="screen-shadow">
+      <h6 class="shadow-text">{{auditoriumName}}</h6>
+      <div class="shadow-seat" v-for="(seat, i) in mySelection" :key="i">
+        <p>{{seat}}</p>
+      </div>
     </div>
     <div class="seats-info">
       <div class="gray-circle"></div>
@@ -14,7 +25,7 @@
       </div>
       <div class="green-circle green"></div>
       <div>
-        <span>Mitt val</span>
+        <span>Mina val</span>
       </div>
       <div class="purple-circle"></div>
       <div>
@@ -25,18 +36,20 @@
     <div class="grid">
       <div class="row seats-grid" v-for="(blockRow, row) in seatsGrid" :key="row">
         <div
-          class="seats center" style="color: #e88; font-size: 0.7rem"
+          class="seats center"
+          style="color: #e88; font-size: 0.7rem"
           v-for="(block, col) in blockRow"
           :key="col"
           @mouseover="showPositionsOnHover(row, col)"
           @click="selectSeats(row, col)"
         >
-         <div class="pre-selected"          
-          v-for="(seatNum, i) in selectedSeats" :key="i"
-          :class="{'pink': block == seatNum}">{{block}}
-         </div>        
+          <div
+            class="pre-selected"
+            v-for="(seatNum, i) in selectedSeats"
+            :key="i"
+            :class="{'pink': block == seatNum}"
+          >{{block}}</div>
         </div>
-        
       </div>
     </div>
 
@@ -72,7 +85,7 @@ export default {
       movieDetail: [],
       totalSeats: this.$store.state.ticketsInfo.totalTickets,
       counter: 0,
-      message: '',
+      message: "",
       seatHover: { x: 0, y: 0 },
       toggleSelection: false,
       selectedSeats: [27, 33, 45],
@@ -94,48 +107,48 @@ export default {
       }
       let num = 1;
       for (let i = 0; i < this.seatsGrid.length; i++) {
-        for(let j=0; j<this.seatsGrid[i].length; j++){
-          this.seatsGrid[i][j] = num
-          num++
+        for (let j = 0; j < this.seatsGrid[i].length; j++) {
+          this.seatsGrid[i][j] = num;
+          num++;
         }
       }
     },
     selectSeats(x, y) {
       this.toggleSelection = !this.toggleSelection;
-      let seatNum = this.seatsGrid[x][y]
-      let preBooked = false
+      let seatNum = this.seatsGrid[x][y];
+      let preBooked = false;
       for (let i = 0; i < this.selectedSeats.length; i++) {
         if (this.selectedSeats[i] === seatNum) {
           preBooked = true;
-          this.message = 'Platsen är uptagna!'
-        }          
+          this.message = "Platsen är uptagna!";
+        }
       }
       let myBooked = false;
-      let seatIndex = 0
+      let seatIndex = 0;
       for (let i = 0; i < this.mySelection.length; i++) {
         if (this.mySelection[i] === seatNum) {
-          myBooked = true
-          seatIndex = this.mySelection.indexOf(seatNum)
+          myBooked = true;
+          seatIndex = this.mySelection.indexOf(seatNum);
         }
       }
 
       if (this.counter < this.totalSeats && !preBooked) {
         if (!myBooked) {
-          event.target.classList.add('selected')
+          event.target.classList.add("selected");
           this.mySelection.push(seatNum);
           this.counter++;
-        }else{
-          event.target.classList.remove('selected')
+        } else {
+          event.target.classList.remove("selected");
           this.mySelection.splice(seatIndex, 1);
           this.counter--;
         }
-      }       
-      console.log(this.mySelection);         
+      }
+      console.log(this.mySelection);
     },
     showPositionsOnHover(x, y) {
-      let seat = this.seatsGrid[x][y]
-      this.message = '';
-      this.seatHover = { x: x + 1, y: seat};
+      let seat = this.seatsGrid[x][y];
+      this.message = "";
+      this.seatHover = { x: x + 1, y: seat };
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -146,8 +159,8 @@ export default {
     }
   },
   created() {
-    this.getAuditorium(this.auditoriumId)
-    this.createSeatsGrid()
+    this.getAuditorium(this.auditoriumId);
+    this.createSeatsGrid();
     this.getMovie();
   }
 };
@@ -155,19 +168,96 @@ export default {
 
 
 <style lang="css" scoped>
-.container-fluid {
-  padding-bottom: 3%;
-}
 .title-text {
   text-align: center;
   color: rgb(204, 9, 113);
 }
 
+.screen {
+  position: relative;
+  top: -20px;
+  width: 320px;
+  height: 140px;
+  background: #707070;
+  border-top: 3px solid #0e0d0d;
+  margin: 0 auto;
+  padding-bottom: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotateX(-45deg);
+  clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
+}
+
+.screen-shadow {
+  width: 320px;
+  height: 100px;
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+  top: -52.5px;
+  clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%);
+  background: rgb(10, 10, 10);
+  background: -webkit-linear-gradient(to top, rgba(51, 50, 51, 0.5), #fbd3e9);
+  background: linear-gradient(
+    to bottom,
+    rgba(51, 50, 51, 0.6) 10%,
+    rgba(121, 121, 121, 0.9) 10%,
+    rgba(206, 206, 206, 0.01) 70%
+  );
+  text-align: center;
+}
+
+.screen-shadow .shadow-text {
+  font-size: 1.7rem;
+  color: #c9c8c8;
+  transform: rotateX(150deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 95%;
+}
+
+.screen .text {
+  color: rgb(255, 255, 255);
+  z-index: 9999;
+  text-shadow: 5px 5px 10px #979797;
+}
+
+.screen .screen-text {
+  font-size: 1.9rem;
+  transform: rotateX(30deg);
+}
+
+.screen-seat {
+  position: relative;
+  font-size: 1rem;
+  transform: rotateX(30deg);
+  margin: 0 1%;
+  display: inline-block;
+}
+
+.shadow-seat {
+  position: relative;
+  display: inline-block;
+  top: -340px;
+  margin: 0 1%;
+  font-size: 0.7rem;
+  color: #cccbcb;
+  transform: rotateX(150deg);
+}
+.shadow-seat p {
+  display: inline;
+  position: relative;
+}
 /* SEATS INOF */
 .seats-info {
   display: flex;
   justify-content: center;
-  margin: 1.9% auto;
+  margin: 0 auto 2.4% auto;
+  position: relative;
+  top: -89px;
 }
 .gray-circle,
 .purple-circle,
@@ -193,6 +283,8 @@ export default {
 .seats-grid {
   display: flex;
   justify-content: center;
+  position: relative;
+  top: -79px;
 }
 .all-blocks {
   position: relative;
@@ -218,8 +310,10 @@ export default {
 }
 .seat-position {
   text-align: center;
+  position: relative;
+  top: -86px;
 }
-.pre-selected{
+.pre-selected {
   width: 21px;
   height: 18px;
   position: absolute;
@@ -230,6 +324,8 @@ export default {
   display: flex;
   justify-content: center;
   margin: 0 1% 3% 1%;
+  position: relative;
+  top: -69px;
 }
 .btn {
   background: rgba(202, 8, 112, 0.692);
