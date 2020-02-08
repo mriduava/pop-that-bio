@@ -12,6 +12,10 @@
       <div>
         <span>Ledig</span>
       </div>
+      <div class="green-circle green"></div>
+      <div>
+        <span>Mitt val</span>
+      </div>
       <div class="purple-circle"></div>
       <div>
         <span>Upptagen</span>
@@ -21,17 +25,24 @@
     <div class="grid">
       <div class="row seats-grid" v-for="(blockRow, row) in seatsGrid" :key="row">
         <div
-          class="seats"
+          class="seats center" style="color: #e88; font-size: 0.7rem"
           v-for="(block, col) in blockRow"
           :key="col"
           @mouseover="showPositionsOnHover(row, col)"
-          @click="selectSeats(row, col, $event)"
-        ></div>
+          @click="selectSeats(row, col)"
+        >
+         <div class="pre-selected"          
+          v-for="(seatNum, i) in selectedSeats" :key="i"
+          :class="{'pink': block == seatNum}">{{block}}
+         </div>        
+        </div>
+        
       </div>
     </div>
 
     <div class="row seat-position">
-      <h6>Parkett, rad {{seatHover.x}}, plats {{seatHover.y}}</h6>
+      <h6 v-if="message.length == 0">Parkett, rad {{seatHover.x}}, plats {{seatHover.y}}</h6>
+      <h6 v-else>{{message}}</h6>
     </div>
 
     <div class="buttons">
@@ -61,9 +72,11 @@ export default {
       movieDetail: [],
       totalSeats: this.$store.state.ticketsInfo.totalTickets,
       counter: 0,
+      message: '',
       seatHover: { x: 0, y: 0 },
       toggleSelection: false,
-      selectedSeats: []
+      selectedSeats: [27, 33, 45],
+      mySelection: []
     };
   },
   methods: {
@@ -79,18 +92,50 @@ export default {
         let rows = new Array(this.seatsPerRow[i]);
         this.seatsGrid.push(rows);
       }
-    },
-    selectSeats(x, y, event) {
-      this.toggleSelection = !this.toggleSelection;
-      let seatPosition = { x: x, y: y };
-      if (this.counter < this.totalSeats) {
-        event.target.classList.add("selected");
-        this.selectedSeats.push(seatPosition);
-        this.counter++;
+      let num = 1;
+      for (let i = 0; i < this.seatsGrid.length; i++) {
+        for(let j=0; j<this.seatsGrid[i].length; j++){
+          this.seatsGrid[i][j] = num
+          num++
+        }
       }
     },
+    selectSeats(x, y) {
+      this.toggleSelection = !this.toggleSelection;
+      let seatNum = this.seatsGrid[x][y]
+      let preBooked = false
+      for (let i = 0; i < this.selectedSeats.length; i++) {
+        if (this.selectedSeats[i] === seatNum) {
+          preBooked = true;
+          this.message = 'Platsen är uptagna!'
+        }          
+      }
+      let myBooked = false;
+      let seatIndex = 0
+      for (let i = 0; i < this.mySelection.length; i++) {
+        if (this.mySelection[i] === seatNum) {
+          myBooked = true
+          seatIndex = this.mySelection.indexOf(seatNum)
+        }
+      }
+
+      if (this.counter < this.totalSeats && !preBooked) {
+        if (!myBooked) {
+          event.target.classList.add('selected')
+          this.mySelection.push(seatNum);
+          this.counter++;
+        }else{
+          event.target.classList.remove('selected')
+          this.mySelection.splice(seatIndex, 1);
+          this.counter--;
+        }
+      }       
+      console.log(this.mySelection);         
+    },
     showPositionsOnHover(x, y) {
-      this.seatHover = { x: x + 1, y: y + 1 };
+      let seat = this.seatsGrid[x][y]
+      this.message = '';
+      this.seatHover = { x: x + 1, y: seat};
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -126,7 +171,7 @@ export default {
 }
 .gray-circle,
 .purple-circle,
-.blue-circle {
+.green-circle {
   margin: 0 0.5% 0 0.5%;
   width: 20px;
   height: 20px;
@@ -143,8 +188,8 @@ export default {
 .blue-circle {
   background: rgba(111, 111, 241, 0.699);
 }
-/* STYLE TO GRID */
 
+/* STYLE TO GRID */
 .seats-grid {
   display: flex;
   justify-content: center;
@@ -164,31 +209,33 @@ export default {
   border-bottom-right-radius: 15px;
   border-bottom-left-radius: 15px;
 }
-
 .seats:hover {
   cursor: pointer;
   background: rgb(204, 9, 113);
 }
-
 .selected {
-  background: rgb(204, 9, 113);
+  background: rgb(0, 250, 104);
 }
 .seat-position {
   text-align: center;
 }
-
+.pre-selected{
+  width: 21px;
+  height: 18px;
+  position: absolute;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
 .buttons {
   display: flex;
   justify-content: center;
   margin: 0 1% 3% 1%;
 }
-
 .btn {
   background: rgba(202, 8, 112, 0.692);
   margin-left: 10px;
   margin-right: 10px;
 }
-
 .hr-style {
   border: 0;
   min-width: 90%;
