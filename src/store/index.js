@@ -32,7 +32,8 @@ export default new Vuex.Store({
       loggedIn: false,
       data: null
     },
-    ticketsInfo: {}
+    ticketsInfo: {},
+    tempSeats: []
   },
   getters: {
     movies(state){
@@ -60,6 +61,9 @@ export default new Vuex.Store({
     },
     UPDATE_NUMBER_OF_TICKETS(state, numberOfTickets){
       state.ticketsInfo = numberOfTickets
+    },
+    UPDATE_TEMP_SEATS(state, tempSeats){
+      state.tempSeats = tempSeats
     },
     setLoggedIn(state, value) {
       state.user.loggedIn = value;
@@ -92,6 +96,16 @@ export default new Vuex.Store({
         auditoriums.push(audiData)
       })
       commit('UPDATE_AUDITORIUMS', auditoriums)
+    },
+    async getTempSeats({commit}){
+      let snapshot= await db.collection("tempSeats").get()
+      let tempSeats = []
+      snapshot.forEach(seats => {
+        let temp = seats.data();
+        temp.id = seats.id;
+        tempSeats.push(temp)
+      })
+      commit('UPDATE_TEMP_SEATS', tempSeats)
     },
     async getScreeningFromFirebase({ commit }) {
       let querySnapshot = await db.collection("screenings").get()
