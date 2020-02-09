@@ -45,7 +45,7 @@
         >
           <div
             class="pre-selected"
-            v-for="(seatNum, i) in selectedSeats"
+            v-for="(seatNum, i) in userBooked.selectedSeats"
             :key="i"
             :class="{'pink': block == seatNum}"
           >{{block}}</div>
@@ -88,7 +88,19 @@ export default {
       message: "",
       seatHover: { x: 0, y: 0 },
       toggleSelection: false,
-      selectedSeats: [27, 33, 45],
+      beforeBookings: this.$store.state.beforeBookings,
+      userBooked: {
+        movieTitle: "",
+        timeStamp: "",
+        selectedSeats: []
+      },
+      pickMovie: this.$store.state.beforeBooking.movieTitle,
+      pickTime: this.$store.state.beforeBooking.timeStamp,
+      tempReserve: {
+        movieTitle: "",
+        timeStamp: "",
+        tempSeats: []
+      },
       mySelection: []
     };
   },
@@ -117,8 +129,8 @@ export default {
       this.toggleSelection = !this.toggleSelection;
       let seatNum = this.seatsGrid[x][y];
       let preBooked = false;
-      for (let i = 0; i < this.selectedSeats.length; i++) {
-        if (this.selectedSeats[i] === seatNum) {
+      for (let i = 0; i < this.userBooked.selectedSeats.length; i++) {
+        if (this.userBooked.selectedSeats[i] === seatNum) {
           preBooked = true;
           this.message = "Platsen är uptagna!";
         }
@@ -128,27 +140,35 @@ export default {
       for (let i = 0; i < this.mySelection.length; i++) {
         if (this.mySelection[i] === seatNum) {
           myBooked = true;
-          seatIndex = this.mySelection.indexOf(seatNum);
+          seatIndex = i;
         }
       }
-
-      if (this.counter < this.totalSeats && !preBooked) {
-        if (!myBooked) {
-          event.target.classList.add("selected");
-          this.mySelection.push(seatNum);
-          this.counter++;
-        } else {
-          event.target.classList.remove("selected");
-          this.mySelection.splice(seatIndex, 1);
-          this.counter--;
-        }
+      if (this.counter < this.totalSeats && !preBooked && !myBooked) {
+        event.target.classList.add("selected");
+        this.mySelection.push(seatNum);
+        this.counter++;
+      } else if (!preBooked && myBooked) {
+        event.target.classList.remove("selected");
+        this.mySelection.splice(seatIndex, 1);
+        this.counter--;
       }
-      console.log(this.mySelection);
     },
     showPositionsOnHover(x, y) {
       let seat = this.seatsGrid[x][y];
       this.message = "";
       this.seatHover = { x: x + 1, y: seat };
+    },
+    getBeforeBooking() {
+      this.beforeBookings.forEach(beforeBooking => {
+        let i = this.userBooked.selectedSeats;
+        if (this.pickTime === beforeBooking.timeStamp) {
+          this.userBooked.selectedSeats.splice(
+            i,
+            0,
+            ...beforeBooking.reserveSeats
+          );
+        }
+      });
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -161,18 +181,17 @@ export default {
   created() {
     this.getAuditorium(this.auditoriumId);
     this.createSeatsGrid();
+    this.getBeforeBooking();
     this.getMovie();
   }
 };
 </script>
-
 
 <style lang="css" scoped>
 .title-text {
   text-align: center;
   color: rgb(204, 9, 113);
 }
-
 .screen {
   position: relative;
   top: -20px;
@@ -189,7 +208,6 @@ export default {
   transform: rotateX(-45deg);
   clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
 }
-
 .screen-shadow {
   width: 320px;
   height: 100px;
@@ -208,7 +226,6 @@ export default {
   );
   text-align: center;
 }
-
 .screen-shadow .shadow-text {
   font-size: 1.7rem;
   color: #c9c8c8;
@@ -218,18 +235,15 @@ export default {
   align-items: center;
   padding-top: 95%;
 }
-
 .screen .text {
   color: rgb(255, 255, 255);
   z-index: 9999;
   text-shadow: 5px 5px 10px #979797;
 }
-
 .screen .screen-text {
   font-size: 1.9rem;
   transform: rotateX(30deg);
 }
-
 .screen-seat {
   position: relative;
   font-size: 1rem;
@@ -237,7 +251,6 @@ export default {
   margin: 0 1%;
   display: inline-block;
 }
-
 .shadow-seat {
   position: relative;
   display: inline-block;
@@ -278,7 +291,6 @@ export default {
 .blue-circle {
   background: rgba(111, 111, 241, 0.699);
 }
-
 /* STYLE TO GRID */
 .seats-grid {
   display: flex;

@@ -2,19 +2,19 @@
   <div class="container-fluid navbar navbar-fixed">
     <nav class="nav-extended">
       <div class="nav-wrapper">
-        <form @submit.prevent="search">
+        <!-- <form @submit.prevent="search">
         <div class="input-field">
           <input v-model="searchInput" class="autocomplete" id="search" type="search" required>
           <label for="search"></label>
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
-      </form>
-        <a href="#!" class="our-brand-logo">POP THAT BIO</a>
+      </form> -->
+        <!-- <a href="#!" class="our-brand-logo">POP THAT BIO</a> -->
         
         <router-link to="/">
           <div class="brand-logo">
-            
+            POP THAT BIO
           </div>
         </router-link>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger">
@@ -28,16 +28,21 @@
           <li class="nav-item">
             <router-link to="/about" class="nav-link">OM OSS</router-link>
           </li>
-          <li class="nav-item">
-            <div class="nav-link modal-trigger account-button" data-target="modal-login">LOGGA IN</div>
-          </li>
-          <li class="nav-item">
-            <div class="nav-link modal-trigger account-button" data-target="modal-signup">SKAPA KONTO</div>
-          </li>
-          <li class="logged-in">
-            <div class="nav-link" id="logout account-button" @click="logOut">LOGGA UT</div>
-          </li>
+          <!-- <div v-if="!isLoggedIn">
+            <li class="nav-item">
+              <div class="nav-link modal-trigger account-button" data-target="modal-login">LOGGA IN</div>
+            </li>
+            <li class="nav-item">
+              <div class="nav-link modal-trigger account-button" data-target="modal-signup">SKAPA KONTO</div>
+            </li>
+          </div>
+          <div v-else>
+            <li class="nav-item">
+              <div class="nav-link" id="logout account-button" @click="logOut">LOGGA UT</div>
+            </li>
+          </div> -->
         </ul>
+        
       </div>
     </nav>
 
@@ -124,99 +129,7 @@
       </li>
     </ul>
   </div>
-</template>
-
-
-<script>
- export default {
-  data() {
-    return {
-      searchInput: ''
-    }
-  }, 
-  methods: {
-    search() {
-      window.console.log(this.searchInput)
-      if (this.searchInput == 'aladdin') {
-        this.$router.push('/movies/aladdin')
-      }
-      else if (this.searchInput == 'frozen 2') {
-        this.$router.push('/movies/frozen-2')
-      }
-      else if (this.searchInput == 'legend') {
-        this.$router.push('/movies/legend')
-      }
-      else if (this.searchInput == 'the matrix') {
-        this.$router.push('/movies/the-matrix')
-      }
-      else if (this.searchInput == 'avatar') {
-        this.$router.push('/movies/avatar')
-      }
-      else if (this.searchInput == 'unga astrid') {
-        this.$router.push('/movies/astrid')
-      }
-      else if (this.searchInput == 'djungelboken') {
-        this.$router.push('/movies/jungle-book')
-      }
-      else if (this.searchInput == 'micke och veronica') {
-        this.$router.push('/movies/micke-och-veronica')
-      }
-      else if (this.searchInput == 'filmer') {
-        this.$router.push('/movies')
-      }
-      else if (this.searchInput == 'om oss') {
-        this.$router.push('/about')
-      }
-      else if (this.searchInput == 'logga in') {
-        this.$router.push('/signin')
-      }
-      else if (this.searchInput == 'hem') {
-        this.$router.push('/')
-      }
-      
-    },
-  }
-}
-</script>
-<script>
- $(document).ready(function(){
- 
-    $('input.autocomplete').autocomplete({
- 
-      data: {
- 
-        "aladdin": null,
- 
-        "frozen 2": 'https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png',
- 
-        "legend": null,
- 
-        "the matrix": null,
- 
-        "avatar": 'https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png',
- 
-        "unga astrid": null,
- 
-        "djungelboken": null,
-
-        "micke och veronica": null,
-
-        "filmer": null,
- 
-        "om oss": null,
-
-        "logga in": null,
-
-        "hem": null,
- 
-      },
- 
-    });
- 
-  });
-</script>
-  
- 
+</template> 
 
 <script>
 export default {
@@ -231,95 +144,19 @@ export default {
     }
   },
   mounted() {
-    $(document).ready(function(){
- 
-    $('input.autocomplete').autocomplete({
- 
-      data: {
- 
-        "aladdin": null,
- 
-        "frozen 2": 'https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png',
- 
-        "legend": null,
- 
-        "the matrix": null,
- 
-        "avatar": 'https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png',
- 
-        "unga astrid": null,
- 
-        "djungelboken": null,
-
-        "micke och veronica": null,
-
-        "filmer": null,
- 
-        "om oss": null,
-
-        "logga in": null,
-
-        "hem": null,
- 
-      },
- 
-    });
- 
-  });
     var elems = document.querySelectorAll(".carousel");
     this.$M.Carousel.init(elems);
     setTimeout(this.$M.Carousel.init(elems), 1000);
 
     var modals = document.querySelectorAll(".modal");
-    M.Modal.init(modals);
+    this.M.Modal.init(modals);
 
     var items = document.querySelectorAll(".collapsible");
-    M.Collapsible.init(items);
+    this.M.Collapsible.init(items);
   },
-  methods: {
-    search() {
-      window.console.log(this.searchInput)
-      if (this.searchInput == 'aladdin') {
-        this.$router.push('/movies/aladdin')
-      }
-      else if (this.searchInput == 'frozen 2') {
-        this.$router.push('/movies/frozen-2')
-      }
-      else if (this.searchInput == 'legend') {
-        this.$router.push('/movies/legend')
-      }
-      else if (this.searchInput == 'the matrix') {
-        this.$router.push('/movies/the-matrix')
-      }
-      else if (this.searchInput == 'avatar') {
-        this.$router.push('/movies/avatar')
-      }
-      else if (this.searchInput == 'unga astrid') {
-        this.$router.push('/movies/astrid')
-      }
-      else if (this.searchInput == 'djungelboken') {
-        this.$router.push('/movies/jungle-book')
-      }
-      else if (this.searchInput == 'micke och veronica') {
-        this.$router.push('/movies/micke-och-veronica')
-      }
-      else if (this.searchInput == 'filmer') {
-        this.$router.push('/movies')
-      }
-      else if (this.searchInput == 'om oss') {
-        this.$router.push('/about')
-      }
-      else if (this.searchInput == 'logga in') {
-        this.$router.push('/signin')
-      }
-      else if (this.searchInput == 'hem') {
-        this.$router.push('/')
-      }
-      
-    },
-  
+  methods: {  
       signUp(e) {
-      firebase
+      this.firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
@@ -327,7 +164,7 @@ export default {
             window.console.log(`Account created for ${user.email}`)
             this.$router.push("/mypage");
             const modal = document.querySelector('#modal-signup')
-            M.Modal.getInstance(modal).close()
+            this.M.Modal.getInstance(modal).close()
             this.email = ''
             this.password = ''
           },
@@ -340,20 +177,20 @@ export default {
     },
     logIn(e){
       e.preventDefault();
-      firebase
+      this.firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
         this.$router.push("/mypage");
         window.console.log('u are logged in')
         this.isLoggedIn = true
         const modal = document.querySelector('#modal-login')
-            M.Modal.getInstance(modal).close()
+            this.M.Modal.getInstance(modal).close()
             this.email = ''
             this.password = ''
       
     },
     logOut(e){
-      firebase
+      this.firebase
         .auth()
         .signOut()
         .then(() => {
@@ -393,7 +230,7 @@ nav {
     rgb(117, 9, 67),
     rgba(197, 49, 99, 0.5)
   );
-  text-shadow: 2px 4px 1px rgb(12, 1, 1);
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -406,9 +243,9 @@ nav {
   background-color: rgba(107, 22, 72, 0.788);
 }
 
-.our-brand-logo {
+.brand-logo {
   font-family: borntogrille;
-  text-shadow: 1px 6px 1px rgb(12, 1, 1);
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .our-brand-logo:hover {
