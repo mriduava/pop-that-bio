@@ -340,8 +340,11 @@ export default {
     },
     logIn(e){
       e.preventDefault();
-      aut
-        .signInWithEmailAndPassword(this.email, this.password)
+      await aut
+        .signInWithEmailAndPassword(this.email, this.password).catch(err => {
+          window.console.log(err)
+          return
+        })
         this.$router.push("/mypage");
         window.console.log('u are logged in')
         this.isLoggedIn = true
