@@ -27,6 +27,7 @@ export default new Vuex.Store({
       ticketPrice: 0,
       selectedSeats: [],
     },
+<<<<<<< HEAD
     user: {
       loggedIn: false,
       data: null
@@ -39,6 +40,11 @@ export default new Vuex.Store({
       movieTitle: '',
       timeStamp: '',
       reserveSeats: []
+=======
+    ticketsInfo: {},
+    user: {
+      username: ''
+>>>>>>> sprint2Demo
     }
   },
   getters: {
@@ -54,8 +60,13 @@ export default new Vuex.Store({
     screenings(state){
       return state.scrData
     },
+<<<<<<< HEAD
     beforeBookings(state){
       return state.beforeBookings
+=======
+    username(state){
+      return state.user.username
+>>>>>>> sprint2Demo
     }
   },
   mutations: {
@@ -71,18 +82,8 @@ export default new Vuex.Store({
     UPDATE_NUMBER_OF_TICKETS(state, numberOfTickets){
       state.ticketsInfo = numberOfTickets
     },
-    POPULATE_BEFORE_BOOKINGS(state, tempBooking){
-      state.beforeBookings = tempBooking
-    },
-    setLoggedIn(state, value) {
-      state.user.loggedIn = value;
-    },
-    // setUser(state, data) {
-    //   state.user.data = data;
-    //   router.push("/mypage")
-    // },
-    test(state, value){
-      alert(value)
+    SET_USERNAME(state, usrName){
+      state.user.username = usrName
     }
   },
   actions: {
@@ -138,6 +139,9 @@ export default new Vuex.Store({
     updateTickets({ commit }, tickets){
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
     },
+    setUsername({ commit }, username){
+      commit('SET_USERNAME', username)
+    }
   },
   modules:{
   }
