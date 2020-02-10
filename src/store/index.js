@@ -27,7 +27,10 @@ export default new Vuex.Store({
       ticketPrice: 0,
       selectedSeats: [],
     },
-    ticketsInfo: {}
+    ticketsInfo: {},
+    user: {
+      username: ''
+    }
   },
   getters: {
     movies(state){
@@ -41,6 +44,9 @@ export default new Vuex.Store({
     },
     screenings(state){
       return state.scrData
+    },
+    username(state){
+      return state.user.username
     }
   },
   mutations: {
@@ -56,6 +62,9 @@ export default new Vuex.Store({
     UPDATE_NUMBER_OF_TICKETS(state, numberOfTickets){
       state.ticketsInfo = numberOfTickets
     },
+    SET_USERNAME(state, usrName){
+      state.user.username = usrName
+    }
   },
   actions: {
     async getDataFromFirebase({ commit }){
@@ -100,6 +109,9 @@ export default new Vuex.Store({
     updateTickets({ commit }, tickets){
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
     },
+    setUsername({ commit }, username){
+      commit('SET_USERNAME', username)
+    }
   },
   modules:{
   }

@@ -345,6 +345,7 @@ export default {
           window.console.log(err)
           return
         })
+        this.$store.dispatch('setUsername', this.email)
         this.$router.push("/mypage");
         window.console.log('u are logged in')
         this.isLoggedIn = true
