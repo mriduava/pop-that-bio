@@ -10,7 +10,7 @@
           <i class="material-icons">close</i>
         </div>
       </form>
-        <a href="#!" class="our-brand-logo">POP THAT BIO</a>
+        <a href="#!" class="our-brand-logo" @click="goToStart">POP THAT BIO</a>
         
         <router-link to="/">
           <div class="brand-logo">
@@ -367,6 +367,9 @@ export default {
         );
 
       e.preventDefault();
+    },
+    goToStart(){
+      this.$router.push("/");
     }
     
   }
