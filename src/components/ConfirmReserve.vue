@@ -8,7 +8,7 @@
                  <div class="background-modal"></div>
                 <div class="modal-header">
                     <slot name="header">
-                        <h3>Din reserve information!</h3>
+                        <h3>Reservation Information!</h3>
                         <hr>
                     </slot>
                 </div>
