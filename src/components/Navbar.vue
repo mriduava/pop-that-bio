@@ -319,8 +319,8 @@ export default {
       
     },
   
-      signUp(e) {
-      aut
+     async signUp(e) {
+       aut
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
           user => {
@@ -353,7 +353,7 @@ export default {
             this.email = ''
             this.password = ''
     },
-    logOut(e){
+    async logOut(e){
       aut
         .signOut()
         .then(() => {
