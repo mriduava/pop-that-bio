@@ -27,24 +27,9 @@ export default new Vuex.Store({
       ticketPrice: 0,
       selectedSeats: [],
     },
-<<<<<<< HEAD
-    user: {
-      loggedIn: false,
-      data: null
-    },
-    ticketsInfo: {},
-
-    beforeBookings: [],
-    
-    beforeBooking: {
-      movieTitle: '',
-      timeStamp: '',
-      reserveSeats: []
-=======
     ticketsInfo: {},
     user: {
       username: ''
->>>>>>> sprint2Demo
     }
   },
   getters: {
@@ -60,13 +45,11 @@ export default new Vuex.Store({
     screenings(state){
       return state.scrData
     },
-<<<<<<< HEAD
     beforeBookings(state){
       return state.beforeBookings
-=======
+    },
     username(state){
       return state.user.username
->>>>>>> sprint2Demo
     }
   },
   mutations: {
