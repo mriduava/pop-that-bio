@@ -89,7 +89,7 @@ export default {
         }
         this.$store.dispatch('sendToFirebase', purchase)
     },
-    signUp(e) {
+    async signUp(e) {
       aut
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
@@ -117,7 +117,7 @@ export default {
         window.console.log('u are logged in')
         this.isLoggedIn = true
     },
-    logOut(e){
+    async logOut(e){
       aut
         .signOut()
         .then(() => {
@@ -133,21 +133,6 @@ export default {
       e.preventDefault();
     }
     },
-    checkInputFields(){
-      let message = 'You need to enter: ' + '\n'
-      if (this.username.length <= 0){
-        message += "Username" + '\n'
-      }
-      if (this.password.length <= 0){
-        message += "Password" + '\n'
-      }
-      if(this.username.length >= 1 && this.password.length >= 1){
-        return true
-      }else{
-        alert(message)
-        return false
-      }
-    }
   }
 
 </script>
