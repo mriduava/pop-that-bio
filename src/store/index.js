@@ -45,6 +45,9 @@ export default new Vuex.Store({
     screenings(state){
       return state.scrData
     },
+    beforeBookings(state){
+      return state.beforeBookings
+    },
     username(state){
       return state.user.username
     }
@@ -86,6 +89,16 @@ export default new Vuex.Store({
         auditoriums.push(audiData)
       })
       commit('UPDATE_AUDITORIUMS', auditoriums)
+    },
+    async getBeforeBookings({commit}){
+      let snapshot= await db.collection("beforeBookings").get()
+      let tempBookings = []
+      snapshot.forEach(seats => {
+        let temp = seats.data();
+        temp.id = seats.id;
+        tempBookings.push(temp)
+      })
+      commit('POPULATE_BEFORE_BOOKINGS', tempBookings)
     },
     async getScreeningFromFirebase({ commit }) {
       let querySnapshot = await db.collection("screenings").get()

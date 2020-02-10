@@ -8,7 +8,7 @@ import Signin from '@/components/Signin'
 import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
 import Reservation from '@/components/Reservation'
-import ConfirmReserve from '@/components/ConfirmReserve'
+
 import MyPage from '@/components/MyPage'
 import Register from '@/components/Register'
 import Members from '@/components/Members'
@@ -52,11 +52,6 @@ const routes = [
     path: '/movies/:slug/ticket/seatsplan/reservation',
     name: 'reservation',
     component: Reservation
-  },
-  {
-    path: '/movies/:slug/ticket/seatsplan/reservation/confirm',
-    name: 'confirmreserve',
-    component: ConfirmReserve
   },
   {
     path: '/signin',

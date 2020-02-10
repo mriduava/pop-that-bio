@@ -172,7 +172,8 @@ export default {
             auditorium: this.convertIdToAuditioriumName(
               this.screeningDetails[s].auditoriumId
             ),
-            auditoriumId: this.screeningDetails[s].auditoriumId
+            auditoriumId: this.screeningDetails[s].auditoriumId,
+            timeStamp: this.screeningDetails[s].startTime.toMillis()
           });
         }
       }
@@ -203,6 +204,10 @@ export default {
       this.chosenAuditorium = screenTime.auditorium;
       this.$store.state.reserveInfo.auditorium = this.chosenAuditorium;
       this.$store.state.auditoriumId = screenTime.auditoriumId;
+      this.$store.state.beforeBooking.movieTitle = this.movieDetail.title;
+      this.$store.state.beforeBooking.timeStamp = screenTime.timeStamp;
+      console.log(this.$store.state.beforeBooking.timeStamp);
+      
     }
   },
   created() {
