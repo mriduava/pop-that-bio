@@ -338,7 +338,7 @@ export default {
 
       e.preventDefault();
     },
-    logIn(e){
+    async logIn(e){
       e.preventDefault();
       await aut
         .signInWithEmailAndPassword(this.email, this.password).catch(err => {
