@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
+import Navbar from '@/components/Navbar2'
 import Footer from '@/components/Footer'
 import M from 'materialize-css'
 
@@ -27,7 +27,23 @@ export default {
   },
   mounted() {
     M.AutoInit();
-  }
+  },
+    methods: {
+    stickyNav() {
+      let navContainer = document.querySelector("#sticky");
+      let sticky = navContainer.offsetTop;
+        if (window.pageYOffset > sticky) {
+          navContainer.classList.add("sticky")
+        } else {
+          navContainer.classList.remove("sticky");
+        }
+    }
+  },
+  created() {
+    window.onscroll = () =>{
+        this.stickyNav();
+    }
+  },
 }
 </script>
 
@@ -62,7 +78,31 @@ html {
     border-radius: 7px;
     background: #a4b1b0;
 }
-.sidenav-overlay{
-  z-index: 10!important;
+
+/* For Sticky Navbar */ 
+.sticky {
+	z-index: 2;
+	position: fixed;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid rgb(213, 187, 47);
+  background: rgb(100, 10, 60);
+  background: -webkit-linear-gradient(
+    to top,
+    rgb(156, 36, 100),
+    rgba(197, 49, 99, 0.5)
+  );
+  background: linear-gradient(
+    to bottom,
+    rgb(117, 9, 67),
+    rgba(197, 49, 99, 0.5)
+  );
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease-in-out;
 }
+
+/* .sidenav-overlay{
+  z-index: 10!important;
+} */
+
 </style>
