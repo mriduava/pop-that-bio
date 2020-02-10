@@ -175,20 +175,20 @@ export default {
 
         hem: null
       }
-    var autos = document.querySelectorAll('.autocomplete');
+    let autos = document.querySelectorAll('.autocomplete');
     this.$M.Autocomplete.init(autos, {
       data: autoData,
       onAutocomplete: this.onAutocompleteSelect
     });
 
-    var elems = document.querySelectorAll(".carousel");
+    let elems = document.querySelectorAll(".carousel");
     this.$M.Carousel.init(elems);
     setTimeout(this.$M.Carousel.init(elems), 1000);
 
-    var modals = document.querySelectorAll(".modal");
+    let modals = document.querySelectorAll(".modal");
     this.$M.Modal.init(modals);
 
-    var items = document.querySelectorAll(".collapsible");
+    let items = document.querySelectorAll(".collapsible");
     this.$M.Collapsible.init(items);
   },
   methods: {
