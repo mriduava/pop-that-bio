@@ -24,7 +24,6 @@
       <div class="ticket-details">
         <div class="ticket-info">
           <h6>{{ticketsInfo.totalTickets}} x Biljetter</h6>
-
           <h6>{{reserveInfo.ticketPrice}} kr</h6>
         </div>
 
@@ -38,23 +37,23 @@
     <div class="row">
       <div class="user-info">
         <form>
-          <div class="row">
-            <!-- <div class="input-field col x6 s6 m6">
-              <input id="icon_prefix" type="text" class="validate" />
-              <label for="icon_prefix">Ditt namn</label>
-            </div> -->
+          <div class="row">            
             <div class="input-field">
               <input id="icon_telephone" type="tel" class="validate" value required autofocus v-model="telephone" />
               <label for="icon_telephone">Telefonnummer</label>
             </div>
+            <div class="input-field">
+              <input id="email" type="text" class="validate" />
+              <label for="email">Din e-post</label>
+            </div>
           </div>
 
-          <div class="row">
+          <!-- <div class="row">
             <div class="input-field">
               <input id="email" type="email" class="validate" value required autofocus v-model="email" />
               <label for="email">E-post</label>
             </div>
-          </div>
+          </div> -->
 
         </form>
       </div>
@@ -142,12 +141,14 @@ export default {
 }
 
 .movie-info {
+  width: 350px;
+  margin: 0 auto;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .movie-image {
-  width: 150px;
+  width: 140px;
   padding: 0;
   margin-right: 3%;
 }
@@ -170,7 +171,8 @@ export default {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  max-width: 356px;
+  max-width: 350px;
+  min-width: 280px;
 }
 
 .clear {
@@ -181,6 +183,10 @@ export default {
 .user-info {
   display: flex;
   justify-content: center;
+}
+
+.input-field{
+  width: 350px;
 }
 
 .buttons {
@@ -203,5 +209,39 @@ export default {
   margin: 0 auto 10px auto;
   background: #fff;
   background: -webkit-linear-gradient(left, #fff, rgb(204, 9, 113), #fff);
+}
+
+/* RESPONSIVE STYLE*/
+@media (min-width: 1281px) {
+}
+@media (min-width: 1025px) and (max-width: 1280px) {
+}
+@media (min-width: 768px) and (max-width: 1024px) {
+}
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+}
+@media (min-width: 481px) and (max-width: 767px) {
+  
+}
+@media (min-width: 310px) and (max-width: 568px) {
+  .movie-info{
+    width: 280px;
+    margin: 0 auto;
+  }
+  
+  .movie-text{
+    margin-top: 18%;
+    padding: 0;
+  }
+  .ticket-info,
+  .price-info {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    max-width: 280px;
+  }
+  .input-field{
+    width: 280px;
+  }
 }
 </style>
