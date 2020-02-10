@@ -27,7 +27,19 @@ export default new Vuex.Store({
       ticketPrice: 0,
       selectedSeats: [],
     },
-    ticketsInfo: {}
+    user: {
+      loggedIn: false,
+      data: null
+    },
+    ticketsInfo: {},
+
+    beforeBookings: [],
+    
+    beforeBooking: {
+      movieTitle: '',
+      timeStamp: '',
+      reserveSeats: []
+    }
   },
   getters: {
     movies(state){
@@ -41,6 +53,9 @@ export default new Vuex.Store({
     },
     screenings(state){
       return state.scrData
+    },
+    beforeBookings(state){
+      return state.beforeBookings
     }
   },
   mutations: {
@@ -56,6 +71,19 @@ export default new Vuex.Store({
     UPDATE_NUMBER_OF_TICKETS(state, numberOfTickets){
       state.ticketsInfo = numberOfTickets
     },
+    POPULATE_BEFORE_BOOKINGS(state, tempBooking){
+      state.beforeBookings = tempBooking
+    },
+    setLoggedIn(state, value) {
+      state.user.loggedIn = value;
+    },
+    // setUser(state, data) {
+    //   state.user.data = data;
+    //   router.push("/mypage")
+    // },
+    test(state, value){
+      alert(value)
+    }
   },
   actions: {
     async getDataFromFirebase({ commit }){
@@ -77,6 +105,16 @@ export default new Vuex.Store({
         auditoriums.push(audiData)
       })
       commit('UPDATE_AUDITORIUMS', auditoriums)
+    },
+    async getBeforeBookings({commit}){
+      let snapshot= await db.collection("beforeBookings").get()
+      let tempBookings = []
+      snapshot.forEach(seats => {
+        let temp = seats.data();
+        temp.id = seats.id;
+        tempBookings.push(temp)
+      })
+      commit('POPULATE_BEFORE_BOOKINGS', tempBookings)
     },
     async getScreeningFromFirebase({ commit }) {
       let querySnapshot = await db.collection("screenings").get()

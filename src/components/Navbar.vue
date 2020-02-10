@@ -2,24 +2,16 @@
   <div class="container-fluid navbar navbar-fixed">
     <nav class="nav-extended">
       <div class="nav-wrapper">
-        <form @submit.prevent="search">
-          <div class="input-field">
-            <input
-              v-model="searchInput"
-              autocomplete="off"
-              class="autocomplete"
-              id="search"
-              type="search"
-              required
-            />
-            <label for="search"></label>
-            <label class="label-icon" for="search">
-              <i class="material-icons">search</i>
-            </label>
-            <i class="material-icons">close</i>
-          </div>
-        </form>
-        <a href="#!" class="our-brand-logo" @click="goToStart">POP THAT BIO</a>
+      <!-- <form @submit.prevent="search">
+        <div class="input-field">
+          <input v-model="searchInput" class="autocomplete" id="search" type="search" required>
+          <label for="search"></label>
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
+        <a href="#!" class="our-brand-logo" @click="goToStart">POP THAT BIO</a> -->
+        
         <router-link to="/">
           <div class="brand-logo"></div>
         </router-link>
@@ -34,16 +26,21 @@
           <li class="nav-item">
             <router-link to="/about" class="nav-link">OM OSS</router-link>
           </li>
-          <li class="nav-item">
-            <div class="nav-link modal-trigger account-button" data-target="modal-login">LOGGA IN</div>
-          </li>
-          <li class="nav-item">
-            <div class="nav-link modal-trigger account-button" data-target="modal-signup">SKAPA KONTO</div>
-          </li>
-          <li class="logged-in">
-            <div class="nav-link" id="logout account-button" @click="logOut">LOGGA UT</div>
-          </li>
+         <!-- <div v-if="!isLoggedIn"> -->
+            <li class="nav-item">
+              <div class="nav-link modal-trigger account-button" data-target="modal-login">LOGGA IN</div>
+            </li>
+            <li class="nav-item">
+              <div class="nav-link modal-trigger account-button" data-target="modal-signup">SKAPA KONTO</div>
+            </li>
+          <!-- </div>
+          <div v-else> -->
+            <li class="nav-item">
+              <div class="nav-link" id="logout account-button" @click="logOut">LOGGA UT</div>
+            </li>
+          <!-- </div> -->
         </ul>
+        
       </div>
     </nav>
 
@@ -130,8 +127,7 @@
       </li>
     </ul>
   </div>
-</template>
- 
+</template> 
 
 <script>
 import {aut} from '@/firebase/firebase.js'
@@ -255,7 +251,7 @@ export default {
         window.console.log('u are logged in')
         this.isLoggedIn = true
         const modal = document.querySelector('#modal-login')
-            M.Modal.getInstance(modal).close()
+            this.M.Modal.getInstance(modal).close()
             this.email = ''
             this.password = ''
     },
@@ -301,7 +297,7 @@ nav {
     rgb(117, 9, 67),
     rgba(197, 49, 99, 0.5)
   );
-  text-shadow: 2px 4px 1px rgb(12, 1, 1);
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -314,9 +310,9 @@ nav {
   background-color: rgba(107, 22, 72, 0.788);
 }
 
-.our-brand-logo {
+.brand-logo {
   font-family: borntogrille;
-  text-shadow: 1px 6px 1px rgb(12, 1, 1);
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .our-brand-logo:hover {

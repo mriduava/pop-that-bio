@@ -39,11 +39,6 @@
         </transition>
        </div>
 
-    <div class="buttons">
- 
-      
-    </div>
-
   </div>
 </template>
 
@@ -131,11 +126,14 @@ export default {
     padding: 20px 30px;
     border: 2px solid #fff;
     color: #fff;
-    background-color: rgba(255, 21, 235, 0.5);
     border-radius: 2px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
     transition: all .3s ease;
     font-family: Helvetica, Arial, sans-serif;
+
+    background: rgb(100, 10, 60);
+    background: -webkit-linear-gradient(to top, rgb(156, 36, 100), #fbd3e9);
+    background: linear-gradient(to bottom, rgba(117, 9, 67, 0.89), rgba(219, 166, 195, 0.4));
   }
   
   .modal-header h1 {

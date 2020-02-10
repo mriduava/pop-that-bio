@@ -159,7 +159,8 @@ export default {
   },
   created() {
     this.getMovie();
-    this.$store.dispatch("getAuditoriums");  
+    this.$store.dispatch("getAuditoriums"); 
+    this.$store.dispatch("getBeforeBookings");
   }
 };
 </script>
