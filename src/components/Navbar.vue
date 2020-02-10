@@ -2,15 +2,15 @@
   <div class="container-fluid navbar navbar-fixed">
     <nav class="nav-extended">
       <div class="nav-wrapper">
-        <!-- <form @submit.prevent="search">
+      <!-- <form @submit.prevent="search">
         <div class="input-field">
           <input v-model="searchInput" class="autocomplete" id="search" type="search" required>
           <label for="search"></label>
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
-      </form> -->
-        <!-- <a href="#!" class="our-brand-logo">POP THAT BIO</a> -->
+      </form>
+        <a href="#!" class="our-brand-logo" @click="goToStart">POP THAT BIO</a> -->
         
         <router-link to="/">
           <div class="brand-logo">
@@ -28,19 +28,19 @@
           <li class="nav-item">
             <router-link to="/about" class="nav-link">OM OSS</router-link>
           </li>
-          <!-- <div v-if="!isLoggedIn">
+         <!-- <div v-if="!isLoggedIn"> -->
             <li class="nav-item">
               <div class="nav-link modal-trigger account-button" data-target="modal-login">LOGGA IN</div>
             </li>
             <li class="nav-item">
               <div class="nav-link modal-trigger account-button" data-target="modal-signup">SKAPA KONTO</div>
             </li>
-          </div>
-          <div v-else>
+          <!-- </div>
+          <div v-else> -->
             <li class="nav-item">
               <div class="nav-link" id="logout account-button" @click="logOut">LOGGA UT</div>
             </li>
-          </div> -->
+          <!-- </div> -->
         </ul>
         
       </div>
@@ -132,6 +132,7 @@
 </template> 
 
 <script>
+import {aut} from '@/firebase/firebase.js'
 export default {
   data() {
     return {
@@ -154,10 +155,50 @@ export default {
     var items = document.querySelectorAll(".collapsible");
     this.M.Collapsible.init(items);
   },
-  methods: {  
-      signUp(e) {
-      this.firebase
-        .auth()
+  methods: {
+    search() {
+      window.console.log(this.searchInput)
+      if (this.searchInput == 'aladdin') {
+        this.$router.push('/movies/aladdin')
+      }
+      else if (this.searchInput == 'frozen 2') {
+        this.$router.push('/movies/frozen-2')
+      }
+      else if (this.searchInput == 'legend') {
+        this.$router.push('/movies/legend')
+      }
+      else if (this.searchInput == 'the matrix') {
+        this.$router.push('/movies/the-matrix')
+      }
+      else if (this.searchInput == 'avatar') {
+        this.$router.push('/movies/avatar')
+      }
+      else if (this.searchInput == 'unga astrid') {
+        this.$router.push('/movies/astrid')
+      }
+      else if (this.searchInput == 'djungelboken') {
+        this.$router.push('/movies/jungle-book')
+      }
+      else if (this.searchInput == 'micke och veronica') {
+        this.$router.push('/movies/micke-och-veronica')
+      }
+      else if (this.searchInput == 'filmer') {
+        this.$router.push('/movies')
+      }
+      else if (this.searchInput == 'om oss') {
+        this.$router.push('/about')
+      }
+      else if (this.searchInput == 'logga in') {
+        this.$router.push('/signin')
+      }
+      else if (this.searchInput == 'hem') {
+        this.$router.push('/')
+      }
+      
+    },
+  
+     async signUp(e) {
+       aut
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
           user => {
@@ -175,11 +216,13 @@ export default {
 
       e.preventDefault();
     },
-    logIn(e){
+    async logIn(e){
       e.preventDefault();
-      this.firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
+      await aut
+        .signInWithEmailAndPassword(this.email, this.password).catch(err => {
+          window.console.log(err)
+          return
+        })
         this.$router.push("/mypage");
         window.console.log('u are logged in')
         this.isLoggedIn = true
@@ -187,11 +230,9 @@ export default {
             this.M.Modal.getInstance(modal).close()
             this.email = ''
             this.password = ''
-      
     },
-    logOut(e){
-      this.firebase
-        .auth()
+    async logOut(e){
+      aut
         .signOut()
         .then(() => {
             window.console.log('u logged out')
@@ -204,6 +245,9 @@ export default {
         );
 
       e.preventDefault();
+    },
+    goToStart(){
+      this.$router.push("/");
     }
     
   }

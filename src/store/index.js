@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 // import router from '@/router/index.js';
 // import {movies} from '@/data/database.js';
 import {db} from '@/firebase/firebase.js'
-import {aut} from '@/firebase/firebase.js'
 require('@firebase/auth');
 require('@firebase/firestore');
 
@@ -139,29 +138,6 @@ export default new Vuex.Store({
     updateTickets({ commit }, tickets){
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
     },
-    async loginUser({ commit }, form){
-      let result = await aut.signInWithEmailAndPassword(form.email, form.password)
-      if(result){
-        this.dispatch('fetchUser', result.user)
-      }else{
-        commit('test', 'hello')
-      }
-    },
-    fetchUser({ commit }, user) {
-      commit("setLoggedIn", user !== null);
-
-      if (user) {
-        commit("setUser", {
-          displayName: user.displayName,
-          email: user.email
-        });
-      } else {
-        commit("setUser", null);
-      }
-    },
-    signOut(){
-      aut.signOut()
-    }
   },
   modules:{
   }

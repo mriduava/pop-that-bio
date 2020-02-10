@@ -13,7 +13,7 @@
       <div class="row">
         
         <div class="input-field col l12 s12 ">
-          <input  id="User name" type="text" class="validate">
+          <input  id="User name" type="text" class="validate" v-model="email">
           <label for="User name">E-post adress</label>
         </div>
        
@@ -21,12 +21,12 @@
     
       <div class="row">
         <div class="input-field col l12 s12">
-          <input id="password" type="password" class="validate">
+          <input id="password" type="password" class="validate" v-model="password">
           <label for="password">Lösenord</label>
         </div>
       </div>
         <div class="col l4 offset-l8">
-         <button class="btn pink accent-1" @click.prevent="test () " >Logga in</button>
+         <button class="btn pink accent-1" @click.prevent="logIn" >Logga in</button>
           
          </div>
     </form> 
@@ -62,12 +62,14 @@
 </template>
 
 <script>
+import {aut} from '@/firebase/firebase.js'
 export default {
   name: 'signin',
   data() {
     return {
-      username: '',
+      email: '',
       password: '',
+      isLoggedIn: '',
     }
   },
   methods: {
@@ -87,35 +89,51 @@ export default {
         }
         this.$store.dispatch('sendToFirebase', purchase)
     },
-    signIn(){
-      if (this.checkInputFields()){
-        let userCredentials = {
-          email: this.username,
-          password: this.password
-        }
-        // TODO: lägg in auth här
-        this.$store.dispatch('loginUser', userCredentials)
+    async signUp(e) {
+      aut
+        .createUserWithEmailAndPassword(this.email, this.password)
+        .then(
+          user => {
+            window.console.log(`Account created for ${user.email}`)
+            this.$router.push("/mypage");
+            this.email = ''
+            this.password = ''
+          },
+          err => {
+            alert(err.message);
+          }
+        );
 
-        this.$router.push("/")
-      }
+      e.preventDefault();
     },
-    checkInputFields(){
-      let message = 'You need to enter: ' + '\n'
-      if (this.username.length <= 0){
-        message += "Username" + '\n'
-      }
-      if (this.password.length <= 0){
-        message += "Password" + '\n'
-      }
-      if(this.username.length >= 1 && this.password.length >= 1){
-        return true
-      }else{
-        alert(message)
-        return false
-      }
+    async logIn(e){
+      e.preventDefault();
+      await aut
+        .signInWithEmailAndPassword(this.email, this.password).catch(err => {
+          window.console.log(err)
+          return
+        })
+        this.$router.push("/mypage");
+        window.console.log('u are logged in')
+        this.isLoggedIn = true
+    },
+    async logOut(e){
+      aut
+        .signOut()
+        .then(() => {
+            window.console.log('u logged out')
+            this.$router.push("/");
+            this.isLoggedIn = false
+          },
+          err => {
+            alert(err.message);
+          }
+        );
+
+      e.preventDefault();
     }
+    },
   }
-}
 
 </script>
 
