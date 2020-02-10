@@ -9,8 +9,8 @@
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
-      </form>
-        <a href="#!" class="our-brand-logo" @click="goToStart">POP THAT BIO</a> -->
+      </form> -->
+        <a href="#!" class="our-brand-logo" @click="goToStart">POP THAT BIO</a> 
         
         <router-link to="/">
           <div class="brand-logo"></div>
@@ -131,7 +131,6 @@
 
 <script>
 import {aut} from '@/firebase/firebase.js'
-import firebase from "firebase";
 export default {
   data() {
     return {
