@@ -13,9 +13,7 @@
         <a href="#!" class="our-brand-logo" @click="goToStart">POP THAT BIO</a> -->
         
         <router-link to="/">
-          <div class="brand-logo">
-            POP THAT BIO
-          </div>
+          <div class="brand-logo"></div>
         </router-link>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger">
           <i class="fas fa-align-justify"></i>
@@ -53,7 +51,7 @@
         <br />
         <form id="signup-form">
           <div class="input-field">
-            <input v-model="email"  type="email" id="signup-email" required />
+            <input v-model="email" type="email" id="signup-email" required />
             <label for="signup-email">E-post adress</label>
           </div>
           <div class="input-field">
@@ -133,6 +131,7 @@
 
 <script>
 import {aut} from '@/firebase/firebase.js'
+import firebase from "firebase";
 export default {
   data() {
     return {
@@ -145,56 +144,81 @@ export default {
     }
   },
   mounted() {
+
+      const autoData = {
+        aladdin: null,
+
+        "frozen 2":
+          "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
+
+        legend: null,
+
+        "the matrix": null,
+
+        avatar:
+          "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
+
+        "unga astrid": null,
+
+        djungelboken: null,
+
+        "micke och veronica": null,
+
+        filmer: null,
+
+        "om oss": null,
+
+        "logga in": null,
+
+        hem: null
+      }
+    var autos = document.querySelectorAll('.autocomplete');
+    this.$M.Autocomplete.init(autos, {
+      data: autoData,
+      onAutocomplete: this.onAutocompleteSelect
+    });
+
     var elems = document.querySelectorAll(".carousel");
     this.$M.Carousel.init(elems);
     setTimeout(this.$M.Carousel.init(elems), 1000);
 
     var modals = document.querySelectorAll(".modal");
-    this.M.Modal.init(modals);
+    this.$M.Modal.init(modals);
 
     var items = document.querySelectorAll(".collapsible");
-    this.M.Collapsible.init(items);
+    this.$M.Collapsible.init(items);
   },
   methods: {
+    onAutocompleteSelect(value) {
+      this.searchInput = value
+    },
     search() {
-      window.console.log(this.searchInput)
-      if (this.searchInput == 'aladdin') {
-        this.$router.push('/movies/aladdin')
+      window.console.log(this.searchInput);
+      if (this.searchInput == "aladdin") {
+        this.$router.push("/movies/aladdin");
+      } else if (this.searchInput == "frozen 2") {
+        this.$router.push("/movies/frozen-2");
+      } else if (this.searchInput == "legend") {
+        this.$router.push("/movies/legend");
+      } else if (this.searchInput == "the matrix") {
+        this.$router.push("/movies/the-matrix");
+      } else if (this.searchInput == "avatar") {
+        this.$router.push("/movies/avatar");
+      } else if (this.searchInput == "unga astrid") {
+        this.$router.push("/movies/astrid");
+      } else if (this.searchInput == "djungelboken") {
+        this.$router.push("/movies/jungle-book");
+      } else if (this.searchInput == "micke och veronica") {
+        this.$router.push("/movies/micke-och-veronica");
+      } else if (this.searchInput == "filmer") {
+        this.$router.push("/movies");
+      } else if (this.searchInput == "om oss") {
+        this.$router.push("/about");
+      } else if (this.searchInput == "logga in") {
+        this.$router.push("/signin");
+      } else if (this.searchInput == "hem") {
+        this.$router.push("/");
       }
-      else if (this.searchInput == 'frozen 2') {
-        this.$router.push('/movies/frozen-2')
-      }
-      else if (this.searchInput == 'legend') {
-        this.$router.push('/movies/legend')
-      }
-      else if (this.searchInput == 'the matrix') {
-        this.$router.push('/movies/the-matrix')
-      }
-      else if (this.searchInput == 'avatar') {
-        this.$router.push('/movies/avatar')
-      }
-      else if (this.searchInput == 'unga astrid') {
-        this.$router.push('/movies/astrid')
-      }
-      else if (this.searchInput == 'djungelboken') {
-        this.$router.push('/movies/jungle-book')
-      }
-      else if (this.searchInput == 'micke och veronica') {
-        this.$router.push('/movies/micke-och-veronica')
-      }
-      else if (this.searchInput == 'filmer') {
-        this.$router.push('/movies')
-      }
-      else if (this.searchInput == 'om oss') {
-        this.$router.push('/about')
-      }
-      else if (this.searchInput == 'logga in') {
-        this.$router.push('/signin')
-      }
-      else if (this.searchInput == 'hem') {
-        this.$router.push('/')
-      }
-      
     },
   
      async signUp(e) {
@@ -202,12 +226,12 @@ export default {
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
           user => {
-            window.console.log(`Account created for ${user.email}`)
+            window.console.log(`Account created for ${user.email}`);
             this.$router.push("/mypage");
-            const modal = document.querySelector('#modal-signup')
-            this.M.Modal.getInstance(modal).close()
-            this.email = ''
-            this.password = ''
+            const modal = document.querySelector("#modal-signup");
+            this.$M.Modal.getInstance(modal).close();
+            this.email = "";
+            this.password = "";
           },
           err => {
             alert(err.message);
@@ -235,8 +259,9 @@ export default {
     async logOut(e){
       aut
         .signOut()
-        .then(() => {
-            window.console.log('u logged out')
+        .then(
+          () => {
+            window.console.log("u logged out");
             this.$router.push("/");
             this.isLoggedIn = false
           },
@@ -250,10 +275,8 @@ export default {
     goToStart(){
       this.$router.push("/");
     }
-    
   }
 };
-
 </script>
 
 <style lang="css" scoped>
