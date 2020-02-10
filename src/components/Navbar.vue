@@ -219,6 +219,7 @@
  
 
 <script>
+import {aut} from '@/firebase/firebase.js'
 export default {
   data() {
     return {
@@ -319,8 +320,7 @@ export default {
     },
   
       signUp(e) {
-      firebase
-        .auth()
+      aut
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
           user => {
@@ -340,8 +340,7 @@ export default {
     },
     logIn(e){
       e.preventDefault();
-      firebase
-        .auth()
+      aut
         .signInWithEmailAndPassword(this.email, this.password)
         this.$router.push("/mypage");
         window.console.log('u are logged in')
@@ -350,11 +349,9 @@ export default {
             M.Modal.getInstance(modal).close()
             this.email = ''
             this.password = ''
-      
     },
     logOut(e){
-      firebase
-        .auth()
+      aut
         .signOut()
         .then(() => {
             window.console.log('u logged out')
