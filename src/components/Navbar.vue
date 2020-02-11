@@ -26,16 +26,16 @@
           <li class="nav-item">
             <router-link to="/about" class="nav-link">OM OSS</router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="isLoggedIn==false">
             <div class="nav-link modal-trigger account-button" data-target="modal-login">LOGGA IN</div>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="isLoggedIn==false">
             <div class="nav-link modal-trigger account-button" data-target="modal-signup">SKAPA KONTO</div>
           </li>
-          <li class="logged-in">
+          <li class="logged-in" v-if="isLoggedIn">
             <div class="nav-link" id="logout account-button" @click="logOut">LOGGA UT</div>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-if="isLoggedIn">
           <router-link to="/mypage">
         <i class="large material-icons white-text text-grey lighten-5">account_circle</i>
       </router-link>
@@ -224,8 +224,7 @@ export default {
       }
     },
   
-     async signUp(e) {
-       aut
+     
     storeAccountDetails() {
       let accountInfo = {
         name: this.name,
@@ -235,8 +234,8 @@ export default {
 
       this.$store.dispatch("sendToFirebase", accountInfo);
     },
-      signUp(e) {
-      firebase
+     async signUp(e) {
+      aut
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
