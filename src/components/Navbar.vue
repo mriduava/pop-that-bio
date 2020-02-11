@@ -266,10 +266,12 @@ export default {
         this.$router.push("/mypage");
         window.console.log('u are logged in')
         this.isLoggedIn = true
+        /*
         const modal = document.querySelector('#modal-login')
             this.M.Modal.getInstance(modal).close()
             this.email = ''
             this.password = ''
+            */
     },
     async logOut(e){
       aut
