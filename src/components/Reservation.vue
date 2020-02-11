@@ -21,15 +21,15 @@
           <h6>{{ticketsInfo.totalTickets}} x Biljetter</h6>
           <h6>{{totalPrice}} kr</h6>
         </div>
-        <div class="ticket-info grey-text">
+        <div class="ticket-info grey-text" v-if="ticketsInfo.numberOfAdults!==0">
           <p>{{ticketsInfo.numberOfAdults}} x Vuxen</p>
           <p>{{adultPrice}} kr</p>
         </div>
-        <div class="ticket-info grey-text">
+        <div class="ticket-info grey-text" v-if="ticketsInfo.numberOfSeniors!==0">
           <p class="text-grey">{{ticketsInfo.numberOfSeniors}} x Pensionär</p>
           <p>{{seniorPrice}} kr</p>
         </div>
-        <div class="ticket-info grey-text">
+        <div class="ticket-info grey-text" v-if="ticketsInfo.numberOfChildren!==0">
           <p>{{ticketsInfo.numberOfChildren}} x Barn</p>
           <p>{{childPrice}} kr</p>
         </div>
@@ -75,7 +75,10 @@
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-      <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Reservera</button>
+      <button class="btn btn-small waves-effect waves-light" 
+         :class="{disabled: telephone === '' || email === ''}"
+         @click="completeBooking">Reservera
+      </button>
     </div>
     <div v-if="showReserveInfo">
       <ConfirmReserve />

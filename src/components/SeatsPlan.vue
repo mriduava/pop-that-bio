@@ -62,12 +62,11 @@
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-      <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan/reservation'">
         <button
           class="btn btn-small waves-effect waves-light"
           :class="{ disabled: counter !== totalSeats}"
+          @click="goToReservation()"
         >Fortsätt</button>
-      </router-link>
     </div>
   </div>
 </template>
@@ -152,7 +151,7 @@ export default {
         this.mySelection.splice(seatIndex, 1);
         this.counter--;
       }
-      this.sendSeatsInfo()
+      // this.sendSeatsInfo()
     },
     showPositionsOnHover(x, y) {
       let seat = this.seatsGrid[x][y];
@@ -186,6 +185,9 @@ export default {
           this.movieDetail = movie;
         }
       });
+    },
+    goToReservation(){
+      this.$router.push({path: '/movies/' + this.movieDetail.slug + '/ticket/seatsplan/reservation'})
     }
   },
   created() {
