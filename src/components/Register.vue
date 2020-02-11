@@ -14,7 +14,7 @@
         <input id="email" type="email" name="email" value required autofocus v-model="email" />
         <!--<input id="email" type="email" name="email" value required autofocus v-model="form.email">-->
 
-        <label for="email">Email</label>
+        <label for="email">E-post</label>
       </div>
 
       <div class="input-field">
