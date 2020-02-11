@@ -67,12 +67,11 @@ export default {
         .then(
           user => {
             window.console.log(`Acount created for ${user.email}`)
-            //alert(`Account created for ${user.emai}`);
             this.storeAccountDetails();
             this.$router.push("/");
           },
           err => {
-            alert(err.message);
+            window.console.log(err.message)
           }
         );
 

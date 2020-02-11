@@ -64,7 +64,6 @@ export default {
   name: 'signin',
   methods: {
     test(){
-        alert("Test running")
         let purchase = {
           collection: 'salon',
           id: 2,

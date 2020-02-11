@@ -74,7 +74,6 @@ export default {
   },
   methods: {
     test(){
-        alert("Test running")
         let purchase = {
           collection: 'salon',
           id: 2,
@@ -100,7 +99,7 @@ export default {
             this.password = ''
           },
           err => {
-            alert(err.message);
+            window.console.log(err.message)
           }
         );
 
@@ -127,7 +126,7 @@ export default {
             this.isLoggedIn = false
           },
           err => {
-            alert(err.message);
+            window.console.log(err.message)
           }
         );
 
