@@ -26,19 +26,20 @@
           <li class="nav-item">
             <router-link to="/about" class="nav-link">OM OSS</router-link>
           </li>
-         <!-- <div v-if="!isLoggedIn"> -->
-            <li class="nav-item">
-              <div class="nav-link modal-trigger account-button" data-target="modal-login">LOGGA IN</div>
-            </li>
-            <li class="nav-item">
-              <div class="nav-link modal-trigger account-button" data-target="modal-signup">SKAPA KONTO</div>
-            </li>
-          <!-- </div>
-          <div v-else> -->
-            <li class="nav-item">
-              <div class="nav-link" id="logout account-button" @click="logOut">LOGGA UT</div>
-            </li>
-          <!-- </div> -->
+          <li class="nav-item">
+            <div class="nav-link modal-trigger account-button" data-target="modal-login">LOGGA IN</div>
+          </li>
+          <li class="nav-item">
+            <div class="nav-link modal-trigger account-button" data-target="modal-signup">SKAPA KONTO</div>
+          </li>
+          <li class="logged-in">
+            <div class="nav-link" id="logout account-button" @click="logOut">LOGGA UT</div>
+          </li>
+          <li class="nav-item">
+          <router-link to="/mypage">
+        <i class="large material-icons white-text text-grey lighten-5">account_circle</i>
+      </router-link>
+      </li>
         </ul>
         
       </div>
@@ -51,7 +52,11 @@
         <br />
         <form id="signup-form">
           <div class="input-field">
-            <input v-model="email" type="email" id="signup-email" required />
+            <input v-model="name"  type="text" id="signup-name" required />
+            <label for="signup-name">Namn</label>
+          </div>
+          <div class="input-field">
+            <input v-model="email"  type="email" id="signup-email" required />
             <label for="signup-email">E-post adress</label>
           </div>
           <div class="input-field">
@@ -137,8 +142,7 @@ export default {
       searchInput: '',
       email: '',
       password: '',
-      email1: '',
-      password1: '',
+      name: '',
       isLoggedIn: false
     }
   },
@@ -222,10 +226,23 @@ export default {
   
      async signUp(e) {
        aut
+    storeAccountDetails() {
+      let accountInfo = {
+        name: this.name,
+        email: this.email,
+        collection: "accounts"
+      };
+
+      this.$store.dispatch("sendToFirebase", accountInfo);
+    },
+      signUp(e) {
+      firebase
+        .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
           user => {
-            window.console.log(`Account created for ${user.email}`);
+            window.console.log(`Account created for ${user.email}`)
+            this.storeAccountDetails();
             this.$router.push("/mypage");
             const modal = document.querySelector("#modal-signup");
             this.$M.Modal.getInstance(modal).close();

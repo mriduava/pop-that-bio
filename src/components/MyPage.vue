@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div>
     <div class="container">
       <div class="mina-sidor">
