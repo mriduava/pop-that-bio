@@ -14,11 +14,11 @@
                 </div>
                 <div class="modal-body">
                     <slot name="body">
-                        <h4>Bookning nummer</h4>
+                      <h3>UNDER KONSTRUKTION</h3>
+                        <!-- <h4>Bookning nummer</h4>
                         <h4>Film: <span>{{movieDetail.title}}</span></h4>
-                        <!-- <h4>Tid: <span>{{formatTime(reserveInfo.showTime.toMillis())}}</span></h4> -->
                         <h4>Salong: <span>Salong</span></h4>
-                        <h4>Platser: <span>Platser</span></h4>
+                        <h4>Platser: <span>Platser</span></h4> -->
                     </slot>
                 </div>
                 <div class="modal-footer">

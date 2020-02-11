@@ -152,6 +152,7 @@ export default {
         this.mySelection.splice(seatIndex, 1);
         this.counter--;
       }
+      this.sendSeatsInfo()
     },
     showPositionsOnHover(x, y) {
       let seat = this.seatsGrid[x][y];
@@ -170,6 +171,15 @@ export default {
         }
       });
     },
+    sendSeatsInfo() {
+      let mySeatsInfo = {
+        collection: "mySeats",
+        movieTitle: this.pickMovie,
+        pickTime: this.pickTime,
+        mySeats: this.mySelection
+      };
+      this.$store.dispatch("sendSeatsInfo", mySeatsInfo);    
+    },
     getMovie() {
       this.movies.forEach(movie => {
         if (movie.slug == this.$route.params.slug) {
@@ -182,6 +192,7 @@ export default {
     this.getAuditorium(this.auditoriumId);
     this.createSeatsGrid();
     this.getBeforeBooking();
+    this.$store.dispatch("getPriceData");
     this.getMovie();
   }
 };
