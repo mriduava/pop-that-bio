@@ -147,32 +147,20 @@ export default {
     };
   },
   mounted() {
-
       const autoData = {
         aladdin: null,
-
         "frozen 2":
           "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
-
         legend: null,
-
         "the matrix": null,
-
         avatar:
           "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
-
         "unga astrid": null,
-
         djungelboken: null,
-
         "micke och veronica": null,
-
         filmer: null,
-
         "om oss": null,
-
         "logga in": null,
-
         hem: null
       }
     var autos = document.querySelectorAll('.autocomplete');
@@ -180,14 +168,11 @@ export default {
       data: autoData,
       onAutocomplete: this.onAutocompleteSelect
     });
-
     var elems = document.querySelectorAll(".carousel");
     this.$M.Carousel.init(elems);
     setTimeout(this.$M.Carousel.init(elems), 1000);
-
     var modals = document.querySelectorAll(".modal");
     this.$M.Modal.init(modals);
-
     var items = document.querySelectorAll(".collapsible");
     this.$M.Collapsible.init(items);
   },
@@ -223,7 +208,6 @@ export default {
         this.$router.push("/");
       }
     },
-
     signUp(e) {
       firebase
         .auth()
@@ -241,12 +225,10 @@ export default {
             alert(err.message);
           }
         );
-
       e.preventDefault();
     },
     logIn(e) {
       firebase.auth().signInWithEmailAndPassword(this.email1, this.password1);
-
       e.preventDefault();
     },
     logOut(e) {
@@ -262,7 +244,6 @@ export default {
             alert(err.message);
           }
         );
-
       e.preventDefault();
     }
   }
@@ -290,37 +271,30 @@ nav {
   );
   text-shadow: 2px 4px 1px rgb(12, 1, 1);
 }
-
 .sidenav {
   background-color: rgba(107, 22, 72, 0.788);
 }
-
 .our-brand-logo {
   font-family: borntogrille;
   text-shadow: 1px 6px 1px rgb(12, 1, 1);
 }
-
 .our-brand-logo:hover {
   color: rgb(243, 144, 197);
 }
-
 @media (max-width: 460px) {
   .our-brand-logo {
     font-size: 5vw;
   }
 }
-
 #nav-mobile .nav-item .nav-link {
   font-size: 1.2em;
 }
 .nav-link:hover {
   color: rgb(243, 144, 197);
 }
-
 .router-link-active {
   background: rgb(150, 38, 97);
 }
-
 @media (min-width: 481px) and (max-width: 767px) {
   nav {
     padding: 0;
@@ -329,7 +303,6 @@ nav {
     font-size: 2rem;
   }
 }
-
 @media (min-width: 320px) and (max-width: 480px) {
   nav {
     padding: 0;
