@@ -27,11 +27,10 @@
             <router-link to="/about" class="nav-link">OM OSS</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn==false">
-            <div class="nav-link modal-trigger account-button" data-target="modal-login">LOGGA IN</div>
+            <div @click="openingModal('#modal-login')" class="nav-link account-button" data-target="modal-login">LOGGA IN</div>
           </li>
           <li class="nav-item" v-if="isLoggedIn==false">
-            <div
-              class="nav-link modal-trigger account-button"
+            <div @click="openingModal('#modal-signup')" class="nav-link account-button"
               data-target="modal-signup"
             >SKAPA KONTO</div>
           </li>
@@ -190,16 +189,21 @@ export default {
     setTimeout(this.$M.Carousel.init(elems), 1000);
 
     var modals = document.querySelectorAll(".modal");
-    this.$M.Modal.init(modals, {onOpenStart: () => this.openingModal()});
+    this.$M.Modal.init(modals);
 
     var items = document.querySelectorAll(".collapsible");
     this.$M.Collapsible.init(items);
   },
   methods: {
-    openingModal(){
+    openingModal(el){
+      console.log('hej')
       this.email = '',
       this.password = '',
+      this.name = '',
       this.isAccount = true
+
+let elem = document.querySelector(el)
+      this.$M.Modal.getInstance(elem).open()
     },
     onAutocompleteSelect(value) {
       this.searchInput = value;
