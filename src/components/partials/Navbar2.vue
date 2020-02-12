@@ -58,8 +58,8 @@
 </template>
 
 <script>
-import Signin from '@/components/Signin2'
-import Signup from '@/components/Signup2'
+import Signin from '@/components/users/Signin2'
+import Signup from '@/components/users/Signup2'
 export default {
   components:{
     Signin,
@@ -82,7 +82,7 @@ export default {
 <style lang="css" scoped>
 @font-face {
   font-family: borntogrille;
-  src: url("../assets/fonts/borntogrille.otf");
+  src: url("../../assets/fonts/borntogrille.otf");
 }
 nav {
   background: transparent;
