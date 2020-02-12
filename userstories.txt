@@ -1,0 +1,31 @@
+bättre samarbete
+mer noga med vad man pushar in, kolla en extra gång, helst nån som verifajar
+kom i tid, kom hit
+bättre kommunikation
+bättre förberedelse inför redovisning
+kör hårt ha kul
+
+
+consulence lund
+
+
+Done
+1. Som besökare vill jag få information om filmer jag kan se på biograferna.
+2. Som besökare vill jag enkelt kunna navigera sidan
+3. Som besökare vill jag kunna veta när en film visas på en biograf.
+4. Som systemägare vill jag se en prototyp med minst 5 filmer, fördelade på 3 dagliga visningar under 4 veckors (fiktiva) visningsdatum över våra 2 biografsalonger.
+
+6. Som besökare vill jag kunna välja hur många biljetter ja ska boka
+7. Som besökare vill jag kunna se trailers för filmerna
+8. Som besökare vill jag kunna välja var jag ska sitta i salongen för att få bästa bioupplevelse
+9. Som besökare vill jag kunna filtrera filmerna efter olika kriterier
+
+11. Som besökare vill jag kunna se hemsidan på mobil (dator/platta etc.)
+12. Som besökare vill jag kunna ha ett konto på sidan
+
+Not done
+5. Som besökare vill jag kunna boka biljetter till filmer.
+10. Som besökare vill jag kunna söka efter film att boka
+13. När jag är inloggad som besökare vill jag kunna se vilka filmer jag har bokat och historik över tidigare filmer
+14. Som besökare vill jag se om någon bokar stolar när jag bokar stolar
+15. Som besökare vill jag ha min livs bästa bokningsupplevelse

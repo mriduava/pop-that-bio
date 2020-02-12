@@ -74,7 +74,6 @@ export default {
   },
   methods: {
     test(){
-        alert("Test running")
         let purchase = {
           collection: 'salon',
           id: 2,
@@ -100,7 +99,7 @@ export default {
             this.password = ''
           },
           err => {
-            alert(err.message);
+            window.console.log(err.message)
           }
         );
 
@@ -113,6 +112,7 @@ export default {
           window.console.log(err)
           return
         })
+        this.$store.dispatch('setUsername', this.email)
         this.$router.push("/mypage");
         window.console.log('u are logged in')
         this.isLoggedIn = true
@@ -126,7 +126,7 @@ export default {
             this.isLoggedIn = false
           },
           err => {
-            alert(err.message);
+            window.console.log(err.message)
           }
         );
 

@@ -14,6 +14,7 @@ export default new Vuex.Store({
     auditoriums: [],
     auditoriumId: '',
     scrData: [],
+    ticketsPriceData: [],
     reserveInfo: {
       auditorium: '',
       movieTitle: "",
@@ -27,19 +28,18 @@ export default new Vuex.Store({
       ticketPrice: 0,
       selectedSeats: [],
     },
-    user: {
-      loggedIn: false,
-      data: null
-    },
     ticketsInfo: {},
+    user: {
+      username: ''
+    },
 
-    beforeBookings: [],
-    
+    beforeBookings: [],    
     beforeBooking: {
       movieTitle: '',
       timeStamp: '',
       reserveSeats: []
-    }
+    },
+    mySeatsInfo:{}
   },
   getters: {
     movies(state){
@@ -56,6 +56,9 @@ export default new Vuex.Store({
     },
     beforeBookings(state){
       return state.beforeBookings
+    },
+    username(state){
+      return state.user.username
     }
   },
   mutations: {
@@ -74,15 +77,14 @@ export default new Vuex.Store({
     POPULATE_BEFORE_BOOKINGS(state, tempBooking){
       state.beforeBookings = tempBooking
     },
-    setLoggedIn(state, value) {
-      state.user.loggedIn = value;
+    POPULATE_TICKET_PRICE(state, ticketPrice){
+      state.ticketsPriceData = ticketPrice
     },
-    // setUser(state, data) {
-    //   state.user.data = data;
-    //   router.push("/mypage")
-    // },
-    test(state, value){
-      alert(value)
+    SEND_SEATS_INFO(state, mySeats){
+      state.mySeatsInfo = mySeats
+    },
+    SET_USERNAME(state, usrName){
+      state.user.username = usrName
     }
   },
   actions: {
@@ -124,6 +126,16 @@ export default new Vuex.Store({
       });
       commit('UPDATE_SCREENINGS_DATA', screenings)
     },
+    async getPriceData({commit}){
+      let snapshot = await db.collection('prices').get()
+      let prices = []
+      snapshot.forEach(e=> {
+        let price = e.data()
+        price.id = e.id;
+        prices.push(price)
+      });
+      commit('POPULATE_TICKET_PRICE', prices)
+    },
     async sendToFirebase(context, purchase){
       let collection = purchase.collection
       delete purchase.collection
@@ -135,9 +147,25 @@ export default new Vuex.Store({
         and then deletes it from the object it saves to firebase.
       */
     },
+    async sendSeatsInfo(context, mySeats){
+      let collection = mySeats.collection
+      delete mySeats.collection
+      await db.collection(collection).add(mySeats)
+    },
+    async sendConfirmBookings(context, confirmReserve){
+      let collection = confirmReserve.collection
+      delete confirmReserve.collection
+      await db.collection(collection).add(confirmReserve)
+    },
     updateTickets({ commit }, tickets){
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
     },
+    setUsername({ commit }, username){
+      commit('SET_USERNAME', username)
+    },
+    updateSeatsInfo({ commit }, mySeats){
+      commit('SEND_SEATS_INFO', mySeats)
+    }
   },
   modules:{
   }

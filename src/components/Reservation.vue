@@ -3,16 +3,12 @@
     <div class="title-text">
       <h4 class>Reservation</h4>
     </div>
-
     <hr class="hr-style" />
-
     <div class="reserve-info">
-      
       <div class="movie-info">
         <div class="movie-image">
           <img :src="movieDetail.image" alt="pop-that-bio" />
         </div>
-
         <div class="movie-text">
           <h5>{{movieDetail.title}}</h5>
           <h6>Date: {{reserveInfo.showTime.dateName}}, {{reserveInfo.showTime.date}}/{{reserveInfo.showTime.month}}</h6>
@@ -20,93 +16,140 @@
           <h6>{{reserveInfo.auditorium}}</h6>
         </div>
       </div>
-
       <div class="ticket-details">
         <div class="ticket-info">
           <h6>{{ticketsInfo.totalTickets}} x Biljetter</h6>
-          <h6>{{reserveInfo.ticketPrice}} kr</h6>
+          <h6>{{totalPrice}} kr</h6>
         </div>
-
+        <div class="ticket-info grey-text" v-if="ticketsInfo.numberOfAdults!==0">
+          <p>{{ticketsInfo.numberOfAdults}} x Vuxen</p>
+          <p>{{adultPrice}} kr</p>
+        </div>
+        <div class="ticket-info grey-text" v-if="ticketsInfo.numberOfSeniors!==0">
+          <p class="text-grey">{{ticketsInfo.numberOfSeniors}} x Pensionär</p>
+          <p>{{seniorPrice}} kr</p>
+        </div>
+        <div class="ticket-info grey-text" v-if="ticketsInfo.numberOfChildren!==0">
+          <p>{{ticketsInfo.numberOfChildren}} x Barn</p>
+          <p>{{childPrice}} kr</p>
+        </div>
         <div class="price-info">
-          <h6>Total</h6>
-          <h6>Price</h6>
+          <h5>Total</h5>
+          <h5>{{totalPrice}} kr</h5>
         </div>
       </div>
     </div>
-
     <div class="row">
       <div class="user-info">
         <form>
-          <div class="row">            
+          <div class="row">
             <div class="input-field">
-              <input id="icon_telephone" type="tel" class="validate" value required autofocus v-model="telephone" />
+              <input
+                id="icon_telephone"
+                type="tel"
+                class="validate"
+                value
+                required
+                autofocus
+                v-model="telephone"
+              />
               <label for="icon_telephone">Telefonnummer</label>
             </div>
             <div class="input-field">
-              <input id="email" type="text" class="validate" />
+              <input
+                id="email"
+                type="text"
+                class="validate"
+                value
+                required
+                autofocus
+                v-model="email"
+              />
               <label for="email">Din e-post</label>
             </div>
           </div>
-
-          <!-- <div class="row">
-            <div class="input-field">
-              <input id="email" type="email" class="validate" value required autofocus v-model="email" />
-              <label for="email">E-post</label>
-            </div>
-          </div> -->
-
         </form>
       </div>
     </div>
-
     <div class="buttons">
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-      <button class="btn btn-small waves-effect waves-light" @click="completeBooking">Reservera</button>
+      <button class="btn btn-small waves-effect waves-light" 
+         :class="{disabled: telephone === '' || email === ''}"
+         @click="completeBooking">Reservera
+      </button>
     </div>
-
     <div v-if="showReserveInfo">
-      <ConfirmReserve/>
+      <ConfirmReserve />
     </div>
   </div>
 </template>
 
 <script>
 import moment from "moment";
-import ConfirmReserve from '@/components/ConfirmReserve'
+import ConfirmReserve from "@/components/ConfirmReserve";
 export default {
   name: "reservation",
-  components:{
+  components: {
     ConfirmReserve
   },
   data() {
     return {
-      telephone: '',
-      email: '',
+      telephone: "",
+      email: "",
       movies: this.$store.getters.movies,
       movieDetail: [],
       reserveInfo: this.$store.state.reserveInfo,
       ticketsInfo: this.$store.state.ticketsInfo,
+      ticketsPrice: this.$store.state.ticketsPriceData,
+      totalPrice: 0,
+      adultPrice: 0,
+      seniorPrice: 0,
+      childPrice: 0,
       showReserveInfo: false
     };
   },
   methods: {
     completeBooking() {
-      this.showReserveInfo = true;
-      let bookingNumber = Math.floor(Math.random() * 1000) + "-" + Math.floor(Math.random() * 100000);
-      let ticketsInfo = this.ticketsInfo;
+      let bookingNumber =
+        Math.floor(Math.random() * 1000) +
+        "-" +
+        Math.floor(Math.random() * 100000);
+
       let bookingInfo = {
-        collection: "bookings",
+        collection: "confirmBookings",
         bookingNumber: bookingNumber,
-        numberOfAdults: ticketsInfo.numberOfAdults,
-        numberOfChildren: ticketsInfo.numberOfChildren,
-        numberOfSeniors: ticketsInfo.numberOfSeniors
+        email: this.email,
+        telephone: this.telephone,
+        movieTitle: this.movieDetail.title,
+        ticketsInfo: this.ticketsInfo
       };
-      this.$store.dispatch("sendToFirebase", bookingInfo);
+      this.$store.dispatch("sendConfirmBookings", bookingInfo);
+      this.showReserveInfo = true;
     },
     formatTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
+    },
+    calcTicketPrice() {
+      let total = 0,
+        adult = 0,
+        child = 0,
+        senior = 0;
+      this.ticketsPrice.forEach(price => {
+        if (price.id === "adult") {
+          adult = this.ticketsInfo.numberOfAdults * price.price;
+        } else if (price.id === "child") {
+          child = this.ticketsInfo.numberOfChildren * price.price;
+        } else if (price.id === "senior") {
+          senior = this.ticketsInfo.numberOfSeniors * price.price;
+        }
+      });
+      total = adult + child + senior;
+      this.totalPrice = total;
+      this.adultPrice = adult;
+      this.seniorPrice = senior;
+      this.childPrice = child;
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -118,12 +161,11 @@ export default {
   },
   created() {
     this.$store.dispatch("getAuditoriums");
+    this.calcTicketPrice();
     this.getMovie();
   }
 };
 </script>
-
-
 
 <style lang="css" scoped>
 .container-fluid {
@@ -159,11 +201,11 @@ export default {
   overflow: hidden;
 }
 
-.movie-text{
+.movie-text {
   margin-top: 4.5%;
   padding: 0;
 }
-.ticket-details{
+.ticket-details {
   margin-top: 2%;
 }
 .ticket-info,
@@ -185,7 +227,7 @@ export default {
   justify-content: center;
 }
 
-.input-field{
+.input-field {
   width: 350px;
 }
 
@@ -221,15 +263,14 @@ export default {
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
 }
 @media (min-width: 481px) and (max-width: 767px) {
-  
 }
 @media (min-width: 310px) and (max-width: 568px) {
-  .movie-info{
+  .movie-info {
     width: 280px;
     margin: 0 auto;
   }
-  
-  .movie-text{
+
+  .movie-text {
     margin-top: 18%;
     padding: 0;
   }
@@ -240,7 +281,7 @@ export default {
     justify-content: space-between;
     max-width: 280px;
   }
-  .input-field{
+  .input-field {
     width: 280px;
   }
 }

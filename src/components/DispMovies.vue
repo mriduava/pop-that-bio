@@ -2,7 +2,7 @@
   <div id="movies" class="disp-movies">
     <div class="container">
       <div class="row">
-        <h1>movies</h1>
+        <h1>filmer</h1>
         <hr class="hr-style" />
         <div class="col x12 s6 m4 l3 xl3" v-for="(movie, index) in moviesData" :key="index">
           <router-link :to="'/movies/' + movie.slug">
@@ -52,7 +52,7 @@ export default {
       );
 
       if (filterdScreenings.length == 0) {
-        return "No Showings";
+        return "Inga visningar";
       }
 
       let movieTimes = [];
@@ -89,9 +89,6 @@ export default {
 
       let today = new Date();
 
-      //window.console.log(movieTimes[0].screenHour + " movie hour");
-      //window.console.log(today.getHours() + " today hour");
-
       // KOllA OM DATUM INTE HAR INTRÄFFAT
       for (let i in movieTimes) {
         if (
@@ -99,10 +96,11 @@ export default {
           (movieTimes[i].screenMonth == today.getMonth() + 1 &&
             movieTimes[i].screenDay >= today.getDate())
         ) {
-          return movieTimes[i].startTime;
+          return movieTimes[i].screenDay + "/" + movieTimes[i].screenMonth + " kl." + movieTimes[i].screenHour
+          //return movieTimes[i].startTime;
         }
       }
-      return "No Upcoming Showings";
+      return "Inga kommande visningar";
     }
   },
 

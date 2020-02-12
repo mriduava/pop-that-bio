@@ -8,26 +8,26 @@
                  <div class="background-modal"></div>
                 <div class="modal-header">
                     <slot name="header">
-                        <h3>Din reserve information!</h3>
+                        <h3>Reservation Information!</h3>
                         <hr>
                     </slot>
                 </div>
                 <div class="modal-body">
                     <slot name="body">
-                        <h4>Bookning nummer</h4>
+                      <h3>UNDER KONSTRUKTION</h3>
+                        <!-- <h4>Bookning nummer</h4>
                         <h4>Film: <span>{{movieDetail.title}}</span></h4>
-                        <!-- <h4>Tid: <span>{{formatTime(reserveInfo.showTime.toMillis())}}</span></h4> -->
                         <h4>Salong: <span>Salong</span></h4>
-                        <h4>Platser: <span>Platser</span></h4>
+                        <h4>Platser: <span>Platser</span></h4> -->
                     </slot>
                 </div>
                 <div class="modal-footer">
                     <slot name="footer">
-                      <h4>Tacksåmycket!</h4>
+                      <h4>Tack så mycket!</h4>
                        <div class="modal-button">
                       
                         <router-link to="/">
-                          <button class="btn btn-small waves-effect waves-light" @click="$emit('close')">Skrivaut</button>
+                          <button class="btn btn-small waves-effect waves-light" @click="$emit('close')">Skriva ut</button>
                         </router-link>
 
                      </div>

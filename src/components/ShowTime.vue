@@ -55,13 +55,13 @@ export default {
       dates: [
         {
           index: 0,
-          dateName: "Today",
+          dateName: "Idag",
           date: this.getCorrectDay(1),
           month: this.getCorrectMonth(1)
         },
         {
           index: 1,
-          dateName: "Tomorrow",
+          dateName: "Imorgon",
           date: this.getCorrectDay(2),
           month: this.getCorrectMonth(2)
         },
@@ -74,7 +74,7 @@ export default {
       ],
 
       chosenDate: {
-        dateName: "Today",
+        dateName: "Idag",
         date: this.getCorrectDay(1),
         month: this.getCorrectMonth(1),
         time: ""
@@ -122,19 +122,19 @@ export default {
 
       switch (date.getDay()) {
         case 1:
-          return "Monday";
+          return "Måndag";
         case 2:
-          return "Tuesday";
+          return "Tisdag";
         case 3:
-          return "Wednesday";
+          return "Onsdag";
         case 4:
-          return "Thursday";
+          return "Torsdag";
         case 5:
-          return "Friday";
+          return "Fredag";
         case 6:
-          return "Saturday";
+          return "Lördag";
         case 0:
-          return "Sunday";
+          return "Söndag";
       }
     },
     getSpecifiedDate(index) {

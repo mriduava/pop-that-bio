@@ -6,13 +6,13 @@
     <form class="col l3  s3 offset-l4 card-panel purple lighten-5 truncate">
         <div class="brand-logo">
              <h4 class="pink-text text-pink darken-4">POP THAT BIO</h4>
-             <h2 class="pink-text text-pink darken-4"> Sign In</h2>
+             <h2 class="pink-text text-pink darken-4">Logga in</h2>
    </div>
       <div class="row">
         
         <div class="input-field col l12 s12 ">
           <input  id="User name" type="text" class="validate">
-          <label for="User name">User Name</label>
+          <label for="User name">Användarnamn</label>
         </div>
        
       </div>
@@ -20,7 +20,7 @@
       <div class="row">
         <div class="input-field col l12 s12">
           <input id="password" type="password" class="validate">
-          <label for="password">Password</label>
+          <label for="password">Lösenord</label>
         </div>
       </div>
         <div class="col l4 offset-l8">
@@ -64,7 +64,6 @@ export default {
   name: 'signin',
   methods: {
     test(){
-        alert("Test running")
         let purchase = {
           collection: 'salon',
           id: 2,
