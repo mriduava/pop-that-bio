@@ -2,16 +2,16 @@
   <div class="container-fluid navbar navbar-fixed">
     <nav class="nav-extended">
       <div class="nav-wrapper">
-      <!-- <form @submit.prevent="search">
+        <!-- <form @submit.prevent="search">
         <div class="input-field">
           <input v-model="searchInput" class="autocomplete" id="search" type="search" required>
           <label for="search"></label>
           <label class="label-icon" for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div>
-      </form> -->
-        <a href="#!" class="our-brand-logo" @click="goToStart">POP THAT BIO</a> 
-        
+        </form>-->
+        <a href="#!" class="our-brand-logo" @click="goToStart">POP THAT BIO</a>
+
         <router-link to="/">
           <div class="brand-logo"></div>
         </router-link>
@@ -27,21 +27,22 @@
             <router-link to="/about" class="nav-link">OM OSS</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn==false">
-            <div class="nav-link modal-trigger account-button" data-target="modal-login">LOGGA IN</div>
+            <div @click="openingModal('#modal-login')" class="nav-link account-button" data-target="modal-login">LOGGA IN</div>
           </li>
           <li class="nav-item" v-if="isLoggedIn==false">
-            <div class="nav-link modal-trigger account-button" data-target="modal-signup">SKAPA KONTO</div>
+            <div @click="openingModal('#modal-signup')" class="nav-link account-button"
+              data-target="modal-signup"
+            >SKAPA KONTO</div>
           </li>
           <li class="logged-in" v-if="isLoggedIn">
             <div class="nav-link" id="logout account-button" @click="logOut">LOGGA UT</div>
           </li>
           <li class="nav-item" v-if="isLoggedIn">
-          <router-link to="/mypage">
-        <i class="large material-icons white-text text-grey lighten-5">account_circle</i>
-      </router-link>
-      </li>
+            <router-link to="/mypage">
+              <i class="large material-icons white-text text-grey lighten-5">account_circle</i>
+            </router-link>
+          </li>
         </ul>
-        
       </div>
     </nav>
 
@@ -52,12 +53,13 @@
         <br />
         <form id="signup-form">
           <div class="input-field">
-            <input v-model="name"  type="text" id="signup-name" required />
+            <input v-model="name" type="text" id="signup-name" required />
             <label for="signup-name">Namn</label>
           </div>
           <div class="input-field">
-            <input v-model="email"  type="email" id="signup-email" required />
+            <input v-model="email" type="email" id="signup-email" required />
             <label for="signup-email">E-post adress</label>
+            <p class="error" v-if="!isAccount">Felaktigt formaterad epost.</p>
           </div>
           <div class="input-field">
             <input v-model="password" type="password" id="signup-password" required />
@@ -82,6 +84,7 @@
             <input v-model="password" type="password" id="login-password" required />
             <label for="login-password">Ditt lösenord</label>
           </div>
+          <p class="error" v-if="!isAccount">Inget konto registrerat med denna epost.</p>
           <button class="btn darken-2 z-depth-0" @click.prevent="logIn">Logga in</button>
         </form>
       </div>
@@ -135,47 +138,47 @@
 </template> 
 
 <script>
-import {aut} from '@/firebase/firebase.js'
+import { aut } from "@/firebase/firebase.js";
 export default {
   data() {
     return {
-      searchInput: '',
-      email: '',
-      password: '',
-      name: '',
-      isLoggedIn: false
-    }
+      searchInput: "",
+      email: "",
+      password: "",
+      name: "",
+      isLoggedIn: false,
+      isAccount: true
+    };
   },
   mounted() {
+    const autoData = {
+      aladdin: null,
 
-      const autoData = {
-        aladdin: null,
+      "frozen 2":
+        "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
 
-        "frozen 2":
-          "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
+      legend: null,
 
-        legend: null,
+      "the matrix": null,
 
-        "the matrix": null,
+      avatar:
+        "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
 
-        avatar:
-          "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
+      "unga astrid": null,
 
-        "unga astrid": null,
+      djungelboken: null,
 
-        djungelboken: null,
+      "micke och veronica": null,
 
-        "micke och veronica": null,
+      filmer: null,
 
-        filmer: null,
+      "om oss": null,
 
-        "om oss": null,
+      "logga in": null,
 
-        "logga in": null,
-
-        hem: null
-      }
-    var autos = document.querySelectorAll('.autocomplete');
+      hem: null
+    };
+    var autos = document.querySelectorAll(".autocomplete");
     this.$M.Autocomplete.init(autos, {
       data: autoData,
       onAutocomplete: this.onAutocompleteSelect
@@ -192,8 +195,18 @@ export default {
     this.$M.Collapsible.init(items);
   },
   methods: {
+    openingModal(el){
+      console.log('hej')
+      this.email = '',
+      this.password = '',
+      this.name = '',
+      this.isAccount = true
+
+let elem = document.querySelector(el)
+      this.$M.Modal.getInstance(elem).open()
+    },
     onAutocompleteSelect(value) {
-      this.searchInput = value
+      this.searchInput = value;
     },
     search() {
       window.console.log(this.searchInput);
@@ -223,8 +236,7 @@ export default {
         this.$router.push("/");
       }
     },
-  
-     
+
     storeAccountDetails() {
       let accountInfo = {
         name: this.name,
@@ -234,60 +246,63 @@ export default {
 
       this.$store.dispatch("sendToFirebase", accountInfo);
     },
-     async signUp(e) {
-      aut
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(
-          user => {
-            window.console.log(`Account created for ${user.email}`)
-            this.storeAccountDetails();
-            this.$router.push("/mypage");
-            const modal = document.querySelector("#modal-signup");
-            this.$M.Modal.getInstance(modal).close();
-            this.email = "";
-            this.password = "";
-          },
-          err => {
-            window.console.log(err.message)
-          }
-        );
+    async signUp(e) {
+      e.preventDefault();
+      aut.createUserWithEmailAndPassword(this.email, this.password).then(
+        user => {
+          window.console.log(`Account created for ${user.email}`);
+          this.storeAccountDetails();
+          this.$router.push("/mypage");
+          const modal = document.querySelector("#modal-signup");
+          this.$M.Modal.getInstance(modal).close();
+          this.email = "";
+          this.password = "";
+        },
+        err => {
+          window.console.log(err.message);
+          this.isAccount = false;
+        }
+      );
 
       e.preventDefault();
     },
-    async logIn(e){
+    async logIn(e) {
       e.preventDefault();
-      await aut
-        .signInWithEmailAndPassword(this.email, this.password).catch(err => {
-          window.console.log(err)
-          return
-        })
-        this.$store.dispatch('setUsername', this.email)
-        this.$router.push("/mypage");
-        window.console.log('u are logged in')
-        this.isLoggedIn = true
-        const modal = document.querySelector('#modal-login')
-            this.M.Modal.getInstance(modal).close()
-            this.email = ''
-            this.password = ''
+      let response = await aut
+        .signInWithEmailAndPassword(this.email, this.password)
+        .catch(err => {
+          window.console.log(err);
+        });
+
+      if (!response) {
+        this.isAccount = false;
+        return;
+      }
+
+      this.$store.dispatch("setUsername", this.email);
+      this.$router.push("/mypage");
+      window.console.log("u are logged in");
+      this.isLoggedIn = true;
+      const modal = document.querySelector("#modal-login");
+      this.$M.Modal.getInstance(modal).close();
+      this.email = "";
+      this.password = "";
     },
-    async logOut(e){
-      aut
-        .signOut()
-        .then(
-          () => {
-            window.console.log("u logged out");
-            this.$router.push("/");
-            this.isLoggedIn = false
-          },
-          err => {
-            window.console.log(err.message)
-          }
-        );
+    async logOut(e) {
+      aut.signOut().then(
+        () => {
+          window.console.log("u logged out");
+          this.$router.push("/");
+          this.isLoggedIn = false;
+        },
+        err => {
+          window.console.log(err.message);
+        }
+      );
 
       e.preventDefault();
     },
-    goToStart(){
+    goToStart() {
       this.$router.push("/");
     }
   }
@@ -316,8 +331,6 @@ nav {
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-
-
 .account-button {
   padding: 0 10px;
 }
@@ -326,9 +339,10 @@ nav {
   background-color: rgba(107, 22, 72, 0.788);
 }
 
-.brand-logo {
+.our-brand-logo {
   font-family: borntogrille;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  font-size: 4vw;
 }
 
 .our-brand-logo:hover {
@@ -346,10 +360,16 @@ nav {
 }
 .nav-link:hover {
   color: rgb(243, 144, 197);
+  cursor: pointer;
 }
 
 .router-link-active {
   background: rgb(150, 38, 97);
+}
+
+.error {
+  color: red;
+  padding-bottom: 5px;
 }
 
 @media (min-width: 481px) and (max-width: 767px) {
