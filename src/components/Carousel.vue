@@ -20,11 +20,15 @@
           display: 'block'
       }"
       >
+      
         <div class="carousel-text">
+          <router-link :to="'/movies/' + movie.slug">
           <h3 class="white-text text-lighten-4">{{movie.title}}</h3>
+           </router-link>
           <hr class="hr-style m-0 p-0" />
           <!-- <h6 class="">{{formatTime(movie.showTime.toMillis())}}</h6> -->
         </div>
+       
       </div>
     </transition-group>
 
