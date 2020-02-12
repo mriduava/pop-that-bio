@@ -1,44 +1,51 @@
 <template>
-<div class="container">
-  <div class="final">
-        <transition name="modal">
-            <div class="modal-mask">
-            <div class="modal-wrapper">
-                <div class="modal-container">
-                 <div class="background-modal"></div>
-                <div class="modal-header">
-                    <slot name="header">
-                        <h3>Reservation Information!</h3>
-                        <hr>
-                    </slot>
-                </div>
-                <div class="modal-body">
-                    <slot name="body">
-                      <h3>UNDER KONSTRUKTION</h3>
-                        <!-- <h4>Bookning nummer</h4>
-                        <h4>Film: <span>{{movieDetail.title}}</span></h4>
-                        <h4>Salong: <span>Salong</span></h4>
-                        <h4>Platser: <span>Platser</span></h4> -->
-                    </slot>
-                </div>
-                <div class="modal-footer">
-                    <slot name="footer">
-                      <h4>Tack så mycket!</h4>
-                       <div class="modal-button">
-                      
-                        <router-link to="/">
-                          <button class="btn btn-small waves-effect waves-light" @click="$emit('close')">Skriva ut</button>
-                        </router-link>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <div class="row" id="reservation">
+          <h4 class="title-text center">Reservation</h4>
+          <hr class="hr-style" />
+          <div class="col s12">
+            <p class="book-num">
+              Bookning nummer:
+              <span>{{myBookingInfo[0].bookingNumber}}</span>
+            </p>
+            <p class="movie-title">
+              Film:
+              <span>{{myBookingInfo[0].movieTitle}}</span>
+            </p>
+            <p>
+              Dag:
+              <span>Dag</span> Tid:
+              <span>Tid</span>
+            </p>
+            <p>
+              Salong:
+              <span>Salong</span>
+            </p>
+            <p>
+              Platser:
+              <span>Platser</span>
+            </p>
+          </div>
+        </div>
 
-                     </div>
-                    </slot>
-                </div>
-                </div>
-            </div>
-            </div>
-        </transition>
-       </div>
+        <div class="row">
+          <div class="col s12">
+            <h6>Tack så mycket!</h6>
+          </div>
+        </div>
 
+        <div class="row">
+          <div class="col s12">
+            <button
+              class="btn waves-effect register-button center"
+              @click="printMyReservation('reservation')"
+            >Skriva ut</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -46,33 +53,49 @@
 import moment from "moment";
 export default {
   name: "reservation",
+  props: ["bookingId"],
   data() {
     return {
+      loading: false,
       movies: this.$store.getters.movies,
       movieDetail: [],
 
+      confBookings: this.$store.state.confBookingsData,
+      myBookingInfo: [],
       auditoriumInfo: this.$store.state.auditoriumInfo,
       reserveInfo: this.$store.state.reserveInfo
     };
   },
   methods: {
-    completeBooking() {
-      let bookingNumber =
-        Math.floor(Math.random() * 1000) +
-        "-" +
-        Math.floor(Math.random() * 100000);
-      let tickets = this.$store.getters.tickets;
-      let booking = {
-        collection: "bookings",
-        bookingNumber: bookingNumber,
-        numberOfAdults: tickets.numberOfAdults,
-        numberOfChildren: tickets.numberOfChildren,
-        numberOfSeniors: tickets.numberOfSeniors
-      };
-      this.$store.dispatch("sendToFirebase", booking);
-    },
     formatTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
+    },
+    printMyReservation(e) {
+      let printText = document.getElementById(e).innerHTML;
+      let page = window.open("", "", "height=600, width=900");
+      page.document.write("<html>");
+      page.document
+        .write(`<body style="width: 90vw; margin: 10% auto"><h1 style="margin-top: 25px;
+                                padding: 0;
+                                color: rgba(184, 10, 103, 0.993); 
+                                font-family: Times New Roman;"
+                            >POP THAT BIO</h1>`);
+      page.document.write(printText);
+      page.document.write(`<hr>
+                       <h5 style="padding:0; margin:0; color: #616A6B;">&copy; 2020 POPHTATBIO</h5>
+                       <h6 style="padding:0; margin:0; color: rgba(184, 10, 103, 0.993)">
+                       www.popthatbio.now.sh</h6>`);
+      page.document.write("</body></html>");
+      page.document.close();
+      page.print();
+      this.$router.push({ path: "/" });
+    },
+    getBookingsInfo() {
+      this.confBookings.forEach(info => {
+        if (this.bookingId === info.bookingId) {
+          this.myBookingInfo.push(info);
+        }
+      });
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -83,129 +106,54 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getAuditoriums");
+    this.getBookingsInfo();
     this.getMovie();
-  }
+    console.log(this.bookingId);
+  },
+  watch: {
+    'bookingId'(){
+      this.getBookingsInfo();
+    }
+  },
 };
 </script>
 
 <style lang="css" scoped>
-
-/* FINAL COMPONENT */
-.final{
-    max-width: 95%;
-    margin: 10% auto;
-    position: absolute;
-    left: 50%;
-    margin-left: -240px;
+@font-face {
+  font-family: borntogrille;
+  src: url("../assets/fonts/borntogrille.otf");
+}
+#reservation {
+  margin-top: 6%;
 }
 
-/* MODAL STYLE */
-.modal-mask {
-    position: fixed;
-    z-index: 9998;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-    display: table;
-    transition: opacity .3s ease;
-  }
-  
-  .modal-wrapper {
-    display: table-cell;
-    vertical-align: middle;
-  }
-  
-  .modal-container {
-    position: relative;
-    width: 600px;
-    text-align: center;
-    margin: 0px auto;
-    padding: 20px 30px;
-    border: 2px solid #fff;
-    color: #fff;
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-    transition: all .3s ease;
-    font-family: Helvetica, Arial, sans-serif;
+.title-text {
+  color: rgb(204, 9, 113);
+}
 
-    background: rgb(100, 10, 60);
-    background: -webkit-linear-gradient(to top, rgb(156, 36, 100), #fbd3e9);
-    background: linear-gradient(to bottom, rgba(117, 9, 67, 0.89), rgba(219, 166, 195, 0.4));
-  }
-  
-  .modal-header h1 {
-    margin-top: 0;
-    color: #ffffff;
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
-  }
-  
-  .modal-body {
-    margin: 20px 0;
-    position: relative;
-  }
+.book-num {
+  font-size: 1.2rem;
+}
+.book-num span {
+  font-weight: bold;
+}
+.movie-title {
+  font-size: 1.5em;
+}
+.movie-title span {
+  color: rgb(204, 9, 113);
+}
 
-  h4{
-    font-size: 1.1em;
-    color: rgb(0, 255, 191);
-    line-height: 0.5em;
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-  }
-
-  h4>span{
-      color: #fff;
-  }
-
-  .modal-footer> h2{
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-  }
-  
-  .modal-button {
-    display: flex;
-    justify-content: center;
-  }
-
-  .modal-button> button{
-      width: 60px;
-      font-size: 20px;
-      margin: 15px 5px 6px 5px;
-      outline: none;
-      color: #0082c8;
-      padding: 5px;
-      cursor: pointer;
-      border: 1px solid #0502b4;
-      background: #fff;
-  }
-
-  .modal-button .no{
-      color: rgb(243, 22, 22);
-  }
-
-  
-  .modal-button .yes{
-      color: rgb(13, 189, 66);
-  }
-
-  .modal-button> button:hover{
-      border: 1px solid #fff;
-      color: #fff;
-      background: #0082c8;
-  }
-  
-  .modal-enter {
-    opacity: 0;
-  }
-  
-  .modal-leave-active {
-    opacity: 0;
-  }
-  
-  .modal-enter .modal-container,
-  .modal-leave-active .modal-container {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-  }
-
+.hr-style {
+  border: 0;
+  height: 1px;
+  margin: 0 0 10px 0;
+  background: #fff;
+  background-image: -webkit-linear-gradient(
+    left,
+    rgb(255, 255, 255),
+    rgba(184, 10, 103, 0.993),
+    rgb(255, 255, 255)
+  );
+}
 </style>

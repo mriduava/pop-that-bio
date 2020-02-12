@@ -9,6 +9,9 @@ import 'materialize-css/dist/css/materialize.css'
 Vue.prototype.$M = M
 Vue.$M = Vue.prototype.$M
 
+let eventBus = new Vue();
+Vue.prototype.$eventBus = eventBus;
+
 Vue.config.productionTip = false
 
 new Vue({
