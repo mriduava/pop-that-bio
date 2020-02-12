@@ -147,7 +147,7 @@ export default {
     };
   },
   mounted() {
-      const autoData = {
+     /* const autoData = {
         aladdin: null,
         "frozen 2":
           "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
@@ -163,6 +163,21 @@ export default {
         "logga in": null,
         hem: null
       }
+
+      const autoData = this.$store.state.data.map(movie => {
+        let auto = {}
+        auto[movie.title] = null
+        return auto
+      })*/
+
+      const autoData = this.$store.state.data.reduce((acc, curr) => {
+        acc[curr.title] = null
+        return acc
+      }, {})
+
+      console.log(autoData);
+      
+      
     var autos = document.querySelectorAll('.autocomplete');
     this.$M.Autocomplete.init(autos, {
       data: autoData,
@@ -182,31 +197,17 @@ export default {
     },
     search() {
       window.console.log(this.searchInput);
-      if (this.searchInput == "aladdin") {
-        this.$router.push("/movies/aladdin");
-      } else if (this.searchInput == "frozen 2") {
-        this.$router.push("/movies/frozen-2");
-      } else if (this.searchInput == "legend") {
-        this.$router.push("/movies/legend");
-      } else if (this.searchInput == "the matrix") {
-        this.$router.push("/movies/the-matrix");
-      } else if (this.searchInput == "avatar") {
-        this.$router.push("/movies/avatar");
-      } else if (this.searchInput == "unga astrid") {
-        this.$router.push("/movies/astrid");
-      } else if (this.searchInput == "djungelboken") {
-        this.$router.push("/movies/jungle-book");
-      } else if (this.searchInput == "micke och veronica") {
-        this.$router.push("/movies/micke-och-veronica");
-      } else if (this.searchInput == "filmer") {
-        this.$router.push("/movies");
-      } else if (this.searchInput == "om oss") {
-        this.$router.push("/about");
-      } else if (this.searchInput == "logga in") {
-        this.$router.push("/signin");
-      } else if (this.searchInput == "hem") {
-        this.$router.push("/");
-      }
+      this.$router.push("/movies/" + this.searchInput.replace(" ", "-"));
+
+      if (this.searchInput == "filmer") {
+         this.$router.push("/movies");
+       } else if (this.searchInput == "om oss") {
+         this.$router.push("/about");
+       } else if (this.searchInput == "logga in") {
+         this.$router.push("/signin");
+       } else if (this.searchInput == "hem") {
+       this.$router.push("/");
+       }
     },
     signUp(e) {
       firebase
