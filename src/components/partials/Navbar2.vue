@@ -19,10 +19,10 @@
             <a href="#signin" class="modal-trigger">Logga in</a>
           </li>
           <li v-if="!isLoggedin">
-            <a href="#signin" class="modal-trigger">Logga in</a>
+            <a href="#signup" class="modal-trigger">Skapa konto</a>
           </li>
           <li v-if="isLoggedin">
-            <a href="#signin" class="modal-trigger">Logga in</a>
+            <a href="#signin" class="modal-trigger">Logga ut</a>
           </li>
         </ul>
       </div>
