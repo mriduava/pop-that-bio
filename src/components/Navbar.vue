@@ -175,20 +175,20 @@ export default {
 
         hem: null
       }
-    let autos = document.querySelectorAll('.autocomplete');
+    var autos = document.querySelectorAll('.autocomplete');
     this.$M.Autocomplete.init(autos, {
       data: autoData,
       onAutocomplete: this.onAutocompleteSelect
     });
 
-    let elems = document.querySelectorAll(".carousel");
+    var elems = document.querySelectorAll(".carousel");
     this.$M.Carousel.init(elems);
     setTimeout(this.$M.Carousel.init(elems), 1000);
 
-    let modals = document.querySelectorAll(".modal");
+    var modals = document.querySelectorAll(".modal");
     this.$M.Modal.init(modals);
 
-    let items = document.querySelectorAll(".collapsible");
+    var items = document.querySelectorAll(".collapsible");
     this.$M.Collapsible.init(items);
   },
   methods: {
@@ -249,7 +249,7 @@ export default {
             this.password = "";
           },
           err => {
-            alert(err.message);
+            window.console.log(err.message)
           }
         );
 
@@ -281,7 +281,7 @@ export default {
             this.isLoggedIn = false
           },
           err => {
-            alert(err.message);
+            window.console.log(err.message)
           }
         );
 

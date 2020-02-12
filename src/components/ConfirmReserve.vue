@@ -23,11 +23,11 @@
                 </div>
                 <div class="modal-footer">
                     <slot name="footer">
-                      <h4>Tacksåmycket!</h4>
+                      <h4>Tack så mycket!</h4>
                        <div class="modal-button">
                       
                         <router-link to="/">
-                          <button class="btn btn-small waves-effect waves-light" @click="$emit('close')">Skrivaut</button>
+                          <button class="btn btn-small waves-effect waves-light" @click="$emit('close')">Skriva ut</button>
                         </router-link>
 
                      </div>
