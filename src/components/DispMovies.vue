@@ -2,7 +2,7 @@
   <div id="movies" class="disp-movies">
     <div class="container">
       <div class="row">
-        <h1>Filmer</h1>
+        <h1>filmer</h1>
         <hr class="hr-style" />
         <div class="col x12 s6 m4 l3 xl3" v-for="(movie, index) in moviesData" :key="index">
           <router-link :to="'/movies/' + movie.slug">
@@ -52,7 +52,7 @@ export default {
       );
 
       if (filterdScreenings.length == 0) {
-        return "No Showings";
+        return "Inga visningar";
       }
 
       let movieTimes = [];
@@ -102,7 +102,7 @@ export default {
           return movieTimes[i].startTime;
         }
       }
-      return "No Upcoming Showings";
+      return "Inga kommande visningar";
     }
   },
 
