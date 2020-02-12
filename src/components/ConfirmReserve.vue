@@ -57,6 +57,7 @@ export default {
   },
   methods: {
     completeBooking() {
+      alert(this.$store.getters.username)
       let bookingNumber =
         Math.floor(Math.random() * 1000) +
         "-" +

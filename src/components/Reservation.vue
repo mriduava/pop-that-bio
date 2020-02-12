@@ -109,6 +109,7 @@ export default {
   },
   methods: {
     completeBooking() {
+      alert(this.$store.getters.username)
       let bookingNumber =
         Math.floor(Math.random() * 1000) +
         "-" +
@@ -122,6 +123,9 @@ export default {
         movieTitle: this.movieDetail.title,
         ticketsInfo: this.ticketsInfo
       };
+      if(this.$store.getters.username !== ''){
+        this.$store.dispatch('sendBookingToUser', bookingInfo)
+      }
       this.$store.dispatch("sendConfirmBookings", bookingInfo);
       this.showReserveInfo = true;
     },
