@@ -10,7 +10,7 @@
           width: '100%',
           height: '120vh',
           top: '-117px',
-          zIndex: '-1',
+          //zIndex: '-1',
           objectFilt: 'contain',
           overflow: 'hidden',
           background: 'linear-gradient(45deg, rgba(197, 49, 99, 0.8) 0%, rgba(197, 49, 99, 0.2) 100%),' +  
@@ -67,7 +67,7 @@ export default {
 <style lang="css" scoped>
 
 .container {
-  position: relative;
+  /*position: relative;*/
 }
 
 /* #slideshow {
@@ -99,6 +99,7 @@ export default {
   top: 50%;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   cursor: pointer;
+   z-index: 5;
 }
 .carousel-text h3{
   margin-bottom: 2px;
@@ -113,7 +114,7 @@ export default {
 }
 
 .hr-style {
-  position: relative;
+  /*position: relative;*/
   left: 0;
   width: 50vw;
   border: 0;
@@ -137,7 +138,7 @@ export default {
 
 .arrow>a{
 	font-size: 40px;
-	position: absolute;
+	/*position: absolute;*/
 }
 
 .arrow>a>i{

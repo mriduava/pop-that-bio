@@ -52,7 +52,7 @@ export default {
       );
 
       if (filterdScreenings.length == 0) {
-        return "Inga visningar";
+        return "Inga kommande visningar";
       }
 
       let movieTimes = [];
