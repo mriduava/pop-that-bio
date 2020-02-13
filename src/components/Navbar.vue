@@ -59,7 +59,7 @@
           <div class="input-field">
             <input v-model="email" type="email" id="signup-email" required />
             <label for="signup-email">E-post adress</label>
-            <p class="error" v-if="!isAccount">Felaktigt formaterad epost.</p>
+            <p class="error" v-if="!isAccount">Felaktigt formaterad e-post.</p>
           </div>
           <div class="input-field">
             <input v-model="password" type="password" id="signup-password" required />
@@ -84,7 +84,7 @@
             <input v-model="password" type="password" id="login-password" required />
             <label for="login-password">Ditt lösenord</label>
           </div>
-          <p class="error" v-if="!isAccount">Inget konto registrerat med denna epost.</p>
+          <p class="error" v-if="!isAccount">Inget konto registrerat med denna e-post.</p>
           <button class="btn darken-2 z-depth-0" @click.prevent="logIn">Logga in</button>
         </form>
       </div>
@@ -196,7 +196,7 @@ export default {
   },
   methods: {
     openingModal(el){
-      console.log('hej')
+      console.log('opening modal')
       this.email = '',
       this.password = '',
       this.name = '',

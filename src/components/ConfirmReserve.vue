@@ -8,7 +8,7 @@
                  <div class="background-modal"></div>
                 <div class="modal-header">
                     <slot name="header">
-                        <h3>Reservation Information!</h3>
+                        <h3>Bokningsinformation!</h3>
                         <hr>
                     </slot>
                 </div>
@@ -27,7 +27,7 @@
                        <div class="modal-button">
                       
                         <router-link to="/">
-                          <button class="btn btn-small waves-effect waves-light" @click="$emit('close')">Skriva ut</button>
+                          <button class="btn btn-small waves-effect waves-light" @click="$emit('close')">Skriv ut</button>
                         </router-link>
 
                      </div>

@@ -11,7 +11,7 @@
         </div>
         <div class="movie-text">
           <h5>{{movieDetail.title}}</h5>
-          <h6>Date: {{reserveInfo.showTime.dateName}}, {{reserveInfo.showTime.date}}/{{reserveInfo.showTime.month}}</h6>
+          <h6>Datum: {{reserveInfo.showTime.dateName}}, {{reserveInfo.showTime.date}}/{{reserveInfo.showTime.month}}</h6>
           <h6>Tid: {{reserveInfo.showTime.time.time}}</h6>
           <h6>{{reserveInfo.auditorium}}</h6>
         </div>

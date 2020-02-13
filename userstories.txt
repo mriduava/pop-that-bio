@@ -22,6 +22,7 @@ Done
 
 11. Som besökare vill jag kunna se hemsidan på mobil (dator/platta etc.)
 12. Som besökare vill jag kunna ha ett konto på sidan
+16. Som besökare vill jag kunna logga in och logga ut på sidan på ett enkelt sätt
 
 Not done
 5. Som besökare vill jag kunna boka biljetter till filmer.

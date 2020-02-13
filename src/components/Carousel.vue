@@ -20,14 +20,15 @@
           display: 'block'
       }"
       >
-      
-        <div class="carousel-text">
-          <router-link :to="'/movies/' + movie.slug">
+      <router-link :to="'/movies/' + movie.slug">
+        <div class="carousel-text" >
+          
           <h3 class="white-text text-lighten-4">{{movie.title}}</h3>
-           </router-link>
+           
           <hr class="hr-style m-0 p-0" />
           <!-- <h6 class="">{{formatTime(movie.showTime.toMillis())}}</h6> -->
         </div>
+        </router-link>
        
       </div>
     </transition-group>
@@ -97,10 +98,12 @@ export default {
   float: left;
   top: 50%;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
 }
 .carousel-text h3{
   margin-bottom: 2px;
   padding-bottom: 2px;
+  
 }
 .carousel-text h6{
   color: rgb(55, 255, 171);
