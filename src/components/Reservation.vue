@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="title-text">
-      <h4 class>Reservation</h4>
+      <h4>Reservation</h4>
     </div>
     <hr class="hr-style" />
     <div class="reserve-info">
@@ -58,7 +58,7 @@
             <div class="input-field">
               <input
                 id="email"
-                type="text"
+                type="email"
                 class="validate"
                 value
                 required
@@ -73,21 +73,28 @@
     </div>
     <div class="buttons">
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
-        <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
+        <button class="modal-trigger btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-      <button class="btn btn-small waves-effect waves-light" 
-         :class="{disabled: telephone === '' || email === ''}"
-         @click="completeBooking">Reservera
-      </button>
+      <a
+        href="#myreserve"
+        class="btn btn-small waves-effect waves-light modal-trigger"
+        :class="{disabled: telephone === '' || email === ''}"
+        @click="completeBooking"
+      >Reservera</a>
     </div>
-    <div v-if="showReserveInfo">
-      <ConfirmReserve />
+
+    <div class="loading" v-if="loading">
+      <img src="../assets/images/loading.gif" alt="loading" width="100%">
+    </div>
+    <div class="modal" id="myreserve" v-if="showReserveInfo">
+      <ConfirmReserve :bookingId="bookingId" />
     </div>
   </div>
 </template>
 
 <script>
 import moment from "moment";
+import uuid from "uuid/v4";
 import ConfirmReserve from "@/components/ConfirmReserve";
 export default {
   name: "reservation",
@@ -103,11 +110,13 @@ export default {
       reserveInfo: this.$store.state.reserveInfo,
       ticketsInfo: this.$store.state.ticketsInfo,
       ticketsPrice: this.$store.state.ticketsPriceData,
+      bookingId: "",
       totalPrice: 0,
       adultPrice: 0,
       seniorPrice: 0,
       childPrice: 0,
-      showReserveInfo: false
+      showReserveInfo: false,
+      loading: false
     };
   },
   methods: {
@@ -118,15 +127,21 @@ export default {
         Math.floor(Math.random() * 100000);
 
       let bookingInfo = {
-        collection: "confirmBookings",
+        collection: "confBookings",
         bookingNumber: bookingNumber,
+        bookingId: uuid(),
         email: this.email,
         telephone: this.telephone,
         movieTitle: this.movieDetail.title,
         ticketsInfo: this.ticketsInfo
       };
+      this.bookingId = bookingInfo.bookingId;
       this.$store.dispatch("sendConfirmBookings", bookingInfo);
-      this.showReserveInfo = true;
+
+      // this.loading = true;
+      this.$store.dispatch("getConfBookings");
+      setTimeout(this.showReserveInfo = true, 2000);
+      // this.loading = false;
     },
     formatTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
@@ -160,9 +175,13 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getAuditoriums");
+    // this.$store.dispatch("getConfBookings");
     this.calcTicketPrice();
     this.getMovie();
+  },
+  mounted() {
+    let modal = document.querySelectorAll(".modal");
+    this.$M.Modal.init(modal);
   }
 };
 </script>

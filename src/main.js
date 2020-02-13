@@ -2,12 +2,15 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+
 import M from 'materialize-css'
 import 'materialize-css/dist/css/materialize.css'
 
-
 Vue.prototype.$M = M
 Vue.$M = Vue.prototype.$M
+
+let eventBus = new Vue();
+Vue.prototype.$eventBus = eventBus;
 
 Vue.config.productionTip = false
 

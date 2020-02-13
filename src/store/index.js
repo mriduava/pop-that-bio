@@ -15,6 +15,7 @@ export default new Vuex.Store({
     auditoriumId: '',
     scrData: [],
     ticketsPriceData: [],
+    confBookingsData: [],
     reserveInfo: {
       auditorium: '',
       movieTitle: "",
@@ -77,6 +78,9 @@ export default new Vuex.Store({
     POPULATE_BEFORE_BOOKINGS(state, tempBooking){
       state.beforeBookings = tempBooking
     },
+    POPULATE_CONFIRM_BOOKINGS(state, confBooking){
+      state.confBookingsData = confBooking
+    },
     POPULATE_TICKET_PRICE(state, ticketPrice){
       state.ticketsPriceData = ticketPrice
     },
@@ -109,7 +113,7 @@ export default new Vuex.Store({
       commit('UPDATE_AUDITORIUMS', auditoriums)
     },
     async getBeforeBookings({commit}){
-      let snapshot= await db.collection("beforeBookings").get()
+      let snapshot= await db.collection("mySeatsInfo").get()
       let tempBookings = []
       snapshot.forEach(seats => {
         let temp = seats.data();
@@ -135,6 +139,16 @@ export default new Vuex.Store({
         prices.push(price)
       });
       commit('POPULATE_TICKET_PRICE', prices)
+    },
+    async getConfBookings({commit}){
+      let snapshot = await db.collection('confBookings').get()
+      let confBookings = []
+      snapshot.forEach(e=> {
+        let bookingInfo = e.data()
+        bookingInfo.id = e.id;
+        confBookings.push(bookingInfo)
+      });
+      commit('POPULATE_CONFIRM_BOOKINGS', confBookings)
     },
     async sendToFirebase(context, purchase){
       let collection = purchase.collection
