@@ -89,9 +89,6 @@ export default {
 
       let today = new Date();
 
-      //window.console.log(movieTimes[0].screenHour + " movie hour");
-      //window.console.log(today.getHours() + " today hour");
-
       // KOllA OM DATUM INTE HAR INTRÄFFAT
       for (let i in movieTimes) {
         if (
@@ -99,7 +96,8 @@ export default {
           (movieTimes[i].screenMonth == today.getMonth() + 1 &&
             movieTimes[i].screenDay >= today.getDate())
         ) {
-          return movieTimes[i].startTime;
+          return movieTimes[i].screenDay + "/" + movieTimes[i].screenMonth + " kl." + movieTimes[i].screenHour
+          //return movieTimes[i].startTime;
         }
       }
       return "Inga kommande visningar";
