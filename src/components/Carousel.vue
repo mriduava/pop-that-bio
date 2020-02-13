@@ -10,7 +10,7 @@
           width: '100%',
           height: '120vh',
           top: '-117px',
-          zIndex: '-1',
+          //zIndex: '-1',
           objectFilt: 'contain',
           overflow: 'hidden',
           background: 'linear-gradient(45deg, rgba(197, 49, 99, 0.8) 0%, rgba(197, 49, 99, 0.2) 100%),' +  
@@ -20,14 +20,15 @@
           display: 'block'
       }"
       >
-      
-        <div class="carousel-text">
-          <router-link :to="'/movies/' + movie.slug">
+      <router-link :to="'/movies/' + movie.slug">
+        <div class="carousel-text" >
+          
           <h3 class="white-text text-lighten-4">{{movie.title}}</h3>
-           </router-link>
+           
           <hr class="hr-style m-0 p-0" />
           <!-- <h6 class="">{{formatTime(movie.showTime.toMillis())}}</h6> -->
         </div>
+        </router-link>
        
       </div>
     </transition-group>
@@ -66,7 +67,7 @@ export default {
 <style lang="css" scoped>
 
 .container {
-  position: relative;
+  /*position: relative;*/
 }
 
 /* #slideshow {
@@ -97,10 +98,13 @@ export default {
   float: left;
   top: 50%;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+   z-index: 5;
 }
 .carousel-text h3{
   margin-bottom: 2px;
   padding-bottom: 2px;
+  
 }
 .carousel-text h6{
   color: rgb(55, 255, 171);
@@ -110,7 +114,7 @@ export default {
 }
 
 .hr-style {
-  position: relative;
+  /*position: relative;*/
   left: 0;
   width: 50vw;
   border: 0;
@@ -134,7 +138,7 @@ export default {
 
 .arrow>a{
 	font-size: 40px;
-	position: absolute;
+	/*position: absolute;*/
 }
 
 .arrow>a>i{
