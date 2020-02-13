@@ -268,7 +268,25 @@ let elem = document.querySelector(el)
     },
     async logIn(e) {
       e.preventDefault();
+      let response = await aut
+        .signInWithEmailAndPassword(this.email, this.password)
+        .catch(err => {
+          window.console.log(err);
+        });
+
+      if (!response) {
+        this.isAccount = false;
         return;
+      }
+
+      this.$store.dispatch("setUsername", this.email);
+      this.$router.push("/mypage");
+      window.console.log("u are logged in");
+      this.isLoggedIn = true;
+      const modal = document.querySelector("#modal-login");
+      this.$M.Modal.getInstance(modal).close();
+      this.email = "";
+      this.password = "";
     },
     async logOut(e) {
       aut.signOut().then(
