@@ -138,10 +138,10 @@ export default {
       this.bookingId = bookingInfo.bookingId;
       this.$store.dispatch("sendConfirmBookings", bookingInfo);
 
-      this.loading = true;
+      // this.loading = true;
       this.$store.dispatch("getConfBookings");
       setTimeout(this.showReserveInfo = true, 2000);
-      this.loading = false;
+      // this.loading = false;
     },
     formatTime(time) {
       return moment(time).format("MMMM Do, HH:mm");

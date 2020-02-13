@@ -113,7 +113,7 @@ export default new Vuex.Store({
       commit('UPDATE_AUDITORIUMS', auditoriums)
     },
     async getBeforeBookings({commit}){
-      let snapshot= await db.collection("beforeBookings").get()
+      let snapshot= await db.collection("mySeatsInfo").get()
       let tempBookings = []
       snapshot.forEach(seats => {
         let temp = seats.data();

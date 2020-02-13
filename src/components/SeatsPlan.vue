@@ -62,16 +62,18 @@
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-        <button
-          class="btn btn-small waves-effect waves-light"
-          :class="{ disabled: counter !== totalSeats}"
-          @click="goToReservation()"
-        >Fortsätt</button>
+      <button
+        class="btn btn-small waves-effect waves-light"
+        :class="{ disabled: counter !== totalSeats}"
+        @click="goToReservation()"
+      >Fortsätt</button>
     </div>
   </div>
 </template>
 
 <script>
+import uuid from "uuid/v4";
+import { db } from "@/firebase/firebase.js";
 export default {
   data() {
     return {
@@ -100,7 +102,9 @@ export default {
         timeStamp: "",
         tempSeats: []
       },
-      mySelection: []
+      mySelection: [],
+      myUserId: null,
+      isClicked: false
     };
   },
   methods: {
@@ -151,7 +155,7 @@ export default {
         this.mySelection.splice(seatIndex, 1);
         this.counter--;
       }
-      // this.sendSeatsInfo()
+      this.seatsInfo();
     },
     showPositionsOnHover(x, y) {
       let seat = this.seatsGrid[x][y];
@@ -170,14 +174,19 @@ export default {
         }
       });
     },
-    sendSeatsInfo() {
-      let mySeatsInfo = {
-        collection: "mySeats",
-        movieTitle: this.pickMovie,
-        pickTime: this.pickTime,
-        mySeats: this.mySelection
-      };
-      this.$store.dispatch("sendSeatsInfo", mySeatsInfo);    
+    seatsInfo() {
+      const resData = db.collection("mySeatsInfo");
+      if (!this.isClicked) {
+        this.myUserId = uuid();
+        resData.doc(this.myUserId).set({
+          movieTitle: this.pickMovie,
+          timeStamp: this.pickTime,
+          reserveSeats: this.mySelection
+        });
+        this.isClicked = true;
+      } else {
+        resData.doc(this.myUserId).update({ reserveSeats: this.mySelection });
+      }
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -186,8 +195,11 @@ export default {
         }
       });
     },
-    goToReservation(){
-      this.$router.push({path: '/movies/' + this.movieDetail.slug + '/ticket/seatsplan/reservation'})
+    goToReservation() {
+      this.$router.push({
+        path:
+          "/movies/" + this.movieDetail.slug + "/ticket/seatsplan/reservation"
+      });
     }
   },
   created() {
