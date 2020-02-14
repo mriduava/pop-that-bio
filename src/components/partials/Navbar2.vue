@@ -22,7 +22,7 @@
             <a href="#signup" class="modal-trigger">Skapa konto</a>
           </li>
           <li v-if="isLoggedin">
-            <a href="#signin" class="modal-trigger">Logga ut</a>
+            <a href="#signin" class="modal-trigger" @click="logout">Logga ut</a>
           </li>
         </ul>
       </div>
@@ -42,15 +42,15 @@
         <a href="#signup" class="modal-trigger">Skapa konto</a>
       </li>
       <li v-if="isLoggedin">
-        <a class="modal">Logga out</a>
+        <a class="modal" @click="logout">Logga out</a>
       </li>
     </ul>
 
-    <div class="modal" id="signin">
+    <div class="modal grey lighten-4" id="signin">
       <Signin/>
     </div>
 
-    <div class="modal" id="signup">
+    <div class="modal grey lighten-4" id="signup">
       <Signup/>
     </div>
 
@@ -60,6 +60,7 @@
 <script>
 import Signin from '@/components/users/Signin2'
 import Signup from '@/components/users/Signup2'
+import firebase from 'firebase'
 export default {
   components:{
     Signin,
@@ -67,8 +68,18 @@ export default {
   },
   data() {
     return {
-      isLoggedin: false
+      isLoggedin: false,
+      currentUser: false
     };
+  },
+  methods:{
+    logout(){
+      firebase.auth().signOut()
+      .then(()=>{
+        this.isLoggedin = false;
+        this.$router.push('/')
+      })
+    }
   },
   mounted() {
     let sidenav = document.querySelectorAll(".sidenav-trigger");
@@ -111,7 +122,9 @@ nav {
   font-family: borntogrille;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
 }
+.modal{
+  max-width: 400px;
+  padding: 2% 0;
+}
 
-
-  
 </style>

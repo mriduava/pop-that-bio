@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import firebase from 'firebase'
 import Home from '../views/Home.vue'
 import MovieDetail from '@/components/MovieDetail'
 import MoviesList from '@/components/MoviesList'
@@ -67,7 +68,10 @@ const routes = [
   {
     path: '/mypage',
     name: 'mypage',
-    component: MyPage
+    component: MyPage,
+    meta:{
+      requiresAuth: true
+    }
   },
   {
     path: '/about',
@@ -104,5 +108,15 @@ const router = new VueRouter({
     mode: "history",
     base: process.env.BASE_URL
 })
+
+// router.beforeEach((to, from, next) =>{
+//   if(to.matched.some(record=> record.meta.requiresAuth)){
+//     if (!firebase.auth().currentUser) {
+//       next({path:'/', query:{redirect: to.fullPath}})
+//     }else{
+//       next()
+//     }
+//   }
+// })
 
 export default router

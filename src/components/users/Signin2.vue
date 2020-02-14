@@ -1,79 +1,75 @@
 <template>
-  <div class="container">
-    <div class="signup">
-      <div class="row">
-        <form class="col s12">
-          <h4 class="center">Logga in</h4>
-
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="email" type="email" class="validate" v-model="user.email" />
-              <label for="email">E-post</label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="password" type="password" class="validate" v-model="user.password" />
-              <label for="password">Lössenord</label>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col s12">
-              <div class>
-                <button
-                  class="btn waves-effect register-button center"
-                  @click="register"
-                >Logga in</button>
+    <div class="container-fluid">
+      <div class="row signin">
+        <div class="col s12 m8 offset-m2">
+          <div class="center">
+            <h4>Logga in</h4>
+            <hr class="hr-style">
+            <form action="index.html">
+              <div class="input-field">
+                <input type="email" id="email" v-model="email" />
+                <label for="email">E-post</label>
               </div>
-            </div>
+              <div class="input-field">
+                <input type="password" id="password" v-model="password" />
+                <label for="password">Lösenord</label>
+              </div>
+              <div class="alert center red-text" v-if="alert !== ''">
+                <h6>{{alert}}</h6>
+              </div>
+              <button
+                v-on:click="login"
+                class="btn btn-large btn-small grey lighten-4 black-text"
+              >Logga in</button>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
 import firebase from "firebase";
 export default {
-  data() {
+  name: "login",
+  data: function() {
     return {
-      user: {
-        name: "",
-        email: "",
-        password: ""
-      }
+      email: "",
+      password: "",
+      alert: '',
+      message: ''
     };
   },
   methods: {
-    storeAccountDetails() {
-      let accountInfo = {
-        name: this.name,
-        email: this.email,
-        collection: "accounts"
-      };
-      this.$store.dispatch("sendToFirebase", accountInfo);
-    },
-
-    register(e) {
+    login: function(e) {
       firebase
         .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
+        .signInWithEmailAndPassword(this.email, this.password)
         .then(
           user => {
-            window.console.log(`Acount created for ${user.email}`);
-            this.storeAccountDetails();
-            this.$router.push("/");
+            this.message = `Du är inloggad som ${user.email}`;
+            this.$router.go({ path: this.$router.path });
           },
           err => {
-            window.console.log(err.message);
+            err.message = "OBS!! E-post eller lösenord är fel!"
+            this.alert = err.message;
           }
         );
-
       e.preventDefault();
     }
   }
 };
 </script>
+
+<style lang="css" scoped>
+button{
+  margin-top: 5%;
+}
+.hr-style {
+  border: 0;
+  height: 1px;
+  margin: 0 0 10px 0;
+  background: #fff;
+  background-image: -webkit-linear-gradient(left,  rgb(255, 255, 255), rgba(184, 10, 103, 0.993), rgb(255, 255, 255));
+}
+</style>

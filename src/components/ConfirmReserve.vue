@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row" v-if="loading">
-      <div class="col s12">
+      <div class="col s6 offset-m3">
         <div class="loading">
           <img src="../assets/images/loading.gif" alt="loading" width="100%" />
         </div>
@@ -144,14 +144,16 @@ export default {
   position: relative;
   top: -50px;
 }
+.loading{
+  width: 350px;
+  margin: 0 auto;
+}
 #reservation {
   margin-top: 6%;
 }
-
 .title-text {
   color: rgb(204, 9, 113);
 }
-
 .book-num {
   font-size: 1.2rem;
 }
@@ -164,7 +166,6 @@ export default {
 .movie-title span {
   color: rgb(204, 9, 113);
 }
-
 .hr-style {
   border: 0;
   height: 1px;
