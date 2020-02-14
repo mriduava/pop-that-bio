@@ -8,31 +8,31 @@
       <div class="ticket-details">
         <div class="ticket-info">
           <h6>Ordinarie</h6>
-          <h6>
+          <h6 class="counter">
             <i @click="decreaseOrd()" class="fa fa-minus-circle"></i>
-            <h6>{{ counterOrd }}</h6>
+            <span>{{ counterOrd }}</span>
             <i @click="increaseOrd()" class="fa fa-plus-circle"></i>
           </h6>
         </div>
         <div class="ticket-info">
-          <p>Pensionär</p>
-          <h6>
+          <h6>Pensionär</h6>
+          <h6 class="counter">
             <i @click="decreasePen()" class="fa fa-minus-circle"></i>
-            <h6>{{ counterPen }}</h6>
+            <span>{{ counterPen }}</span>
             <i @click="increasePen()" class="fa fa-plus-circle"></i>
           </h6>
         </div>
         <div class="ticket-info">
-          <p class="text-grey">Barn</p>
-          <h6>
+          <h6 class="text-grey">Barn</h6>
+          <h6 class="counter">
             <i @click="decreaseChild()" class="fa fa-minus-circle"></i>
-            <h6>{{ counterChild }}</h6>
+            <span>{{ counterChild }}</span>
             <i @click="increaseChild()" class="fa fa-plus-circle"></i>
           </h6>
         </div>
 
-        <div class="price-info">
-          <h6>Antal besökare: {{ this.nrOfcustomer }} (max 8 st)</h6>
+        <div class="visitors-num">
+          <h6 class="text-center">Antal besökare: {{ this.nrOfcustomer }} (max 8 st)</h6>
         </div>
       </div>
     </div>
@@ -148,6 +148,8 @@ export default {
 
 <style lang="css" scoped>
 .container-fluid {
+  position: relative;
+  top: -50px;
   padding-bottom: 3%;
 }
 .title-text {
@@ -156,39 +158,15 @@ export default {
 }
 
 .reserve-info {
-  margin: 0 auto 0 auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
 
-.movie-info {
-  width: 350px;
-  margin: 0 auto;
-  display: flex;
-  /* justify-content: center; */
-}
-
-.movie-image {
-  width: 140px;
-  padding: 0;
-  margin-right: 3%;
-}
-
-.movie-image img {
-  width: 100%;
-  display: block;
-  overflow: hidden;
-}
-
-.movie-text {
-  margin-top: 4.5%;
-  padding: 0;
-}
 .ticket-details {
   margin-top: 2%;
 }
-.ticket-info,
-.price-info {
+.ticket-info {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -196,30 +174,41 @@ export default {
   min-width: 280px;
 }
 
-.clear {
-  clear: both;
-  display: block;
-}
-
-.user-info {
+.counter {
+  width: 80px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
-.input-field {
-  width: 350px;
+.counter i {
+  font-size: 1.9rem;
 }
 
+.counter i:hover {
+  cursor: pointer;
+  color: rgb(204, 9, 113);
+}
+
+.ticket-info h6 {
+  font-size: 1.4rem;
+}
+
+.visitors-num {
+  text-align: center;
+  margin-top: 5%;
+}
 .buttons {
   display: flex;
-  justify-content: center;
-  margin: 0 1% 3% 1%;
+  justify-content: space-between;
+  max-width: 350px;
+  margin: 5% auto;
 }
 
 .btn {
   background: rgba(202, 8, 112, 0.692);
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
 .hr-style {
@@ -244,24 +233,15 @@ export default {
 @media (min-width: 481px) and (max-width: 767px) {
 }
 @media (min-width: 310px) and (max-width: 568px) {
-  .movie-info {
-    width: 280px;
-    margin: 0 auto;
-  }
-
-  .movie-text {
-    margin-top: 18%;
-    padding: 0;
-  }
   .ticket-info,
-  .price-info {
+  .buttons {
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     max-width: 280px;
   }
-  .input-field {
-    width: 280px;
+  .buttons {
+    margin-top: 6%;
   }
 }
 </style>

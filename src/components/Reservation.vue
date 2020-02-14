@@ -44,12 +44,7 @@
         <form>
           <div class="row">
             <div class="input-field">
-              <input
-                id="icon_telephone"
-                type="tel"
-                class="validate"
-                v-model="telephone"
-              />
+              <input id="icon_telephone" type="tel" class="validate" v-model="telephone" />
               <label for="icon_telephone">Telefonnummer</label>
             </div>
             <div class="input-field">
@@ -64,12 +59,12 @@
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
         <button class="modal-trigger btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-     
-      <button class="btn btn-small waves-effect waves-light"
+
+      <button
+        class="btn btn-small waves-effect waves-light"
         :class="{disabled: telephone === '' || email === ''}"
         @click="completeBooking"
-        >Reservera
-      </button>
+      >Reservera</button>
     </div>
   </div>
 </template>
@@ -106,7 +101,6 @@ export default {
         Math.floor(Math.random() * 1000) +
         "-" +
         Math.floor(Math.random() * 100000);
-
       let bookingInfo = {
         collection: "confBookings",
         bookingNumber: bookingNumber,
@@ -117,17 +111,13 @@ export default {
         ticketsInfo: this.ticketsInfo
       };
       this.$store.state.bookingId = bookingInfo.bookingId;
-
       const resData = db.collection("passBookings");
-      resData.doc(bookingInfo.bookingId).set(bookingInfo)
-      
-      // this.$store.dispatch("sendConfirmBookings", bookingInfo);
-
-      // this.$store.dispatch("getConfBookings");
-      
+      resData.doc(bookingInfo.bookingId).set(bookingInfo);
       this.$router.push({
         path:
-          "/movies/" + this.movieDetail.slug + "/ticket/seatsplan/reservation/confirm"
+          "/movies/" +
+          this.movieDetail.slug +
+          "/ticket/seatsplan/reservation/confirm"
       });
     },
     formatTime(time) {
@@ -162,14 +152,6 @@ export default {
     }
   },
   created() {
-    // this.$eventBus.$on('loadingStatus', payload=>{
-    //   this.loading = payload;
-    // })
-
-
-    // this.$eventBus.$on('showStatus', payload=>{
-    //   this.showReserveInfo = payload;
-    // })
     this.calcTicketPrice();
     this.getMovie();
   },
@@ -177,15 +159,15 @@ export default {
     let modal = document.querySelectorAll(".modal");
     this.$M.Modal.init(modal);
   },
-  watch: {
-    
-  },
+  watch: {}
 };
 </script>
 
 <style lang="css" scoped>
 .container-fluid {
-  padding-bottom: 3%;
+  position: relative;
+  top: -50px;
+  padding-bottom: 5%;
 }
 .title-text {
   text-align: center;
@@ -248,15 +230,14 @@ export default {
 }
 
 .buttons {
+  max-width: 350px;
   display: flex;
-  justify-content: center;
-  margin: 0 1% 3% 1%;
+  justify-content: space-between;
+  margin: 0 auto;
 }
 
 .btn {
   background: rgba(202, 8, 112, 0.692);
-  margin-left: 10px;
-  margin-right: 10px;
 }
 
 .hr-style {
@@ -270,22 +251,11 @@ export default {
 }
 
 /* RESPONSIVE STYLE*/
-@media (min-width: 1281px) {
-}
-@media (min-width: 1025px) and (max-width: 1280px) {
-}
-@media (min-width: 768px) and (max-width: 1024px) {
-}
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-}
-@media (min-width: 481px) and (max-width: 767px) {
-}
 @media (min-width: 310px) and (max-width: 568px) {
   .movie-info {
     width: 280px;
     margin: 0 auto;
   }
-
   .movie-text {
     margin-top: 18%;
     padding: 0;
@@ -297,7 +267,8 @@ export default {
     justify-content: space-between;
     max-width: 280px;
   }
-  .input-field {
+  .input-field,
+  .buttons {
     width: 280px;
   }
 }

@@ -213,6 +213,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.container-fluid {
+  position: relative;
+  top: -50px;
+}
 .title-text {
   text-align: center;
   color: rgb(204, 9, 113);
@@ -359,15 +363,14 @@ export default {
 }
 .buttons {
   display: flex;
-  justify-content: center;
-  margin: 0 1% 3% 1%;
+  justify-content: space-between;
+  margin: 0 auto;
   position: relative;
   top: -69px;
+  max-width: 350px;
 }
 .btn {
   background: rgba(202, 8, 112, 0.692);
-  margin-left: 10px;
-  margin-right: 10px;
 }
 .hr-style {
   border: 0;
@@ -377,5 +380,10 @@ export default {
   margin: 0 auto 10px auto;
   background: #fff;
   background: -webkit-linear-gradient(left, #fff, rgb(204, 9, 113), #fff);
+}
+@media (min-width: 310px) and (max-width: 568px) {
+  .buttons {
+    max-width: 280px;
+  }
 }
 </style>

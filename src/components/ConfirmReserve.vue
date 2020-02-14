@@ -140,6 +140,10 @@ export default {
   font-family: borntogrille;
   src: url("../assets/fonts/borntogrille.otf");
 }
+.container{
+  position: relative;
+  top: -50px;
+}
 #reservation {
   margin-top: 6%;
 }
