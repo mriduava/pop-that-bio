@@ -4,7 +4,7 @@
       <Navbar/>
     </div>
     <div class="app-content">
-      <router-view :key="$route.fullPath"/>
+      <router-view/>
     </div>
     
     <div class="footer">
@@ -62,6 +62,7 @@ export default {
 
 .app-content{
   flex: 1;
+  margin-top: 120px;
 }
 
 html {
@@ -102,7 +103,7 @@ html {
 }
 
 /* .sidenav-overlay{
-  z-index: 10!important;
+  padding-top: 20px;
 } */
 
 </style>

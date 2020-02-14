@@ -7,7 +7,7 @@
           :style="{
           position: 'relative',
           width: '100%',
-          height: '120vh',
+          height: '109vh',
           top: '-117px',
           zIndex: '-1',
           objectFilt: 'contain',

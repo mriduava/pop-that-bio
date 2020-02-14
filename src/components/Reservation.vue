@@ -71,10 +71,6 @@
         >Reservera
       </button>
     </div>
-
-     <!-- <div v-if="loading">
-       <ConfirmReserve :bookingId="bookingId"/>
-     </div> -->
   </div>
 </template>
 
@@ -82,12 +78,9 @@
 import moment from "moment";
 import uuid from "uuid/v4";
 import { db } from "@/firebase/firebase.js";
-// import ConfirmReserve from "@/components/ConfirmReserve";
+
 export default {
   name: "reservation",
-  components: {
-    // ConfirmReserve
-  },
   data() {
     return {
       confBookings: this.$store.state.confBookingsData,

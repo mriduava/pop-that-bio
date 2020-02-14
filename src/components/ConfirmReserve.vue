@@ -62,7 +62,6 @@ import moment from "moment";
 import { db } from "@/firebase/firebase.js";
 export default {
   name: "reservation",
-  // props: ["bookingId"],
   data() {
     return {
       bookingId: this.$store.state.bookingId,
@@ -86,37 +85,33 @@ export default {
       page.document.write("<html>");
       page.document
         .write(`<body style="width: 90vw; margin: 10% auto"><h1 style="margin-top: 25px;
-                                padding: 0;
-                                color: rgba(184, 10, 103, 0.993); 
-                                font-family: Times New Roman;"
-                            >POP THAT BIO</h1>`);
+          padding: 0;
+          color: rgba(184, 10, 103, 0.993); 
+          font-family: Times New Roman;"
+            >POP THAT BIO</h1>`);
       page.document.write(printText);
       page.document.write(`<hr>
-                       <h5 style="padding:0; margin:0; color: #616A6B;">&copy; 2020 POPHTATBIO</h5>
-                       <h6 style="padding:0; margin:0; color: rgba(184, 10, 103, 0.993)">
-                       www.popthatbio.now.sh</h6>`);
+          <h5 style="padding:0; margin:0; color: #616A6B;">&copy; 2020 POPHTATBIO</h5>
+          <h6 style="padding:0; margin:0; color: rgba(184, 10, 103, 0.993)">
+          www.popthatbio.now.sh</h6>`);
       page.document.write("</body></html>");
       page.document.close();
       page.print();
       this.$router.push({ path: "/" });
     },
     getBookingsInfo() {
-      this.loading = true;      
+      this.loading = true;
       const resData = db.collection("passBookings");
-      let myData = {}
-       resData.doc(this.bookingId).get()
-      .then(doc=>{
-          let resData = doc.data()
-          myData.bookingId = resData.bookingId   
-          this.myBookingInfo.push(resData)
-          this.loading = false;
-      })
- 
-      // this.myBookingInfo = myData[0];
-  
-      console.log(myData);
-      
-      // console.log(this.myBookingInfo);  
+      resData
+        .doc(this.bookingId)
+        .get()
+        .then(doc => {
+          let resData = doc.data();
+          setTimeout(() => {
+            this.myBookingInfo.push(resData);
+            this.loading = false;
+          }, 500);
+        });
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -135,10 +130,7 @@ export default {
   watch: {
     bookingId() {
       this.getBookingsInfo();
-    },
-    // loading(){
-    //   this.getBookingsInfo()
-    // }
+    }
   }
 };
 </script>

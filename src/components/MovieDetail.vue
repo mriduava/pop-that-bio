@@ -4,7 +4,7 @@
       class="background"
       :style="{
           height: '100vh',
-          top: '-65px',
+          top: '-129px',
           position: 'relative',
           width: '100%',
           backgroundColor: '#323232',
@@ -59,7 +59,7 @@
 
       <div class="row movie-text-row">
         <div class="col s8 movie-text">
-          <p>{{ movieDetail.about }}</p>
+          <p id="showtime">{{ movieDetail.about }}</p>
         </div>
       </div>
     </div>
@@ -134,7 +134,7 @@ export default {
 
 .middle {
   position: relative;
-  top: -180px;
+  top: -240px;
   width: 60vw;
 }
 
@@ -246,7 +246,7 @@ iframe {
 .movie-text {
   color: #fff;
   position: relative;
-  top: -250px;
+  top: -290px;
   left: 50%;
   text-align: justify;
   margin: 0 auto;
@@ -264,7 +264,7 @@ iframe {
   );
   position: relative;
   margin: 0 auto; 
-  top: -350px; 
+  top: -399px; 
   border-top: 0.01rem solid rgba(65, 65, 65, 0.5);
   width: 59vw;
   height: 10vh;
