@@ -48,24 +48,13 @@
                 id="icon_telephone"
                 type="tel"
                 class="validate"
-                value
-                required
-                autofocus
                 v-model="telephone"
               />
               <label for="icon_telephone">Telefonnummer</label>
             </div>
             <div class="input-field">
-              <input
-                id="email"
-                type="email"
-                class="validate"
-                value
-                required
-                autofocus
-                v-model="email"
-              />
-              <label for="email">Din e-post</label>
+              <input id="email" type="email" class="validate" v-model="email" />
+              <label for="email">E-post</label>
             </div>
           </div>
         </form>
@@ -75,34 +64,33 @@
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
         <button class="modal-trigger btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-      <a
-        href="#myreserve"
-        class="btn btn-small waves-effect waves-light modal-trigger"
+     
+      <button class="btn btn-small waves-effect waves-light"
         :class="{disabled: telephone === '' || email === ''}"
         @click="completeBooking"
-      >Reservera</a>
+        >Reservera
+      </button>
     </div>
 
-    <div class="loading" v-if="loading">
-      <img src="../assets/images/loading.gif" alt="loading" width="100%">
-    </div>
-    <div class="modal" id="myreserve" v-if="showReserveInfo">
-      <ConfirmReserve :bookingId="bookingId" />
-    </div>
+     <!-- <div v-if="loading">
+       <ConfirmReserve :bookingId="bookingId"/>
+     </div> -->
   </div>
 </template>
 
 <script>
 import moment from "moment";
 import uuid from "uuid/v4";
-import ConfirmReserve from "@/components/ConfirmReserve";
+import { db } from "@/firebase/firebase.js";
+// import ConfirmReserve from "@/components/ConfirmReserve";
 export default {
   name: "reservation",
   components: {
-    ConfirmReserve
+    // ConfirmReserve
   },
   data() {
     return {
+      confBookings: this.$store.state.confBookingsData,
       telephone: "",
       email: "",
       movies: this.$store.getters.movies,
@@ -135,13 +123,19 @@ export default {
         movieTitle: this.movieDetail.title,
         ticketsInfo: this.ticketsInfo
       };
-      this.bookingId = bookingInfo.bookingId;
-      this.$store.dispatch("sendConfirmBookings", bookingInfo);
+      this.$store.state.bookingId = bookingInfo.bookingId;
 
-      // this.loading = true;
-      this.$store.dispatch("getConfBookings");
-      setTimeout(this.showReserveInfo = true, 2000);
-      // this.loading = false;
+      const resData = db.collection("passBookings");
+      resData.doc(bookingInfo.bookingId).set(bookingInfo)
+      
+      // this.$store.dispatch("sendConfirmBookings", bookingInfo);
+
+      // this.$store.dispatch("getConfBookings");
+      
+      this.$router.push({
+        path:
+          "/movies/" + this.movieDetail.slug + "/ticket/seatsplan/reservation/confirm"
+      });
     },
     formatTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
@@ -175,14 +169,24 @@ export default {
     }
   },
   created() {
-    // this.$store.dispatch("getConfBookings");
+    // this.$eventBus.$on('loadingStatus', payload=>{
+    //   this.loading = payload;
+    // })
+
+
+    // this.$eventBus.$on('showStatus', payload=>{
+    //   this.showReserveInfo = payload;
+    // })
     this.calcTicketPrice();
     this.getMovie();
   },
   mounted() {
     let modal = document.querySelectorAll(".modal");
     this.$M.Modal.init(modal);
-  }
+  },
+  watch: {
+    
+  },
 };
 </script>
 

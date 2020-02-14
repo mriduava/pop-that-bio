@@ -1,6 +1,14 @@
 <template>
   <div class="container">
-    <div class="row">
+    <div class="row" v-if="loading">
+      <div class="col s12">
+        <div class="loading">
+          <img src="../assets/images/loading.gif" alt="loading" width="100%" />
+        </div>
+      </div>
+    </div>
+
+    <div class="row" v-else>
       <div class="col s12">
         <div class="row" id="reservation">
           <h4 class="title-text center">Reservation</h4>
@@ -51,11 +59,13 @@
 
 <script>
 import moment from "moment";
+import { db } from "@/firebase/firebase.js";
 export default {
   name: "reservation",
-  props: ["bookingId"],
+  // props: ["bookingId"],
   data() {
     return {
+      bookingId: this.$store.state.bookingId,
       loading: false,
       movies: this.$store.getters.movies,
       movieDetail: [],
@@ -91,11 +101,22 @@ export default {
       this.$router.push({ path: "/" });
     },
     getBookingsInfo() {
-      this.confBookings.forEach(info => {
-        if (this.bookingId === info.bookingId) {
-          this.myBookingInfo.push(info);
-        }
-      });
+      this.loading = true;      
+      const resData = db.collection("passBookings");
+      let myData = {}
+       resData.doc(this.bookingId).get()
+      .then(doc=>{
+          let resData = doc.data()
+          myData.bookingId = resData.bookingId   
+          this.myBookingInfo.push(resData)
+          this.loading = false;
+      })
+ 
+      // this.myBookingInfo = myData[0];
+  
+      console.log(myData);
+      
+      // console.log(this.myBookingInfo);  
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -106,15 +127,19 @@ export default {
     }
   },
   created() {
+    this.$store.dispatch("getConfBookings");
     this.getBookingsInfo();
     this.getMovie();
     console.log(this.bookingId);
   },
   watch: {
-    'bookingId'(){
+    bookingId() {
       this.getBookingsInfo();
-    }
-  },
+    },
+    // loading(){
+    //   this.getBookingsInfo()
+    // }
+  }
 };
 </script>
 
