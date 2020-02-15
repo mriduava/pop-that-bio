@@ -101,16 +101,43 @@ export default {
       return moment(time).format("MMMM Do, HH:mm");
     },
     printMyReservation(e) {
-      let printText = document.getElementById(e).innerHTML;
+      let text = document.getElementById(e);
+      let printText = text.innerHTML;
       let page = window.open("", "", "height=600, width=900");
       page.document.write("<html>");
+      page.document.write("<head>");
+      page.document.write("<style>");
+      page.document.write(`h4{
+                            font-size: 1.9rem;
+                          }
+                          .book-info{
+                            color: #7e7e7e;
+                            display: flex;
+                            flex-wrap: nowrap;
+                            justify-content: center;
+                          }
+                          .movie-title{
+                            padding-top: 19px;
+                          }
+                          .book-text{
+                            color: #282828;
+                            padding-left: 10px;
+                          }
+                          .movie-text{
+                            font-size: 1.6rem;
+                            color:  rgb(204, 9, 113);
+                          }`);
+      page.document.write("</style>");
+      page.document.write("</head>");
       page.document
-        .write(`<body style="width: 90vw; margin: 10% auto"><h1 style="margin-top: 25px;
-          padding: 0;
-          color: rgba(184, 10, 103, 0.993); 
-          font-family: Times New Roman;"
-            >POP THAT BIO</h1>`);
-      page.document.write(printText);
+        .write(`<body style="width: 90vw; margin: 0 auto; text-align:center; 
+                display:flex; flex-direction: column;">
+                <h1 style="margin-top: 25px;
+                padding: 0;
+                color: rgba(184, 10, 103, 0.993); 
+                font-family: Times New Roman;"
+                >POP THAT BIO</h1>`);
+      page.document.write(`${printText}`);
       page.document.write(`<hr>
           <h5 style="padding:0; margin:0; color: #616A6B;">&copy; 2020 POPHTATBIO</h5>
           <h6 style="padding:0; margin:0; color: rgba(184, 10, 103, 0.993)">
@@ -118,20 +145,21 @@ export default {
       page.document.write("</body></html>");
       page.document.close();
       page.print();
-      this.$router.push({ path: "/" });
+      // this.$router.push({ path: "/" });
     },
     getBookingsInfo() {
       this.loading = true;
       db.collection("bookings")
-      .get().then(snap=>{
-        snap.forEach(info=>{
-          let usersData = info.data()
-          if(usersData.bookingId == this.bookingId){
-            this.myBookingInfo.push(usersData); 
-            this.loading = false;            
-          }
-        })
-      })
+        .get()
+        .then(snap => {
+          snap.forEach(info => {
+            let usersData = info.data();
+            if (usersData.bookingId == this.bookingId) {
+              this.myBookingInfo.push(usersData);
+              this.loading = false;
+            }
+          });
+        });
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -144,7 +172,8 @@ export default {
   created() {
     this.$store.dispatch("getConfBookings");
     this.getBookingsInfo();
-    this.getMovie();this.myBookingInfo.push
+    this.getMovie();
+    this.myBookingInfo.push;
   },
   watch: {
     bookingId() {
@@ -154,24 +183,27 @@ export default {
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="css" media="print" scoped >
 @font-face {
   font-family: borntogrille;
   src: url("../assets/fonts/borntogrille.otf");
 }
-.container-fluid{
+.container-fluid {
   position: relative;
   top: 20px;
   background: rgb(100, 10, 60);
   background: -webkit-linear-gradient(to top, rgb(156, 36, 100), #fbd3e9);
-  background: linear-gradient(to bottom, rgb(255, 255, 255) 90%, rgb(219, 166, 195));
+  background: linear-gradient(
+    to bottom,
+    rgb(255, 255, 255) 90%,
+    rgb(219, 166, 195)
+  );
 }
 .reserve-info,
-.loading-img{
+.loading-img {
   position: relative;
   top: -80px;
   padding-bottom: 2%;
- 
 }
 .loading {
   width: 350px;
@@ -181,40 +213,49 @@ export default {
 .title-text {
   color: rgb(204, 9, 113);
 }
-.book-info{
+.book-info {
   margin: 0;
 }
 .book-title,
-.book-text{
+.book-text {
   font-size: 1.2rem;
 }
-.book-title{
+.book-title {
   color: #7e7e7e;
   display: flex;
   justify-content: flex-end;
 }
 
-.book-text{
+.book-text {
   color: #282828;
 }
-.movie-title{
+.movie-title {
   padding-top: 2%;
 }
-.movie-text{
+.movie-text {
   padding-left: 0;
   padding-top: 1%;
   font-size: 1.6rem;
-  color:  rgb(204, 9, 113);
+  color: rgb(204, 9, 113);
 }
 
-.tack h6{
+.tack h6 {
   margin-top: 5%;
   font-size: 1.5rem;
   color: rgb(204, 9, 113);
 }
 
-.printout{
+.printout {
+  padding-top: 0;
+  font-size: 1.2rem;
+  color: rgb(204, 9, 113);
   border: 1px solid rgb(204, 9, 113);
+  background: none;
+}
+
+.printout:hover {
+  color: #fff;
+  background: rgb(204, 9, 113);
 }
 
 .hr-style {
@@ -228,5 +269,12 @@ export default {
     rgba(184, 10, 103, 0.993),
     rgb(255, 255, 255)
   );
+}
+
+/* Styles for Printing */
+@media print {
+  body {
+    zoom: 60%;
+  }
 }
 </style>
