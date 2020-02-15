@@ -5,7 +5,7 @@
           <div class="center">
             <h4>Logga in</h4>
             <hr class="hr-style">
-            <form action="index.html">
+            <form @submit.prevent="login">
               <div class="input-field">
                 <input type="email" id="email" v-model="email" />
                 <label for="email">E-post</label>
@@ -18,7 +18,7 @@
                 <h6>{{alert}}</h6>
               </div>
               <button
-                v-on:click="login"
+                type="submit"
                 class="btn btn-large btn-small grey lighten-4 black-text"
               >Logga in</button>
             </form>
@@ -41,21 +41,22 @@ export default {
     };
   },
   methods: {
-    login: function(e) {
+    login () {      
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
-        .then(
-          user => {
-            this.message = `Du är inloggad som ${user.email}`;
-            this.$router.go({ path: this.$router.path });
+        .then(cred => {
+            this.message = `Inloggad som ${cred.user.email}`;
+            this.$store.state.userId = cred.user.uid
+            this.$emit('close', this.message)
+            this.$router.push({ path: '/minasidor' });            
           },
           err => {
             err.message = "OBS!! E-post eller lösenord är fel!"
             this.alert = err.message;
           }
         );
-      e.preventDefault();
+      // this.$eventBus.$emit('logginStatus', true);
     }
   }
 };

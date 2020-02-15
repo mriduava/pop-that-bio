@@ -21,7 +21,7 @@
         >
           <div class="carousel-text">
             <router-link :to="'/movies/' + movie.slug">
-              <h3 class="white-text text-lighten-4">{{movie.title}}</h3>
+              <h4 class="white-text text-lighten-4">{{movie.title}}</h4>
             </router-link>
             <hr class="hr-style m-0 p-0" />
           </div>

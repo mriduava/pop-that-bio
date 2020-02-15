@@ -78,6 +78,7 @@ export default {
   name: "reservation",
   data() {
     return {
+      userId: this.$store.state.userId,
       confBookings: this.$store.state.confBookingsData,
       telephone: "",
       email: "",
@@ -86,13 +87,10 @@ export default {
       reserveInfo: this.$store.state.reserveInfo,
       ticketsInfo: this.$store.state.ticketsInfo,
       ticketsPrice: this.$store.state.ticketsPriceData,
-      bookingId: "",
       totalPrice: 0,
       adultPrice: 0,
       seniorPrice: 0,
-      childPrice: 0,
-      showReserveInfo: false,
-      loading: false
+      childPrice: 0
     };
   },
   methods: {
@@ -101,18 +99,24 @@ export default {
         Math.floor(Math.random() * 1000) +
         "-" +
         Math.floor(Math.random() * 100000);
+      let bookingId = uuid()
       let bookingInfo = {
-        collection: "confBookings",
+        bookingId: null,
         bookingNumber: bookingNumber,
-        bookingId: uuid(),
         email: this.email,
         telephone: this.telephone,
         movieTitle: this.movieDetail.title,
         ticketsInfo: this.ticketsInfo
       };
-      this.$store.state.bookingId = bookingInfo.bookingId;
-      const resData = db.collection("passBookings");
-      resData.doc(bookingInfo.bookingId).set(bookingInfo);
+       if(this.userId !== null){
+         bookingInfo.bookingId = this.userId
+      }else{
+        bookingInfo.bookingId = bookingId
+        this.$store.state.bookingId = bookingId;
+      }
+      db.collection("bookings")
+      .add(bookingInfo)
+    
       this.$router.push({
         path:
           "/movies/" +
@@ -124,10 +128,7 @@ export default {
       return moment(time).format("MMMM Do, HH:mm");
     },
     calcTicketPrice() {
-      let total = 0,
-        adult = 0,
-        child = 0,
-        senior = 0;
+      let total = 0, adult = 0, child = 0, senior = 0;
       this.ticketsPrice.forEach(price => {
         if (price.id === "adult") {
           adult = this.ticketsInfo.numberOfAdults * price.price;
@@ -173,32 +174,26 @@ export default {
   text-align: center;
   color: rgb(204, 9, 113);
 }
-
 .reserve-info {
   margin: 2% auto 0 auto;
   display: flex;
   flex-direction: column;
 }
-
 .movie-info {
   width: 350px;
   margin: 0 auto;
   display: flex;
-  /* justify-content: center; */
 }
-
 .movie-image {
   width: 140px;
   padding: 0;
   margin-right: 3%;
 }
-
 .movie-image img {
   width: 100%;
   display: block;
   overflow: hidden;
 }
-
 .movie-text {
   margin-top: 4.5%;
   padding: 0;
@@ -214,32 +209,26 @@ export default {
   max-width: 350px;
   min-width: 280px;
 }
-
 .clear {
   clear: both;
   display: block;
 }
-
 .user-info {
   display: flex;
   justify-content: center;
 }
-
 .input-field {
   width: 350px;
 }
-
 .buttons {
   max-width: 350px;
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
 }
-
 .btn {
   background: rgba(202, 8, 112, 0.692);
 }
-
 .hr-style {
   border: 0;
   min-width: 70%;
@@ -249,7 +238,6 @@ export default {
   background: #fff;
   background: -webkit-linear-gradient(left, #fff, rgb(204, 9, 113), #fff);
 }
-
 /* RESPONSIVE STYLE*/
 @media (min-width: 310px) and (max-width: 568px) {
   .movie-info {

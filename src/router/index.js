@@ -10,6 +10,7 @@ import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
 import Reservation from '@/components/Reservation'
 import ConfReserve from '@/components/ConfirmReserve'
+import MinaSidor from '@/components/users/MyPage'
 
 import MyPage from '@/components/MyPage'
 import Register from '@/components/Register'
@@ -61,6 +62,11 @@ const routes = [
     component: ConfReserve
   },
   {
+    path: '/minasidor',
+    name: 'mypage',
+    component: MinaSidor
+  },
+  {
     path: '/signin',
     name: 'signin',
     component: Signin
@@ -69,9 +75,6 @@ const routes = [
     path: '/mypage',
     name: 'mypage',
     component: MyPage,
-    meta:{
-      requiresAuth: true
-    }
   },
   {
     path: '/about',
@@ -109,14 +112,17 @@ const router = new VueRouter({
     base: process.env.BASE_URL
 })
 
-// router.beforeEach((to, from, next) =>{
-//   if(to.matched.some(record=> record.meta.requiresAuth)){
-//     if (!firebase.auth().currentUser) {
-//       next({path:'/', query:{redirect: to.fullPath}})
-//     }else{
-//       next()
-//     }
+// router.beforeEach((to, from, next) => {
+//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+//   const isAuthenticated = firebase.auth().currentUser;
+//   console.log("isauthenticated", isAuthenticated);
+//   if (requiresAuth && !isAuthenticated) {
+//     next("/mypage");
+//     // next({path:'/', query:{redirect: to.fullPath}})
+//   } else {
+//     next();
 //   }
-// })
+// });
+
 
 export default router

@@ -13,6 +13,7 @@ export default new Vuex.Store({
     data: [],
     auditoriums: [],
     auditoriumId: '',
+    userId: null,
     bookingId: '',
     scrData: [],
     ticketsPriceData: [],

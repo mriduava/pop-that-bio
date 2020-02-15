@@ -10,10 +10,10 @@
         </a>
         <ul class="right hide-on-med-and-down">
           <li>
-            <router-link to="/">Filmer</router-link>
+            <router-link to="/movies">Filmer</router-link>
           </li>
           <li>
-            <router-link to="/">Om oss</router-link>
+            <router-link to="/about">Om oss</router-link>
           </li>
           <li v-if="!isLoggedin">
             <a href="#signin" class="modal-trigger">Logga in</a>
@@ -21,8 +21,11 @@
           <li v-if="!isLoggedin">
             <a href="#signup" class="modal-trigger">Skapa konto</a>
           </li>
+          <li>
+            <router-link to="/minasidor" v-if="isLoggedin">Mina sidor</router-link>
+          </li>
           <li v-if="isLoggedin">
-            <a href="#signin" class="modal-trigger" @click="logout">Logga ut</a>
+            <a href="#signin" class="modal-trigger" @click.prevent="logout">Logga ut</a>
           </li>
         </ul>
       </div>
@@ -30,10 +33,10 @@
 
     <ul class="sidenav" id="mobile-links">
       <li>
-        <router-link to="/">Filmer</router-link>
+        <router-link to="/movies">Filmer</router-link>
       </li>
       <li>
-        <router-link to="/">Om oss</router-link>
+        <router-link to="/about">Om oss</router-link>
       </li>
       <li v-if="!isLoggedin">
         <a href="#signin" class="modal-trigger">Logga in</a>
@@ -42,16 +45,16 @@
         <a href="#signup" class="modal-trigger">Skapa konto</a>
       </li>
       <li v-if="isLoggedin">
-        <a class="modal" @click="logout">Logga out</a>
+        <a class="modal" @click.prevent="logout">Logga out</a>
       </li>
     </ul>
 
     <div class="modal grey lighten-4" id="signin">
-      <Signin/>
+      <Signin v-on:close="closeModal($event)"/>
     </div>
 
     <div class="modal grey lighten-4" id="signup">
-      <Signup/>
+      <Signup v-on:close="closeModal($event)"/>
     </div>
 
   </div>
@@ -69,7 +72,8 @@ export default {
   data() {
     return {
       isLoggedin: false,
-      currentUser: false
+      currentUser: false,
+      logginMsg: ''
     };
   },
   methods:{
@@ -77,8 +81,25 @@ export default {
       firebase.auth().signOut()
       .then(()=>{
         this.isLoggedin = false;
-        this.$router.push('/')
+        this.$store.state.userId = null;
+        this.$router.push({ path: '/' });
       })
+    },
+    closeModal(event){
+      this.logginMsg = event
+      this.isLoggedin = true;
+    },
+    closeSignin(){
+      if(this.isLoggedin){
+        let modal = document.querySelector("#signin");
+        this.$M.Modal.getInstance(modal).close();
+      }
+    },
+    closeSignup(){
+      if(this.isLoggedin){
+        let modal = document.querySelector("#signup");
+        this.$M.Modal.getInstance(modal).close();
+      }
     }
   },
   mounted() {
@@ -86,7 +107,14 @@ export default {
     this.$M.Sidenav.init(sidenav);
     let modal = document.querySelectorAll(".modal");
     this.$M.Modal.init(modal);
-  }
+    
+  },
+  watch: {
+    'isLoggedin'(){
+      this.closeSignin()
+      this.closeSignup()
+    }
+  },
 };
 </script>
 
@@ -125,6 +153,13 @@ nav {
 .modal{
   max-width: 400px;
   padding: 2% 0;
+}
+li a{
+  font-size: 1.2rem;
+  font-weight: 100;
+}
+li .router-link-active {
+  background: rgb(150, 38, 97);
 }
 
 </style>

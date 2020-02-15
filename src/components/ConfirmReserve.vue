@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="row" v-if="loading">
+  <div class="container-fluid">
+    <div class="row loading-img" v-if="loading">
       <div class="col s6 offset-m3">
         <div class="loading">
           <img src="../assets/images/loading.gif" alt="loading" width="100%" />
@@ -8,49 +8,69 @@
       </div>
     </div>
 
-    <div class="row" v-else>
-      <div class="col s12">
-        <div class="row" id="reservation">
-          <h4 class="title-text center">Reservation</h4>
-          <hr class="hr-style" />
-          <div class="col s12">
-            <p class="book-num">
-              Bookning nummer:
-              <span>{{myBookingInfo[0].bookingNumber}}</span>
-            </p>
-            <p class="movie-title">
-              Film:
-              <span>{{myBookingInfo[0].movieTitle}}</span>
-            </p>
-            <p>
-              Dag:
-              <span>Dag</span> Tid:
-              <span>Tid</span>
-            </p>
-            <p>
-              Salong:
-              <span>Salong</span>
-            </p>
-            <p>
-              Platser:
-              <span>Platser</span>
-            </p>
+    <div class="row reserve-info" v-else>
+      <div class="col s12" id="reservation">
+        <h4 class="title-text center">Reservation</h4>
+        <hr class="hr-style" />
+
+        <div class="row book-info">
+          <div class="col s6 book-title">
+            <p>Bookning:</p>
+          </div>
+          <div class="col s6 book-text">
+            <p>{{myBookingInfo[0].bookingNumber}}</p>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col s12">
-            <h6>Tack så mycket!</h6>
+        <div class="row book-info">
+          <div class="col s6 book-title">
+            <p class="movie-title">Filmtitel:</p>
+          </div>
+          <div class="col s6 book-text">
+            <p class="movie-text">{{myBookingInfo[0].movieTitle}}</p>
           </div>
         </div>
 
-        <div class="row">
-          <div class="col s12">
-            <button
-              class="btn waves-effect register-button center"
-              @click="printMyReservation('reservation')"
-            >Skriva ut</button>
+        <div class="row book-info">
+          <div class="col s6 book-title">
+            <p>Dag & tid:</p>
           </div>
+          <div class="col s6 book-text">
+            <p>dag</p>
+          </div>
+        </div>
+
+        <div class="row book-info">
+          <div class="col s6 book-title">
+            <p>Salongen:</p>
+          </div>
+          <div class="col s6 book-text">
+            <p>salong</p>
+          </div>
+        </div>
+
+        <div class="row book-info">
+          <div class="col s6 book-title">
+            <p>Platser:</p>
+          </div>
+          <div class="col s6 book-text">
+            <p>platser</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 tack center">
+          <h6>Tack så mycket!</h6>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 center">
+          <button
+            class="btn waves-effect waves-pink btn-flat printout center"
+            @click="printMyReservation('reservation')"
+          >Skriva ut</button>
         </div>
       </div>
     </div>
@@ -65,6 +85,7 @@ export default {
   data() {
     return {
       bookingId: this.$store.state.bookingId,
+      userId: this.$store.state.userId,
       loading: false,
       movies: this.$store.getters.movies,
       movieDetail: [],
@@ -101,17 +122,16 @@ export default {
     },
     getBookingsInfo() {
       this.loading = true;
-      const resData = db.collection("passBookings");
-      resData
-        .doc(this.bookingId)
-        .get()
-        .then(doc => {
-          let resData = doc.data();
-          setTimeout(() => {
-            this.myBookingInfo.push(resData);
-            this.loading = false;
-          }, 500);
-        });
+      db.collection("bookings")
+      .get().then(snap=>{
+        snap.forEach(info=>{
+          let usersData = info.data()
+          if(usersData.bookingId == this.bookingId){
+            this.myBookingInfo.push(usersData); 
+            this.loading = false;            
+          }
+        })
+      })
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -124,8 +144,7 @@ export default {
   created() {
     this.$store.dispatch("getConfBookings");
     this.getBookingsInfo();
-    this.getMovie();
-    console.log(this.bookingId);
+    this.getMovie();this.myBookingInfo.push
   },
   watch: {
     bookingId() {
@@ -140,32 +159,64 @@ export default {
   font-family: borntogrille;
   src: url("../assets/fonts/borntogrille.otf");
 }
-.container{
+.container-fluid{
   position: relative;
-  top: -50px;
+  top: 20px;
+  background: rgb(100, 10, 60);
+  background: -webkit-linear-gradient(to top, rgb(156, 36, 100), #fbd3e9);
+  background: linear-gradient(to bottom, rgb(255, 255, 255) 90%, rgb(219, 166, 195));
 }
-.loading{
+.reserve-info,
+.loading-img{
+  position: relative;
+  top: -80px;
+  padding-bottom: 2%;
+ 
+}
+.loading {
   width: 350px;
   margin: 0 auto;
 }
-#reservation {
-  margin-top: 6%;
-}
+
 .title-text {
   color: rgb(204, 9, 113);
 }
-.book-num {
+.book-info{
+  margin: 0;
+}
+.book-title,
+.book-text{
   font-size: 1.2rem;
 }
-.book-num span {
-  font-weight: bold;
+.book-title{
+  color: #7e7e7e;
+  display: flex;
+  justify-content: flex-end;
 }
-.movie-title {
-  font-size: 1.5em;
+
+.book-text{
+  color: #282828;
 }
-.movie-title span {
+.movie-title{
+  padding-top: 2%;
+}
+.movie-text{
+  padding-left: 0;
+  padding-top: 1%;
+  font-size: 1.6rem;
+  color:  rgb(204, 9, 113);
+}
+
+.tack h6{
+  margin-top: 5%;
+  font-size: 1.5rem;
   color: rgb(204, 9, 113);
 }
+
+.printout{
+  border: 1px solid rgb(204, 9, 113);
+}
+
 .hr-style {
   border: 0;
   height: 1px;

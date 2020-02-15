@@ -215,7 +215,7 @@ export default {
 <style lang="css" scoped>
 .container-fluid {
   position: relative;
-  top: -50px;
+  top: -60px;
 }
 .title-text {
   text-align: center;

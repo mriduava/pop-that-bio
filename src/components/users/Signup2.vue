@@ -5,9 +5,9 @@
         <div class="grey lighten-4 black-text center">
           <h4>Skapa konto</h4>
           <hr class="hr-style">
-          <form action="index.html">
+          <form @submit.prevent="signup">
             <div class="input-field">
-              <input type="text" id="email" v-model="name">
+              <input type="text" id="text" v-model="name">
               <label for="email">Namn</label>
             </div>
             <div class="input-field">
@@ -21,7 +21,7 @@
             <div class="alert center red-text" v-if="alert !== ''">
               <h6>{{alert}}</h6>
             </div>
-            <button @click="register" class="btn btn-small btn-extended grey lighten-4 black-text">Skapa konto</button>
+            <button type="submit" class="btn btn-small btn-extended grey lighten-4 black-text">Skapa konto</button>
           </form>
         </div>
       </div>
@@ -31,6 +31,7 @@
 
 <script>
 import firebase from 'firebase';
+import {db} from '@/firebase/firebase.js'
 export default {
   name: 'register',
   data: function() {
@@ -39,27 +40,33 @@ export default {
       email: '',
       password: '',
       alert: '',
-      message: ''
+      message: '',
     };
   },
   methods: {
-    register: function(e) {
+    signup (e) {      
       firebase
-        .auth()
-        .createUserWithEmailAndPassword(this.email, this.password)
-        .then(
-          user => {
-            this.message = `Välkommen ${user.email}`;
-            this.$router.go({ path: this.$router.path });
-          },
-          err => {
+        .auth().createUserWithEmailAndPassword(this.email, this.password).then(cred => {
+          return db.collection('users').doc(cred.user.uid).set({
+            name: this.name,
+            email: this.email
+          });
+            
+        }).then(()=>{
+          
+          this.message = `Välkommen ${this.name}`;
+          this.$emit('close', this.message)
+          this.$router.push({ path: '/mypage'});
+        },err => {
             err.message = "OBS!! E-post eller lösenord är fel!"
             this.alert = err.message;
-          }
-        );
-      e.preventDefault();
+        });
+        e.preventDefault();
     }
-  }
+  },
+  created() {
+    
+  },
 };
 </script>
 
