@@ -20,9 +20,9 @@
               <li>
               <div class="collapsible-header"><span >Går det att boka biobiljett om man surfar i inkognitoläge?</span></div>
               <div class="collapsible-body"><span>Om man valt att sätta sin webbläsare i incognitoläge eller väljer
-                  att ingen historik ska sparas i webbläsaren kan man inte köpa biljetter på filmstaden.se.<br/>
-                  Detta beror på att köpet behandlas av betalningsleverantören Nets och att filmstaden.<br/>
-                  se behöver använda Local Storage när kunden återvänder, 
+                  att ingen historik ska sparas i webbläsaren kan man inte köpa biljetter på popthatbio.se<br/>
+                  Detta beror på att köpet behandlas av betalningsleverantören Nets och att POP THATS BIO<br/>
+                   behöver använda Local Storage när kunden återvänder, 
                   för att kunna koppla till den påbörjade transaktionen.<br/>
                   Informationen är bara bara tillgänglig under sessionen och kan inte användas senare.</span></div>
              </li>
@@ -30,7 +30,7 @@
                <div class="collapsible-header"><span>Hur använder jag e-biljett?</span></div>
                <div class="collapsible-body"><span>Nu får du din biobiljett skickad direkt till din telefon.<br/> Biljetten scannas på biografen.
 
-                  När du köper biljett på Filmstadens webbplats filmstaden.se, får du en bekräftelse på att köpet genomförts skickad till din e-postadress.
+                  När du köper biljett på POP THAT BIO, får du en bekräftelse på att köpet genomförts skickad till din e-postadress.
                   <br/> Din e-biljett hittar du i telefonen genom att klicka på länken ”Se dina biljetter” i bekräftelsemailet eller i bifogad pdf.<br/>
                   Biljetten scannas på biografen.<br>
 
@@ -47,7 +47,7 @@
                    genom att använda det betalmedel du använde vid köpet i biljettautomaten eller i 
                    kassan på biograferna. Det är bra att vara i god tid innan filmens start.
                   Medlemmar som köpt biljetter i inloggat läge finner även sina biljetter på www.
-                  filmstaden.se och i appen.</span></div>
+              popthatbio.se och i appen.</span></div>
               </li>
               <li>
                 <div class="collapsible-header"><span>Kan jag reservera biljetter?</span></div>
@@ -66,22 +66,20 @@
                 <div class="collapsible-header"><span>Går din företagsbiljett ut i dagarna?</span></div>
                 <div class="collapsible-body"><span>Om giltighetstiden snart går ut på din Företagsbiljett
                    så kan du göra ett köp med den till de föreställningar som finns till försäljning på www.
-                   filmstaden.se och på våra biografer, även om visningsdatumet ligger längre fram i tiden.
+                  popthatbio.se och på våra biografer, även om visningsdatumet ligger längre fram i tiden.
                     Huvudsaken är att köpet görs senast den dag då Företagsbiljetten går ut. 
                     Efter detta datum går det inte att göra några ändringar i köpet, varken tid, plats eller film. 
               </span></div>
               </li>
               <li>
                 <div class="collapsible-header"><span>Kan jag avboka eller boka om mina betalda biobiljetter?</span></div>
-                <div class="collapsible-body"><span>Det går bra att återlösa dina biljetter i kassan på en valfri Filmstaden-biograf fram till 15 minuter innan filmstart.
+                <div class="collapsible-body"><span>Det går bra att återlösa dina biljetter i kassan på en valfri PopThatBio-biograf fram till 15 minuter innan filmstart.
 
                     Där kan du också få hjälp att boka om en redan betald föreställning.
 
                     Då distansköplagen inte gäller för kulturevenemang är det inte möjligt att göra 
                     återköp på distans, utan endast på i kassorna på våra biografer innan filmstart.
-                    Du kan inte återlösa biljetter på Svenska Bios biografer till 
-                    Cinemascenens biografer och vice versa. Biljetter till Filmstaden 
-                    Sundsvall kan endast återlösas på Filmstaden Sundsvall. 
+                    
               </span></div>
               </li>
           </ul>
@@ -91,14 +89,14 @@
              <h4>Kontakta oss</h4>
      
            <li>
-            <div class="collapsible-header"><span>Hur kommer jag i kontakt med Pop-The-Bio Kundservice?</span></div>
-            <div class="collapsible-body"><span>Det går bra att kontakta oss via kundservice@Pop-The-Bio.se
+            <div class="collapsible-header"><span>Hur kommer jag i kontakt med Pop-That-Bio Kundservice?</span></div>
+            <div class="collapsible-body"><span>Det går bra att kontakta oss via kundservice@popthatbio.se
                 För att boka grupper för fler än 8 personer eller plats för rullstol så går det bra att ringa 08-56 26 00 00.
                 Vår telefonlinje har öppet måndag-fredag 10-17 samt lördag-söndag 11-16.</span></div>
           </li>
            <li>
                 <div class="collapsible-header"><span>Hur kan jag lämna feedback på webbplatsen?</span></div>
-                <div class="collapsible-body"><span>Det kan du göra på Biolabbet.</span></div>
+                <div class="collapsible-body"><span>Du kan skicka e-post till info@popthatbio.se</span></div>
               </li>
               <li>
                 <div class="collapsible-header"><span>Var vänder jag mig om jag har synpunkter på mitt biobesök?</span></div>
@@ -106,50 +104,20 @@
                    välkommen att ta kontakt med personalen direkt i anslutning till föreställningen där de hjälper
                     dig vidare.
                    Frågor och andra synpunkter kan även vår kundservice hjälpa till med.
-                    Du hittar våra kontaktuppgifter på www.Pop-The-Bio.se/kundservice.</span></div>
+                    Du hittar våra kontaktuppgifter på www.popthatbio.se/kundservice.</span></div>
               </li>
             </ul>
            <br>
-            <ul class="collapsible" data-collapsible="accordion">
-              <h4>På biografen</h4>
+           
               
-              <li>
-                <div class="collapsible-header"><span>Hur kan jag lämna feedback på webbplatsen?</span></div>
-                <div class="collapsible-body"><span>Det går att reservera biljetter. Det är däremot 
-                  en mindre mängd som är tillgänglig för reservation, så först till kvarn gäller.
-                När reservationskvoten sedan är fylld är du istället välkommen att köpa biljetter.</span></div>
-              </li>
-
-              </ul>
-              <br>
-              <ul class="collapsible" data-collapsible="accordion">
-                <h4>Program och filmfrågor</h4>
-                
-                <li>
-                  <div class="collapsible-header"><span>Kan jag reservera biljetter?</span></div>
-                  <div class="collapsible-body"><span>Det går att reservera biljetter. Det är däremot 
-                    en mindre mängd som är tillgänglig för reservation, så först till kvarn gäller.
-                  När reservationskvoten sedan är fylld är du istället välkommen att köpa biljetter.</span></div>
-                </li>
-               </ul>
-               <br>
-                <ul class="collapsible" data-collapsible="accordion">
-                <h4>Medlem</h4>
-                
-                <li>
-                  <div class="collapsible-header"><span>Kan jag reservera biljetter?</span></div>
-                  <div class="collapsible-body"><span>Det går att reservera biljetter. Det är däremot 
-                    en mindre mängd som är tillgänglig för reservation, så först till kvarn gäller.
-                  När reservationskvoten sedan är fylld är du istället välkommen att köpa biljetter.</span></div>
-                </li>
-               </ul>
+              
           <div>
         </div>
      </div>
 <!----------Kontakta oss-------------------------Kontakta oss----------------------Kontakta oss-------------->
      <div class="text" id="test5"><h5> Kontakta oss </h5>
               <br>
-              <p>På e-postadressen kundservice@Pop-The-Bio.se kontaktar du oss om frågor eller åsikter som gäller biobesöket, webbplatsen osv.</p>
+              <p>På e-postadressen kundservice@popthatbio.se kontaktar du oss om frågor eller åsikter som gäller biobesöket, webbplatsen osv.</p>
 
               <h5>För reservation av rullstolsplats</h5>
 
@@ -163,7 +131,7 @@
               <br>
               <h5>Postadress</h5>
 
-              <p>Filmstaden AB<br>
+              <p>POP THAT BIO AB<br>
               Kundservice<br>
               169 86 Stockholm<br>
               <h5>Tillgänglig bio
@@ -225,7 +193,7 @@
 <script>
 export default {
   mounted() {
-    // this.$M.AutoInit()
+    this.$M.AutoInit()
     this.$M.Tabs.init(document.querySelectorAll('.tabs'))
 
       console.log(this.$route.params.tab);
