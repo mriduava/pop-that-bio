@@ -45,7 +45,7 @@
         >
           <div
             class="pre-selected"
-            v-for="(seatNum, i) in userBooked.selectedSeats"
+            v-for="(seatNum, i) in preSelected"
             :key="i"
             :class="{'pink': block == seatNum}"
           >{{block}}</div>
@@ -65,14 +65,13 @@
       <button
         class="btn btn-small waves-effect waves-light"
         :class="{ disabled: counter !== totalSeats}"
-        @click="goToReservation()"
+        @click.prevent="goToReservation()"
       >Fortsätt</button>
     </div>
   </div>
 </template>
 
 <script>
-import uuid from "uuid/v4";
 import { db } from "@/firebase/firebase.js";
 export default {
   data() {
@@ -84,26 +83,13 @@ export default {
       seatsGrid: [],
       movies: this.$store.getters.movies,
       movieDetail: [],
+      pickMovie: this.$store.state.beforeBooking.movieTitle,
+      pickTime: this.$store.state.beforeBooking.timeStamp,
       totalSeats: this.$store.state.ticketsInfo.totalTickets,
       counter: 0,
       message: "",
       seatHover: { x: 0, y: 0 },
-      toggleSelection: false,
-      beforeBookings: this.$store.state.beforeBookings,
-      // beforeBookings: [],
-
-      userBooked: {
-        movieTitle: "",
-        timeStamp: "",
-        selectedSeats: []
-      },
-      pickMovie: this.$store.state.beforeBooking.movieTitle,
-      pickTime: this.$store.state.beforeBooking.timeStamp,
-      tempReserve: {
-        movieTitle: "",
-        timeStamp: "",
-        tempSeats: []
-      },
+      preSelected: [],
       mySelection: [],
       myUserId: null,
       isClicked: false
@@ -131,11 +117,10 @@ export default {
       }
     },
     selectSeats(x, y) {
-      this.toggleSelection = !this.toggleSelection;
       let seatNum = this.seatsGrid[x][y];
       let preBooked = false;
-      for (let i = 0; i < this.userBooked.selectedSeats.length; i++) {
-        if (this.userBooked.selectedSeats[i] === seatNum) {
+      for (let i = 0; i < this.preSelected.length; i++) {
+        if (this.preSelected[i] === seatNum) {
           preBooked = true;
           this.message = "Platsen är uptagna!";
         }
@@ -157,44 +142,22 @@ export default {
         this.mySelection.splice(seatIndex, 1);
         this.counter--;
       }
-      this.sendSeatsInfo();
     },
     showPositionsOnHover(x, y) {
       let seat = this.seatsGrid[x][y];
       this.message = "";
       this.seatHover = { x: x + 1, y: seat };
     },
-    getBeforeBooking() {
-      this.beforeBookings.forEach(beforeBooking => {
-        let i = this.userBooked.selectedSeats;
-        if (this.pickTime === beforeBooking.timeStamp) {
-          this.userBooked.selectedSeats.splice(
-            i,
-            0,
-            ...beforeBooking.reserveSeats
-          );
-        }
-      });
-    },
-    sendSeatsInfo() {
-      const resData = db.collection("mySeatsInfo");
-      if (!this.isClicked) {
-        this.myUserId = uuid();
-        resData.doc(this.myUserId).set({
-          movieTitle: this.pickMovie,
-          timeStamp: this.pickTime,
-          reserveSeats: this.mySelection
-        });
-        this.isClicked = true;
-      } else {
-        resData.doc(this.myUserId).update({ reserveSeats: this.mySelection });
-      }
-    },
-    getSeatsInfo(){
-      db.collection('mySeatsInfo').onSnapshot(snap=>{
-        let changes = snap.docChanges()
-        changes.forEach(change=>{
-          this.beforeBookings.push(change)
+    checkBookedSeats(){
+      let selectedSeatsArr = this.preSelected
+      db.collection('bookings').onSnapshot(snap=>{
+        let updatedSeats = snap.docChanges()
+        updatedSeats.forEach(bookings=>{
+          let booking = bookings.doc.data()
+          if (booking.movieTitle === this.pickMovie &&
+              booking.showTime === this.pickTime) {
+            selectedSeatsArr.splice(selectedSeatsArr, 0, ...booking.reservedSeats)
+          }
         })
       })
     },
@@ -216,14 +179,12 @@ export default {
   created() {
     this.getAuditorium(this.auditoriumId);
     this.createSeatsGrid();
-    // this.getSeatsInfo();
-    this.getBeforeBooking();
+    this.checkBookedSeats();
     this.$store.dispatch("getPriceData");
     this.getMovie();
   },
   watch: {
     'beforeBookings'(){
-      // this.getSeatsInfo()
       this.getBeforeBooking()
     }
   },

@@ -28,7 +28,7 @@ export default {
   mounted() {
     M.AutoInit();
   },
-    methods: {
+  methods: {
     stickyNav() {
       let navContainer = document.querySelector("#sticky");
       let sticky = navContainer.offsetTop;
@@ -64,7 +64,7 @@ export default {
 
 .app-content{
   flex: 1;
-  margin-top: 70px;
+  margin-top: 123px;
 }
 
 html {

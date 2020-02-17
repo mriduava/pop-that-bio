@@ -89,7 +89,6 @@ export default {
       loading: false,
       movies: this.$store.getters.movies,
       movieDetail: [],
-
       confBookings: this.$store.state.confBookingsData,
       myBookingInfo: [],
       auditoriumInfo: this.$store.state.auditoriumInfo,
@@ -128,7 +127,6 @@ export default {
       page.document.write("</body></html>");
       page.document.close();
       page.print();
-      // this.$router.push({ path: "/" });
     },
     getBookingsInfo() {
       this.loading = true;
@@ -138,8 +136,9 @@ export default {
           snap.forEach(info => {
             let usersData = info.data();
             if (
-              usersData.bookingId === this.bookingId ||
-              usersData.bookingId === this.userId
+              (usersData.bookingId === this.bookingId ||
+              usersData.bookingId === this.userId) && 
+              usersData.movieTitle === this.movieDetail.title
             ) {
               this.myBookingInfo.push(usersData);
               this.loading = false;
@@ -172,7 +171,7 @@ export default {
 };
 </script>
 
-<style lang="css" media="print" scoped >
+<style lang="css" scoped >
 @font-face {
   font-family: borntogrille;
   src: url("../assets/fonts/borntogrille.otf");

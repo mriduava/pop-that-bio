@@ -51,7 +51,7 @@ export default {
             this.$store.state.userEmail = cred.user.email
             this.$emit('close', this.message)
             this.$router.push({ path: '/minasidor' });  
-             this.alert = ''
+            this.alert = ''
             this.email = ''
             this.password =''          
           },
@@ -60,7 +60,6 @@ export default {
             this.alert = err.message;
           }
         );
-      // this.$eventBus.$emit('logginStatus', true);
     }
   }
 };

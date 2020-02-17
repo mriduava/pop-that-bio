@@ -1,5 +1,5 @@
 <template>
-<div class="around">
+<div class="container-fluid">
   <div class="container">
     <div class="room">
       <div class="carousel">
@@ -82,12 +82,17 @@ export default {
 
 
 <style lang="css" scoped>
-.around {
-  position: relative;
-  top: -7px;
-  background-color: black
+.container-fluid {
+ position: relative;
+  top: -120px;
+  background-color: black;
+  padding-bottom: 10%;
+  margin-bottom: 0;
 }
 
+.container{
+  padding-bottom: 0;  
+}
 .room {
   background-color: rgb(204, 201, 201);
 }
@@ -126,11 +131,4 @@ p {
   font-family: inherit;
 }
 
-.container {
-  display: flex;
-  border: 10px solid black;
-  margin: 0 auto;
-  /*position: relative;
-  margin-top: -56px;*/
-}
 </style>

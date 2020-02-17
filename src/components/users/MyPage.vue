@@ -180,7 +180,7 @@ export default {
 .container {
   position: relative;
   padding: 0 1%;
-  padding-top: 15px;
+  top: -30px;
 }
 
 .user-info h4,
