@@ -5,9 +5,7 @@
       <div class="row footer-info">
         <div class="col x12 s12 m3 l3 xl3 group1">
           <h5>Gäster</h5>
-          <router-link to="/">
-            <p>Kundservice</p>
-          </router-link>
+          <a href="mailto:info@popthatbio.se">Kundservice</a>
           <router-link to="/q-and-a/1">
             <p>Frågor och svar</p>
           </router-link>

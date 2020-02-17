@@ -11,7 +11,6 @@ import SeatsPlan from '@/components/SeatsPlan'
 import Reservation from '@/components/Reservation'
 import ConfReserve from '@/components/ConfirmReserve'
 import MinaSidor from '@/components/users/MyPage'
-
 import MyPage from '@/components/MyPage'
 import Register from '@/components/Register'
 import Members from '@/components/Members'
