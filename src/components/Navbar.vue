@@ -2,16 +2,26 @@
   <div class="container-fluid navbar navbar-fixed">
     <nav class="nav-extended">
       <div class="nav-wrapper">
-        <!-- <form @submit.prevent="search">
-        <div class="input-field">
-          <input v-model="searchInput" class="autocomplete" id="search" type="search" required>
-          <label for="search"></label>
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-        </form>-->
+        <form @submit.prevent="search">
+          <div class="input-field">
+            <input
+              v-model="searchInput"
+              autocomplete="off"
+              class="autocomplete"
+              id="search"
+              type="search"
+              required
+            />
+            <label for="search"></label>
+            <label class="label-icon" for="search">
+              <i class="material-icons">search</i>
+            </label>
+            <i class="material-icons">close</i>
+          </div>
+        </form>
+        <a href="#!" class="our-brand-logo">POP THAT BIO</a>
+dddd
         <a href="#!" class="our-brand-logo" @click="goToStart">POP THAT BIO</a>
-
         <router-link to="/">
           <div class="brand-logo"></div>
         </router-link>
