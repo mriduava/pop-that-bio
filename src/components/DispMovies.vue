@@ -2,7 +2,7 @@
   <div id="movies" class="disp-movies">
     <div class="container">
       <div class="row">
-        <h1>movies</h1>
+        <h1>Aktuella filmer</h1>
         <hr class="hr-style" />
         <div class="col x12 s6 m4 l3 xl3" v-for="(movie, index) in moviesData" :key="index">
           <router-link :to="'/movies/' + movie.slug">
@@ -44,7 +44,7 @@ export default {
       return moment(time).format("MMMM Do, HH:mm");
     },
     customMomentTime(time, format) {
-      return moment(time).format(format)
+      return moment(time).format(format);
     },
     movieStartTime(movieId) {
       let filterdScreenings = this.screeningsData.filter(
@@ -52,22 +52,58 @@ export default {
       );
 
       if (filterdScreenings.length == 0) {
-        return "No Showings";
+        return "Inga kommande visningar";
       }
 
-      let screenMonth = this.customMomentTime(filterdScreenings[0].startTime.toMillis(), "MM")
-      let screenDay = this.customMomentTime(filterdScreenings[0].startTime.toMillis(), " D")
+      let movieTimes = [];
 
-      let today = new Date()
-
-      if (screenMonth > today.getMonth() || screenMonth >= today.getMonth && screenDay >= today.getDate()) {
-        return this.momentTime(filterdScreenings[0].startTime.toMillis());
-      } else {
-        return "No Showings"
+      for (let i in filterdScreenings) {
+        movieTimes.push({
+          screenMonth: this.customMomentTime(
+            filterdScreenings[i].startTime.toMillis(),
+            "MM"
+          ),
+          screenDay: this.customMomentTime(
+            filterdScreenings[i].startTime.toMillis(),
+            " D"
+          ),
+          screenHour: this.customMomentTime(
+            filterdScreenings[i].startTime.toMillis(),
+            "HH:mm"
+          ),
+          startTime: this.momentTime(filterdScreenings[i].startTime.toMillis())
+        });
       }
-    },
 
-},
+      movieTimes.sort(function(a, b) {
+        return a.screenMonth - b.screenMonth;
+      });
+
+      movieTimes.sort(function(a, b) {
+        return a.screenDay - b.screenDay;
+      });
+
+      movieTimes.sort(function(a, b) {
+        return a.screenHour - b.screenHour;
+      });
+
+      let today = new Date();
+
+      // KOllA OM DATUM INTE HAR INTRÄFFAT
+      for (let i in movieTimes) {
+        if (
+          movieTimes[i].screenMonth > today.getMonth() + 1 ||
+          (movieTimes[i].screenMonth == today.getMonth() + 1 &&
+            movieTimes[i].screenDay >= today.getDate())
+        ) {
+          return movieTimes[i].screenDay + "/" + movieTimes[i].screenMonth + " kl." + movieTimes[i].screenHour
+          //return movieTimes[i].startTime;
+        }
+      }
+      return "Inga kommande visningar";
+    }
+  },
+
   computed: {
     moviesData() {
       return this.$store.state.data;

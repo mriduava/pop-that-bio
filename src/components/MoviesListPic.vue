@@ -31,7 +31,7 @@
               <div class="card-image waves-effect waves-block waves-light">
                 <img class="activator" :src="movie.image" />
                 <div class="card-text">
-                  <h5 class="white-text text-darken-4 valign center">{{movie.title}}</h5>
+                  <h5 class="black-text text-darken-4 valign center">{{movie.title}}</h5>
                   <!-- <p
                     class="white-text text-darken-4 center"
                   >{{momentTime(movie.showTime.toMillis())}}</p> -->

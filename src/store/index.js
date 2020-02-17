@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 // import router from '@/router/index.js';
 // import {movies} from '@/data/database.js';
 import {db} from '@/firebase/firebase.js'
-import {aut} from '@/firebase/firebase.js'
 require('@firebase/auth');
 require('@firebase/firestore');
 
@@ -14,7 +13,12 @@ export default new Vuex.Store({
     data: [],
     auditoriums: [],
     auditoriumId: '',
+    userId: null,
+    bookingId: '',
     scrData: [],
+    mySeats: [],
+    ticketsPriceData: [],
+    confBookingsData: [],
     reserveInfo: {
       auditorium: '',
       movieTitle: "",
@@ -28,11 +32,18 @@ export default new Vuex.Store({
       ticketPrice: 0,
       selectedSeats: [],
     },
+    ticketsInfo: {},
     user: {
-      loggedIn: false,
-      data: null
+      username: ''
     },
-    ticketsInfo: {}
+
+    beforeBookings: [],    
+    beforeBooking: {
+      movieTitle: '',
+      timeStamp: '',
+      reserveSeats: []
+    },
+    mySeatsInfo:{}
   },
   getters: {
     movies(state){
@@ -46,6 +57,12 @@ export default new Vuex.Store({
     },
     screenings(state){
       return state.scrData
+    },
+    beforeBookings(state){
+      return state.beforeBookings
+    },
+    username(state){
+      return state.user.username
     }
   },
   mutations: {
@@ -61,15 +78,20 @@ export default new Vuex.Store({
     UPDATE_NUMBER_OF_TICKETS(state, numberOfTickets){
       state.ticketsInfo = numberOfTickets
     },
-    setLoggedIn(state, value) {
-      state.user.loggedIn = value;
+    POPULATE_BEFORE_BOOKINGS(state, tempBooking){
+      state.beforeBookings = tempBooking
     },
-    // setUser(state, data) {
-    //   state.user.data = data;
-    //   router.push("/mypage")
-    // },
-    test(state, value){
-      alert(value)
+    POPULATE_CONFIRM_BOOKINGS(state, confBooking){
+      state.confBookingsData = confBooking
+    },
+    POPULATE_TICKET_PRICE(state, ticketPrice){
+      state.ticketsPriceData = ticketPrice
+    },
+    SEND_SEATS_INFO(state, mySeats){
+      state.mySeatsInfo = mySeats
+    },
+    SET_USERNAME(state, usrName){
+      state.user.username = usrName
     }
   },
   actions: {
@@ -93,6 +115,16 @@ export default new Vuex.Store({
       })
       commit('UPDATE_AUDITORIUMS', auditoriums)
     },
+    async getBeforeBookings({commit}){
+      let snapshot= await db.collection("mySeatsInfo").get()
+      let tempBookings = []
+      snapshot.forEach(seats => {
+        let temp = seats.data();
+        temp.id = seats.id;
+        tempBookings.push(temp)
+      })
+      commit('POPULATE_BEFORE_BOOKINGS', tempBookings)
+    },
     async getScreeningFromFirebase({ commit }) {
       let querySnapshot = await db.collection("screenings").get()
       let screenings = []
@@ -100,6 +132,26 @@ export default new Vuex.Store({
         screenings.push(e.data())
       });
       commit('UPDATE_SCREENINGS_DATA', screenings)
+    },
+    async getPriceData({commit}){
+      let snapshot = await db.collection('prices').get()
+      let prices = []
+      snapshot.forEach(e=> {
+        let price = e.data()
+        price.id = e.id;
+        prices.push(price)
+      });
+      commit('POPULATE_TICKET_PRICE', prices)
+    },
+    async getConfBookings({commit}){
+      let snapshot = await db.collection('confBookings').get()
+      let confBookings = []
+      snapshot.forEach(e=> {
+        let bookingInfo = e.data()
+        bookingInfo.id = e.id;
+        confBookings.push(bookingInfo)
+      });
+      commit('POPULATE_CONFIRM_BOOKINGS', confBookings)
     },
     async sendToFirebase(context, purchase){
       let collection = purchase.collection
@@ -112,31 +164,31 @@ export default new Vuex.Store({
         and then deletes it from the object it saves to firebase.
       */
     },
+    async sendSeatsInfo(context, mySeats){
+      let collection = mySeats.collection
+      delete mySeats.collection
+      await db.collection(collection).add(mySeats)
+    },
+    async sendConfirmBookings(context, confirmReserve){
+      let collection = confirmReserve.collection
+      delete confirmReserve.collection
+      await db.collection(collection).add(confirmReserve)
+    },
+    /*async sendBookingToUser(context, booking){
+      let collection = booking.collection
+      await db
+            .collection('accounts')
+            .doc(this.$store.getters.username)
+            .collection
+    },*/
     updateTickets({ commit }, tickets){
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
     },
-    async loginUser({ commit }, form){
-      let result = await aut.signInWithEmailAndPassword(form.email, form.password)
-      if(result){
-        this.dispatch('fetchUser', result.user)
-      }else{
-        commit('test', 'hello')
-      }
+    setUsername({ commit }, username){
+      commit('SET_USERNAME', username)
     },
-    fetchUser({ commit }, user) {
-      commit("setLoggedIn", user !== null);
-
-      if (user) {
-        commit("setUser", {
-          displayName: user.displayName,
-          email: user.email
-        });
-      } else {
-        commit("setUser", null);
-      }
-    },
-    signOut(){
-      aut.signOut()
+    updateSeatsInfo({ commit }, mySeats){
+      commit('SEND_SEATS_INFO', mySeats)
     }
   },
   modules:{

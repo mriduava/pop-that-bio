@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div>
     <div class="container">
       <div class="mina-sidor">
@@ -6,7 +6,7 @@
         <i class="fa fa-cog"></i>
       </div>
       <div>
-        <h3>Välkommen username</h3>
+        <h3>Välkommen {{username}}</h3>
       </div>
       <div>
         <h5>Kommande visningar</h5>
@@ -19,7 +19,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return {
+      username: this.$store.getters.username
+    }
+  }
+};
 </script>
 
 <style lang="css" scoped>

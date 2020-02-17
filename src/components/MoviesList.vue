@@ -188,7 +188,7 @@ export default {
   },
   watch: {
     moviesData() {
-      window.console.log("MOVIES UPDATED ");
+      //window.console.log("MOVIES UPDATED ");
       this.movies = this.moviesData;
     }
   },

@@ -1,83 +1,151 @@
 <template>
-<div class="container">
-  <div class="final">
-        <transition name="modal">
-            <div class="modal-mask">
-            <div class="modal-wrapper">
-                <div class="modal-container">
-                 <div class="background-modal"></div>
-                <div class="modal-header">
-                    <slot name="header">
-                        <h3>Din reserve information!</h3>
-                        <hr>
-                    </slot>
-                </div>
-                <div class="modal-body">
-                    <slot name="body">
-                        <h4>Bookning nummer</h4>
-                        <h4>Film: <span>{{movieDetail.title}}</span></h4>
-                        <!-- <h4>Tid: <span>{{formatTime(reserveInfo.showTime.toMillis())}}</span></h4> -->
-                        <h4>Salong: <span>Salong</span></h4>
-                        <h4>Platser: <span>Platser</span></h4>
-                    </slot>
-                </div>
-                <div class="modal-footer">
-                    <slot name="footer">
-                      <h4>Tacksåmycket!</h4>
-                       <div class="modal-button">
-                      
-                        <router-link to="/">
-                          <button class="btn btn-small waves-effect waves-light" @click="$emit('close')">Skrivaut</button>
-                        </router-link>
-
-                     </div>
-                    </slot>
-                </div>
-                </div>
-            </div>
-            </div>
-        </transition>
-       </div>
-
-    <div class="buttons">
- 
-      
+  <div class="container-fluid">
+    <div class="row loading-img" v-if="loading">
+      <div class="col s6 offset-m3">
+        <div class="loading">
+          <img src="../assets/images/loading.gif" alt="loading" width="100%" />
+        </div>
+      </div>
     </div>
 
+    <div class="row reserve-info" v-else>
+      <div class="col s12" id="reservation">
+        <h4 class="title-text center">Reservation</h4>
+        <hr class="hr-style" />
+
+        <div class="row book-info">
+          <div class="col s6 book-title">
+            <p>Bookning:</p>
+          </div>
+          <div class="col s6 book-text">
+            <p>{{myBookingInfo[0].bookingNumber}}</p>
+          </div>
+        </div>
+
+        <div class="row book-info">
+          <div class="col s6 book-title">
+            <p class="movie-title">Filmtitel:</p>
+          </div>
+          <div class="col s6 book-text">
+            <p class="movie-text">{{myBookingInfo[0].movieTitle}}</p>
+          </div>
+        </div>
+
+        <div class="row book-info">
+          <div class="col s6 book-title">
+            <p>Dag & tid:</p>
+          </div>
+          <div class="col s6 book-text">
+            <p>{{formatTime(myBookingInfo[0].showTime)}}</p>
+          </div>
+        </div>
+
+        <div class="row book-info">
+          <div class="col s6 book-title">
+            <p>Salongen:</p>
+          </div>
+          <div class="col s6 book-text">
+            <p>{{myBookingInfo[0].auditorium}}</p>
+          </div>
+        </div>
+
+        <div class="row book-info">
+          <div class="col s6 book-title">
+            <p>Platser:</p>
+          </div>
+          <div class="col s6 book-text">
+            <p>{{myBookingInfo[0].reservedSeats}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 tack center">
+          <h6>Tack så mycket!</h6>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s12 center">
+          <button
+            class="btn waves-effect waves-pink btn-flat printout center"
+            @click="printMyReservation('reservation')"
+          >Skriva ut</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import moment from "moment";
+import { db } from "@/firebase/firebase.js";
 export default {
   name: "reservation",
   data() {
     return {
+      bookingId: this.$store.state.bookingId,
+      userId: this.$store.state.userId,
+      loading: false,
       movies: this.$store.getters.movies,
       movieDetail: [],
 
+      confBookings: this.$store.state.confBookingsData,
+      myBookingInfo: [],
       auditoriumInfo: this.$store.state.auditoriumInfo,
       reserveInfo: this.$store.state.reserveInfo
     };
   },
   methods: {
-    completeBooking() {
-      let bookingNumber =
-        Math.floor(Math.random() * 1000) +
-        "-" +
-        Math.floor(Math.random() * 100000);
-      let tickets = this.$store.getters.tickets;
-      let booking = {
-        collection: "bookings",
-        bookingNumber: bookingNumber,
-        numberOfAdults: tickets.numberOfAdults,
-        numberOfChildren: tickets.numberOfChildren,
-        numberOfSeniors: tickets.numberOfSeniors
-      };
-      this.$store.dispatch("sendToFirebase", booking);
-    },
     formatTime(time) {
-      return moment(time).format("MMMM Do, HH:mm");
+      return moment(time).format("lll");
+    },
+    printMyReservation(e) {
+      let text = document.getElementById(e);
+      let printText = text.innerHTML;
+      let page = window.open("", "", "height=600, width=900");
+      page.document.write("<html>");
+      page.document.write("<head>");
+      page.document.write("<style>");
+      page.document.write(`*{margin:0; padding:0;} @font-face {
+      font-family: borntogrille; src: url("../assets/fonts/borntogrille.otf");
+      }h4{font-size: 1.9rem;}.book-info{color: #7e7e7e; display: flex;
+      flex-wrap: nowrap;justify-content: center;}.movie-title{
+      padding-top: 7px;}.book-text{color: #282828; padding-left: 10px;}
+      .movie-text{marign-top: 15px;font-size: 1.6rem;color: rgb(204, 9, 113);}`);
+      page.document.write("</style>");
+      page.document.write("</head>");
+      page.document
+        .write(`<body style="width: 90vw; margin: 0 auto; text-align:center; 
+      display:flex; flex-direction: column;"><h1 style="font-family: borntogrille; 
+      margin-top: 25px; padding: 5px 0;color: rgba(184, 10, 103, 0.993); 
+      ">POP THAT BIO</h1>`);
+      page.document.write(`${printText}`);
+      page.document.write(`<hr style="width: 200px; margin: 20px auto 2px auto;">
+      <h5 style="padding:0; margin:0; color: #616A6B;">&copy; 2020 POPHTATBIO</h5>
+      <h6 style="padding:0; margin:0; color: rgba(184, 10, 103, 0.993)">
+      www.popthatbio.now.sh</h6>`);
+      page.document.write("</body></html>");
+      page.document.close();
+      page.print();
+      // this.$router.push({ path: "/" });
+    },
+    getBookingsInfo() {
+      this.loading = true;
+      db.collection("bookings")
+        .get()
+        .then(snap => {
+          snap.forEach(info => {
+            let usersData = info.data();
+            if (
+              usersData.bookingId == this.bookingId ||
+              usersData.bookingId == this.userId
+            ) {
+              this.myBookingInfo.push(usersData);
+              this.loading = false;
+            }
+          });
+        });
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -88,126 +156,101 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getAuditoriums");
+    this.$store.dispatch("getConfBookings");
+    this.getBookingsInfo();
     this.getMovie();
+    this.myBookingInfo.push;
+  },
+  watch: {
+    bookingId() {
+      this.getBookingsInfo();
+    },
+    userId() {
+      this.getBookingsInfo();
+    }
   }
 };
 </script>
 
-<style lang="css" scoped>
-
-/* FINAL COMPONENT */
-.final{
-    max-width: 95%;
-    margin: 10% auto;
-    position: absolute;
-    left: 50%;
-    margin-left: -240px;
+<style lang="css" media="print" scoped >
+@font-face {
+  font-family: borntogrille;
+  src: url("../assets/fonts/borntogrille.otf");
 }
-
-/* MODAL STYLE */
-.modal-mask {
-    position: fixed;
-    z-index: 9998;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .5);
-    display: table;
-    transition: opacity .3s ease;
-  }
-  
-  .modal-wrapper {
-    display: table-cell;
-    vertical-align: middle;
-  }
-  
-  .modal-container {
-    position: relative;
-    width: 600px;
-    text-align: center;
-    margin: 0px auto;
-    padding: 20px 30px;
-    border: 2px solid #fff;
-    color: #fff;
-    background-color: rgba(255, 21, 235, 0.5);
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-    transition: all .3s ease;
-    font-family: Helvetica, Arial, sans-serif;
-  }
-  
-  .modal-header h1 {
-    margin-top: 0;
-    color: #ffffff;
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
-  }
-  
-  .modal-body {
-    margin: 20px 0;
-    position: relative;
-  }
-
-  h4{
-    font-size: 1.1em;
-    color: rgb(0, 255, 191);
-    line-height: 0.5em;
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-  }
-
-  h4>span{
-      color: #fff;
-  }
-
-  .modal-footer> h2{
-    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
-  }
-  
-  .modal-button {
-    display: flex;
-    justify-content: center;
-  }
-
-  .modal-button> button{
-      width: 60px;
-      font-size: 20px;
-      margin: 15px 5px 6px 5px;
-      outline: none;
-      color: #0082c8;
-      padding: 5px;
-      cursor: pointer;
-      border: 1px solid #0502b4;
-      background: #fff;
-  }
-
-  .modal-button .no{
-      color: rgb(243, 22, 22);
-  }
-
-  
-  .modal-button .yes{
-      color: rgb(13, 189, 66);
-  }
-
-  .modal-button> button:hover{
-      border: 1px solid #fff;
-      color: #fff;
-      background: #0082c8;
-  }
-  
-  .modal-enter {
-    opacity: 0;
-  }
-  
-  .modal-leave-active {
-    opacity: 0;
-  }
-  
-  .modal-enter .modal-container,
-  .modal-leave-active .modal-container {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-  }
-
+.container-fluid {
+  position: relative;
+  top: 20px;
+  background: rgb(100, 10, 60);
+  background: -webkit-linear-gradient(to top, rgb(156, 36, 100), #fbd3e9);
+  background: linear-gradient(
+    to bottom,
+    rgb(255, 255, 255) 90%,
+    rgb(219, 166, 195)
+  );
+}
+.reserve-info,
+.loading-img {
+  position: relative;
+  top: -80px;
+  padding-bottom: 5.5%;
+}
+.loading {
+  width: 350px;
+  margin: 0 auto;
+}
+.title-text {
+  color: rgb(204, 9, 113);
+}
+.book-info {
+  margin: 0;
+}
+.book-title,
+.book-text {
+  font-size: 1.2rem;
+}
+.book-title {
+  color: #7e7e7e;
+  display: flex;
+  justify-content: flex-end;
+}
+.book-text {
+  color: #282828;
+}
+.movie-title {
+  padding-top: 1.5%;
+}
+.movie-text {
+  padding-left: 0;
+  padding-top: 1%;
+  font-size: 1.4rem;
+  color: rgb(204, 9, 113);
+}
+.tack h6 {
+  margin-top: 5%;
+  font-size: 1.5rem;
+  color: rgb(204, 9, 113);
+}
+.printout {
+  padding-top: 0;
+  font-size: 1.2rem;
+  color: rgb(204, 9, 113);
+  border: 1px solid rgb(204, 9, 113);
+  background: none;
+}
+.printout:hover {
+  color: #fff;
+  background: rgb(204, 9, 113);
+}
+.hr-style {
+  border: 0;
+  height: 1px;
+  margin: 0 0 10px 0;
+  background: #fff;
+  background-image: -webkit-linear-gradient(
+    left,
+    rgb(255, 255, 255),
+    rgba(184, 10, 103, 0.993),
+    rgb(255, 255, 255)
+  );
+}
 </style>

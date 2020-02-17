@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import firebase from 'firebase'
 import Home from '../views/Home.vue'
 import MovieDetail from '@/components/MovieDetail'
 import MoviesList from '@/components/MoviesList'
@@ -8,9 +9,14 @@ import Signin from '@/components/Signin'
 import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
 import Reservation from '@/components/Reservation'
-import ConfirmReserve from '@/components/ConfirmReserve'
+import ConfReserve from '@/components/ConfirmReserve'
+import MinaSidor from '@/components/users/MyPage'
+
 import MyPage from '@/components/MyPage'
 import Register from '@/components/Register'
+import Members from '@/components/Members'
+import Questions from '@/components/Questions'
+import CustomerService from '@/components/CustomerService'
 
 Vue.use(VueRouter)
 
@@ -51,9 +57,14 @@ const routes = [
     component: Reservation
   },
   {
-    path: '/movies/:slug/ticket/seatsplan/reservation/confirm',
-    name: 'confirmreserve',
-    component: ConfirmReserve
+    path: "/movies/:slug/ticket/seatsplan/reservation/confirm",
+    name: 'confreservation',
+    component: ConfReserve
+  },
+  {
+    path: '/minasidor',
+    name: 'mypage',
+    component: MinaSidor
   },
   {
     path: '/signin',
@@ -63,7 +74,7 @@ const routes = [
   {
     path: '/mypage',
     name: 'mypage',
-    component: MyPage
+    component: MyPage,
   },
   {
     path: '/about',
@@ -74,6 +85,21 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/medlemmar',
+    name: 'Members',
+    component: Members
+  },
+  {
+    path: '/q-and-a',
+    name: 'Questions',
+    component: Questions
+  },
+  {
+    path: '/kundservice',
+    name: 'CustomerService',
+    component: CustomerService
   }
 ]
 
@@ -85,5 +111,18 @@ const router = new VueRouter({
     mode: "history",
     base: process.env.BASE_URL
 })
+
+// router.beforeEach((to, from, next) => {
+//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+//   const isAuthenticated = firebase.auth().currentUser;
+//   console.log("isauthenticated", isAuthenticated);
+//   if (requiresAuth && !isAuthenticated) {
+//     next("/mypage");
+//     // next({path:'/', query:{redirect: to.fullPath}})
+//   } else {
+//     next();
+//   }
+// });
+
 
 export default router

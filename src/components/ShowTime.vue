@@ -27,14 +27,15 @@
         </div>
       </div>
 
-      <div class="available-times" id="showtime">
+      <div class="available-times">
         <ul style="list-style-type:none;">
           <li class="show-time-item" v-for="(screenTime, i) in screenTimes" :key="i">
             {{ screenTime.time }} |
             {{ screenTime.auditorium }}
             <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
-              <button class="btn btn-small pink darken-1 waves-effect"
-                @click="sendBookingDetails(screenTime)"                
+              <button
+                class="btn btn-small pink darken-1 waves-effect"
+                @click="sendBookingDetails(screenTime)"
               >Boka</button>
             </router-link>
           </li>
@@ -54,13 +55,13 @@ export default {
       dates: [
         {
           index: 0,
-          dateName: "Today",
+          dateName: "Idag",
           date: this.getCorrectDay(1),
           month: this.getCorrectMonth(1)
         },
         {
           index: 1,
-          dateName: "Tomorrow",
+          dateName: "Imorgon",
           date: this.getCorrectDay(2),
           month: this.getCorrectMonth(2)
         },
@@ -71,9 +72,9 @@ export default {
           month: this.getCorrectMonth(3)
         }
       ],
- 
+
       chosenDate: {
-        dateName: "Today",
+        dateName: "Idag",
         date: this.getCorrectDay(1),
         month: this.getCorrectMonth(1),
         time: ""
@@ -121,25 +122,26 @@ export default {
 
       switch (date.getDay()) {
         case 1:
-          return "Monday";
+          return "Måndag";
         case 2:
-          return "Tuesday";
+          return "Tisdag";
         case 3:
-          return "Wednesday";
+          return "Onsdag";
         case 4:
-          return "Thursday";
+          return "Torsdag";
         case 5:
-          return "Friday";
+          return "Fredag";
         case 6:
-          return "Saturday";
-        case 7:
-          return "Sunday";
+          return "Lördag";
+        case 0:
+          return "Söndag";
       }
     },
     getSpecifiedDate(index) {
       let today = new Date();
       let tomorrow = new Date(today);
       tomorrow.setDate(tomorrow.getDate() + (index - 1));
+      //window.console.log(tomorrow.getDay() + " tom day")
       return tomorrow;
     },
     updateChosenDate(index) {
@@ -170,11 +172,21 @@ export default {
             auditorium: this.convertIdToAuditioriumName(
               this.screeningDetails[s].auditoriumId
             ),
-            auditoriumId: this.screeningDetails[s].auditoriumId
+            auditoriumId: this.screeningDetails[s].auditoriumId,
+            timeStamp: this.screeningDetails[s].startTime.toMillis()
           });
         }
       }
+      this.sortScreenTimes();
     },
+    sortScreenTimes() {
+      this.screenTimes.sort(function(a, b) {
+        var aNumber = parseInt(a.time);
+        var bNumber = parseInt(b.time);
+        return aNumber - bNumber;
+      });
+    },
+
     convertIdToAuditioriumName(id) {
       id = id.replace(" ", "");
       switch (id) {
@@ -192,6 +204,10 @@ export default {
       this.chosenAuditorium = screenTime.auditorium;
       this.$store.state.reserveInfo.auditorium = this.chosenAuditorium;
       this.$store.state.auditoriumId = screenTime.auditoriumId;
+      this.$store.state.beforeBooking.movieTitle = this.movieDetail.title;
+      this.$store.state.beforeBooking.timeStamp = screenTime.timeStamp;
+      console.log(this.$store.state.beforeBooking.timeStamp);
+      
     }
   },
   created() {
