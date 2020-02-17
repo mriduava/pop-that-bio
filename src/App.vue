@@ -64,7 +64,7 @@ export default {
 
 .app-content{
   flex: 1;
-  margin-top: 120px;
+  margin-top: 64px;
 }
 
 html {

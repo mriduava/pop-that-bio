@@ -97,6 +97,11 @@ const routes = [
     component: Questions
   },
   {
+    path: '/q-and-a/:tab',
+    name: 'Questions',
+    component: Questions
+  },
+  {
     path: '/kundservice',
     name: 'CustomerService',
     component: CustomerService

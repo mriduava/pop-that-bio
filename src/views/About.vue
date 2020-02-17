@@ -24,13 +24,13 @@
           <br />Driftavdelning
           <br />Försäljningsavdelning
           <br />HR-avdelning
-          <br />Filmstaden Business
+          <br />POP THAT BIO Business
           <br />Våra biografer är organiserade i tre olika affärsområden med varsin affärsområdeschef. Varje biograf har en biografchef som leder det
           dagliga arbetet.
-          <br />Informationsansvarig för Filmstaden AB är Caroline Hellström.
+          <br />Informationsansvarig för POP THAT BIO AB är Caroline Hellström.
           <br />Org.nr: SE556035-1651
           <br />Postadress:
-          <br />Filmstaden AB
+          <br />POP THAT BIO AB
           <br />169 86 Stockholm
         </p>
         <br />
@@ -39,29 +39,28 @@
         <p>
           POP THAT BIO är ett av de äldsta fortfarande verksamma biografföretagen i världen. 5 september 1905 hade Biograf-Teatern sin
           premiärvisning i Kristianstad. Handelsbolaget Kristianstads Biografteater flyttade till Stockholm, slogs samman med Skandiafilm
-          och blev AB Svensk Filmindustri år 1919. Året efter spelades den första filmen in i det nya ateljéområde Filmstaden i Råsunda.
+          och blev AB Svensk Filmindustri år 1919. Året efter spelades den första filmen in i det nya ateljéområde POP THAT BIO i Råsunda.
         </p>
 
         <p>
-          Under seklets första decennier fanns det en mängd film- och biografbolag i Sverige. Trots den tuffa konkurrensen utvecklades Svensk
-          Filmindustri (SF) till ett av världens mest framgångsrika filmföretag. Under åren som kom skulle förgrundsgestalter som Mauritz Stiller
-          och Victor Sjöström bidra till en internationellt sett hög konstnärlig nivå på filmerna. SF var ett relativt stort företag mätt med den
+          Under seklets första decennier fanns det en mängd film- och biografbolag i Sverige. Trots den tuffa konkurrensen utvecklades POP THAT BIO till ett av världens mest framgångsrika filmföretag. Under åren som kom skulle förgrundsgestalter som Mauritz Stiller
+          och Victor Sjöström bidra till en internationellt sett hög konstnärlig nivå på filmerna. POP THAT BIO var ett relativt stort företag mätt med den
           tidens mått, och det var även noterat på Stockholms-börsen.
         </p>
 
-        <h4>SF:s studio - en drömfabrik</h4>
-Under 30- och 40-talen hade filmbranschen en verklig glansperiod. Att gå på bio var det stora folknöjet åren före, under och efter andra världskriget. SF:s studio i Filmstaden i Råsunda producerade en mängd filmer, och ateljéerna var en verklig drömfabrik. Gösta Ekman, Georg Rydeberg, Sickan Carlsson, Anna-Lisa Ericsson, Eva Dahlbeck, Sigge Fürst och Thor Modéen är bara några av de stjärnor som lyste i SF:s många filmer från den här tiden.
+        <h4>POP THAT BIO:s studio - en drömfabrik</h4>
+Under 30- och 40-talen hade filmbranschen en verklig glansperiod. Att gå på bio var det stora folknöjet åren före, under och efter andra världskriget. POP THAT BIO:s studio i Råsunda producerade en mängd filmer, och ateljéerna var en verklig drömfabrik. Gösta Ekman, Georg Rydeberg, Sickan Carlsson, Anna-Lisa Ericsson, Eva Dahlbeck, Sigge Fürst och Thor Modéen är bara några av de stjärnor som lyste i POP THAT BIO:s många filmer från den här tiden.
         <h4>TV:n och videon fick biobesöken att rasa</h4>
         <p>I slutet av 50-talet kom televisionen till Sverige. Det blev också början på en besvärligare tid för biograferna. Besökssiffrorna, som legat över 80 miljoner/år, rasade under 60- och 70-talen för att stabiliseras på dagens nivåer runt 15-16 miljoner sålda biljetter/år.</p>
         <h4>Svensk Filmindustri blev Bonnier-företag och delades i två</h4>
 
         <p>
-          1983 köptes SF av Bonnierföretagen, och blev moderbolag i koncernens nya filmdivision. Därmed inledde företaget en omfattande rekonstruktion och omorganisation. SF stärktes genom en rad företagsköp, och filmföretaget blev ett modernt multimediaföretag.
-          1998 delades SF upp i två fristående bolag, AB Svensk Filmindustri (idag SF Studios), som distribuerar och producerar film, och SF Bio AB (idag Filmstaden), som äger och driver den största biografkedjan i Sverige.
-          SF Bio går upp i Odeon Cinemas Group
-          Sedan 2017 ägs Filmstaden till 100 % av det amerikanska biografföretaget AMC Theatres och ingår med flera andra europeiska biografkedjor i Odeon Cinemas Group med över 360 biografer och drygt 2900 salonger i Storbritannien, Irland, Spanien, Portugal, Tyskland, Österrike, Italien, Norge, Sverige, Finland, Estland, Lettland och Litauen. Vi är därmed idag en del av den största biografkedjan i världen.
-          Med anledning av att man har nya ägare, så har det gamla företagsnamnet SF Bio bytts ut mot det redan välkända Filmstaden. Detta främst för att undvika förväxling med SF Studios (f d Svensk Filmindustri). I samband med detta byter Filmstaden sin logotyp och sin musikvinjett. Namnbytet beräknas vara helt genomfört på våra biografer vid mitten av 2019.
-          Den gamla musikvinjetten och logotypen lever, som tidigare, kvar som en del av SF Studios varumärke. SF Studios är tillsammans med ett antal andra distributionsbolag samarbetspartner till Filmstaden, vars biografer visar distributörernas filmer.
+          1983 köptes POP THAT BIO av Bonnierföretagen, och blev moderbolag i koncernens nya filmdivision. Därmed inledde företaget en omfattande rekonstruktion och omorganisation. POP THAT BIO stärktes genom en rad företagsköp, och filmföretaget blev ett modernt multimediaföretag.
+          1998 delades POP THAT BIO upp i två fristående bolag, AB Svensk Filmindustri (idag POP THAT BIO Studios), som distribuerar och producerar film, och  POP THAT BIO, som äger och driver den största biografkedjan i Sverige.
+          POP THAT BIO går upp i Odeon Cinemas Group
+          Sedan 2017 ägs POP THAT BIO till 100 % av det amerikanska biografföretaget AMC Theatres och ingår med flera andra europeiska biografkedjor i Odeon Cinemas Group med över 360 biografer och drygt 2900 salonger i Storbritannien, Irland, Spanien, Portugal, Tyskland, Österrike, Italien, Norge, Sverige, Finland, Estland, Lettland och Litauen. Vi är därmed idag en del av den största biografkedjan i världen.
+          Med anledning av att man har nya ägare, så har det gamla företagsnamnet POP THAT BIO bytts ut mot det redan välkända . Detta främst för att undvika förväxling med POP THAT BIO Studios. I samband med detta byter  sin logotyp och sin musikvinjett. Namnbytet beräknas vara helt genomfört på våra biografer vid mitten av 2019.
+          Den gamla musikvinjetten och logotypen lever, som tidigare, kvar som en del av POP THAT BIO Studios varumärke. POP THAT BIO Studios är tillsammans med ett antal andra distributionsbolag samarbetspartner till POP THAT BIO, vars biografer visar distributörernas filmer.
         </p>
         <br />
       </div>
@@ -129,7 +128,7 @@ p {
   display: flex;
   border: 10px solid black;
   margin: 0 auto;
-  position: relative;
-  margin-top: -56px;
+  /*position: relative;
+  margin-top: -56px;*/
 }
 </style>
