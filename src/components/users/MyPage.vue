@@ -26,7 +26,8 @@
         <div class="row">
           <h5>Dina kommande visningar</h5>
           <hr class="hr-style" />
-          <div class="col s12 m4 booking-cards" v-for="(booking, i) in myBookings" :key="i">
+          <div class="col s12 m4 booking-cards" v-for="(booking, i) in upcomingBookings" :key="i">
+          <!-- <div class="col s12 m4 booking-cards" v-for="(booking, i) in myBookings" :key="i"> -->
             <div class="card">
               <!-- <div class="card-image waves-effect waves-block waves-light">
                  <img class="activator" src="images/office.jpg">
@@ -63,7 +64,7 @@
           <h5>Tidigare visningar</h5>
           <hr class="hr-style" />
           <div class="col s12 m4 booking-cards" v-for="(booking, i) in bookingsHistory" :key="i">
-            <div class="card">
+            <div class="card history">
               <!-- <div class="card-image waves-effect waves-block waves-light">
                  <img class="activator" src="images/office.jpg">
               </div>-->
@@ -139,20 +140,44 @@ export default {
               this.loading = false;
             }
           });
+          this.sortBookings()
         });
     },
     sortBookings() {
       let today = Date.now();
+
       this.myBookings.forEach(booking => {
-        if (booking.showTime > today) {
-          this.bookingsHistory.push(booking);
+        
+        if (booking.showTime != undefined) {
+
+          window.console.log(booking.movieTitle + " title")
+          window.console.log(today + " todays in ms")
+          window.console.log(booking.showTime + "bookgin in ms")
+
+          //window.console.log("Is not undefined")
+
+          if  (booking.showTime > today) {
+            this.upcomingBookings.push(booking)
+            //myBookings.
+            //this.bookingsHistory.push(booking)
+            window.console.log("Upcoming" + booking.movieTitle) // FEL! Har redan varit!
+          } else {
+            this.bookingsHistory.push(booking)
+            window.console.log("History")
+          }
         }
+
+      
+        // if (booking.showTime > today) {
+        //   this.bookingsHistory.push(booking);
+        // }
       });
     }
   },
   created() {
     this.getUsersInfo();
     this.getBookingsInfo();
+    //this.sortBookings();
   }
 };
 </script>
@@ -207,6 +232,10 @@ h5 {
 
 .card-content p > span {
   color: #0004f7;
+}
+
+.card.history div {
+  background: rgb(250, 170, 170);
 }
 
 hr {
