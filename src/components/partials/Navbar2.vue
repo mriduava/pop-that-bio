@@ -33,10 +33,16 @@
 
     <ul class="sidenav" id="mobile-links">
       <li>
+        <router-link to="/">HEM</router-link>
+      </li>
+      <li>
         <router-link to="/movies">FILMER</router-link>
       </li>
       <li>
         <router-link to="/about">OM OSS</router-link>
+      </li>
+      <li v-if="isLoggedin">
+        <router-link to="/minasidor">MINA SIDOR</router-link>
       </li>
       <li v-if="!isLoggedin">
         <a href="#signin" class="modal-trigger">LOGGA IN</a>

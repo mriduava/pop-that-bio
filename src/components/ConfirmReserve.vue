@@ -15,7 +15,7 @@
 
         <div class="row book-info">
           <div class="col s6 book-title">
-            <p>Bookning:</p>
+            <p>Bokning:</p>
           </div>
           <div class="col s6 book-text">
             <p>{{myBookingInfo[0].bookingNumber}}</p>
@@ -42,7 +42,7 @@
 
         <div class="row book-info">
           <div class="col s6 book-title">
-            <p>Salongen:</p>
+            <p>Salong:</p>
           </div>
           <div class="col s6 book-text">
             <p>{{myBookingInfo[0].auditorium}}</p>
@@ -70,7 +70,7 @@
           <button
             class="btn waves-effect waves-pink btn-flat printout center"
             @click="printMyReservation('reservation')"
-          >Skriva ut</button>
+          >SKRIV UT</button>
         </div>
       </div>
     </div>

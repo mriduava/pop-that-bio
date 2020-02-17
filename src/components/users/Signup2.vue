@@ -56,7 +56,7 @@ export default {
           
           this.message = `Välkommen ${this.name}`;
           this.$emit('close', this.message)
-          this.$router.push({ path: '/mypage'});
+          this.$router.push({ path: '/minasidor'});
         },err => {
             err.message = "OBS!! E-post eller lösenord är fel!"
             this.alert = err.message;

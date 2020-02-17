@@ -126,6 +126,13 @@ export default {
   src: url("../assets/fonts/borntogrille.otf");
 }
 
+@media (max-width: 568px) {
+ h1{
+   font-size: 20px;
+   padding-top: 40px;
+ }
+}
+
 .end-button {
   padding-top: 20px;
   display: flex;
