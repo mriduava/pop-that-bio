@@ -145,25 +145,16 @@ export default {
     },
     sortBookings() {
       let today = Date.now();
+                      window.console.log(this.myBookings.length + " how many")
 
       this.myBookings.forEach(booking => {
         
         if (booking.showTime != undefined) {
 
-          window.console.log(booking.movieTitle + " title")
-          window.console.log(today + " todays in ms")
-          window.console.log(booking.showTime + "bookgin in ms")
-
-          //window.console.log("Is not undefined")
-
           if  (booking.showTime > today) {
             this.upcomingBookings.push(booking)
-            //myBookings.
-            //this.bookingsHistory.push(booking)
-            window.console.log("Upcoming" + booking.movieTitle) // FEL! Har redan varit!
           } else {
             this.bookingsHistory.push(booking)
-            window.console.log("History")
           }
         }
 
@@ -178,7 +169,7 @@ export default {
     this.getUsersInfo();
     this.getBookingsInfo();
     //this.sortBookings();
-  }
+  },
 };
 </script>
 
@@ -235,7 +226,7 @@ h5 {
 }
 
 .card.history div {
-  background: rgb(250, 170, 170);
+  background: rgb(255, 193, 193);
 }
 
 hr {
