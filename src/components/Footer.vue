@@ -8,17 +8,17 @@
           <router-link to="/">
             <p>Kundservice</p>
           </router-link>
-          <router-link to="/">
+          <router-link to="/q-and-a/1">
             <p>Frågor och svar</p>
           </router-link>
         </div>
 
         <div class="col x12 s12 m3 l3 xl3 group2">
           <h5>Medlemmar</h5>
-          <router-link to="/signin">
+          <router-link to="/">
             <p>Loggga in</p>
           </router-link>
-          <router-link to="/signin">
+          <router-link to="/">
             <p>Bli medlem</p>
           </router-link>
         </div>
@@ -28,17 +28,17 @@
           <router-link to="/about">
             <p>Om Pop that Bio</p>
           </router-link>
-          <router-link to="/about">
-            <p>Frågor och svar</p>
+          <router-link to="/q-and-a/2">
+            <p>Kontakta oss</p>
           </router-link>
         </div>
 
         <div class="col x12 s12 m3 l3 xl3 group4">
           <h5>Personuppgifter</h5>
-          <router-link to="/about">
+          <router-link to="/">
             <p>Dina rättigheter</p>
           </router-link>
-          <router-link to="/about">
+          <router-link to="/">
             <p>Cookiepolicy</p>
           </router-link>
         </div>
