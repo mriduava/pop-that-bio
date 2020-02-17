@@ -36,7 +36,7 @@
             <p>Dag & tid:</p>
           </div>
           <div class="col s6 book-text">
-            <p>dag</p>
+            <p>{{formatTime(myBookingInfo[0].showTime)}}</p>
           </div>
         </div>
 
@@ -45,7 +45,7 @@
             <p>Salongen:</p>
           </div>
           <div class="col s6 book-text">
-            <p>salong</p>
+            <p>{{myBookingInfo[0].auditorium}}</p>
           </div>
         </div>
 
@@ -54,7 +54,7 @@
             <p>Platser:</p>
           </div>
           <div class="col s6 book-text">
-            <p>platser</p>
+            <p>{{myBookingInfo[0].reservedSeats}}</p>
           </div>
         </div>
       </div>
@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     formatTime(time) {
-      return moment(time).format("MMMM Do, HH:mm");
+      return moment(time).format("lll");
     },
     printMyReservation(e) {
       let text = document.getElementById(e);
@@ -107,41 +107,24 @@ export default {
       page.document.write("<html>");
       page.document.write("<head>");
       page.document.write("<style>");
-      page.document.write(`h4{
-                            font-size: 1.9rem;
-                          }
-                          .book-info{
-                            color: #7e7e7e;
-                            display: flex;
-                            flex-wrap: nowrap;
-                            justify-content: center;
-                          }
-                          .movie-title{
-                            padding-top: 19px;
-                          }
-                          .book-text{
-                            color: #282828;
-                            padding-left: 10px;
-                          }
-                          .movie-text{
-                            font-size: 1.6rem;
-                            color:  rgb(204, 9, 113);
-                          }`);
+      page.document.write(`*{margin:0; padding:0;} @font-face {
+      font-family: borntogrille; src: url("../assets/fonts/borntogrille.otf");
+      }h4{font-size: 1.9rem;}.book-info{color: #7e7e7e; display: flex;
+      flex-wrap: nowrap;justify-content: center;}.movie-title{
+      padding-top: 7px;}.book-text{color: #282828; padding-left: 10px;}
+      .movie-text{marign-top: 15px;font-size: 1.6rem;color: rgb(204, 9, 113);}`);
       page.document.write("</style>");
       page.document.write("</head>");
       page.document
         .write(`<body style="width: 90vw; margin: 0 auto; text-align:center; 
-                display:flex; flex-direction: column;">
-                <h1 style="margin-top: 25px;
-                padding: 0;
-                color: rgba(184, 10, 103, 0.993); 
-                font-family: Times New Roman;"
-                >POP THAT BIO</h1>`);
+      display:flex; flex-direction: column;"><h1 style="font-family: borntogrille; 
+      margin-top: 25px; padding: 5px 0;color: rgba(184, 10, 103, 0.993); 
+      ">POP THAT BIO</h1>`);
       page.document.write(`${printText}`);
-      page.document.write(`<hr>
-          <h5 style="padding:0; margin:0; color: #616A6B;">&copy; 2020 POPHTATBIO</h5>
-          <h6 style="padding:0; margin:0; color: rgba(184, 10, 103, 0.993)">
-          www.popthatbio.now.sh</h6>`);
+      page.document.write(`<hr style="width: 200px; margin: 20px auto 2px auto;">
+      <h5 style="padding:0; margin:0; color: #616A6B;">&copy; 2020 POPHTATBIO</h5>
+      <h6 style="padding:0; margin:0; color: rgba(184, 10, 103, 0.993)">
+      www.popthatbio.now.sh</h6>`);
       page.document.write("</body></html>");
       page.document.close();
       page.print();
@@ -154,7 +137,10 @@ export default {
         .then(snap => {
           snap.forEach(info => {
             let usersData = info.data();
-            if (usersData.bookingId == this.bookingId) {
+            if (
+              usersData.bookingId == this.bookingId ||
+              usersData.bookingId == this.userId
+            ) {
               this.myBookingInfo.push(usersData);
               this.loading = false;
             }
@@ -177,6 +163,9 @@ export default {
   },
   watch: {
     bookingId() {
+      this.getBookingsInfo();
+    },
+    userId() {
       this.getBookingsInfo();
     }
   }
@@ -203,13 +192,12 @@ export default {
 .loading-img {
   position: relative;
   top: -80px;
-  padding-bottom: 2%;
+  padding-bottom: 5.5%;
 }
 .loading {
   width: 350px;
   margin: 0 auto;
 }
-
 .title-text {
   color: rgb(204, 9, 113);
 }
@@ -225,26 +213,23 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
-
 .book-text {
   color: #282828;
 }
 .movie-title {
-  padding-top: 2%;
+  padding-top: 1.5%;
 }
 .movie-text {
   padding-left: 0;
   padding-top: 1%;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: rgb(204, 9, 113);
 }
-
 .tack h6 {
   margin-top: 5%;
   font-size: 1.5rem;
   color: rgb(204, 9, 113);
 }
-
 .printout {
   padding-top: 0;
   font-size: 1.2rem;
@@ -252,12 +237,10 @@ export default {
   border: 1px solid rgb(204, 9, 113);
   background: none;
 }
-
 .printout:hover {
   color: #fff;
   background: rgb(204, 9, 113);
 }
-
 .hr-style {
   border: 0;
   height: 1px;
@@ -269,12 +252,5 @@ export default {
     rgba(184, 10, 103, 0.993),
     rgb(255, 255, 255)
   );
-}
-
-/* Styles for Printing */
-@media print {
-  body {
-    zoom: 60%;
-  }
 }
 </style>

@@ -31,13 +31,29 @@
               <!-- <div class="card-image waves-effect waves-block waves-light">
                  <img class="activator" src="images/office.jpg">
               </div>-->
-              <div class="card-content">
+              <div class="card-content" :class="{'pink': formatTime(booking.showTime) === Date.now()}">
                 <span class="card-title activator grey-text text-darken-4">{{booking.movieTitle}}</span>
                 <hr />
-                <p>Bookning: {{booking.bookingNumber}}</p>
-                <p>Tid: {{booking.telephone}}</p>
-                <p>Salongen: {{booking.email}}</p>
-                <p>Antal biljetter: {{booking.ticketsInfo.totalTickets}}</p>
+                <p>
+                  Bookning:
+                  <span>{{booking.bookingNumber}}</span>
+                </p>
+                <p>
+                  Dag & Tid:
+                  <span>{{formatTime(booking.showTime)}}</span>
+                </p>
+                <p>
+                  Salongen:
+                  <span>{{booking.auditorium}}</span>
+                </p>
+                <p>
+                  Antal biljetter:
+                  <span>{{booking.ticketsInfo.totalTickets}}</span>
+                </p>
+                <p>
+                  Platser:
+                  <span>{{booking.reservedSeats}}</span>
+                </p>
               </div>
             </div>
           </div>
@@ -46,7 +62,37 @@
         <div class="row">
           <h5>Tidigare visningar</h5>
           <hr class="hr-style" />
-          <div class="col s12"></div>
+          <div class="col s12 m4 booking-cards" v-for="(booking, i) in bookingsHistory" :key="i">
+            <div class="card">
+              <!-- <div class="card-image waves-effect waves-block waves-light">
+                 <img class="activator" src="images/office.jpg">
+              </div>-->
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">{{booking.movieTitle}}</span>
+                <hr />
+                <p>
+                  Bookning:
+                  <span>{{booking.bookingNumber}}</span>
+                </p>
+                <p>
+                  Dag & Tid:
+                  <span>{{formatTime(booking.showTime)}}</span>
+                </p>
+                <p>
+                  Salongen:
+                  <span>{{booking.auditorium}}</span>
+                </p>
+                <p>
+                  Antal biljetter:
+                  <span>{{booking.ticketsInfo.totalTickets}}</span>
+                </p>
+                <p>
+                  Platser:
+                  <span>{{booking.reservedSeats}}</span>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -54,6 +100,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import { db } from "@/firebase/firebase.js";
 export default {
   data() {
@@ -67,6 +114,9 @@ export default {
     };
   },
   methods: {
+    formatTime(time) {
+      return moment(time).format("lll");
+    },
     getUsersInfo() {
       this.loading = true;
       db.collection("users")
@@ -90,6 +140,14 @@ export default {
             }
           });
         });
+    },
+    sortBookings() {
+      let today = Date.now();
+      this.myBookings.forEach(booking => {
+        if (booking.showTime > today) {
+          this.bookingsHistory.push(booking);
+        }
+      });
     }
   },
   created() {
@@ -142,6 +200,13 @@ h5 {
   color: #282828;
   background: #aeffb5;
   border: 1px solid rgb(255, 169, 215);
+}
+.card-content p {
+  color: #757575;
+}
+
+.card-content p > span {
+  color: #0004f7;
 }
 
 hr {

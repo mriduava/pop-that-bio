@@ -49,7 +49,10 @@ export default {
             this.message = `Inloggad som ${cred.user.email}`;
             this.$store.state.userId = cred.user.uid
             this.$emit('close', this.message)
-            this.$router.push({ path: '/minasidor' });            
+            this.$router.push({ path: '/minasidor' });  
+             this.alert = ''
+            this.email = ''
+            this.password =''          
           },
           err => {
             err.message = "OBS!! E-post eller lösenord är fel!"

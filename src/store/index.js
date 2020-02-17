@@ -16,6 +16,7 @@ export default new Vuex.Store({
     userId: null,
     bookingId: '',
     scrData: [],
+    mySeats: [],
     ticketsPriceData: [],
     confBookingsData: [],
     reserveInfo: {

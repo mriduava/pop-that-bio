@@ -90,6 +90,8 @@ export default {
       seatHover: { x: 0, y: 0 },
       toggleSelection: false,
       beforeBookings: this.$store.state.beforeBookings,
+      // beforeBookings: [],
+
       userBooked: {
         movieTitle: "",
         timeStamp: "",
@@ -155,7 +157,7 @@ export default {
         this.mySelection.splice(seatIndex, 1);
         this.counter--;
       }
-      this.seatsInfo();
+      this.sendSeatsInfo();
     },
     showPositionsOnHover(x, y) {
       let seat = this.seatsGrid[x][y];
@@ -174,7 +176,7 @@ export default {
         }
       });
     },
-    seatsInfo() {
+    sendSeatsInfo() {
       const resData = db.collection("mySeatsInfo");
       if (!this.isClicked) {
         this.myUserId = uuid();
@@ -188,6 +190,14 @@ export default {
         resData.doc(this.myUserId).update({ reserveSeats: this.mySelection });
       }
     },
+    getSeatsInfo(){
+      db.collection('mySeatsInfo').onSnapshot(snap=>{
+        let changes = snap.docChanges()
+        changes.forEach(change=>{
+          this.beforeBookings.push(change)
+        })
+      })
+    },
     getMovie() {
       this.movies.forEach(movie => {
         if (movie.slug == this.$route.params.slug) {
@@ -196,6 +206,7 @@ export default {
       });
     },
     goToReservation() {
+      this.$store.state.mySeats = this.mySelection;
       this.$router.push({
         path:
           "/movies/" + this.movieDetail.slug + "/ticket/seatsplan/reservation"
@@ -205,10 +216,17 @@ export default {
   created() {
     this.getAuditorium(this.auditoriumId);
     this.createSeatsGrid();
+    // this.getSeatsInfo();
     this.getBeforeBooking();
     this.$store.dispatch("getPriceData");
     this.getMovie();
-  }
+  },
+  watch: {
+    'beforeBookings'(){
+      // this.getSeatsInfo()
+      this.getBeforeBooking()
+    }
+  },
 };
 </script>
 

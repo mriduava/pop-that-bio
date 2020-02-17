@@ -78,10 +78,13 @@ export default {
   name: "reservation",
   data() {
     return {
-      userId: this.$store.state.userId,
-      confBookings: this.$store.state.confBookingsData,
       telephone: "",
       email: "",
+      userId: this.$store.state.userId,
+      pickTime: this.$store.state.beforeBooking.timeStamp,
+      auditorium: this.$store.state.reserveInfo.auditorium,
+      reservedSeats: this.$store.state.mySeats,
+      confBookings: this.$store.state.confBookingsData,
       movies: this.$store.getters.movies,
       movieDetail: [],
       reserveInfo: this.$store.state.reserveInfo,
@@ -106,7 +109,10 @@ export default {
         email: this.email,
         telephone: this.telephone,
         movieTitle: this.movieDetail.title,
-        ticketsInfo: this.ticketsInfo
+        showTime: this.pickTime,
+        auditorium: this.auditorium,
+        ticketsInfo: this.ticketsInfo,
+        reservedSeats: this.reservedSeats
       };
        if(this.userId !== null){
          bookingInfo.bookingId = this.userId
