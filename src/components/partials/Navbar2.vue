@@ -10,22 +10,22 @@
         </a>
         <ul class="right hide-on-med-and-down">
           <li>
-            <router-link to="/movies">Filmer</router-link>
+            <router-link to="/movies">FILMER</router-link>
           </li>
           <li>
-            <router-link to="/about">Om oss</router-link>
+            <router-link to="/about">OM OSS</router-link>
           </li>
           <li v-if="!isLoggedin">
-            <a href="#signin" class="modal-trigger">Logga in</a>
+            <a href="#signin" class="modal-trigger">LOGGA IN</a>
           </li>
           <li v-if="!isLoggedin">
-            <a href="#signup" class="modal-trigger">Skapa konto</a>
+            <a href="#signup" class="modal-trigger">SKAPA KONTO</a>
           </li>
           <li>
-            <router-link to="/minasidor" v-if="isLoggedin">Mina sidor</router-link>
+            <router-link to="/minasidor" v-if="isLoggedin">MINA SIDOR</router-link>
           </li>
           <li v-if="isLoggedin">
-            <a href="#signin" class="modal-trigger" @click.prevent="logout">Logga ut</a>
+            <a href="#signin" class="modal-trigger" @click.prevent="logout">LOGGA UT</a>
           </li>
         </ul>
       </div>
@@ -33,19 +33,19 @@
 
     <ul class="sidenav" id="mobile-links">
       <li>
-        <router-link to="/movies">Filmer</router-link>
+        <router-link to="/movies">FILMER</router-link>
       </li>
       <li>
-        <router-link to="/about">Om oss</router-link>
+        <router-link to="/about">OM OSS</router-link>
       </li>
       <li v-if="!isLoggedin">
-        <a href="#signin" class="modal-trigger">Logga in</a>
+        <a href="#signin" class="modal-trigger">LOGGA IN</a>
       </li>
       <li v-if="!isLoggedin">
-        <a href="#signup" class="modal-trigger">Skapa konto</a>
+        <a href="#signup" class="modal-trigger">SKAPA KONTO</a>
       </li>
       <li v-if="isLoggedin">
-        <a class="modal" @click.prevent="logout">Logga out</a>
+        <a class="modal" @click.prevent="logout">LOGGA UT</a>
       </li>
     </ul>
 

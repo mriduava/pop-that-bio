@@ -129,5 +129,7 @@ p {
   display: flex;
   border: 10px solid black;
   margin: 0 auto;
+  position: relative;
+  margin-top: -56px;
 }
 </style>
