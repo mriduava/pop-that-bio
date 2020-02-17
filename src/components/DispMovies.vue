@@ -128,7 +128,7 @@ export default {
 
 @media (max-width: 568px) {
  h1{
-   font-size: 20px;
+   font-size: 2rem;
    padding-top: 40px;
  }
 }

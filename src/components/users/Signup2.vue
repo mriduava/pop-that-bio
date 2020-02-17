@@ -21,7 +21,7 @@
             <div class="alert center red-text" v-if="alert !== ''">
               <h6>{{alert}}</h6>
             </div>
-            <button type="submit" class="btn btn-small btn-extended grey lighten-4 black-text">Skapa konto</button>
+            <button type="submit" class="btn btn-small waves-effect">Skapa konto</button>
           </form>
         </div>
       </div>
@@ -80,6 +80,9 @@ button{
   margin: 0 0 10px 0;
   background: #fff;
   background-image: -webkit-linear-gradient(left,  rgb(255, 255, 255), rgba(184, 10, 103, 0.993), rgb(255, 255, 255));
+}
+.btn{
+  background: rgb(230, 12, 128);
 }
   
 </style>

@@ -2,6 +2,26 @@
   <div id="sticky">
     <nav class="nav-wraper">
       <div class="container">
+
+        <!-- sökfält
+        <form @submit.prevent="search">
+          <div class="input-field">
+            <input
+              v-model="searchInput"
+              autocomplete="off"
+              class="autocomplete"
+              id="search"
+              type="search"
+              required
+            />
+            <label for="search"></label>
+            <label class="label-icon" for="search">
+              <i class="material-icons">search</i>
+            </label>
+            <i class="material-icons">close</i>
+          </div>
+        </form> -->
+
         <a class="brand-logo">
           <router-link to="/">POP THAT BIO</router-link>
         </a>
@@ -108,6 +128,30 @@ export default {
       }
     }
   },
+  onAutocompleteSelect(value) {
+      this.searchInput = value;
+    },
+    myFunction: function () {	
+		this.searchInput2 = this.searchInput.toUpperCase();
+    },
+   
+    search() {
+      window.console.log(this.searchInput);
+      this.searchInput2 = this.searchInput.toUpperCase();
+      this.searchInput = this.searchInput[0].toUpperCase() + this.searchInput.slice(1)
+      this.$router.push("/movies/" + this.searchInput.replace(" ", "-"));     
+      
+     
+       if (this.searchInput == "Filmer") {
+         this.$router.push("/movies");
+       } else if (this.searchInput == "Om oss") {
+         this.$router.push("/about");
+       } else if (this.searchInput == "Logga in") {
+         this.$router.push("/signin");
+       } else if (this.searchInput == "Start") {
+       this.$router.push("/");
+       }
+    },
   mounted() {
     let sidenav = document.querySelectorAll(".sidenav-trigger");
     this.$M.Sidenav.init(sidenav);
@@ -128,6 +172,11 @@ export default {
 @font-face {
   font-family: borntogrille;
   src: url("../../assets/fonts/borntogrille.otf");
+}
+@media (max-width: 568px) {
+ .brand-logo{
+  font-size: 1.8rem;
+ }
 }
 nav {
   background: transparent;

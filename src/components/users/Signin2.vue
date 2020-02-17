@@ -19,7 +19,7 @@
               </div>
               <button
                 type="submit"
-                class="btn btn-large btn-small grey lighten-4 black-text"
+                class="btn btn-small waves-effect"
               >Logga in</button>
             </form>
           </div>
@@ -75,5 +75,8 @@ button{
   margin: 0 0 10px 0;
   background: #fff;
   background-image: -webkit-linear-gradient(left,  rgb(255, 255, 255), rgba(184, 10, 103, 0.993), rgb(255, 255, 255));
+}
+.btn{
+  background: rgb(230, 12, 128);
 }
 </style>
