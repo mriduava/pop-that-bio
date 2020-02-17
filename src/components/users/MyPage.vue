@@ -35,7 +35,7 @@
                 <span class="card-title activator grey-text text-darken-4">{{booking.movieTitle}}</span>
                 <hr />
                 <p>
-                  Bookning:
+                  Bokning:
                   <span>{{booking.bookingNumber}}</span>
                 </p>
                 <p>
@@ -43,7 +43,7 @@
                   <span>{{formatTime(booking.showTime)}}</span>
                 </p>
                 <p>
-                  Salongen:
+                  Salong:
                   <span>{{booking.auditorium}}</span>
                 </p>
                 <p>
@@ -71,7 +71,7 @@
                 <span class="card-title activator grey-text text-darken-4">{{booking.movieTitle}}</span>
                 <hr />
                 <p>
-                  Bookning:
+                  Bokning:
                   <span>{{booking.bookingNumber}}</span>
                 </p>
                 <p>
@@ -79,7 +79,7 @@
                   <span>{{formatTime(booking.showTime)}}</span>
                 </p>
                 <p>
-                  Salongen:
+                  Salong:
                   <span>{{booking.auditorium}}</span>
                 </p>
                 <p>
