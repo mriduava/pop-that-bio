@@ -140,6 +140,7 @@ export default {
   data() {
     return {
       searchInput: "",
+      searchInput2: "",
       email: "",
       password: "",
       email1: "",
@@ -195,11 +196,18 @@ export default {
     onAutocompleteSelect(value) {
       this.searchInput = value
     },
+    myFunction: function () {	
+		this.searchInput2 = this.searchInput.toUpperCase();
+    },
+   
     search() {
       window.console.log(this.searchInput);
-      this.$router.push("/movies/" + this.searchInput.replace(" ", "-"));
-
-      if (this.searchInput == "filmer") {
+      this.searchInput2 = this.searchInput.toUpperCase();
+      this.searchInput = this.searchInput[0].toUpperCase() + this.searchInput.slice(1)
+      this.$router.push("/movies/" + this.searchInput.replace(" ", "-"));     
+      
+     
+       if (this.searchInput == "filmer") {
          this.$router.push("/movies");
        } else if (this.searchInput == "om oss") {
          this.$router.push("/about");
