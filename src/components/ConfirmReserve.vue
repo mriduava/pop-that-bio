@@ -138,8 +138,8 @@ export default {
           snap.forEach(info => {
             let usersData = info.data();
             if (
-              usersData.bookingId == this.bookingId ||
-              usersData.bookingId == this.userId
+              usersData.bookingId === this.bookingId ||
+              usersData.bookingId === this.userId
             ) {
               this.myBookingInfo.push(usersData);
               this.loading = false;

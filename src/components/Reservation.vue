@@ -11,9 +11,10 @@
         </div>
         <div class="movie-text">
           <h5>{{movieDetail.title}}</h5>
-          <h6>Datum: {{reserveInfo.showTime.dateName}}, {{reserveInfo.showTime.date}}/{{reserveInfo.showTime.month}}</h6>
-          <h6>Tid: {{reserveInfo.showTime.time.time}}</h6>
-          <h6>{{reserveInfo.auditorium}}</h6>
+          <h6>Datum: <span>{{reserveInfo.showTime.dateName}}, {{reserveInfo.showTime.date}}/{{reserveInfo.showTime.month}}</span></h6>
+          <h6>Tid: <span>{{reserveInfo.showTime.time.time}}</span></h6>
+          <h6>Salongen: <span>{{reserveInfo.auditorium}}</span></h6>
+          <h6>Platser: <span>{{reservedSeats.join(', ')}}</span></h6>
         </div>
       </div>
       <div class="ticket-details">
@@ -48,7 +49,7 @@
               <label for="icon_telephone">Telefonnummer</label>
             </div>
             <div class="input-field">
-              <input id="email" type="email" class="validate" v-model="email" />
+              <input id="email" type="email" class="validate" v-model="email"/>
               <label for="email">E-post</label>
             </div>
           </div>
@@ -79,7 +80,7 @@ export default {
   data() {
     return {
       telephone: "",
-      email: "",
+      email: this.$store.state.userEmail,
       userId: this.$store.state.userId,
       pickTime: this.$store.state.beforeBooking.timeStamp,
       auditorium: this.$store.state.reserveInfo.auditorium,
@@ -122,8 +123,7 @@ export default {
         this.$store.state.bookingId = bookingId;
       }
       db.collection("bookings")
-      .add(bookingInfo)
-    
+      .add(bookingInfo)    
       this.$router.push({
         path:
           "/movies/" +
@@ -202,8 +202,15 @@ export default {
   overflow: hidden;
 }
 .movie-text {
+  color: #9b9b9b;
   margin-top: 4.5%;
   padding: 0;
+}
+.movie-text h5{
+  color: rgb(204, 9, 113);
+}
+.movie-text span{
+  color: #282828;
 }
 .ticket-details {
   margin-top: 2%;

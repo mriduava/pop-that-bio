@@ -48,6 +48,7 @@ export default {
         .then(cred => {
             this.message = `Inloggad som ${cred.user.email}`;
             this.$store.state.userId = cred.user.uid
+            this.$store.state.userEmail = cred.user.email
             this.$emit('close', this.message)
             this.$router.push({ path: '/minasidor' });  
              this.alert = ''
