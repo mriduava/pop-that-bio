@@ -207,13 +207,13 @@ export default {
       this.$router.push("/movies/" + this.searchInput.replace(" ", "-"));     
       
      
-       if (this.searchInput == "filmer") {
+       if (this.searchInput == "Filmer") {
          this.$router.push("/movies");
-       } else if (this.searchInput == "om oss") {
+       } else if (this.searchInput == "Om oss") {
          this.$router.push("/about");
-       } else if (this.searchInput == "logga in") {
+       } else if (this.searchInput == "Logga in") {
          this.$router.push("/signin");
-       } else if (this.searchInput == "hem") {
+       } else if (this.searchInput == "Start") {
        this.$router.push("/");
        }
     },
