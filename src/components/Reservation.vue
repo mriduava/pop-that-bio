@@ -50,7 +50,7 @@
             </div>
             <div class="input-field">
               <input id="email" type="email" class="validate" v-model="email"/>
-              <label for="email">E-post</label>
+              <label for="email" :class="{active: email !== null}">E-post</label>
             </div>
           </div>
         </form>

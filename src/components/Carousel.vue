@@ -76,9 +76,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.container {
-  /*position: relative;*/
-}
+/* .container {
+  position: relative;
+  top: 60px;
+} */
 
 /* #slideshow {
   position: relative;

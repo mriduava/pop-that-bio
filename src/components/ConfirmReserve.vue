@@ -54,7 +54,7 @@
             <p>Platser:</p>
           </div>
           <div class="col s6 book-text">
-            <p>{{myBookingInfo[0].reservedSeats}}</p>
+            <p>{{myBookingInfo[0].reservedSeats.join(', ')}}</p>
           </div>
         </div>
       </div>

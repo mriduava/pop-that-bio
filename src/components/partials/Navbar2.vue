@@ -173,14 +173,10 @@ export default {
   font-family: borntogrille;
   src: url("../../assets/fonts/borntogrille.otf");
 }
-@media (max-width: 568px) {
- .brand-logo{
-  font-size: 1.8rem;
- }
-}
+
 nav {
   background: transparent;
-  padding-left: 1.1%;
+  padding-left: 0.9%;
   box-shadow: none;
   z-index: 2;
 	position: fixed;
@@ -210,11 +206,17 @@ nav {
   padding: 2% 0;
 }
 li a{
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 100;
 }
 li .router-link-active {
   background: rgb(150, 38, 97);
+}
+
+@media (max-width: 568px) {
+ .brand-logo{
+  font-size: 1.8rem;
+ }
 }
 
 </style>

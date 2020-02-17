@@ -83,6 +83,8 @@ export default {
 
 <style lang="css" scoped>
 .around {
+  position: relative;
+  top: -7px;
   background-color: black
 }
 
