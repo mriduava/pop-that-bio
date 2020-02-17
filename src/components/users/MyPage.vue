@@ -145,7 +145,6 @@ export default {
     },
     sortBookings() {
       let today = Date.now();
-                      window.console.log(this.myBookings.length + " how many")
 
       this.myBookings.forEach(booking => {
         
