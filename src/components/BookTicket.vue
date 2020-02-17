@@ -1,72 +1,53 @@
 <template>
-  <div>
-    <div class="book-ticket-container">
-      <router-link :to="'/movies/' + movieDetail.slug">
-        <div class="back-link">
-          <i class="fa fa-angle-left"></i>
-          <h5>Tillbaka</h5>
+  <div class="container-fluid">
+    <div class="title-text">
+      <h4>Antal biljetter</h4>
+    </div>
+    <hr class="hr-style" />
+    <div class="reserve-info">
+      <div class="ticket-details">
+        <div class="ticket-info">
+          <h6>Ordinarie</h6>
+          <h6 class="counter">
+            <i @click="decreaseOrd()" class="fa fa-minus-circle"></i>
+            <span>{{ counterOrd }}</span>
+            <i @click="increaseOrd()" class="fa fa-plus-circle"></i>
+          </h6>
         </div>
+        <div class="ticket-info">
+          <h6>Pensionär</h6>
+          <h6 class="counter">
+            <i @click="decreasePen()" class="fa fa-minus-circle"></i>
+            <span>{{ counterPen }}</span>
+            <i @click="increasePen()" class="fa fa-plus-circle"></i>
+          </h6>
+        </div>
+        <div class="ticket-info">
+          <h6 class="text-grey">Barn</h6>
+          <h6 class="counter">
+            <i @click="decreaseChild()" class="fa fa-minus-circle"></i>
+            <span>{{ counterChild }}</span>
+            <i @click="increaseChild()" class="fa fa-plus-circle"></i>
+          </h6>
+        </div>
+
+        <div class="visitors-num">
+          <h6 class="text-center">Antal besökare: {{ this.nrOfcustomer }} (max 8 st)</h6>
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <router-link :to="'/movies/' + movieDetail.slug">
+        <button class="modal-trigger btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
 
-      <div>
-        <h4>Antal biljetter</h4>
-      </div>
-      <div class="ordinarie">
-        <div class="ordinarie-mini">
-          <h6>Ordinarie</h6>
-        </div>
-        <div class="buttons">
-          <div>
-            <i @click="decreaseOrd()" class="fa fa-minus-circle"></i>
-          </div>
-          <div>
-            <h6>{{ counterOrd }}</h6>
-          </div>
-          <div>
-            <i @click="increaseOrd()" class="fa fa-plus-circle"></i>
-          </div>
-        </div>
-      </div>
-      <div class="ordinarie">
-        <div class="ordinarie-mini">
-          <h6>Pensionär</h6>
-        </div>
-        <div class="buttons">
-          <div>
-            <i @click="decreasePen()" class="fa fa-minus-circle"></i>
-          </div>
-          <div>
-            <h6>{{ counterPen }}</h6>
-          </div>
-          <div>
-            <i @click="increasePen()" class="fa fa-plus-circle"></i>
-          </div>
-        </div>
-      </div>
-      <div class="ordinarie" v-if="childAllowed">
-        <div class="ordinarie-mini">
-          <h6>Barn</h6>
-        </div>
-        <div class="buttons">
-          <div>
-            <i @click="decreaseChild()" class="fa fa-minus-circle"></i>
-          </div>
-          <div>
-            <h6>{{ counterChild }}</h6>
-          </div>
-          <div>
-            <i @click="increaseChild()" class="fa fa-plus-circle"></i>
-          </div>
-        </div>
-      </div>
-      <div class="end">
-        <h6>Antal besökare: {{ this.nrOfcustomer }} (max 8 st)</h6>
-      </div>
-      <div class="valj">
-        <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
-          <button class="btn btn-small waves-effect waves-light" @click="updateTickets">Välj platser</button>
-        </router-link>
-      </div>
+      <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
+        <button
+          class="modal-trigger btn btn-small waves-effect waves-light"
+          @click="updateTickets"
+        >Välj platser</button>
+      </router-link>
     </div>
   </div>
 </template>
@@ -103,7 +84,7 @@ export default {
         numberOfAdults: this.counterOrd,
         numberOfSeniors: this.counterPen
       };
-      this.$store.dispatch("updateTickets", tickets);    
+      this.$store.dispatch("updateTickets", tickets);
     },
     increaseOrd() {
       if (
@@ -159,109 +140,108 @@ export default {
   },
   created() {
     this.getMovie();
-    this.$store.dispatch("getAuditoriums"); 
+    this.$store.dispatch("getAuditoriums");
     this.$store.dispatch("getBeforeBookings");
   }
 };
 </script>
 
 <style lang="css" scoped>
-.book-ticket-container {
-  z-index: 1;
+.container-fluid {
+  position: relative;
+  top: -50px;
+  padding-bottom: 3%;
+}
+.title-text {
+  text-align: center;
+  color: rgb(204, 9, 113);
+}
+
+.reserve-info {
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  text-align: left;
+}
+
+.ticket-details {
+  margin-top: 2%;
+}
+.ticket-info {
   margin: 0 auto;
-  width: 30%;
-  color: rgb(73, 15, 15);
-}
-
-.ordinarie {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  /*border: 1px solid black;*/
+  max-width: 350px;
+  min-width: 280px;
 }
 
-.ordinarie-mini {
+.counter {
+  width: 80px;
   display: flex;
-  align-content: flex-start;
-  /*border: 1px solid black*/
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
+.counter i {
+  font-size: 1.9rem;
+}
+
+.counter i:hover {
+  cursor: pointer;
+  color: rgb(204, 9, 113);
+}
+
+.ticket-info h6 {
+  font-size: 1.4rem;
+}
+
+.visitors-num {
+  text-align: center;
+  margin-top: 5%;
+}
 .buttons {
   display: flex;
-  flex-direction: row;
-  /*border: 1px solid black;*/
-  align-items: center;
+  justify-content: space-between;
+  max-width: 350px;
+  margin: 5% auto;
 }
 
 .btn {
   background: rgba(202, 8, 112, 0.692);
 }
 
-.valj {
-  display: flex;
-  justify-content: center;
-  /*border: 1px solid black;*/
-  padding-top: 20px;
-  padding-bottom: 80px;
+.hr-style {
+  border: 0;
+  min-width: 70%;
+  max-width: 1%;
+  height: 1px;
+  margin: 0 auto 10px auto;
+  background: #fff;
+  background: -webkit-linear-gradient(left, #fff, rgb(204, 9, 113), #fff);
 }
 
-.fa {
-  font-size: 40px;
-  padding: 8px;
-}
-
-.end {
-  padding-top: 50px;
-  /*display: block;*/
-  margin: 0 auto;
-  color: black;
-}
-
-.back-link {
-  display: flex;
-  flex-direction: row;
-  /*border: 1px solid black;*/
-}
-
-.back-link:hover {
-  background: rgba(255, 186, 240, 0.3);
-}
-
+/* RESPONSIVE STYLE*/
 @media (min-width: 1281px) {
-  .fa {
-    font-size: 40px;
-    padding: 8px;
-  }
 }
-
 @media (min-width: 1025px) and (max-width: 1280px) {
-  .fa {
-    font-size: 40px;
-    padding: 8px;
-  }
 }
-
 @media (min-width: 768px) and (max-width: 1024px) {
-  .fa {
-    font-size: 40px;
-    padding: 8px;
-  }
 }
-
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-  .fa {
-    font-size: 40px;
-    padding: 8px;
-  }
 }
-
 @media (min-width: 481px) and (max-width: 767px) {
-  .fa {
-    font-size: 40px;
-    padding: 8px;
+}
+@media (min-width: 310px) and (max-width: 568px) {
+  .ticket-info,
+  .buttons {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    max-width: 280px;
+  }
+  .buttons {
+    margin-top: 6%;
   }
 }
 </style>

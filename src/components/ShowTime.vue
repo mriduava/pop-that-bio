@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div class="available-times" id="showtime">
+      <div class="available-times">
         <ul style="list-style-type:none;">
           <li class="show-time-item" v-for="(screenTime, i) in screenTimes" :key="i">
             {{ screenTime.time }} |

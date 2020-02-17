@@ -62,16 +62,18 @@
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
         <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-        <button
-          class="btn btn-small waves-effect waves-light"
-          :class="{ disabled: counter !== totalSeats}"
-          @click="goToReservation()"
-        >Fortsätt</button>
+      <button
+        class="btn btn-small waves-effect waves-light"
+        :class="{ disabled: counter !== totalSeats}"
+        @click="goToReservation()"
+      >Fortsätt</button>
     </div>
   </div>
 </template>
 
 <script>
+import uuid from "uuid/v4";
+import { db } from "@/firebase/firebase.js";
 export default {
   data() {
     return {
@@ -88,6 +90,8 @@ export default {
       seatHover: { x: 0, y: 0 },
       toggleSelection: false,
       beforeBookings: this.$store.state.beforeBookings,
+      // beforeBookings: [],
+
       userBooked: {
         movieTitle: "",
         timeStamp: "",
@@ -100,7 +104,9 @@ export default {
         timeStamp: "",
         tempSeats: []
       },
-      mySelection: []
+      mySelection: [],
+      myUserId: null,
+      isClicked: false
     };
   },
   methods: {
@@ -151,7 +157,7 @@ export default {
         this.mySelection.splice(seatIndex, 1);
         this.counter--;
       }
-      // this.sendSeatsInfo()
+      this.sendSeatsInfo();
     },
     showPositionsOnHover(x, y) {
       let seat = this.seatsGrid[x][y];
@@ -171,13 +177,26 @@ export default {
       });
     },
     sendSeatsInfo() {
-      let mySeatsInfo = {
-        collection: "mySeats",
-        movieTitle: this.pickMovie,
-        pickTime: this.pickTime,
-        mySeats: this.mySelection
-      };
-      this.$store.dispatch("sendSeatsInfo", mySeatsInfo);    
+      const resData = db.collection("mySeatsInfo");
+      if (!this.isClicked) {
+        this.myUserId = uuid();
+        resData.doc(this.myUserId).set({
+          movieTitle: this.pickMovie,
+          timeStamp: this.pickTime,
+          reserveSeats: this.mySelection
+        });
+        this.isClicked = true;
+      } else {
+        resData.doc(this.myUserId).update({ reserveSeats: this.mySelection });
+      }
+    },
+    getSeatsInfo(){
+      db.collection('mySeatsInfo').onSnapshot(snap=>{
+        let changes = snap.docChanges()
+        changes.forEach(change=>{
+          this.beforeBookings.push(change)
+        })
+      })
     },
     getMovie() {
       this.movies.forEach(movie => {
@@ -186,21 +205,36 @@ export default {
         }
       });
     },
-    goToReservation(){
-      this.$router.push({path: '/movies/' + this.movieDetail.slug + '/ticket/seatsplan/reservation'})
+    goToReservation() {
+      this.$store.state.mySeats = this.mySelection;
+      this.$router.push({
+        path:
+          "/movies/" + this.movieDetail.slug + "/ticket/seatsplan/reservation"
+      });
     }
   },
   created() {
     this.getAuditorium(this.auditoriumId);
     this.createSeatsGrid();
+    // this.getSeatsInfo();
     this.getBeforeBooking();
     this.$store.dispatch("getPriceData");
     this.getMovie();
-  }
+  },
+  watch: {
+    'beforeBookings'(){
+      // this.getSeatsInfo()
+      this.getBeforeBooking()
+    }
+  },
 };
 </script>
 
 <style lang="css" scoped>
+.container-fluid {
+  position: relative;
+  top: -60px;
+}
 .title-text {
   text-align: center;
   color: rgb(204, 9, 113);
@@ -347,15 +381,14 @@ export default {
 }
 .buttons {
   display: flex;
-  justify-content: center;
-  margin: 0 1% 3% 1%;
+  justify-content: space-between;
+  margin: 0 auto;
   position: relative;
   top: -69px;
+  max-width: 350px;
 }
 .btn {
   background: rgba(202, 8, 112, 0.692);
-  margin-left: 10px;
-  margin-right: 10px;
 }
 .hr-style {
   border: 0;
@@ -365,5 +398,10 @@ export default {
   margin: 0 auto 10px auto;
   background: #fff;
   background: -webkit-linear-gradient(left, #fff, rgb(204, 9, 113), #fff);
+}
+@media (min-width: 310px) and (max-width: 568px) {
+  .buttons {
+    max-width: 280px;
+  }
 }
 </style>

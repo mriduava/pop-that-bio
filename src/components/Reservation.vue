@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="title-text">
-      <h4 class>Reservation</h4>
+      <h4>Reservation</h4>
     </div>
     <hr class="hr-style" />
     <div class="reserve-info">
@@ -44,28 +44,12 @@
         <form>
           <div class="row">
             <div class="input-field">
-              <input
-                id="icon_telephone"
-                type="tel"
-                class="validate"
-                value
-                required
-                autofocus
-                v-model="telephone"
-              />
+              <input id="icon_telephone" type="tel" class="validate" v-model="telephone" />
               <label for="icon_telephone">Telefonnummer</label>
             </div>
             <div class="input-field">
-              <input
-                id="email"
-                type="text"
-                class="validate"
-                value
-                required
-                autofocus
-                v-model="email"
-              />
-              <label for="email">Din e-post</label>
+              <input id="email" type="email" class="validate" v-model="email" />
+              <label for="email">E-post</label>
             </div>
           </div>
         </form>
@@ -73,31 +57,34 @@
     </div>
     <div class="buttons">
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
-        <button class="btn btn-small waves-effect waves-light">Tillbaka</button>
+        <button class="modal-trigger btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-      <button class="btn btn-small waves-effect waves-light" 
-         :class="{disabled: telephone === '' || email === ''}"
-         @click="completeBooking">Reservera
-      </button>
-    </div>
-    <div v-if="showReserveInfo">
-      <ConfirmReserve />
+
+      <button
+        class="btn btn-small waves-effect waves-light"
+        :class="{disabled: telephone === '' || email === ''}"
+        @click="completeBooking"
+      >Reservera</button>
     </div>
   </div>
 </template>
 
 <script>
 import moment from "moment";
-import ConfirmReserve from "@/components/ConfirmReserve";
+import uuid from "uuid/v4";
+import { db } from "@/firebase/firebase.js";
+
 export default {
   name: "reservation",
-  components: {
-    ConfirmReserve
-  },
   data() {
     return {
       telephone: "",
       email: "",
+      userId: this.$store.state.userId,
+      pickTime: this.$store.state.beforeBooking.timeStamp,
+      auditorium: this.$store.state.reserveInfo.auditorium,
+      reservedSeats: this.$store.state.mySeats,
+      confBookings: this.$store.state.confBookingsData,
       movies: this.$store.getters.movies,
       movieDetail: [],
       reserveInfo: this.$store.state.reserveInfo,
@@ -106,8 +93,7 @@ export default {
       totalPrice: 0,
       adultPrice: 0,
       seniorPrice: 0,
-      childPrice: 0,
-      showReserveInfo: false
+      childPrice: 0
     };
   },
   methods: {
@@ -117,29 +103,39 @@ export default {
         Math.floor(Math.random() * 1000) +
         "-" +
         Math.floor(Math.random() * 100000);
-
+      let bookingId = uuid()
       let bookingInfo = {
-        collection: "confirmBookings",
+        bookingId: null,
         bookingNumber: bookingNumber,
         email: this.email,
         telephone: this.telephone,
         movieTitle: this.movieDetail.title,
-        ticketsInfo: this.ticketsInfo
+        showTime: this.pickTime,
+        auditorium: this.auditorium,
+        ticketsInfo: this.ticketsInfo,
+        reservedSeats: this.reservedSeats
       };
-      if(this.$store.getters.username !== ''){
-        this.$store.dispatch('sendBookingToUser', bookingInfo)
+       if(this.userId !== null){
+         bookingInfo.bookingId = this.userId
+      }else{
+        bookingInfo.bookingId = bookingId
+        this.$store.state.bookingId = bookingId;
       }
-      this.$store.dispatch("sendConfirmBookings", bookingInfo);
-      this.showReserveInfo = true;
+      db.collection("bookings")
+      .add(bookingInfo)
+    
+      this.$router.push({
+        path:
+          "/movies/" +
+          this.movieDetail.slug +
+          "/ticket/seatsplan/reservation/confirm"
+      });
     },
     formatTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
     },
     calcTicketPrice() {
-      let total = 0,
-        adult = 0,
-        child = 0,
-        senior = 0;
+      let total = 0, adult = 0, child = 0, senior = 0;
       this.ticketsPrice.forEach(price => {
         if (price.id === "adult") {
           adult = this.ticketsInfo.numberOfAdults * price.price;
@@ -164,47 +160,47 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getAuditoriums");
     this.calcTicketPrice();
     this.getMovie();
-  }
+  },
+  mounted() {
+    let modal = document.querySelectorAll(".modal");
+    this.$M.Modal.init(modal);
+  },
+  watch: {}
 };
 </script>
 
 <style lang="css" scoped>
 .container-fluid {
-  padding-bottom: 3%;
+  position: relative;
+  top: -50px;
+  padding-bottom: 5%;
 }
 .title-text {
   text-align: center;
   color: rgb(204, 9, 113);
 }
-
 .reserve-info {
   margin: 2% auto 0 auto;
   display: flex;
   flex-direction: column;
 }
-
 .movie-info {
   width: 350px;
   margin: 0 auto;
   display: flex;
-  /* justify-content: center; */
 }
-
 .movie-image {
   width: 140px;
   padding: 0;
   margin-right: 3%;
 }
-
 .movie-image img {
   width: 100%;
   display: block;
   overflow: hidden;
 }
-
 .movie-text {
   margin-top: 4.5%;
   padding: 0;
@@ -220,33 +216,26 @@ export default {
   max-width: 350px;
   min-width: 280px;
 }
-
 .clear {
   clear: both;
   display: block;
 }
-
 .user-info {
   display: flex;
   justify-content: center;
 }
-
 .input-field {
   width: 350px;
 }
-
 .buttons {
+  max-width: 350px;
   display: flex;
-  justify-content: center;
-  margin: 0 1% 3% 1%;
+  justify-content: space-between;
+  margin: 0 auto;
 }
-
 .btn {
   background: rgba(202, 8, 112, 0.692);
-  margin-left: 10px;
-  margin-right: 10px;
 }
-
 .hr-style {
   border: 0;
   min-width: 70%;
@@ -256,24 +245,12 @@ export default {
   background: #fff;
   background: -webkit-linear-gradient(left, #fff, rgb(204, 9, 113), #fff);
 }
-
 /* RESPONSIVE STYLE*/
-@media (min-width: 1281px) {
-}
-@media (min-width: 1025px) and (max-width: 1280px) {
-}
-@media (min-width: 768px) and (max-width: 1024px) {
-}
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-}
-@media (min-width: 481px) and (max-width: 767px) {
-}
 @media (min-width: 310px) and (max-width: 568px) {
   .movie-info {
     width: 280px;
     margin: 0 auto;
   }
-
   .movie-text {
     margin-top: 18%;
     padding: 0;
@@ -285,7 +262,8 @@ export default {
     justify-content: space-between;
     max-width: 280px;
   }
-  .input-field {
+  .input-field,
+  .buttons {
     width: 280px;
   }
 }
