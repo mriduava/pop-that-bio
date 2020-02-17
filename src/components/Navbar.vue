@@ -143,6 +143,7 @@ export default {
   data() {
     return {
       searchInput: "",
+      searchInput2: "",
       email: "",
       password: "",
       name: "",
@@ -151,46 +152,47 @@ export default {
     };
   },
   mounted() {
-    const autoData = {
-      aladdin: null,
+     /* const autoData = {
+        aladdin: null,
+        "frozen 2":
+          "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
+        legend: null,
+        "the matrix": null,
+        avatar:
+          "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
+        "unga astrid": null,
+        djungelboken: null,
+        "micke och veronica": null,
+        filmer: null,
+        "om oss": null,
+        "logga in": null,
+        hem: null
+      }
 
-      "frozen 2":
-        "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
+      const autoData = this.$store.state.data.map(movie => {
+        let auto = {}
+        auto[movie.title] = null
+        return auto
+      })*/
 
-      legend: null,
+      const autoData = this.$store.state.data.reduce((acc, curr) => {
+        acc[curr.title] = null
+        return acc
+      }, {})
 
-      "the matrix": null,
-
-      avatar:
-        "https://www.jquery-az.com/wp-content/uploads/2017/12/favicon-32x32.png",
-
-      "unga astrid": null,
-
-      djungelboken: null,
-
-      "micke och veronica": null,
-
-      filmer: null,
-
-      "om oss": null,
-
-      "logga in": null,
-
-      hem: null
-    };
-    var autos = document.querySelectorAll(".autocomplete");
+      console.log(autoData);
+      
+      
+    var autos = document.querySelectorAll('.autocomplete');
     this.$M.Autocomplete.init(autos, {
       data: autoData,
       onAutocomplete: this.onAutocompleteSelect
     });
-
     var elems = document.querySelectorAll(".carousel");
     this.$M.Carousel.init(elems);
     setTimeout(this.$M.Carousel.init(elems), 1000);
-
     var modals = document.querySelectorAll(".modal");
     this.$M.Modal.init(modals);
-
     var items = document.querySelectorAll(".collapsible");
     this.$M.Collapsible.init(items);
   },
@@ -208,33 +210,26 @@ let elem = document.querySelector(el)
     onAutocompleteSelect(value) {
       this.searchInput = value;
     },
+    myFunction: function () {	
+		this.searchInput2 = this.searchInput.toUpperCase();
+    },
+   
     search() {
       window.console.log(this.searchInput);
-      if (this.searchInput == "aladdin") {
-        this.$router.push("/movies/aladdin");
-      } else if (this.searchInput == "frozen 2") {
-        this.$router.push("/movies/frozen-2");
-      } else if (this.searchInput == "legend") {
-        this.$router.push("/movies/legend");
-      } else if (this.searchInput == "the matrix") {
-        this.$router.push("/movies/the-matrix");
-      } else if (this.searchInput == "avatar") {
-        this.$router.push("/movies/avatar");
-      } else if (this.searchInput == "unga astrid") {
-        this.$router.push("/movies/astrid");
-      } else if (this.searchInput == "djungelboken") {
-        this.$router.push("/movies/jungle-book");
-      } else if (this.searchInput == "micke och veronica") {
-        this.$router.push("/movies/micke-och-veronica");
-      } else if (this.searchInput == "filmer") {
-        this.$router.push("/movies");
-      } else if (this.searchInput == "om oss") {
-        this.$router.push("/about");
-      } else if (this.searchInput == "logga in") {
-        this.$router.push("/signin");
-      } else if (this.searchInput == "hem") {
-        this.$router.push("/");
-      }
+      this.searchInput2 = this.searchInput.toUpperCase();
+      this.searchInput = this.searchInput[0].toUpperCase() + this.searchInput.slice(1)
+      this.$router.push("/movies/" + this.searchInput.replace(" ", "-"));     
+      
+     
+       if (this.searchInput == "Filmer") {
+         this.$router.push("/movies");
+       } else if (this.searchInput == "Om oss") {
+         this.$router.push("/about");
+       } else if (this.searchInput == "Logga in") {
+         this.$router.push("/signin");
+       } else if (this.searchInput == "Start") {
+       this.$router.push("/");
+       }
     },
 
     storeAccountDetails() {
@@ -338,23 +333,19 @@ nav {
 .sidenav {
   background-color: rgba(107, 22, 72, 0.788);
 }
-
 .our-brand-logo {
   font-family: borntogrille;
   text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   font-size: 4vw;
 }
-
 .our-brand-logo:hover {
   color: rgb(243, 144, 197);
 }
-
 @media (max-width: 460px) {
   .our-brand-logo {
     font-size: 5vw;
   }
 }
-
 #nav-mobile .nav-item .nav-link {
   font-size: 1.2em;
 }
@@ -362,7 +353,6 @@ nav {
   color: rgb(243, 144, 197);
   cursor: pointer;
 }
-
 .router-link-active {
   background: rgb(150, 38, 97);
 }
@@ -380,7 +370,6 @@ nav {
     font-size: 2rem;
   }
 }
-
 @media (min-width: 320px) and (max-width: 480px) {
   nav {
     padding: 0;
