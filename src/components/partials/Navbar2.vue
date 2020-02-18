@@ -47,6 +47,18 @@
           <li v-if="isLoggedin">
             <a href="#signin" class="modal-trigger" @click.prevent="logout">LOGGA UT</a>
           </li>
+
+            <!-- NEW SEARCH FIELD (HENKE)-->
+             <!-- <div class="input-field search-field">
+              <input id="search" type="search" v-model="searchMessage" v-on:keyup.enter="searchMovie(searchMessage)" required>
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+              <ul v-for="(movie, index) in searchedMovieList" :key="index">
+                <li>{{ movie.title}}</li>
+              </ul>
+            </div>  -->
+          
+
         </ul>
       </div>
     </nav>
@@ -99,7 +111,10 @@ export default {
     return {
       isLoggedin: false,
       currentUser: false,
-      logginMsg: ''
+      logginMsg: '',
+      searchMessage: '',
+      searchedMovieList: [],
+      showList: false,
     };
   },
   methods:{
@@ -126,7 +141,32 @@ export default {
         let modal = document.querySelector("#signup");
         this.$M.Modal.getInstance(modal).close();
       }
-    }
+    },
+     routerToSelectedMovie(movie) {
+       this.$router.push("/movies/" + movie.slug)
+     },
+     searchMovie(input) {
+
+        //this.$router.push("/movies/" + input);
+
+
+       this.moviesData.forEach(movie => {
+         let movieTitle = movie.title.toLowerCase()
+         let searched = input.toLowerCase()
+
+        if (movieTitle === searched) {
+            this.searchedMovieList.push(movie)
+            //this.routerToSelectedMovie(movie)
+            // window.console.log(movie.title)
+         } else if (movieTitle.startsWith(searched)) {
+            this.searchedMovieList.push(movie)
+            // window.console.log(movie.title)
+         } else if (movieTitle.includes(searched)) {
+            this.searchedMovieList.push(movie)
+            // window.console.log(movie.title)
+         }
+       });
+    },
   },
   onAutocompleteSelect(value) {
       this.searchInput = value;
@@ -158,6 +198,11 @@ export default {
     let modal = document.querySelectorAll(".modal");
     this.$M.Modal.init(modal);
     
+  },
+  computed: {
+    moviesData() {
+      return this.$store.state.data;
+    }
   },
   watch: {
     'isLoggedin'(){
@@ -211,6 +256,15 @@ li a{
 }
 li .router-link-active {
   background: rgb(150, 38, 97);
+}
+.search-field {
+  margin: 0px;
+  display: flex;
+  align-items: flex-end;
+  width: 150px;
+}
+.input-field {
+  width: 150px;
 }
 
 @media (max-width: 568px) {
