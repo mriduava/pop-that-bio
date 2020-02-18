@@ -45,14 +45,14 @@
 
     <div class="parallax-container">
       <div class="parallax">
-        <img src="../assets/images/thkLund.jpg" />
+        <img src="../assets/images/About.gif" />
       </div>
     </div>
     <div class="section white">
       <div class="row container">
         <div class="row about">
           <div class="col s12">
-            <h4 class="center">Contacts...</h4>
+            <h4 class="contact center">Contact Us</h4>
 
             <div class></div>
           </div>
@@ -60,6 +60,8 @@
           <div class="row">
             <div class="col s12 tack center">
               <h6>www.popthatbio.now.sh</h6>
+              <h6>info@popthatbio</h6>
+              <h6>+46739696969</h6>
             </div>
           </div>
         </div>
@@ -112,6 +114,25 @@ export default {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.contact{
+  font-family: queen;
+  
+  font-size: 2.5rem;
+  padding-top: 10px;
+  background: linear-gradient(to right, rgb(237, 44, 255) 30%, #03e74f 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+.col {
+  font-size: 3.5rem;
+  padding-top: 20px;
+  background: linear-gradient(to right, rgb(237, 44, 255) 30%, #03e74f 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .combs,
 .combs2 {
   display: flex;
