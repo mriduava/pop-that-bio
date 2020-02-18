@@ -5,14 +5,12 @@ import Home from '../views/Home.vue'
 import MovieDetail from '@/components/MovieDetail'
 import MoviesList from '@/components/MoviesList'
 import MoviesListPic from '@/components/MoviesListPic'
-import Signin from '@/components/Signin'
 import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
 import Reservation from '@/components/Reservation'
 import ConfReserve from '@/components/ConfirmReserve'
 import MinaSidor from '@/components/users/MyPage'
 import MyPage from '@/components/MyPage'
-import Register from '@/components/Register'
 import Members from '@/components/Members'
 import Questions from '@/components/Questions'
 import CustomerService from '@/components/CustomerService'
@@ -66,11 +64,6 @@ const routes = [
     component: MinaSidor
   },
   {
-    path: '/signin',
-    name: 'signin',
-    component: Signin
-  },
-  {
     path: '/mypage',
     name: 'mypage',
     component: MyPage,
@@ -80,11 +73,6 @@ const routes = [
     name: 'about',
     component: () => import('../views/About.vue')
   }, 
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register
-  },
   {
     path: '/medlemmar',
     name: 'Members',

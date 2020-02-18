@@ -141,7 +141,7 @@ export default {
       let today = new Date();
       let tomorrow = new Date(today);
       tomorrow.setDate(tomorrow.getDate() + (index - 1));
-      //window.console.log(tomorrow.getDay() + " tom day")
+      
       return tomorrow;
     },
     updateChosenDate(index) {
@@ -163,7 +163,7 @@ export default {
             " D"
           ) == chosenDay
         ) {
-          // console.log("audi ID: " + this.screeningDetails[s].auditoriumId);
+          
           this.screenTimes.push({
             time: this.customMomentTime(
               this.screeningDetails[s].startTime.toMillis(),
@@ -195,7 +195,7 @@ export default {
         case "Cw0BLCXOYyMpoXW8OAiL":
           return "Stora Salongen";
         default:
-          console.log("Failed to convert auditorium ID!");
+         
       }
     },
     sendBookingDetails(screenTime) {
@@ -206,7 +206,7 @@ export default {
       this.$store.state.auditoriumId = screenTime.auditoriumId;
       this.$store.state.beforeBooking.movieTitle = this.movieDetail.title;
       this.$store.state.beforeBooking.timeStamp = screenTime.timeStamp;
-      console.log(this.$store.state.beforeBooking.timeStamp);
+      
       
     }
   },

@@ -196,7 +196,7 @@ export default {
     this.$M.AutoInit()
     this.$M.Tabs.init(document.querySelectorAll('.tabs'))
 
-      console.log(this.$route.params.tab);
+      
 
     if(!this.$route.params.tab) return
 

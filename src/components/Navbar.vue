@@ -191,7 +191,7 @@ export default {
         return acc
       }, {})
 
-      console.log(autoData);
+     
       
       
     var autos = document.querySelectorAll('.autocomplete');
@@ -209,7 +209,7 @@ export default {
   },
   methods: {
     openingModal(el){
-      console.log('opening modal')
+    
       this.email = '',
       this.password = '',
       this.name = '',
@@ -226,7 +226,7 @@ let elem = document.querySelector(el)
     },
    
     search() {
-      window.console.log(this.searchInput);
+     
       this.searchInput2 = this.searchInput.toUpperCase();
       this.searchInput = this.searchInput[0].toUpperCase() + this.searchInput.slice(1)
       this.$router.push("/movies/" + this.searchInput.replace(" ", "-"));     
@@ -256,7 +256,7 @@ let elem = document.querySelector(el)
       e.preventDefault();
       aut.createUserWithEmailAndPassword(this.email, this.password).then(
         user => {
-          window.console.log(`Account created for ${user.email}`);
+         
           this.storeAccountDetails();
           this.$router.push("/mypage");
           const modal = document.querySelector("#modal-signup");
@@ -287,7 +287,7 @@ let elem = document.querySelector(el)
 
       this.$store.dispatch("setUsername", this.email);
       this.$router.push("/mypage");
-      window.console.log("u are logged in");
+      
       this.isLoggedIn = true;
       const modal = document.querySelector("#modal-login");
       this.$M.Modal.getInstance(modal).close();
@@ -297,7 +297,7 @@ let elem = document.querySelector(el)
     async logOut(e) {
       aut.signOut().then(
         () => {
-          window.console.log("u logged out");
+          
           this.$router.push("/");
           this.isLoggedIn = false;
         },

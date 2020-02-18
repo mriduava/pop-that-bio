@@ -2,9 +2,9 @@
 <div class="around">
   <div class="container">
     <div class="room">
-      <div class="carousel">
+      
         <img src="../assets/images/sss.jpg"/>
-      </div>
+    
       <div class="text">
         <h2>Sveriges största biografkedja</h2>
         <p>
@@ -93,6 +93,10 @@ export default {
   .room {
     margin-right: 1px;
   }
+   h4{
+   font-size: 1.8rem;
+ }
+
 }
 
 .text {
