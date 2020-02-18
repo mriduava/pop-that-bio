@@ -1,57 +1,45 @@
 <template>
   <div class="container">
     <div class="row film-header">
-      <div class="col s4">
-        <h4>Filmer (klicka poster för mer info)</h4>
-      </div>
-
       <div class="col s8">
-        <div class="sorting-option">
-          <h5>
-            <router-link to="/movies/"><button class="btn">
-              <i class="fas fa-list"></i>
-            </button></router-link>
-          </h5>
-          <h5>
-            <button class="btn">
-              <i class="far fa-file-image"></i>
-            </button>
-          </h5>
-        </div>
+        <h4>Filmer</h4>
       </div>
-    </div>
-
-  <div id="movies" class="disp-movies">
-    <div class="container">
-      <div class="row">
-        <hr class="hr-style" />
-        <div class="col x12 s6 m4 l3 xl3" v-for="(movie, index) in moviesData" :key="index">
-          <router-link :to="'/movies/' + movie.slug">
-            <div class="card">
-              <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" :src="movie.image" />
-                <div class="card-text">
-                  <h5 class="black-text text-darken-4 valign center">{{movie.title}}</h5>
-                  <!-- <p
-                    class="white-text text-darken-4 center"
-                  >{{momentTime(movie.showTime.toMillis())}}</p> -->
-                </div>
-              </div>
-            </div>
+      <div class="col s4">
+        <div class="sorting-option">
+          <router-link to="/movies/">
+            <button class="btn">
+              <i class="fas fa-list"></i>
+            </button>
           </router-link>
         </div>
       </div>
-      <div class="end-button">
-        <router-link to="/movies">
-          <button class="btn waves-effect">Visa filmer i lista</button>
-        </router-link>
+    </div>
+    <div id="movies" class="disp-movies">
+      <div class="container-fluid">
+        <div class="row">
+          <hr class="hr-style" />
+          <div class="col x12 s6 m4 l3 xl3" v-for="(movie, index) in moviesData" :key="index">
+            <router-link :to="'/movies/' + movie.slug">
+              <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator" :src="movie.image" />
+                  <div class="card-text">
+                    <h6 class="black-text text-darken-4 valign center">{{movie.title}}</h6>
+                  </div>
+                </div>
+              </div>
+            </router-link>
+          </div>
+        </div>
+        <div class="end-button">
+          <router-link to="/movies">
+            <button class="btn waves-effect">Visa filmer i lista</button>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
-    
-  </div>
 </template>
-
 
 <script>
 import moment from "moment";
@@ -76,7 +64,7 @@ export default {
           this.movieDetail = movie;
         }
       });
-    },
+    }
   },
   computed: {
     moviesData() {
@@ -94,7 +82,13 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+.container {
+  position: relative;
+  top: -68px;
+  padding: 2% 0 14% 0;
+  margin-bottom: -129px;
+}
 .film-header {
   display: flex;
   justify-content: space-between;
@@ -102,6 +96,7 @@ export default {
 }
 
 .film-header h4 {
+  color: rgb(204, 9, 113);
   margin: 0;
   padding: 0;
 }
@@ -123,10 +118,6 @@ export default {
   margin: 3% 0;
   border-radius: 4px;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  /*display: flex;
-  justify-content: space-evenly;
-  border: 1px solid black;
-  align-items: center;*/
 }
 
 .movies-list:hover {
@@ -154,7 +145,7 @@ export default {
   padding: 0 3%;
   text-align: justify;
 }
-.end-button{
+.end-button {
   text-align: center;
   padding-bottom: 20px;
 }
