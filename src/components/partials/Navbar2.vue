@@ -48,11 +48,14 @@
             <a href="#signin" class="modal-trigger" @click.prevent="logout">LOGGA UT</a>
           </li>
 
-            <!-- NEW SEARCH FIELD-->
+            <!-- NEW SEARCH FIELD (HENKE)-->
              <!-- <div class="input-field search-field">
               <input id="search" type="search" v-model="searchMessage" v-on:keyup.enter="searchMovie(searchMessage)" required>
               <label class="label-icon" for="search"><i class="material-icons">search</i></label>
               <i class="material-icons">close</i>
+              <ul v-for="(movie, index) in searchedMovieList" :key="index">
+                <li>{{ movie.title}}</li>
+              </ul>
             </div>  -->
           
 
@@ -111,6 +114,7 @@ export default {
       logginMsg: '',
       searchMessage: '',
       searchedMovieList: [],
+      showList: false,
     };
   },
   methods:{
@@ -138,24 +142,28 @@ export default {
         this.$M.Modal.getInstance(modal).close();
       }
     },
-     
+     routerToSelectedMovie(movie) {
+       this.$router.push("/movies/" + movie.slug)
+     },
      searchMovie(input) {
 
-       this.moviesData.forEach(movie => {
+        //this.$router.push("/movies/" + input);
 
+
+       this.moviesData.forEach(movie => {
          let movieTitle = movie.title.toLowerCase()
          let searched = input.toLowerCase()
 
-         //if (movieTitle === searched || movieTitle.includes(searched)) {
         if (movieTitle === searched) {
-          window.console.log("Match")
-            window.console.log(movie.title)
+            this.searchedMovieList.push(movie)
+            //this.routerToSelectedMovie(movie)
+            // window.console.log(movie.title)
          } else if (movieTitle.startsWith(searched)) {
-           window.console.log("Starts")
-            window.console.log(movie.title)
+            this.searchedMovieList.push(movie)
+            // window.console.log(movie.title)
          } else if (movieTitle.includes(searched)) {
-           window.console.log("inclu")
-            window.console.log(movie.title)
+            this.searchedMovieList.push(movie)
+            // window.console.log(movie.title)
          }
        });
     },
