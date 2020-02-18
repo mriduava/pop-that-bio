@@ -1,46 +1,40 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <div class="title-text">
       <h4 class>Boka biljetter</h4>
       <hr class="hr-style" />
     </div>
 
-    <div class="screenings-section">
-      <div class="dates">
-        <div class="dropdown-menu">
-          <div class="selected-dropdown item" @click="showMenu = !showMenu">
-            <h5>
-              <i class="fas fa-bars"></i>
-            </h5>
-            <h5>{{chosenDate.date}}/{{chosenDate.month}} - {{ chosenDate.dateName }}</h5>
-          </div>
-
-          <div class="dropdown-items" v-if="showMenu">
-            <ul>
-              <li
-                v-for="(date, i) in dates"
-                :key="i"
-                @click="updateChosenDate(date.index)"
-              >{{ date.date }} / {{ date.month}} - {{ date.dateName}}</li>
-            </ul>
-          </div>
-        </div>
+    <div class="dropdown-menu">
+      <div class="selected-dropdown item">
+        <h5  @click="showMenu = !showMenu"><i class="fas fa-bars"></i></h5>
+        <h5>{{chosenDate.date}}/{{chosenDate.month}} - {{ chosenDate.dateName }}</h5>
       </div>
+    </div>
 
-      <div class="available-times">
-        <ul style="list-style-type:none;">
-          <li class="show-time-item" v-for="(screenTime, i) in screenTimes" :key="i">
-            {{ screenTime.time }} |
-            {{ screenTime.auditorium }}
-            <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
-              <button
-                class="btn btn-small pink darken-1 waves-effect"
-                @click="sendBookingDetails(screenTime)"
-              >Boka</button>
-            </router-link>
-          </li>
-        </ul>
-      </div>
+    <div class="dropdown-items" v-if="showMenu">
+      <ul>
+        <li
+          v-for="(date, i) in dates"
+          :key="i"
+          @click="updateChosenDate(date.index)"
+        >{{ date.date }} / {{ date.month}} - {{ date.dateName}}</li>
+      </ul>
+    </div>
+
+    <div class="available-times">
+      <ul style="list-style-type:none;">
+        <li class="show-time-item" v-for="(screenTime, i) in screenTimes" :key="i">
+          {{ screenTime.time }} |
+          {{ screenTime.auditorium }}
+          <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
+            <button
+              class="btn btn-small pink darken-1 waves-effect"
+              @click="sendBookingDetails(screenTime)"
+            >Boka</button>
+          </router-link>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -141,7 +135,7 @@ export default {
       let today = new Date();
       let tomorrow = new Date(today);
       tomorrow.setDate(tomorrow.getDate() + (index - 1));
-      
+
       return tomorrow;
     },
     updateChosenDate(index) {
@@ -163,7 +157,6 @@ export default {
             " D"
           ) == chosenDay
         ) {
-          
           this.screenTimes.push({
             time: this.customMomentTime(
               this.screeningDetails[s].startTime.toMillis(),
@@ -195,7 +188,6 @@ export default {
         case "Cw0BLCXOYyMpoXW8OAiL":
           return "Stora Salongen";
         default:
-         
       }
     },
     sendBookingDetails(screenTime) {
@@ -206,8 +198,6 @@ export default {
       this.$store.state.auditoriumId = screenTime.auditoriumId;
       this.$store.state.beforeBooking.movieTitle = this.movieDetail.title;
       this.$store.state.beforeBooking.timeStamp = screenTime.timeStamp;
-      
-      
     }
   },
   created() {
@@ -224,10 +214,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.container-fluid {
-  background: transparent;
-}
-
 .title-text {
   margin: 0 auto;
   text-align: center;
@@ -239,8 +225,8 @@ export default {
 
 .hr-style {
   border: 0;
-  min-width: 99%;
-  max-width: 1%;
+  min-width: 90%;
+  max-width: 100%;
   height: 1px;
   margin: 0 auto 10px auto;
   background: #fff;
@@ -255,16 +241,13 @@ export default {
 /*SCREENING SECTION*/
 
 .dropdown-menu {
-  margin: 0 auto;
+  width: 70vw;
   position: relative;
   color: #13f7ff;
   top: 20px;
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 2.2%;
-  max-width: 59vw;
+  left: -2px;
+  padding: 5px 2.5%;
   background: rgba(83, 83, 83, 0.1);
-  /* border: 0.01rem solid rgba(255, 166, 248, 0.1); */
 }
 
 .selected-dropdown {
@@ -276,6 +259,7 @@ export default {
   color: #00ff4c;
   font-size: 1.5rem;
   margin-right: 25px;
+  padding-bottom: 10px;
 }
 
 .selected-dropdown:hover {
@@ -285,10 +269,9 @@ export default {
 .dropdown-items {
   position: absolute;
   background: rgba(255, 255, 255, 0.95);
-  top: 65px;
-  left: 0;
+  top: 180px;
   width: 300px;
-  padding: 3% 3%;
+  padding: 1% 3%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   transition: 0.3s;
@@ -297,7 +280,7 @@ export default {
 
 .dropdown-items li {
   color: rgb(212, 0, 166);
-  padding: 1.1% 0;
+  padding: 1.4% 0;
 }
 
 .dropdown-items li:hover {
@@ -309,7 +292,7 @@ export default {
 .available-times {
   display: flex;
   justify-content: center;
-  margin: 1% 0;
+  margin: 0.2% 0;
 }
 .show-time-item {
   position: relative;
@@ -317,23 +300,29 @@ export default {
   color: #00ff4c;
   background: #1d1d1d98;
   font-size: 1.5rem;
-  margin: 2% auto 0 auto;
+  margin: 0.2% auto 0 auto;
   padding: 15px 2%;
   display: flex;
   justify-content: space-between;
-  width: 59vw;
+  width: 70vw;
   /* border: 0.01rem solid rgba(255, 166, 248, 0.2); */
 }
 
-@media (min-width: 310px) and (max-width: 812px) {
+@media (min-width: 310px) and (max-width: 768px) {
   .dropdown-menu {
-    /* justify-content: center;
-    text-align: center; */
-    max-width: 90vw;
+    justify-content: center;
+    text-align: center;
+    width: 85vw;
     padding-left: 3%;
+    position: relative;
+    /* left: -20px; */
+  }
+  .dropdown-items {
+    width: 240px;
+    z-index: 10;
   }
   .show-time-item {
-    width: 85vw;
+    width: 90vw;
   }
 }
 </style>
