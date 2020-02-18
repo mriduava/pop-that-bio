@@ -1,6 +1,7 @@
 {
   "name": "popthatbio",
   "version": "0.1.0",
+  "authors": "Keis, Henrik, Markus, Naim, Hampus, Ola, Maruf",
   "private": true,
   "description": "A movie ticket booking app",
   "scripts": {
@@ -48,6 +49,5 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ],
-  "authors": "Keis, Henrik, Markus, Hampus, Ola, Maruf"
+  ]
 }
