@@ -45,7 +45,7 @@
 
     <div class="parallax-container">
       <div class="parallax">
-        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg" />
+        <img src="../assets/images/thkLund.jpg" />
       </div>
     </div>
     <div class="section white">
