@@ -81,7 +81,7 @@ export default {
   font-size: 10rem;
   padding-top: 50px;
   background: linear-gradient(to right, rgb(255, 128, 9) 30%, #1abe59 70%);
-  -webkit-background-clip: text;
+  
   -webkit-text-fill-color: transparent;
 }
 
