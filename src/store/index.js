@@ -14,6 +14,7 @@ export default new Vuex.Store({
     auditoriums: [],
     auditoriumId: '',
     userId: null,
+    userEmail: null,
     bookingId: '',
     scrData: [],
     mySeats: [],

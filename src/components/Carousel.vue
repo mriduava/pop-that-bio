@@ -9,7 +9,7 @@
           width: '100%',
           height: '109vh',
           top: '-117px',
-          //zIndex: '-1',
+          zIndex: '-1',
           objectFilt: 'contain',
           overflow: 'hidden',
           background: 'linear-gradient(45deg, rgba(197, 49, 99, 0.8) 0%, rgba(197, 49, 99, 0.2) 100%),' +  
@@ -76,9 +76,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.container {
-  /*position: relative;*/
-}
+/* .container {
+  position: relative;
+  top: 60px;
+} */
 
 /* #slideshow {
   position: relative;

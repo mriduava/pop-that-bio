@@ -11,9 +11,10 @@
         </div>
         <div class="movie-text">
           <h5>{{movieDetail.title}}</h5>
-          <h6>Datum: {{reserveInfo.showTime.dateName}}, {{reserveInfo.showTime.date}}/{{reserveInfo.showTime.month}}</h6>
-          <h6>Tid: {{reserveInfo.showTime.time.time}}</h6>
-          <h6>{{reserveInfo.auditorium}}</h6>
+          <h6>Datum: <span>{{reserveInfo.showTime.dateName}}, {{reserveInfo.showTime.date}}/{{reserveInfo.showTime.month}}</span></h6>
+          <h6>Tid: <span>{{reserveInfo.showTime.time.time}}</span></h6>
+          <h6>Salongen: <span>{{reserveInfo.auditorium}}</span></h6>
+          <h6>Platser: <span>{{reservedSeats.join(', ')}}</span></h6>
         </div>
       </div>
       <div class="ticket-details">
@@ -48,8 +49,8 @@
               <label for="icon_telephone">Telefonnummer</label>
             </div>
             <div class="input-field">
-              <input id="email" type="email" class="validate" v-model="email" />
-              <label for="email">E-post</label>
+              <input id="email" type="email" class="validate" v-model="email"/>
+              <label for="email" :class="{active: email !== null}">E-post</label>
             </div>
           </div>
         </form>
@@ -59,11 +60,10 @@
       <router-link :to="'/movies/' + movieDetail.slug + '/ticket/seatsplan'">
         <button class="modal-trigger btn btn-small waves-effect waves-light">Tillbaka</button>
       </router-link>
-
       <button
         class="btn btn-small waves-effect waves-light"
         :class="{disabled: telephone === '' || email === ''}"
-        @click="completeBooking"
+        @click="completeBooking()"
       >Reservera</button>
     </div>
   </div>
@@ -79,7 +79,7 @@ export default {
   data() {
     return {
       telephone: "",
-      email: "",
+      email: this.$store.state.userEmail,
       userId: this.$store.state.userId,
       pickTime: this.$store.state.beforeBooking.timeStamp,
       auditorium: this.$store.state.reserveInfo.auditorium,
@@ -90,15 +90,16 @@ export default {
       reserveInfo: this.$store.state.reserveInfo,
       ticketsInfo: this.$store.state.ticketsInfo,
       ticketsPrice: this.$store.state.ticketsPriceData,
+      isSeatTaken: false,
       totalPrice: 0,
       adultPrice: 0,
       seniorPrice: 0,
-      childPrice: 0
+      childPrice: 0,
+      alert: ''
     };
   },
   methods: {
-    completeBooking() {
-      //alert(this.$store.getters.username)
+    sendBookingInfo() {
       let bookingNumber =
         Math.floor(Math.random() * 1000) +
         "-" +
@@ -122,14 +123,40 @@ export default {
         this.$store.state.bookingId = bookingId;
       }
       db.collection("bookings")
-      .add(bookingInfo)
-    
-      this.$router.push({
-        path:
-          "/movies/" +
-          this.movieDetail.slug +
-          "/ticket/seatsplan/reservation/confirm"
-      });
+      .add(bookingInfo)    
+    },
+    checkBookedSeats(){
+      let reservedSeats = []
+      db.collection('bookings').onSnapshot(snap=>{
+        let updatedSeats = snap.docChanges()
+        updatedSeats.forEach(bookings=>{
+          let booking = bookings.doc.data()
+          if (booking.movieTitle === this.movieDetail.title &&
+              booking.showTime === this.pickTime) {
+            reservedSeats.splice(reservedSeats, 0, ...booking.reservedSeats)
+          }
+        })
+      })
+      this.isSeatTaken = reservedSeats.some(el => this.reservedSeats.indexOf(el) !== -1)
+      // return reservedSeats.some(el => this.reservedSeats.indexOf(el) !== -1)
+      // console.log(a);
+      
+    },
+    completeBooking(){
+      this.checkBookedSeats();
+      if (this.isSeatTaken !== true) {
+        this.sendBookingInfo();
+        this.$router.push({
+          path:
+            "/movies/" +
+            this.movieDetail.slug +
+            "/ticket/seatsplan/reservation/confirm"
+        }); 
+        this.alert = ''       
+      }else{
+        this.alert = `Förlåt! Din valda plats har tagits!
+        Snälla, välj en annan plats.`
+      }
     },
     formatTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
@@ -164,10 +191,21 @@ export default {
     this.getMovie();
   },
   mounted() {
-    let modal = document.querySelectorAll(".modal");
-    this.$M.Modal.init(modal);
+    if(this.alert !== ''){
+      this.$M.toast({html: this.alert})
+    }
   },
-  watch: {}
+  watch: {
+    'isSeatTaken'(){
+      this.checkBookedSeats();
+    },
+    'alert'(){
+      this.completeBooking();
+    },
+    'userId'(){
+      this.sendBookingInfo();
+    }
+  }
 };
 </script>
 
@@ -202,8 +240,15 @@ export default {
   overflow: hidden;
 }
 .movie-text {
+  color: #9b9b9b;
   margin-top: 4.5%;
   padding: 0;
+}
+.movie-text h5{
+  color: rgb(204, 9, 113);
+}
+.movie-text span{
+  color: #282828;
 }
 .ticket-details {
   margin-top: 2%;

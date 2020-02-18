@@ -65,26 +65,23 @@ Under 30- och 40-talen hade filmbranschen en verklig glansperiod. Att gå på bi
         <br />
       </div>
     </div>
-  </div>
-  </div>
+    <div class="parallax-container">
+      <div class="parallax"><img src="https://helpx.adobe.com/content/dam/help/en/stock/how-to/visual-reverse-image-search/jcr_content/main-pars/image/visual-reverse-image-search-v2_intro.jpg"></div>
+    </div>
+    </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-    var elems = document.querySelectorAll(".carousel");
-    this.$M.Carousel.init(elems);
-
-    setTimeout(this.$M.Carousel.init(elems), 1000);
-  }
-};
+mounted(){
+  var elems = document.querySelectorAll('.parallax');
+   this.$M.Parallax.init(elems); 
+}
+  
+}
 </script>
 
-
 <style lang="css" scoped>
-.around {
-  background-color: black
-}
 
 .room {
   background-color: rgb(204, 201, 201);

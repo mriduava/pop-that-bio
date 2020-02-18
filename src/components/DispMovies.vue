@@ -197,6 +197,7 @@ export default {
   opacity: 1;
 }
 h1 {
+  font-size: 2.9rem;
   text-align: center;
   font-family: borntogrille;
   color: #fc9dd1;

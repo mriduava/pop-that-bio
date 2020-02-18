@@ -10,7 +10,6 @@ import SeatsPlan from '@/components/SeatsPlan'
 import Reservation from '@/components/Reservation'
 import ConfReserve from '@/components/ConfirmReserve'
 import MinaSidor from '@/components/users/MyPage'
-import MyPage from '@/components/MyPage'
 import Members from '@/components/Members'
 import Questions from '@/components/Questions'
 import CustomerService from '@/components/CustomerService'
@@ -62,11 +61,6 @@ const routes = [
     path: '/minasidor',
     name: 'mypage',
     component: MinaSidor
-  },
-  {
-    path: '/mypage',
-    name: 'mypage',
-    component: MyPage,
   },
   {
     path: '/about',

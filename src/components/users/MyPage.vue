@@ -27,12 +27,11 @@
           <h5>Dina kommande visningar</h5>
           <hr class="hr-style" />
           <div class="col s12 m4 booking-cards" v-for="(booking, i) in upcomingBookings" :key="i">
-          <!-- <div class="col s12 m4 booking-cards" v-for="(booking, i) in myBookings" :key="i"> -->
             <div class="card">
-              <!-- <div class="card-image waves-effect waves-block waves-light">
-                 <img class="activator" src="images/office.jpg">
-              </div>-->
-              <div class="card-content" :class="{'pink': formatTime(booking.showTime) === Date.now()}">
+              <div
+                class="card-content"
+                :class="{ 'yellow accent-1': formatToDay(booking.showTime) === getToday()}"
+              >
                 <span class="card-title activator grey-text text-darken-4">{{booking.movieTitle}}</span>
                 <hr />
                 <p>
@@ -65,9 +64,6 @@
           <hr class="hr-style" />
           <div class="col s12 m4 booking-cards" v-for="(booking, i) in bookingsHistory" :key="i">
             <div class="card history">
-              <!-- <div class="card-image waves-effect waves-block waves-light">
-                 <img class="activator" src="images/office.jpg">
-              </div>-->
               <div class="card-content">
                 <span class="card-title activator grey-text text-darken-4">{{booking.movieTitle}}</span>
                 <hr />
@@ -118,6 +114,12 @@ export default {
     formatTime(time) {
       return moment(time).format("lll");
     },
+    formatToDay(time) {
+      return moment(time).format("LL");
+    },
+    getToday() {
+      return moment().format("LL");
+    },
     getUsersInfo() {
       this.loading = true;
       db.collection("users")
@@ -140,35 +142,26 @@ export default {
               this.loading = false;
             }
           });
-          this.sortBookings()
+          this.sortBookings();
         });
     },
     sortBookings() {
       let today = Date.now();
-
       this.myBookings.forEach(booking => {
-        
         if (booking.showTime != undefined) {
-
-          if  (booking.showTime > today) {
-            this.upcomingBookings.push(booking)
+          if (booking.showTime > today) {
+            this.upcomingBookings.push(booking);
           } else {
-            this.bookingsHistory.push(booking)
+            this.bookingsHistory.push(booking);
           }
         }
-
-      
-        // if (booking.showTime > today) {
-        //   this.bookingsHistory.push(booking);
-        // }
       });
     }
   },
   created() {
     this.getUsersInfo();
     this.getBookingsInfo();
-    //this.sortBookings();
-  },
+  }
 };
 </script>
 
@@ -186,7 +179,8 @@ export default {
 
 .container {
   position: relative;
-  top: -40px;
+  padding: 0 1%;
+  top: -30px;
 }
 
 .user-info h4,
