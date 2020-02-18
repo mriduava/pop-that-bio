@@ -37,8 +37,8 @@
 
     <div class="moviedetail-container">
       <div class="row middle">
-        <div class="col s6 movie-image">
-          <img :src="movieDetail.image" />
+        <div class="col s12 m4 l3 movie-image">
+          <img :src="movieDetail.image" width="100%"/>
         </div>
 
         <div class="col s4 movie-info">
