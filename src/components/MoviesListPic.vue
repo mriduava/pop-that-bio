@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row film-header">
-      <div class="col s4">
+      <div class="col s12">
         <h4>Filmer (klicka poster för mer info)</h4>
       </div>
 

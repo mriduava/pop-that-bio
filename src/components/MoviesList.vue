@@ -79,7 +79,7 @@
 
       <router-link :to="'/movies/' + movie.slug">
         <div class="row movies-list">
-          <div class="col s12 m3 l3">
+          <div class="col s12 m3 l3 image">
             <div class="movie-image">
               <img :src="movie.image" alt="Pop that bio" />
             </div>
@@ -166,7 +166,7 @@ export default {
     },
 
     sortMovieList(genreInput) {
-      //window.console.log("Sorting movies with " + genreInput);
+      
       this.selectedGenre = genreInput;
 
       if (genreInput == "Alla") {
@@ -177,7 +177,7 @@ export default {
       let sortedMovies = this.moviesData.filter(
         movie => movie.genre == genreInput
       );
-      window.console.log(sortedMovies);
+      //window.console.log(sortedMovies);
       this.movies = sortedMovies;
     }
   },
@@ -188,7 +188,7 @@ export default {
   },
   watch: {
     moviesData() {
-      //window.console.log("MOVIES UPDATED ");
+     
       this.movies = this.moviesData;
     }
   },
@@ -264,6 +264,7 @@ export default {
 
 .movie-image img {
   width: 100%;
+  /*height: 100%;*/
 }
 
 .date {
