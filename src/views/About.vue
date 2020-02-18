@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <div class="row container">
       <div class="col s12">
-        <h4 class="title-text center">A bout us...</h4>
-        <hr class="hr-style" />
+        <h4 class="title-text center">About us</h4>
+        
 
         <div class="combs">
           <div class="honey-comb">
@@ -105,6 +105,7 @@ export default {
 
 .title-text {
   font-family: queen;
+  font-weight:bold;
   font-size: 8.5rem;
   padding-top: 50px;
   background: linear-gradient(to right, rgb(237, 44, 255) 30%, #03e74f 70%);
