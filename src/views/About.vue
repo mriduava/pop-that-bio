@@ -7,7 +7,7 @@
 
         <div class="combs">
           <div class="honey-comb">
-            <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
+            <img src="https://scontent.fbma4-1.fna.fbcdn.net/v/t1.0-9/10650062_10207564536303530_5223223719937159771_n.jpg?_nc_cat=100&_nc_sid=7aed08&_nc_ohc=uL5G5m-NIT0AX83dI-j&_nc_ht=scontent.fbma4-1.fna&oh=2688908f09b5c1d0367d0f8bba34395c&oe=5EBAA5A6" alt />
           </div>
           <div class="honey-comb">
             <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
@@ -60,7 +60,7 @@
           <div class="row">
             <div class="col s12 tack center">
               <h6>+460317396969</h6>
-              <h6>info@popthatbio</h6>
+              <h6> info@popthatbio</h6>
               <h6>www.popthatbio.now.sh</h6>
               
               
