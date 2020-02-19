@@ -42,7 +42,8 @@ export default new Vuex.Store({
       timeStamp: '',
       reserveSeats: []
     },
-    mySeatsInfo:{}
+    mySeatsInfo:{},
+    authenticated: false
   },
   getters: {
     movies(state){
@@ -62,6 +63,9 @@ export default new Vuex.Store({
     },
     username(state){
       return state.user.username
+    },
+    setAuthentication(state, status){
+      state.authenticated = status;
     }
   },
   mutations: {

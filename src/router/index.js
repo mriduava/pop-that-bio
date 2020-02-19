@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store/index.js'
 import Home from '../views/Home.vue'
 import MovieDetail from '@/components/MovieDetail'
 import MoviesList from '@/components/MoviesList'
@@ -8,7 +9,7 @@ import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
 import Reservation from '@/components/Reservation'
 import ConfReserve from '@/components/ConfirmReserve'
-import MinaSidor from '@/components/users/MyPage'
+import MyPage from '@/components/users/MyPage'
 import Members from '@/components/Members'
 import Questions from '@/components/Questions'
 import CustomerService from '@/components/CustomerService'
@@ -57,11 +58,15 @@ const routes = [
     component: ConfReserve
   },
   {
-    path: '/minasidor',
+    path: '/mypage',
     name: 'mypage',
-    component: MinaSidor,
-    meta: {
-      requiresAuth: true
+    component: MyPage,
+    beforeEnter: (to, from, next) => {
+      if(store.state.authenticated === false){
+        next('/')
+      }else{
+        next()
+      }
     }
   },
   {

@@ -11,10 +11,22 @@
         </div>
         <div class="movie-text">
           <h5>{{movieDetail.title}}</h5>
-          <h6>Datum: <span>{{reserveInfo.showTime.dateName}}, {{reserveInfo.showTime.date}}/{{reserveInfo.showTime.month}}</span></h6>
-          <h6>Tid: <span>{{reserveInfo.showTime.time.time}}</span></h6>
-          <h6>Salongen: <span>{{reserveInfo.auditorium}}</span></h6>
-          <h6>Platser: <span>{{reservedSeats.join(', ')}}</span></h6>
+          <h6>
+            Datum:
+            <span>{{reserveInfo.showTime.dateName}}, {{reserveInfo.showTime.date}}/{{reserveInfo.showTime.month}}</span>
+          </h6>
+          <h6>
+            Tid:
+            <span>{{reserveInfo.showTime.time.time}}</span>
+          </h6>
+          <h6>
+            Salongen:
+            <span>{{reserveInfo.auditorium}}</span>
+          </h6>
+          <h6>
+            Platser:
+            <span>{{reservedSeats.join(', ')}}</span>
+          </h6>
         </div>
       </div>
       <div class="ticket-details">
@@ -49,7 +61,7 @@
               <label for="icon_telephone">Telefonnummer</label>
             </div>
             <div class="input-field">
-              <input id="email" type="email" class="validate" v-model="email"/>
+              <input id="email" type="email" class="validate" v-model="email" />
               <label for="email" :class="{active: email !== null}">E-post</label>
             </div>
           </div>
@@ -65,6 +77,34 @@
         :class="{disabled: telephone === '' || email === ''}"
         @click="completeBooking()"
       >Reservera</button>
+    </div>
+
+    <div v-if="showModal" class="pop-alert">
+      <transition name="modal">
+        <div class="modal-mask">
+          <div class="modal-wrapper">
+            <div class="modal-container">
+              <div class="modal-header">
+                <slot name="header">
+                  <h5 class="pink-text">OBS!!</h5>
+                </slot>
+              </div>
+
+              <div class="modal-body">
+                <slot name="body">
+                  <p class="pink-text">{{alert}}</p>
+                </slot>
+              </div>
+
+              <div class="modal-footer">
+                <slot name="footer">
+                  <button class="modal-default-button" @click="showModal = false">OK</button>
+                </slot>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -95,7 +135,8 @@ export default {
       adultPrice: 0,
       seniorPrice: 0,
       childPrice: 0,
-      alert: ''
+      alert: "",
+      showModal: false
     };
   },
   methods: {
@@ -104,7 +145,7 @@ export default {
         Math.floor(Math.random() * 1000) +
         "-" +
         Math.floor(Math.random() * 100000);
-      let bookingId = uuid()
+      let bookingId = uuid();
       let bookingInfo = {
         bookingId: null,
         bookingNumber: bookingNumber,
@@ -116,32 +157,37 @@ export default {
         ticketsInfo: this.ticketsInfo,
         reservedSeats: this.reservedSeats
       };
-       if(this.userId !== null){
-         bookingInfo.bookingId = this.userId
-      }else{
-        bookingInfo.bookingId = bookingId
+      if (this.userId !== null) {
+        bookingInfo.bookingId = this.userId;
+      } else {
+        bookingInfo.bookingId = bookingId;
         this.$store.state.bookingId = bookingId;
       }
-      db.collection("bookings")
-      .add(bookingInfo)    
+      db.collection("bookings").add(bookingInfo);
     },
-    checkBookedSeats(){
-      let reservedSeats = []
-      db.collection('bookings').onSnapshot(snap=>{
-        let updatedSeats = snap.docChanges()
-        updatedSeats.forEach(bookings=>{
-          let booking = bookings.doc.data()
-          if (booking.movieTitle === this.movieDetail.title &&
-              booking.showTime === this.pickTime) {
-            reservedSeats.splice(reservedSeats, 0, ...booking.reservedSeats)
+    checkBookedSeats() {
+      let reservedSeats = [];
+      db.collection("bookings").onSnapshot(snap => {
+        let updatedSeats = snap.docChanges();
+        updatedSeats.forEach(bookings => {
+          let booking = bookings.doc.data();
+          if (
+            booking.movieTitle === this.movieDetail.title &&
+            booking.showTime === this.pickTime
+          ) {
+            reservedSeats.splice(reservedSeats, 0, ...booking.reservedSeats);
           }
-        })
-      })
-      this.isSeatTaken = reservedSeats.some(el => this.reservedSeats.indexOf(el) !== -1)
-      
-      
+        });
+      });
+      // this.isSeatTaken = reservedSeats.some(el => this.reservedSeats.indexOf(el) !== -1)
+      for (let i = 0; i < this.reservedSeats.length; i++) {
+        if (reservedSeats.indexOf(this.reservedSeats[i] > -1)) {
+          this.isSeatTaken = true;
+          break;
+        }
+      }
     },
-    completeBooking(){
+    completeBooking() {
       this.checkBookedSeats();
       if (this.isSeatTaken !== true) {
         this.sendBookingInfo();
@@ -150,18 +196,22 @@ export default {
             "/movies/" +
             this.movieDetail.slug +
             "/ticket/seatsplan/reservation/confirm"
-        }); 
-        this.alert = ''       
-      }else{
+        });
+        this.alert = "";
+      } else {
         this.alert = `Förlåt! Din valda plats har tagits!
-        Snälla, välj en annan plats.`
+        Snälla, välj en annan plats.`;
+        this.showModal = true;
       }
     },
     formatTime(time) {
       return moment(time).format("MMMM Do, HH:mm");
     },
     calcTicketPrice() {
-      let total = 0, adult = 0, child = 0, senior = 0;
+      let total = 0,
+        adult = 0,
+        child = 0,
+        senior = 0;
       this.ticketsPrice.forEach(price => {
         if (price.id === "adult") {
           adult = this.ticketsInfo.numberOfAdults * price.price;
@@ -189,19 +239,14 @@ export default {
     this.calcTicketPrice();
     this.getMovie();
   },
-  mounted() {
-    if(this.alert !== ''){
-      this.$M.toast({html: this.alert})
-    }
-  },
   watch: {
-    'isSeatTaken'(){
+    isSeatTaken() {
       this.checkBookedSeats();
     },
-    'alert'(){
+    alert() {
       this.completeBooking();
     },
-    'userId'(){
+    userId() {
       this.sendBookingInfo();
     }
   }
@@ -243,10 +288,10 @@ export default {
   margin-top: 4.5%;
   padding: 0;
 }
-.movie-text h5{
+.movie-text h5 {
   color: rgb(204, 9, 113);
 }
-.movie-text span{
+.movie-text span {
   color: #282828;
 }
 .ticket-details {
@@ -289,14 +334,86 @@ export default {
   background: #fff;
   background: -webkit-linear-gradient(left, #fff, rgb(204, 9, 113), #fff);
 }
+
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 300px;
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-header h3 {
+  margin-top: 0;
+  color: #42b983;
+}
+
+.modal-body {
+  margin: 20px 0;
+}
+
+.modal-default-button {
+  float: right;
+  padding: 4%;
+  font-size: 20px;
+  position: relative;
+  top: -40px;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(202, 8, 112, 0.692);
+}
+
+.modal-default-button:hover{
+  cursor: pointer;
+  color: rgba(202, 8, 112, 0.692);
+  background: #fff;
+  border: 1px solid rgba(202, 8, 112, 0.692);
+}
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
 /* RESPONSIVE STYLE*/
 @media (min-width: 310px) and (max-width: 568px) {
   .movie-info {
     width: 280px;
-    margin: 0 auto;
+    margin: 1% auto;
+  }
+  .movie-image{
+    margin-top: 3.2%;
   }
   .movie-text {
-    margin-top: 18%;
+    margin-top: 0%;
     padding: 0;
   }
   .ticket-info,
