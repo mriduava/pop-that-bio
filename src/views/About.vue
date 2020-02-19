@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row container">
       <div class="col s12">
-        <h4 class="title-text center">About us</h4>
+        <h4 class="title-text center">Om Oss</h4>
         
 
         <div class="combs">
