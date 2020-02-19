@@ -2,26 +2,6 @@
   <div id="sticky">
     <nav class="nav-wraper">
       <div class="container">
-
-        <!-- sökfält
-        <form @submit.prevent="search">
-          <div class="input-field">
-            <input
-              v-model="searchInput"
-              autocomplete="off"
-              class="autocomplete"
-              id="search"
-              type="search"
-              required
-            />
-            <label for="search"></label>
-            <label class="label-icon" for="search">
-              <i class="material-icons">search</i>
-            </label>
-            <i class="material-icons">close</i>
-          </div>
-        </form> -->
-
         <a class="brand-logo">
           <router-link to="/">POP THAT BIO</router-link>
         </a>
@@ -47,18 +27,6 @@
           <li v-if="isLoggedin">
             <a href="#signin" class="modal-trigger" @click.prevent="logout">LOGGA UT</a>
           </li>
-
-            <!-- NEW SEARCH FIELD (HENKE)-->
-             <!-- <div class="input-field search-field">
-              <input id="search" type="search" v-model="searchMessage" v-on:keyup.enter="searchMovie(searchMessage)" required>
-              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
-              <ul v-for="(movie, index) in searchedMovieList" :key="index">
-                <li>{{ movie.title}}</li>
-              </ul>
-            </div>  -->
-          
-
         </ul>
       </div>
     </nav>
@@ -86,7 +54,6 @@
         <a class="modal" @click.prevent="logout">LOGGA UT</a>
       </li>
     </ul>
-
     <div class="modal grey lighten-4" id="signin">
       <Signin v-on:close="closeModal($event)"/>
     </div>
@@ -94,7 +61,6 @@
     <div class="modal grey lighten-4" id="signup">
       <Signup v-on:close="closeModal($event)"/>
     </div>
-
   </div>
 </template>
 
@@ -146,24 +112,16 @@ export default {
        this.$router.push("/movies/" + movie.slug)
      },
      searchMovie(input) {
-
-        //this.$router.push("/movies/" + input);
-
-
        this.moviesData.forEach(movie => {
          let movieTitle = movie.title.toLowerCase()
          let searched = input.toLowerCase()
 
         if (movieTitle === searched) {
             this.searchedMovieList.push(movie)
-            //this.routerToSelectedMovie(movie)
-            // window.console.log(movie.title)
          } else if (movieTitle.startsWith(searched)) {
             this.searchedMovieList.push(movie)
-            // window.console.log(movie.title)
          } else if (movieTitle.includes(searched)) {
             this.searchedMovieList.push(movie)
-            // window.console.log(movie.title)
          }
        });
     },
@@ -180,8 +138,6 @@ export default {
       this.searchInput2 = this.searchInput.toUpperCase();
       this.searchInput = this.searchInput[0].toUpperCase() + this.searchInput.slice(1)
       this.$router.push("/movies/" + this.searchInput.replace(" ", "-"));     
-      
-     
        if (this.searchInput == "Filmer") {
          this.$router.push("/movies");
        } else if (this.searchInput == "Om oss") {
@@ -271,6 +227,8 @@ li .router-link-active {
  .brand-logo{
   font-size: 1.8rem;
  }
+ .sidenav{
+   width: 50vw;
+ }
 }
-
 </style>

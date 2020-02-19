@@ -36,10 +36,7 @@
       <div class="row">
         <div class="col s12 tack center">
           <h6>
-            Inspired by the sprit of teamwork. Very warm contribution and patience of all the team member 
-            made us special. Being completely new in the business, we are confident enough to provide the best
-            service to our customers. we are dynamic, passionate about new challanges and bring the best out 
-            of anything. Our vision of excellence is bring the best out of best </h6>
+           Inspirerade av lagarbete. Varmt deltagande och tålamod utav all teammedlemmar är det som gör att vi sticker ut från mängden. Trots att vi är nya i branschen, kan vi erbjuda högsta kvalité på vår service till våra kunder. Vi är dynamiska, passionerade och gör det bästa utav allting. Vår vision är att alla våra kunder ska ha sin livs bästa bioupplevelse. Gå på POP THAT BIO idag och få en oförglömlig upplevelse. </h6>
         </div>
       </div>
     </div>
@@ -100,8 +97,8 @@ export default {
 
 .container-fluid {
   position: relative;
-  top: -60px;
-  margin-bottom: -60px;
+  top: -99px;
+  margin-bottom: -100px;
   background: rgb(243, 243, 243);
   background: linear-gradient(
     to bottom,
@@ -112,37 +109,18 @@ export default {
 
 .title-text {
   font-family: queen;
-  font-weight:bold;
   font-size: 8.5rem;
   padding-top: 50px;
-  background: linear-gradient(to right, rgb(237, 44, 255) 30%, #03e74f 70%);
+  background: linear-gradient(to right, rgb(237, 44, 255) 40%, #03e74f 60%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.contact{
-  font-family: queen;
-  
-  font-size: 2.5rem;
-  padding-top: 10px;
-  background: linear-gradient(to right, rgb(237, 44, 255) 30%, #03e74f 70%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-}
-
-.col {
-  font-size: 3.5rem;
-  padding-top: 20px;
-  background: linear-gradient(to right, rgb(237, 44, 255) 30%, #03e74f 70%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .combs,
 .combs2 {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+
 }
 .combs2 {
   position: relative;
@@ -161,7 +139,17 @@ export default {
 }
 hr {
   position: relative;
-  top: -50px;
+  top: -37px;
+}
+
+.hr-style {
+  border: 0;
+  min-width: 90%;
+  max-width: 1%;
+  height: 1px;
+  margin: 0 auto 10px auto;
+  background: #fff;
+  background: -webkit-linear-gradient(left, #fff, rgb(204, 9, 113), #fff);
 }
 
 @media (min-width: 1024px) and (max-width: 1280px) {

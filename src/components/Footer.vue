@@ -3,7 +3,7 @@
     <div class="container">
       <hr class="hr-style"/>
       <div class="row footer-info">
-        <div class="col x12 s12 m3 l3 xl3 group1">
+        <div class="col x12 s12 m3 l6 xl6 group1">
           <h5>Gäster</h5>
           <a href="mailto:info@popthatbio.se">Kundservice</a>
           <router-link to="/q-and-a/1">
@@ -11,35 +11,19 @@
           </router-link>
         </div>
 
-        <div class="col x12 s12 m3 l3 xl3 group2">
-          <h5>Medlemmar</h5>
-          <router-link to="/">
-            <p>Loggga in</p>
-          </router-link>
-          <router-link to="/">
-            <p>Bli medlem</p>
-          </router-link>
-        </div>
+        
 
-        <div class="col x12 s12 m3 l3 xl3 group3">
+        <div class="col x12 s12 m6 l6 xl6 group3">
           <h5>Företag</h5>
           <router-link to="/about">
-            <p>Om Pop that Bio</p>
+            <p>Om oss</p>
           </router-link>
           <router-link to="/q-and-a/2">
             <p>Kontakta oss</p>
           </router-link>
         </div>
 
-        <div class="col x12 s12 m3 l3 xl3 group4">
-          <h5>Personuppgifter</h5>
-          <router-link to="/">
-            <p>Dina rättigheter</p>
-          </router-link>
-          <router-link to="/">
-            <p>Cookiepolicy</p>
-          </router-link>
-        </div>
+        
       </div>
 
       <div class="row">

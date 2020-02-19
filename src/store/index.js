@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import router from '@/router/index.js';
-// import {movies} from '@/data/database.js';
 import {db} from '@/firebase/firebase.js'
 require('@firebase/auth');
 require('@firebase/firestore');
@@ -44,7 +42,8 @@ export default new Vuex.Store({
       timeStamp: '',
       reserveSeats: []
     },
-    mySeatsInfo:{}
+    mySeatsInfo:{},
+    authenticated: false
   },
   getters: {
     movies(state){
@@ -64,6 +63,9 @@ export default new Vuex.Store({
     },
     username(state){
       return state.user.username
+    },
+    setAuthentication(state, status){
+      state.authenticated = status;
     }
   },
   mutations: {
@@ -175,13 +177,6 @@ export default new Vuex.Store({
       delete confirmReserve.collection
       await db.collection(collection).add(confirmReserve)
     },
-    /*async sendBookingToUser(context, booking){
-      let collection = booking.collection
-      await db
-            .collection('accounts')
-            .doc(this.$store.getters.username)
-            .collection
-    },*/
     updateTickets({ commit }, tickets){
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
     },

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import firebase from 'firebase'
+import store from '../store/index.js'
 import Home from '../views/Home.vue'
 import MovieDetail from '@/components/MovieDetail'
 import MoviesList from '@/components/MoviesList'
@@ -9,7 +9,7 @@ import BookTicket from '@/components/BookTicket'
 import SeatsPlan from '@/components/SeatsPlan'
 import Reservation from '@/components/Reservation'
 import ConfReserve from '@/components/ConfirmReserve'
-import MinaSidor from '@/components/users/MyPage'
+import MyPage from '@/components/users/MyPage'
 import Members from '@/components/Members'
 import Questions from '@/components/Questions'
 import CustomerService from '@/components/CustomerService'
@@ -58,9 +58,16 @@ const routes = [
     component: ConfReserve
   },
   {
-    path: '/minasidor',
+    path: '/mypage',
     name: 'mypage',
-    component: MinaSidor
+    component: MyPage,
+    beforeEnter: (to, from, next) => {
+      if(store.state.authenticated === false){
+        next('/')
+      }else{
+        next()
+      }
+    }
   },
   {
     path: '/about',
@@ -89,6 +96,8 @@ const routes = [
   }
 ]
 
+
+
 const router = new VueRouter({
     routes,
     scrollBehavior() {
@@ -97,18 +106,5 @@ const router = new VueRouter({
     mode: "history",
     base: process.env.BASE_URL
 })
-
-// router.beforeEach((to, from, next) => {
-//   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-//   const isAuthenticated = firebase.auth().currentUser;
-//   console.log("isauthenticated", isAuthenticated);
-//   if (requiresAuth && !isAuthenticated) {
-//     next("/mypage");
-//     // next({path:'/', query:{redirect: to.fullPath}})
-//   } else {
-//     next();
-//   }
-// });
-
 
 export default router

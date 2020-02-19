@@ -158,7 +158,7 @@ export default {
       let sortedMovies = this.moviesData.filter(
         movie => movie.genre == genreInput
       );
-      //window.console.log(sortedMovies);
+      
       this.movies = sortedMovies;
     }
   },

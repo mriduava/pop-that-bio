@@ -48,7 +48,7 @@ export default {
     };
   },
   mounted() {
-    // setInterval(this.changeIndex, 1000)
+    
   },
   computed: {
     moviesData() {
@@ -76,30 +76,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-/* .container {
-  position: relative;
-  top: 60px;
-} */
 
-/* #slideshow {
-  position: relative;
-  margin: 0 auto;
-  position: relative;
-  width: 100%;
-  height: 120vh;
-  top: -117px;
-  z-index: -1;
-  object-fit: cover;
-  overflow: hidden;
-  background: linear-gradient(
-      45deg,
-      rgba(197, 49, 99, 0.6) 0%,
-      rgba(197, 49, 99, 0.3) 100%
-    ),
-    url("https://images.wallpapersden.com/image/download/frozen-2_67184_1360x768.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-} */
 
 .carousel-text {
   display: flex;

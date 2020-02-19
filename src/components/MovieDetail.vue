@@ -36,32 +36,37 @@
     </transition>
 
     <div class="moviedetail-container">
+
       <div class="row middle">
-        <div class="col s12 m4 l3 movie-image">
+        
+        <div class="col s6 m4 l4 movie-image">
           <img :src="movieDetail.image" width="100%"/>
         </div>
 
-        <div class="col s4 movie-info">
+        <div class="col s6 m4 l4 movie-info">
           <span class="play-button">
             <i @click="dispMovieTrailer" class="far fa-play-circle"></i>
           </span>
           <h5>{{ movieDetail.title }}</h5>
           <p>{{ movieDetail.genre }}</p>
           <p>{{ movieDetail.length }} min | {{ movieDetail.age_limit}} år</p>
+
         </div>
 
-        <div class="col s2 ticket-button">
+        <div class="col s12 m4 l4 ticket-button">
           <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
             <button class="btn btn-small waves-effect" @click.prevent="scrollTo('#showtime')">Biljetter</button>
           </router-link>
         </div>
+
       </div>
 
       <div class="row movie-text-row">
-        <div class="col s8 movie-text">
+        <div class="col s12 m9 movie-text">
           <p id="showtime">{{ movieDetail.about }}</p>
         </div>
       </div>
+      
     </div>
 
     <div class="showtime-comp">
@@ -135,7 +140,7 @@ export default {
 .middle {
   position: relative;
   top: -240px;
-  width: 60vw;
+  width: 69vw;
 }
 
 .movie-image {
@@ -240,7 +245,7 @@ iframe {
 
 .movie-text-row{
   display: flex;
-  width: 90vw;
+  width: 93vw;
 }
 
 .movie-text {
@@ -266,8 +271,8 @@ iframe {
   margin: 0 auto; 
   top: -399px; 
   border-top: 0.01rem solid rgba(65, 65, 65, 0.5);
-  width: 59vw;
-  height: 10vh;
+  /* width: 59vw; */
+  /* height: 10vh; */
 }
 /* RESPONSIVE STYLE*/
 @media (min-width: 1281px) {
@@ -288,34 +293,37 @@ iframe {
     width: 90vw;
   }
   .movie-image {
-    top: -80px;
+    width: 100px;
+    top: -200px;
   }
   .movie-info {
     position: relative;
-    top: -80px;
+    top: -170px;
   }
   .ticket-button {
     position: absolute;
-    margin-top: 1%;
+    top: 45px;
   }
   .ticket-button button{
     width: 85vw;
   }
   .movie-text-row{
     width: 100vw;
+    padding: 0 4.9%;
+    margin: 0;
   }
   .movie-text{
-    width: 95vw;
-    top: -220px;
+    width: 100vw;
+    top: -320px;
     left: 0;
   }
   .movie-trailer-body {
     width: 95vw;
     height: 40vh;
   }
-  .showtime-comp{
+  /* .showtime-comp{
     width: 85vw;
-  }
+  } */
 }
 
 </style>
