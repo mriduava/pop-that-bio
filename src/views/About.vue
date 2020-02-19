@@ -46,7 +46,7 @@
 
     <div class="parallax-container">
       <div class="parallax">
-        <img src="../assets/images/About.gif" />
+        <img src="../assets/images/thkLund.jpg" />
       </div>
     </div>
     <div class="section white">
