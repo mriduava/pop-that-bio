@@ -32,7 +32,7 @@
             </div>
             <h5></h5>
             <h5>
-              <router-link to="/movieslistpic/">
+              <router-link to="/movies/portrait/">
                 <button class="btn">
                   <i class="far fa-file-image"></i>
                 </button>

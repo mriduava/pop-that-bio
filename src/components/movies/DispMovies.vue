@@ -11,7 +11,7 @@
                 <img class="activator" :src="movie.image" />
                 <div class="card-text">
                   <h5 class="white-text text-darken-4 valign center">{{movie.title}}</h5>
-                  
+
                   <p class="white-text text-darken-4 center">{{movieStartTime(movie.id)}}</p>
                 </div>
               </div>
@@ -94,8 +94,13 @@ export default {
           (movieTimes[i].screenMonth == today.getMonth() + 1 &&
             movieTimes[i].screenDay >= today.getDate())
         ) {
-          return movieTimes[i].screenDay + "/" + movieTimes[i].screenMonth + " kl." + movieTimes[i].screenHour
-         
+          return (
+            movieTimes[i].screenDay +
+            "/" +
+            movieTimes[i].screenMonth +
+            " kl." +
+            movieTimes[i].screenHour
+          );
         }
       }
       return "Inga kommande visningar";
@@ -121,14 +126,14 @@ export default {
 <style lang="css" scoped>
 @font-face {
   font-family: borntogrille;
-  src: url("../assets/fonts/borntogrille.otf");
+  src: url("../../assets/fonts/borntogrille.otf");
 }
 
 @media (max-width: 568px) {
- h1{
-   font-size: 2rem;
-   padding-top: 40px;
- }
+  h1 {
+    font-size: 2rem;
+    padding-top: 40px;
+  }
 }
 
 .end-button {

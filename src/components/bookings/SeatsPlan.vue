@@ -272,7 +272,7 @@ export default {
   display: inline;
   position: relative;
 }
-/* SEATS INOF */
+/* SEATS INFO */
 .seats-info {
   display: flex;
   justify-content: center;

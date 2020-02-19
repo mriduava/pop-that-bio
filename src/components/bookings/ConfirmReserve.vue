@@ -3,7 +3,7 @@
     <div class="row loading-img" v-if="loading">
       <div class="col s6 offset-m3">
         <div class="loading">
-          <img src="../assets/images/loading.gif" alt="loading" width="100%" />
+          <img src="../../assets/images/loading.gif" alt="loading" width="100%" />
         </div>
       </div>
     </div>
@@ -106,9 +106,8 @@ export default {
       page.document.write("<html>");
       page.document.write("<head>");
       page.document.write("<style>");
-      page.document.write(`*{margin:0; padding:0;} @font-face {
-      font-family: borntogrille; src: url("../assets/fonts/borntogrille.otf");
-      }h4{font-size: 1.9rem;}.book-info{color: #7e7e7e; display: flex;
+      page.document.write(`*{margin:0; padding:0;}
+      h4{font-size: 1.9rem;}.book-info{color: #7e7e7e; display: flex;
       flex-wrap: nowrap;justify-content: center;}.movie-title{
       padding-top: 7px;}.book-text{color: #282828; padding-left: 10px;}
       .movie-text{marign-top: 15px;font-size: 1.6rem;color: rgb(204, 9, 113);}`);
@@ -172,10 +171,6 @@ export default {
 </script>
 
 <style lang="css" scoped >
-@font-face {
-  font-family: borntogrille;
-  src: url("../assets/fonts/borntogrille.otf");
-}
 .container-fluid {
   position: relative;
   top: 20px;

@@ -1,7 +1,5 @@
 <template>
   <div>
-   
-   
   <div class="card">
     <div class="card-content"></div>
     <div class="card-tabs">
@@ -74,9 +72,7 @@
               <li>
                 <div class="collapsible-header"><span>Kan jag avboka eller boka om mina betalda biobiljetter?</span></div>
                 <div class="collapsible-body"><span>Det går bra att återlösa dina biljetter i kassan på en valfri PopThatBio-biograf fram till 15 minuter innan filmstart.
-
                     Där kan du också få hjälp att boka om en redan betald föreställning.
-
                     Då distansköplagen inte gäller för kulturevenemang är det inte möjligt att göra 
                     återköp på distans, utan endast på i kassorna på våra biografer innan filmstart.
                     
@@ -118,9 +114,7 @@
      <div class="text" id="test5"><h5> Kontakta oss </h5>
               <br>
               <p>På e-postadressen kundservice@popthatbio.se kontaktar du oss om frågor eller åsikter som gäller biobesöket, webbplatsen osv.</p>
-
               <h5>För reservation av rullstolsplats</h5>
-
               <p>Telefon 08-56 26 00 00<br>
               Öppet måndag - fredag 10:00-17:00, lördag - söndag 11:00-16:00</P>
               <br>
@@ -130,7 +124,6 @@
               Öppet måndag - fredag 10:00-17:00, lördag - söndag 11:00-16:00</p>
               <br>
               <h5>Postadress</h5>
-
               <p>POP THAT BIO AB<br>
               Kundservice<br>
               169 86 Stockholm<br>
@@ -194,12 +187,8 @@
 export default {
   mounted() {
     this.$M.AutoInit()
-    this.$M.Tabs.init(document.querySelectorAll('.tabs'))
-
-      
-
+    this.$M.Tabs.init(document.querySelectorAll('.tabs'))  
     if(!this.$route.params.tab) return
-
     switch(this.$route.params.tab) {
       case '1':
         this.$refs.tab1.click()
@@ -216,16 +205,12 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
-
 @media (max-width: 769px) {
  h4{
    font-size: 1.8rem;
  }
 }
-
 .text {
-  
   margin-left: 130px;
   margin-right: 190px;
   
@@ -241,15 +226,14 @@ export default {
    margin-left: 14%;
     margin-right: 14%;
 }
-
 .carousel{
   height: 100vh;
 }
 @media (max-width: 768px) {
   .carousel{
-  height: 35vh;
+   height: 35vh;
   
-}
+  }
   
 }
 
@@ -282,7 +266,6 @@ p,span {
     -webkit-tap-highlight-color: transparent;
     line-height: 1;
     padding: 0.5rem;
-    /* background-color: #fff; */
     border-bottom: 1px solid #f5f5f5;
         background-color: #f5f5f5 !important;
 }.collapsible {

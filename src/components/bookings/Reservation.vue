@@ -179,17 +179,16 @@ export default {
           }
         });
       });
-      // this.isSeatTaken = reservedSeats.some(el => this.reservedSeats.indexOf(el) !== -1)
-      for (let i = 0; i < this.reservedSeats.length; i++) {
-        if (reservedSeats.indexOf(this.reservedSeats[i] > -1)) {
+      for (let i = 0; i < reservedSeats.length; i++) {
+        if (this.reservedSeats.indexOf(reservedSeats[i] > -1)) {
           this.isSeatTaken = true;
           break;
         }
-      }
+      }      
     },
     completeBooking() {
       this.checkBookedSeats();
-      if (this.isSeatTaken !== true) {
+      if (!this.isSeatTaken) {
         this.sendBookingInfo();
         this.$router.push({
           path:

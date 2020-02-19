@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import ShowTime from "@/components/ShowTime";
+import ShowTime from "@/components/movies/ShowTime";
 
 export default {
   name: "moviedetail",

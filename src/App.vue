@@ -15,9 +15,8 @@
 </template>
 
 <script>
-import Navbar from '@/components/partials/Navbar2'
-// import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+import Navbar from '@/components/partials/Navbar'
+import Footer from '@/components/partials/Footer'
 import M from 'materialize-css'
 
 export default {

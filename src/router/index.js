@@ -2,17 +2,15 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../store/index.js'
 import Home from '../views/Home.vue'
-import MovieDetail from '@/components/MovieDetail'
-import MoviesList from '@/components/MoviesList'
-import MoviesListPic from '@/components/MoviesListPic'
-import BookTicket from '@/components/BookTicket'
-import SeatsPlan from '@/components/SeatsPlan'
-import Reservation from '@/components/Reservation'
-import ConfReserve from '@/components/ConfirmReserve'
+import MovieDetail from '@/components/movies/MovieDetail'
+import MoviesList from '@/components/movies/MoviesList'
+import MoviesListPic from '@/components/movies/PortraitView'
+import BookTicket from '@/components/bookings/BookTicket'
+import SeatsPlan from '@/components/bookings/SeatsPlan'
+import Reservation from '@/components/bookings/Reservation'
+import ConfReserve from '@/components/bookings/ConfirmReserve'
 import MyPage from '@/components/users/MyPage'
-import Members from '@/components/Members'
-import Questions from '@/components/Questions'
-import CustomerService from '@/components/CustomerService'
+import Questions from '@/components/info/Questions'
 
 Vue.use(VueRouter)
 
@@ -28,7 +26,7 @@ const routes = [
     component: MoviesList
   },
   {
-    path: '/movieslistpic',
+    path: '/movies/portrait',
     name: 'movieslistpic',
     component: MoviesListPic
   },
@@ -75,11 +73,6 @@ const routes = [
     component: () => import('../views/About.vue')
   }, 
   {
-    path: '/medlemmar',
-    name: 'Members',
-    component: Members
-  },
-  {
     path: '/q-and-a',
     name: 'Questions',
     component: Questions
@@ -88,15 +81,8 @@ const routes = [
     path: '/q-and-a/:tab',
     name: 'Questions',
     component: Questions
-  },
-  {
-    path: '/kundservice',
-    name: 'CustomerService',
-    component: CustomerService
   }
 ]
-
-
 
 const router = new VueRouter({
     routes,
