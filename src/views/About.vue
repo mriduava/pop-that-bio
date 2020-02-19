@@ -25,7 +25,7 @@
             <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
           </div>
           <div class="honey-comb">
-            <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
+            <img src="https://cdn.discordapp.com/attachments/633950346795810817/679610197529853962/mriduava.jpg" alt />
           </div>
           <div class="honey-comb">
             <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
