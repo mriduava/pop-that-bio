@@ -322,13 +322,10 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 59vw;
-  /* border: 0.01rem solid rgba(255, 166, 248, 0.2); */
 }
 
 @media (min-width: 310px) and (max-width: 812px) {
   .dropdown-menu {
-    /* justify-content: center;
-    text-align: center; */
     max-width: 90vw;
     padding-left: 3%;
   }
