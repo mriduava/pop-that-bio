@@ -8,6 +8,7 @@
         <a class="sidenav-trigger" data-target="mobile-links">
           <i class="fas fa-bars"></i>
         </a>
+       
         <ul class="right hide-on-med-and-down">
           <li>
             <router-link to="/movies">FILMER</router-link>
@@ -27,8 +28,26 @@
           <li v-if="isLoggedin">
             <a href="#signin" class="modal-trigger" @click.prevent="logout">LOGGA UT</a>
           </li>
+          
+
         </ul>
       </div>
+       <form @submit.prevent="search">
+          <div class="input-field">
+              <i class="material-icons prefix" onhover="search">search</i>
+            <input
+              v-model="searchInput"
+              autocomplete="off"
+              class="autocomplete"
+              id="search"
+              type="search"
+              required
+            />
+            <label for="search"></label>
+            <i class="material-icons">close</i>
+            
+            </div>
+            </form>
     </nav>
 
     <ul class="sidenav" id="mobile-links">
@@ -75,6 +94,8 @@ export default {
   },
   data() {
     return {
+       searchInput: "",
+      searchInput2: "",
       isLoggedin: false,
       currentUser: false,
       logginMsg: '',
@@ -84,6 +105,23 @@ export default {
     };
   },
   methods:{
+    search() {
+      window.console.log(this.searchInput);
+      this.searchInput2 = this.searchInput.toUpperCase();
+      this.searchInput = this.searchInput[0].toUpperCase() + this.searchInput.slice(1)
+      this.$router.push("/movies/" + this.searchInput.replace(" ", "-"));     
+      
+     
+       if (this.searchInput == "Filmer") {
+         this.$router.push("/movies");
+       } else if (this.searchInput == "Om oss") {
+         this.$router.push("/about");
+       } else if (this.searchInput == "Logga in") {
+         this.$router.push("/signin");
+       } else if (this.searchInput == "Start") {
+       this.$router.push("/");
+       }
+    },
     logout(){
       firebase.auth().signOut()
       .then(()=>{
@@ -154,6 +192,26 @@ export default {
     let modal = document.querySelectorAll(".modal");
     this.$M.Modal.init(modal);
     
+     const autoData = this.$store.state.data.reduce((acc, curr) => {
+        acc[curr.title] = null
+        return acc
+      }, {})
+
+      console.log(autoData);
+      
+      
+    var autos = document.querySelectorAll('.autocomplete');
+    this.$M.Autocomplete.init(autos, {
+      data: autoData,
+      onAutocomplete: this.onAutocompleteSelect
+    });
+    var elems = document.querySelectorAll(".carousel");
+    this.$M.Carousel.init(elems);
+    setTimeout(this.$M.Carousel.init(elems), 1000);
+    var modals = document.querySelectorAll(".modal");
+    this.$M.Modal.init(modals);
+    var items = document.querySelectorAll(".collapsible");
+    this.$M.Collapsible.init(items);
   },
   computed: {
     moviesData() {
@@ -213,22 +271,60 @@ li a{
 li .router-link-active {
   background: rgb(150, 38, 97);
 }
-.search-field {
-  margin: 0px;
-  display: flex;
-  align-items: flex-end;
-  width: 150px;
+.our-brand-logo {
+  font-family: borntogrille;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  font-size: 4vw;
 }
-.input-field {
-  width: 150px;
+.our-brand-logo:hover {
+  color: rgb(243, 144, 197);
+}
+form {
+  position: absolute;
+  padding: 0 15px;
+  top: 70px;
+  left: 0;
+  display: inline-block;
+  width: 100%;
+}
+@media (max-width: 460px) {
+  .our-brand-logo {
+    font-size: 5vw;
+  }
+}
+#nav-mobile .nav-item .nav-link {
+  font-size: 1.2em;
+}
+.nav-link:hover {
+  color: rgb(243, 144, 197);
+  cursor: pointer;
+}
+.router-link-active {
+  background: rgb(150, 38, 97);
 }
 
-@media (max-width: 568px) {
- .brand-logo{
-  font-size: 1.8rem;
+.error {
+  color: red;
+  padding-bottom: 5px;
+}
+i.material-icons {
+      vertical-align: middle;
  }
- .sidenav{
-   width: 50vw;
- }
+
+@media (min-width: 481px) and (max-width: 767px) {
+  nav {
+    padding: 0;
+  }
+  .brand-logo {
+    font-size: 2rem;
+  }
+}
+@media (min-width: 320px) and (max-width: 480px) {
+  nav {
+    padding: 0;
+  }
+  .brand-logo {
+    font-size: 1.9rem;
+  }
 }
 </style>
