@@ -59,9 +59,11 @@
 
           <div class="row">
             <div class="col s12 tack center">
-              <h6>www.popthatbio.now.sh</h6>
+              <h6>+460317396969</h6>
               <h6>info@popthatbio</h6>
-              <h6>+46739696969</h6>
+              <h6>www.popthatbio.now.sh</h6>
+              
+              
             </div>
           </div>
         </div>
