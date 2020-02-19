@@ -34,7 +34,7 @@
       </div>
        <form @submit.prevent="search">
           <div class="input-field">
-              <i class="material-icons prefix">search</i>
+              <i class="material-icons prefix" onhover="search">search</i>
             <input
               v-model="searchInput"
               autocomplete="off"
