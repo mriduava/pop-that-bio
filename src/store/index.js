@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import router from '@/router/index.js';
-// import {movies} from '@/data/database.js';
 import {db} from '@/firebase/firebase.js'
 require('@firebase/auth');
 require('@firebase/firestore');
@@ -175,13 +173,6 @@ export default new Vuex.Store({
       delete confirmReserve.collection
       await db.collection(collection).add(confirmReserve)
     },
-    /*async sendBookingToUser(context, booking){
-      let collection = booking.collection
-      await db
-            .collection('accounts')
-            .doc(this.$store.getters.username)
-            .collection
-    },*/
     updateTickets({ commit }, tickets){
       commit('UPDATE_NUMBER_OF_TICKETS', tickets)
     },
