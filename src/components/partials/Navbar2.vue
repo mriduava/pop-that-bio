@@ -27,8 +27,29 @@
           <li v-if="isLoggedin">
             <a href="#signin" class="modal-trigger" @click.prevent="logout">LOGGA UT</a>
           </li>
+          
+
+        <form @submit.prevent="search">
+          <div class="input-field">
+            <input
+              v-model="searchInput"
+              autocomplete="off"
+              class="autocomplete"
+              id="search"
+              type="search"
+              required
+            />
+            <label for="search"></label>
+            <label class="label-icon" for="search">
+              <i class="material-icons">search</i>
+            </label>
+            <i class="material-icons">close</i>
+            
+            </div>
+            </form>
         </ul>
       </div>
+      
     </nav>
 
     <ul class="sidenav" id="mobile-links">
@@ -71,12 +92,31 @@ export default {
   },
   data() {
     return {
+       searchInput: "",
+      searchInput2: "",
       isLoggedin: false,
       currentUser: false,
       logginMsg: ''
     };
   },
   methods:{
+    search() {
+      window.console.log(this.searchInput);
+      this.searchInput2 = this.searchInput.toUpperCase();
+      this.searchInput = this.searchInput[0].toUpperCase() + this.searchInput.slice(1)
+      this.$router.push("/movies/" + this.searchInput.replace(" ", "-"));     
+      
+     
+       if (this.searchInput == "Filmer") {
+         this.$router.push("/movies");
+       } else if (this.searchInput == "Om oss") {
+         this.$router.push("/about");
+       } else if (this.searchInput == "Logga in") {
+         this.$router.push("/signin");
+       } else if (this.searchInput == "Start") {
+       this.$router.push("/");
+       }
+    },
     logout(){
       firebase.auth().signOut()
       .then(()=>{
@@ -108,7 +148,29 @@ export default {
     let modal = document.querySelectorAll(".modal");
     this.$M.Modal.init(modal);
     
+     const autoData = this.$store.state.data.reduce((acc, curr) => {
+        acc[curr.title] = null
+        return acc
+      }, {})
+
+      console.log(autoData);
+      
+      
+    var autos = document.querySelectorAll('.autocomplete');
+    this.$M.Autocomplete.init(autos, {
+      data: autoData,
+      onAutocomplete: this.onAutocompleteSelect
+    });
+    var elems = document.querySelectorAll(".carousel");
+    this.$M.Carousel.init(elems);
+    setTimeout(this.$M.Carousel.init(elems), 1000);
+    var modals = document.querySelectorAll(".modal");
+    this.$M.Modal.init(modals);
+    var items = document.querySelectorAll(".collapsible");
+    this.$M.Collapsible.init(items);
   },
+  
+  
   watch: {
     'isLoggedin'(){
       this.closeSignin()
