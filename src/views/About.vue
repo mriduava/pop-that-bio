@@ -22,13 +22,13 @@
 
         <div class="combs2">
           <div class="honey-comb">
-            <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
+            <img src="https://cdn.discordapp.com/attachments/666291936042156032/679618288229023748/0.jpg" alt />
           </div>
           <div class="honey-comb">
             <img src="https://cdn.discordapp.com/attachments/633950346795810817/679610197529853962/mriduava.jpg" alt />
           </div>
           <div class="honey-comb">
-            <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
+            <img src="https://scontent-arn2-1.xx.fbcdn.net/v/t1.15752-9/p1080x2048/86810204_3654208767955158_41435074217902080_n.jpg?_nc_cat=111&_nc_sid=b96e70&_nc_ohc=zqj0b_CnCY4AX-_omlP&_nc_ht=scontent-arn2-1.xx&_nc_tp=6&oh=6c783902c3cad3cefd0be4ce39917ae5&oe=5ECBECF4" alt />
           </div>
         </div>
       </div>
@@ -60,6 +60,8 @@
 
           <div class="row">
             <div class="col s12 tack center">
+              <h5>pop that bio</h5>
+              <h6>Kalkstenvagen 3, Lund</h6>
               <h6>+460317396969</h6>
               <h6> info@popthatbio.se</h6>
               <h6>www.popthatbio.now.sh</h6>
