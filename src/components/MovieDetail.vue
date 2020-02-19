@@ -272,7 +272,7 @@ iframe {
   top: -399px; 
   border-top: 0.01rem solid rgba(65, 65, 65, 0.5);
   /* width: 59vw; */
-  height: 10vh;
+  /* height: 10vh; */
 }
 /* RESPONSIVE STYLE*/
 @media (min-width: 1281px) {
@@ -321,9 +321,9 @@ iframe {
     width: 95vw;
     height: 40vh;
   }
-  .showtime-comp{
+  /* .showtime-comp{
     width: 85vw;
-  }
+  } */
 }
 
 </style>

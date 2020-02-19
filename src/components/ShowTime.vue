@@ -5,8 +5,8 @@
       <hr class="hr-style" />
     </div>
 
-    <div class="dropdown-menu">
-      <div class="selected-dropdown item">
+    <div class="row">
+      <div class="col s12  menu-selection">
         <h5  @click="showMenu = !showMenu"><i class="fas fa-bars"></i></h5>
         <h5>{{chosenDate.date}}/{{chosenDate.month}} - {{ chosenDate.dateName }}</h5>
       </div>
@@ -22,9 +22,10 @@
       </ul>
     </div>
 
-    <div class="available-times">
+    <div class="row">
+      <div class="col s12">    
       <ul style="list-style-type:none;">
-        <li class="show-time-item" v-for="(screenTime, i) in screenTimes" :key="i">
+        <li class="show-time" v-for="(screenTime, i) in screenTimes" :key="i">
           {{ screenTime.time }} |
           {{ screenTime.auditorium }}
           <router-link :to="'/movies/' + movieDetail.slug + '/ticket'">
@@ -35,7 +36,9 @@
           </router-link>
         </li>
       </ul>
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -240,37 +243,42 @@ export default {
 
 /*SCREENING SECTION*/
 
-.dropdown-menu {
+/* .menu {
   width: 70vw;
   position: relative;
   color: #13f7ff;
   top: 20px;
   left: -2px;
   padding: 5px 2.5%;
+  display: flex;
+  justify-content: left;
   background: rgba(83, 83, 83, 0.1);
-}
+} */
 
-.selected-dropdown {
+.menu-selection{
   display: flex;
   justify-content: left;
 }
 
-.dropdown-menu i {
+.menu-selection i {
   color: #00ff4c;
   font-size: 1.5rem;
   margin-right: 25px;
   padding-bottom: 10px;
 }
 
-.selected-dropdown:hover {
+.menu-selection i:hover {
+  color: #89fdac;
   cursor: pointer;
 }
 
 .dropdown-items {
   position: absolute;
   background: rgba(255, 255, 255, 0.95);
-  top: 180px;
+  top: 150px;
+  /* left: 35px; */
   width: 300px;
+  margin-left: 1%;
   padding: 1% 3%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
@@ -289,14 +297,8 @@ export default {
   color: rgb(212, 0, 166);
 }
 
-.available-times {
-  display: flex;
-  justify-content: center;
-  margin: 0.2% 0;
-}
-.show-time-item {
+.show-time{
   position: relative;
-  top: 15px;
   color: #00ff4c;
   background: #1d1d1d98;
   font-size: 1.5rem;
@@ -304,25 +306,19 @@ export default {
   padding: 15px 2%;
   display: flex;
   justify-content: space-between;
-  width: 70vw;
-  /* border: 0.01rem solid rgba(255, 166, 248, 0.2); */
 }
 
 @media (min-width: 310px) and (max-width: 768px) {
-  .dropdown-menu {
-    justify-content: center;
+  .menu-selection {
+    justify-content: left;
     text-align: center;
-    width: 85vw;
-    padding-left: 3%;
-    position: relative;
-    /* left: -20px; */
   }
   .dropdown-items {
     width: 240px;
     z-index: 10;
   }
   .show-time-item {
-    width: 90vw;
+    width: 76vw;
   }
 }
 </style>

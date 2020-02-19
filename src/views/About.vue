@@ -45,21 +45,23 @@
 
     <div class="parallax-container">
       <div class="parallax">
-        <img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510__340.jpg" />
+        <img src="../assets/images/About.gif" />
       </div>
     </div>
     <div class="section white">
       <div class="row container">
         <div class="row about">
           <div class="col s12">
-            <h4 class="center">Contacts...</h4>
+            <h4 class="contact center">Contact Us</h4>
 
             <div class></div>
           </div>
 
           <div class="row">
             <div class="col s12 tack center">
-              <h6>www.popthatbio.now.sh</h6>
+              <h6>+460317396969</h6>
+              <h6> info@popthatbio</h6>
+              <h6>www.popthatbio.now.sh</h6>              
             </div>
           </div>
         </div>

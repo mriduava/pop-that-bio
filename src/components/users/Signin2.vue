@@ -49,8 +49,9 @@ export default {
             this.message = `Inloggad som ${cred.user.email}`;
             this.$store.state.userId = cred.user.uid
             this.$store.state.userEmail = cred.user.email
+            this.$store.state.authenticated = true
             this.$emit('close', this.message)
-            this.$router.push({ path: '/minasidor' });  
+            this.$router.push({ path: '/mypage' });  
             this.alert = ''
             this.email = ''
             this.password =''          
