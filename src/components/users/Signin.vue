@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row signin">
-      <div class="col s12 m8 offset-m2">
+      <div class="col s12 m10 offset-m1">
         <div class="center">
           <h4>Logga in</h4>
           <hr class="hr-style" />

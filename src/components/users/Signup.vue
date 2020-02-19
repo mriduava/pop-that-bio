@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col s12 m8 offset-m2">
+      <div class="col s12 m10 offset-m1">
         <div class="grey lighten-4 black-text center">
           <h4>Skapa konto</h4>
           <hr class="hr-style" />
