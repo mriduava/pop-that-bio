@@ -16,7 +16,7 @@
         <div class="col x12 s12 m6 l6 xl6 group3">
           <h5>Företag</h5>
           <router-link to="/about">
-            <p>Om Pop that Bio</p>
+            <p>Om oss</p>
           </router-link>
           <router-link to="/q-and-a/2">
             <p>Kontakta oss</p>

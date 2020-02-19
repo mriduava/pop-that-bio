@@ -227,5 +227,8 @@ li .router-link-active {
  .brand-logo{
   font-size: 1.8rem;
  }
+ .sidenav{
+   width: 50vw;
+ }
 }
 </style>
