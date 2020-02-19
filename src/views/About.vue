@@ -2,21 +2,21 @@
   <div class="container-fluid">
     <div class="row container">
       <div class="col s12">
-        <h4 class="title-text center">About us</h4>
+        <h4 class="title-text center">Om Oss</h4>
         
 
         <div class="combs">
           <div class="honey-comb">
-            <img src="https://scontent.fbma4-1.fna.fbcdn.net/v/t1.0-9/10650062_10207564536303530_5223223719937159771_n.jpg?_nc_cat=100&_nc_sid=7aed08&_nc_ohc=uL5G5m-NIT0AX83dI-j&_nc_ht=scontent.fbma4-1.fna&oh=2688908f09b5c1d0367d0f8bba34395c&oe=5EBAA5A6" alt />
+            <img src="https://scontent-arn2-1.xx.fbcdn.net/v/t31.0-8/240500_1896488863959_5000563_o.jpg?_nc_cat=103&_nc_sid=210fed&_nc_ohc=n6eEkgTdXToAX8d1WWC&_nc_ht=scontent-arn2-1.xx&oh=a3a27034dbc5be2ec7d26a4fade4c7c2&oe=5F022EDA" alt />
           </div>
           <div class="honey-comb">
-            <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
+            <img src="https://scontent-arn2-1.xx.fbcdn.net/v/t1.0-9/13659107_10209864216704760_168704024662997376_n.jpg?_nc_cat=107&_nc_sid=85a577&_nc_ohc=e2irdxyHXwsAX-cjkeo&_nc_ht=scontent-arn2-1.xx&oh=6b88573e7c9e0bc7eca1ff431692eed0&oe=5EBB7061" alt />
           </div>
           <div class="honey-comb">
-            <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
+            <img src="https://cdn.discordapp.com/attachments/679595669043806208/679595817811705876/image0.jpg" alt />
           </div>
           <div class="honey-comb">
-            <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
+            <img src="https://scontent-arn2-2.xx.fbcdn.net/v/t1.0-9/17163_438353905182_3425587_n.jpg?_nc_cat=100&_nc_sid=210fed&_nc_ohc=9y6oijcIcdoAX_rv1Mh&_nc_ht=scontent-arn2-2.xx&oh=51993ae6a741ac03c98ab6914a0806ef&oe=5EBDFFCC" alt />
           </div>
         </div>
 
@@ -25,7 +25,7 @@
             <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
           </div>
           <div class="honey-comb">
-            <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
+            <img src="https://cdn.discordapp.com/attachments/633950346795810817/679610197529853962/mriduava.jpg" alt />
           </div>
           <div class="honey-comb">
             <img src="https://www.athentech.com/wp-content/uploads/2014/04/portrait-1.jpg" alt />
@@ -36,16 +36,17 @@
       <div class="row">
         <div class="col s12 tack center">
           <h6>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et maxime accusantium facilis qui officiis quam harum nihil
-            voluptatem mollitia omnis laboriosam quasi at, doloribus culpa odit veritatis rem necessitatibus beatae?
-          </h6>
+            Inspired by the sprit of teamwork. Very warm contribution and patience of all the team member 
+            made us special. Being completely new in the business, we are confident enough to provide the best
+            service to our customers. we are dynamic, passionate about new challanges and bring the best out 
+            of anything. Our vision of excellence is bring the best out of best </h6>
         </div>
       </div>
     </div>
 
     <div class="parallax-container">
       <div class="parallax">
-        <img src="../assets/images/About.gif" />
+        <img src="../assets/images/thkLund.jpg" />
       </div>
     </div>
     <div class="section white">
@@ -60,7 +61,7 @@
           <div class="row">
             <div class="col s12 tack center">
               <h6>+460317396969</h6>
-              <h6> info@popthatbio</h6>
+              <h6> info@popthatbio.se</h6>
               <h6>www.popthatbio.now.sh</h6>
               
               
