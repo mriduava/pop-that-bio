@@ -104,8 +104,4 @@ html {
   transition: all 0.5s ease-in-out;
 }
 
-/* .sidenav-overlay{
-  padding-top: 20px;
-} */
-
 </style>

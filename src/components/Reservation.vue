@@ -138,8 +138,7 @@ export default {
         })
       })
       this.isSeatTaken = reservedSeats.some(el => this.reservedSeats.indexOf(el) !== -1)
-      // return reservedSeats.some(el => this.reservedSeats.indexOf(el) !== -1)
-      // console.log(a);
+      
       
     },
     completeBooking(){

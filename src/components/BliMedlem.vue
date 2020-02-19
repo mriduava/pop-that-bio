@@ -1,6 +1,5 @@
 <template>
  <div class="d1">
-
   <div></div> 
     <div class="row">
     <form class="col l3  s3 offset-l4 card-panel purple lighten-5 truncate">
@@ -8,8 +7,7 @@
              <h4 class="pink-text text-pink darken-4">POP THAT BIO</h4>
              <h2 class="pink-text text-pink darken-4">Logga in</h2>
    </div>
-      <div class="row">
-        
+      <div class="row">  
         <div class="input-field col l12 s12 ">
           <input  id="User name" type="text" class="validate">
           <label for="User name">Användarnamn</label>
