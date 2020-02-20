@@ -75,7 +75,7 @@
 
     <div class="parallax-container">
       <div class="parallax">
-        <img src="../assets/images/about.gif" />
+        <img src="../assets/images/matrix.gif" />
       </div>
     </div>
   </div>
