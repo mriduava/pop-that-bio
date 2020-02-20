@@ -3,7 +3,7 @@
     <div class="container">
       <hr class="hr-style" />
       <div class="row footer-info">
-        <div class="col x12 s12 m4 l4 xl4 group1">
+        <div class="col x12 s12 m3 l3 xl3 group1">
           <h5>Gäster</h5>
           <a href="mailto:info@popthatbio.se">Kundservice</a>
           <router-link to="/q-and-a/1">
@@ -11,7 +11,7 @@
           </router-link>
         </div>
 
-        <div class="col x12 s12 m4 l4 xl4 group3">
+        <div class="col x12 s12 m3 l3 xl3 group3">
           <h5>Meny</h5>
           <router-link to="/">
             <p>Hem</p>
@@ -21,14 +21,24 @@
           </router-link>
         </div>
 
+        <div class="col x12 s12 m3 l3 xl3 group3">
+          <h5>Users</h5>
+          <p>
+             <a href="#signin" class="modal-trigger">Logga in</a>
+          </p>
+          <p>
+            <a href="#signup" class="modal-trigger">Skapa konto</a>
+          </p>           
+        </div>
 
-         <div class="col x12 s12 m4 l4 xl4 group3">
+
+         <div class="col x12 s12 m3 l3 xl3 group4">
           <h5>Företag</h5>
           <router-link to="/about">
             <p>Om oss</p>
           </router-link>
-          <router-link to="/q-and-a/2">
-            <p>Kontakta oss</p>
+          <router-link to="/about">
+            <a>Kontakta oss</a>
           </router-link>
         </div>
 
@@ -56,6 +66,16 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+    methods:{
+    scrollTo(selector){
+      document.querySelector(selector).scrollIntoView({behavior: 'smooth'})
+    }
+  },
+}
+</script>
 
 <style scoped lang="css">
 .container-fluid {
@@ -86,14 +106,20 @@
   text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
 }
 
-.social-media a:hover,
-.group1 a:hover {
-  color: #fff;
-}
 
-.group1 a {
+.group1 a,
+.group3>p>a,
+.group4 a {
   color: rgba(250, 186, 247, 0.952);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.social-media a:hover,
+.group1 a:hover,
+.group3>p>a:hover,
+.group4 a:hover {
+  color: #fff;
+  cursor: pointer;
 }
 
 .hr-style {

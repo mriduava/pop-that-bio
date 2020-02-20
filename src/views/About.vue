@@ -48,20 +48,25 @@
       <div class="row container">
         <div class="row about">
           <div class="col s12">
-            <h4 class="contact center">Kontakta oss</h4>
-
+            <h4 class="contact center grey-text text-darken-1">Kontakta oss</h4>
             <div class></div>
           </div>
 
-          <div class="row">
-            <div class="col s12 tack center">
-              <h5>POP THAT BIO</h5>
-              <h6>www.popthatbio.now.sh</h6>
-              <h5>Teknikhögskolan, Lund</h5>
-              <h6>Kalkstenvagen 3</h6>
-              <h6>224 78 Lund</h6>
-              <h6>+46 774 10 05 00</h6>
-              <h6>lund@plushogskolan.se</h6>
+          <div class="row" id="contact">
+            <div class="col s12 tack center contact">
+              <h4 class="pink-text text-lighten-1 brand-logo">POP THAT BIO</h4>
+              <h6 class="grey-text lighten-2">Web: <span class="indigo-text text-lighten-2">https://popthatbio.now.sh</span></h6>
+              <p class="grey-text lighten-2">GitHub: <span class="indigo-text text-lighten-2">github.com/mriduava/pop-that-bio</span></p>
+              <div class="school-logo">
+                <img src="../assets/images/th.png" alt="teknikhögskolan" width="100%">
+              </div>
+              <div class="school-address">
+                <h5 class="teal-text text-lighten-1">Teknikhögskolan</h5>
+                <h6>Kalkstenvagen 3</h6>
+                <h6>224 78 Lund</h6>
+                <h6>+46 774 10 05 00</h6>
+                <h6>lund@plushogskolan.se</h6>
+              </div>              
             </div>
           </div>
         </div>
@@ -89,6 +94,11 @@ export default {
 @font-face {
   font-family: queen;
   src: url("../assets/fonts/queen.ttf");
+}
+
+@font-face {
+  font-family: borntogrille;
+  src: url("../assets/fonts/borntogrille.otf");
 }
 
 .container-fluid {
@@ -135,6 +145,24 @@ export default {
 hr {
   position: relative;
   top: -37px;
+}
+
+.brand-logo{
+  font-family: borntogrille;
+}
+.contact p{
+  color: #9b9b9b;
+}
+
+.school-logo{
+  width: 100px;
+  margin: 3% auto 0 auto;
+  padding: 0;
+}
+
+.school-address{
+  position: relative;
+  top: -30px;
 }
 
 .hr-style {
