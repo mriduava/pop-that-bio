@@ -239,9 +239,9 @@ export default {
     this.getMovie();
   },
   watch: {
-    isSeatTaken() {
-      this.checkBookedSeats();
-    },
+    // isSeatTaken() {
+    //   this.checkBookedSeats();
+    // },
     alert() {
       this.completeBooking();
     },

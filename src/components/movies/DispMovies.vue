@@ -1,4 +1,5 @@
 <template>
+<div class="container-fluid">
   <div id="movies" class="disp-movies">
     <div class="container">
       <div class="row">
@@ -26,6 +27,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -129,25 +131,14 @@ export default {
   src: url("../../assets/fonts/borntogrille.otf");
 }
 
-@media (max-width: 568px) {
-  h1 {
-    font-size: 2rem;
-    padding-top: 40px;
-  }
-}
-
-.end-button {
-  padding-top: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.btn {
-  background: rgba(202, 8, 112, 0.692);
+.container-fluid{
+  position: relative;
+  /* z-index: -1; */
+  top: 60px;
+  margin-bottom: -60px;
 }
 
 .disp-movies {
-  margin-top: -199px;
   padding-top: 5%;
   width: 100%;
   background: rgb(100, 10, 60);
@@ -206,6 +197,17 @@ h1 {
   color: #fc9dd1;
   text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
 }
+
+.end-button {
+  padding-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  background: rgba(202, 8, 112, 0.692);
+}
+
 .hr-style {
   border: 0;
   height: 1px;
@@ -217,5 +219,12 @@ h1 {
     #ddd,
     rgba(133, 23, 81, 0.9)
   );
+}
+
+@media (max-width: 568px) {
+  h1 {
+    font-size: 2rem;
+    padding-top: 40px;
+  }
 }
 </style>

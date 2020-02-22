@@ -1,7 +1,11 @@
 <template>
   <div class="home">
-      <Carousel/>
+    <div class="slide">
+       <Carousel/>
+    </div>
+    <div class="movies">
       <DispMovies/>
+    </div>      
   </div>
 </template>
 
@@ -17,3 +21,13 @@ export default {
   }
 }
 </script>
+
+<style lang="css" scoped>
+
+.home{
+  position: relative;
+  top: -120px;
+}
+
+  
+</style>

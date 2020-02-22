@@ -167,7 +167,7 @@ export default {
 
 <style lang="css" scoped>
 .container-fluid {
-  padding-bottom: 7%;
+  /* padding-bottom: 7%; */
   background: rgb(100, 10, 60);
   background: -webkit-linear-gradient(to top, rgb(156, 36, 100), #fbd3e9);
   background: linear-gradient(
@@ -175,12 +175,14 @@ export default {
     rgb(255, 255, 255) 90%,
     rgb(219, 166, 195)
   );
+  margin-bottom: -48px;
 }
 
 .container {
   position: relative;
-  padding: 0 1%;
+  padding: 0 1% 15.2% 1%;
   top: -30px;
+  margin-bottom: 2.5%;
 }
 
 .user-info h4,

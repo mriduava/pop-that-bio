@@ -1,14 +1,13 @@
 <template>
   <div class="container-fluid">
-    <transition-group>
-      <div v-for="(movie, index) in moviesData.slice(i, i+1)" :key="index">
+      <div id="carousel" v-for="(movie, index) in moviesData.slice(i, i+3)" :key="index">
         <div
-          id="slideshow"
+          :class="'slide' + index"
           :style="{
-          position: 'relative',
+          position: 'absolute',
           width: '100%',
-          height: '109vh',
-          top: '-117px',
+          height: '120vh',
+          top: '2px',
           zIndex: '-1',
           objectFilt: 'contain',
           overflow: 'hidden',
@@ -27,7 +26,6 @@
           </div>
         </div>
       </div>
-    </transition-group>
 
     <div class="arrow">
       <a class="arrow-link" @click.prevent="scrollTo('#movies')">
@@ -48,7 +46,7 @@ export default {
     };
   },
   mounted() {
-    
+    // setInterval(this.changeIndex, 1000);
   },
   computed: {
     moviesData() {
@@ -76,7 +74,42 @@ export default {
 </script>
 
 <style lang="css" scoped>
+#carousel{
+  height: 29vh;
+}
+.slide0{
+  animation: fade0 8s infinite;
+}
 
+.slide1{
+  animation: fade1 8s infinite;
+}
+
+.slide2{
+  animation: fade2 8s infinite;
+}
+
+@keyframes fade0
+{
+  0%   {opacity:1}
+  33.333% { opacity: 0}
+  66.666% { opacity: 0}
+  100% { opacity: 1}
+}
+@keyframes fade1
+{
+  0%   {opacity:0}
+  33.333% { opacity: 1}
+  66.666% { opacity: 0 }
+  100% { opacity: 0}
+}
+@keyframes fade2
+{
+  0%   {opacity:0}
+  33.333% { opacity: 0}
+  66.666% { opacity: 1}
+  100% { opacity: 0}
+}
 
 .carousel-text {
   display: flex;
@@ -102,7 +135,6 @@ export default {
 }
 
 .hr-style {
-  /*position: relative;*/
   left: 0;
   width: 50vw;
   border: 0;
@@ -120,7 +152,7 @@ export default {
   position: relative;
   display: flex;
   justify-content: center;
-  top: -59vh;
+  top: -15vh;
 }
 
 .arrow > a {
