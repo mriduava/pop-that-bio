@@ -160,6 +160,7 @@ export default {
           }
         })
       })
+      this.$store.state.preSelected = selectedSeatsArr
     },
     getMovie() {
       this.movies.forEach(movie => {

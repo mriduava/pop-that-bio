@@ -130,7 +130,7 @@ export default {
       reserveInfo: this.$store.state.reserveInfo,
       ticketsInfo: this.$store.state.ticketsInfo,
       ticketsPrice: this.$store.state.ticketsPriceData,
-      isSeatTaken: false,
+      preSelected: this.$store.state.preSelected,
       totalPrice: 0,
       adultPrice: 0,
       seniorPrice: 0,
@@ -165,30 +165,9 @@ export default {
       }
       db.collection("bookings").add(bookingInfo);
     },
-    checkBookedSeats() {
-      let reservedSeats = [];
-      db.collection("bookings").onSnapshot(snap => {
-        let updatedSeats = snap.docChanges();
-        updatedSeats.forEach(bookings => {
-          let booking = bookings.doc.data();
-          if (
-            booking.movieTitle === this.movieDetail.title &&
-            booking.showTime === this.pickTime
-          ) {
-            reservedSeats.splice(reservedSeats, 0, ...booking.reservedSeats);
-          }
-        });
-      });
-      for (let i = 0; i < reservedSeats.length; i++) {
-        if (this.reservedSeats.indexOf(reservedSeats[i] > -1)) {
-          this.isSeatTaken = true;
-          break;
-        }
-      }      
-    },
     completeBooking() {
-      this.checkBookedSeats();
-      if (!this.isSeatTaken) {
+      const found = this.preSelected.some(r => this.reservedSeats.includes(r));
+      if (!found) {
         this.sendBookingInfo();
         this.$router.push({
           path:
@@ -239,9 +218,6 @@ export default {
     this.getMovie();
   },
   watch: {
-    // isSeatTaken() {
-    //   this.checkBookedSeats();
-    // },
     alert() {
       this.completeBooking();
     },
@@ -382,7 +358,7 @@ export default {
   background: rgba(202, 8, 112, 0.692);
 }
 
-.modal-default-button:hover{
+.modal-default-button:hover {
   cursor: pointer;
   color: rgba(202, 8, 112, 0.692);
   background: #fff;
@@ -408,7 +384,7 @@ export default {
     width: 280px;
     margin: 1% auto;
   }
-  .movie-image{
+  .movie-image {
     margin-top: 3.2%;
   }
   .movie-text {

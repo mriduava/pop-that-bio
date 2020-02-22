@@ -43,7 +43,8 @@ export default new Vuex.Store({
       reserveSeats: []
     },
     mySeatsInfo:{},
-    authenticated: false
+    authenticated: false,
+    preSelected: []
   },
   getters: {
     movies(state){
