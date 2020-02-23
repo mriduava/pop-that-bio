@@ -1,9 +1,9 @@
 <template>
   <div class="container-fluid">
-      <div id="carousel" v-for="(movie, index) in moviesData.slice(i, i+3)" :key="index">
-        <div
-          :class="'slide' + index"
-          :style="{
+    <div id="carousel" v-for="(movie, index) in moviesData.slice(0, 5)" :key="index">
+      <div
+        :class="'slide' + index"
+        :style="{
           position: 'absolute',
           width: '100%',
           height: '120vh',
@@ -17,15 +17,15 @@
           backgroundSize: 'cover',
           display: 'block'
       }"
-        >
-          <div class="carousel-text">
-            <router-link :to="'/movies/' + movie.slug">
-              <h4 class="white-text text-lighten-4">{{movie.title}}</h4>
-            </router-link>
-            <hr class="hr-style m-0 p-0" />
-          </div>
+      >
+        <div class="carousel-text">
+          <router-link :to="'/movies/' + movie.slug">
+            <h4 class="white-text text-lighten-4">{{movie.title}}</h4>
+          </router-link>
+          <hr class="hr-style m-0 p-0" />
         </div>
       </div>
+    </div>
 
     <div class="arrow">
       <a class="arrow-link" @click.prevent="scrollTo('#movies')">
@@ -74,41 +74,160 @@ export default {
 </script>
 
 <style lang="css" scoped>
-#carousel{
-  height: 29vh;
+#carousel {
+  height: 20vh;
 }
-.slide0{
-  animation: fade0 8s infinite;
-}
-
-.slide1{
-  animation: fade1 8s infinite;
+.slide0 {
+  animation: fade0 20s infinite;
 }
 
-.slide2{
-  animation: fade2 8s infinite;
+.slide1 {
+  animation: fade1 20s infinite;
 }
 
-@keyframes fade0
-{
-  0%   {opacity:1}
-  33.333% { opacity: 0}
-  66.666% { opacity: 0}
-  100% { opacity: 1}
+.slide2 {
+  animation: fade2 20s infinite;
 }
-@keyframes fade1
-{
-  0%   {opacity:0}
-  33.333% { opacity: 1}
-  66.666% { opacity: 0 }
-  100% { opacity: 0}
+
+.slide3 {
+  animation: fade3 20s infinite;
 }
-@keyframes fade2
-{
-  0%   {opacity:0}
-  33.333% { opacity: 0}
-  66.666% { opacity: 1}
-  100% { opacity: 0}
+
+.slide4 {
+  animation: fade4 20s infinite;
+}
+
+@keyframes fade0 {
+  0%,
+  10% {
+    opacity: 1;
+  }
+  15%,
+  30% {
+    opacity: 0;
+  }
+  35%,
+  50% {
+    opacity: 0;
+  }
+  55%,
+  70% {
+    opacity: 0;
+  }
+  75%,
+  90% {
+    opacity: 0;
+  }
+  95%,
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade1 {
+  0%,
+  10% {
+    opacity: 0;
+  }
+  15%,
+  30% {
+    opacity: 1;
+  }
+  35%,
+  50% {
+    opacity: 0;
+  }
+  55%,
+  70% {
+    opacity: 0;
+  }
+  75%,
+  90% {
+    opacity: 0;
+  }
+  95%,
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fade2 {
+  0%,
+  10% {
+    opacity: 0;
+  }
+  15%,
+  30% {
+    opacity: 0;
+  }
+  35%,
+  50% {
+    opacity: 1;
+  }
+  55%,
+  70% {
+    opacity: 0;
+  }
+  75%,
+  90% {
+    opacity: 0;
+  }
+  95%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade3 {
+  0%,
+  10% {
+    opacity: 0;
+  }
+  15%,
+  30% {
+    opacity: 0;
+  }
+  35%,
+  50% {
+    opacity: 0;
+  }
+  55%,
+  70% {
+    opacity: 1;
+  }
+  75%,
+  90% {
+    opacity: 0;
+  }
+  95%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade4 {
+  0%,
+  10% {
+    opacity: 0;
+  }
+  15%,
+  30% {
+    opacity: 0;
+  }
+  35%,
+  50% {
+    opacity: 0;
+  }
+  55%,
+  70% {
+    opacity: 0;
+  }
+  75%,
+  90% {
+    opacity: 1;
+  }
+  95%,
+  100% {
+    opacity: 0;
+  }
 }
 
 .carousel-text {
@@ -120,12 +239,11 @@ export default {
   top: 50%;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   cursor: pointer;
-   z-index: 5;
+  z-index: 5;
 }
 .carousel-text h3 {
   margin-bottom: 2px;
   padding-bottom: 2px;
-  
 }
 .carousel-text h6 {
   color: rgb(55, 255, 171);
